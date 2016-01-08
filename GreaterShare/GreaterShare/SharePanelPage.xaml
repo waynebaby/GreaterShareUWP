@@ -15,7 +15,7 @@
         <x:String x:Key="AppName">My Application</x:String>
         <vm:SharePanelPage_Model x:Key="DesignVM"/>
     </Page.Resources>
-    
+
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"  DataContext="{StaticResource DesignVM}">
         <Grid.ChildrenTransitions>
             <TransitionCollection>
@@ -23,8 +23,8 @@
             </TransitionCollection>
         </Grid.ChildrenTransitions>
 
-            <TextBlock x:Name="pageTitle" Text="{Binding Title}" Style="{StaticResource HeaderTextBlockStyle}" Grid.Column="1" 
-                        IsHitTestVisible="false" TextWrapping="NoWrap" VerticalAlignment="Bottom" Margin="0,0,30,40"/>
-  
+        <TextBlock x:Name="pageTitle" Text="{Binding Title}" Style="{StaticResource HeaderTextBlockStyle}" 
+                        IsHitTestVisible="false" TextWrapping="NoWrap"/>
+
     </Grid>
 </mvvm:MVVMPage>

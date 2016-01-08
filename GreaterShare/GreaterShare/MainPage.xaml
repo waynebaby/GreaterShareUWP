@@ -14,7 +14,32 @@
         <vm:MainPage_Model x:Key="DesignVM"/>
     </Page.Resources>
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"  DataContext="{StaticResource DesignVM}">
-        <TextBlock x:Name="pageTitle" Grid.Column="1" Margin="100" Text="{Binding Title}" />
+        <FlipView>
 
+        </FlipView>                           
     </Grid>
+
+    <mvvm:MVVMPage.BottomAppBar>
+        <AppBar IsOpen="True">
+            <StackPanel Orientation="Horizontal">
+                <AppBarButton x:Name="appBarButton" HorizontalAlignment="Left" Icon="OpenLocal"  Label="Load From File" VerticalAlignment="Top">
+                    <AppBarButton.Flyout>
+                        <MenuFlyout>
+                            <MenuFlyoutItem>Open Image</MenuFlyoutItem>
+                            <MenuFlyoutItem>Open Text</MenuFlyoutItem>
+                            <MenuFlyoutItem>Open Saved Clip</MenuFlyoutItem>
+                        </MenuFlyout>
+                    </AppBarButton.Flyout>
+                </AppBarButton>
+                <AppBarButton  Icon="SaveLocal" Label="Save Clipboard" >
+                    <AppBarButton.Flyout>
+                        <MenuFlyout>
+                            <MenuFlyoutItem>As It Is</MenuFlyoutItem>
+                            <MenuFlyoutItem>As Saved Clip</MenuFlyoutItem>
+                        </MenuFlyout>
+                    </AppBarButton.Flyout>
+                </AppBarButton>
+            </StackPanel>
+        </AppBar>
+    </mvvm:MVVMPage.BottomAppBar>
 </mvvm:MVVMPage>
