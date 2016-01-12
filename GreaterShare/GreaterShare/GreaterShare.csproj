@@ -93,18 +93,8 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\ClipboardData\ClipboardContent.cs" />
-    <Compile Include="Models\ClipboardData\ContentEntries\ApplicationLinkEntry.cs" />
-    <Compile Include="Models\ClipboardData\ContentEntries\BitmapEntry.cs" />
-    <Compile Include="Models\ClipboardData\ClipboardContentDataEntryBase.cs" />
-    <Compile Include="Models\ClipboardData\ContentEntries\StorageItemsEntry.cs" />
-    <Compile Include="Models\ClipboardData\ContentEntries\WebLinkEntry.cs" />
-    <Compile Include="Models\ClipboardData\ContentEntries\HtmlEntry.cs" />
-    <Compile Include="Models\ClipboardData\ContentEntries\RtfEntry.cs" />
-    <Compile Include="Models\ClipboardData\IClipboardContentDataEntry.cs" />
-    <Compile Include="Models\ClipboardData\ContentEntries\UriEntry.cs" />
-    <Compile Include="Models\ClipboardData\ContentEntries\TextEntry.cs" />
     <Compile Include="Models\Sharing\IShareItem.cs" />
+    <Compile Include="Models\Sharing\ShareItems\ReceivedShareItem.cs" />
     <Compile Include="Models\Sharing\ShareItems\WebLinkShareItem.cs" />
     <Compile Include="Models\Sharing\ShareItems\ApplicationLinkShareItem.cs" />
     <Compile Include="Models\Sharing\ShareItems\CustomDataShareItem.cs" />
@@ -114,6 +104,7 @@
     <Compile Include="Models\Sharing\ShareItems\FilesShareItem.cs" />
     <Compile Include="Models\Sharing\ShareItemBase.cs" />
     <Compile Include="Models\Sharing\ShareItems\TextSharedItem.cs" />
+    <Compile Include="Services\DefaultShareService.cs" />
     <Compile Include="Services\IClipboardService.cs" />
     <Compile Include="Services\IShareService.cs" />
     <Compile Include="Services\ShareItemTransformer\IShareItemTransformer.cs" />

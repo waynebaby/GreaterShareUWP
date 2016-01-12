@@ -2,15 +2,17 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace GreaterShare.Models.Sharing.ShareItems
 {
+	[DataContract]
 	public class CustomDataShareItem : ShareItemBase<CustomDataShareItem>
 	{
 
-
+		[DataMember]
 		public string DataPackageFormat
 		{
 			get { return _DataPackageFormatLocator(this).Value; }
@@ -22,8 +24,7 @@ namespace GreaterShare.Models.Sharing.ShareItems
 		static Func<string> _DataPackageFormatDefaultValueFactory = () => default(string);
 		#endregion
 
-
-
+		[DataMember]				 
 		public object DataPackage
 		{
 			get { return _DataPackageLocator(this).Value; }

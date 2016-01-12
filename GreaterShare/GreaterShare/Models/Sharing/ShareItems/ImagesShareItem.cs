@@ -2,15 +2,18 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Storage;
 
 namespace GreaterShare.Models.Sharing.ShareItems
 {
-public 	class ImagesShareItem	:ShareItemBase<ImagesShareItem>
+	[DataContract]
+	public class ImagesShareItem : ShareItemBase<ImagesShareItem>
 	{
 
+		[DataMember]
 
 		public List<IStorageItem> Images
 		{

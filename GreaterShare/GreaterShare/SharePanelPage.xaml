@@ -23,8 +23,47 @@
             </TransitionCollection>
         </Grid.ChildrenTransitions>
 
-        <TextBlock x:Name="pageTitle" Text="{Binding Title}" Style="{StaticResource HeaderTextBlockStyle}" 
-                        IsHitTestVisible="false" TextWrapping="NoWrap"/>
+        <StackPanel >         
+            <StackPanel >
+                <TextBlock>Title:</TextBlock>
+                <TextBlock RelativePanel.AlignBottomWith="" x:Name="pageTitle" Text="{Binding ReceivedShareItem.Title}" Style="{StaticResource SubheaderTextBlockStyle}" 
+                        IsHitTestVisible="false" TextWrapping="NoWrap"/>    
+            </StackPanel>
+            <StackPanel >
+                <TextBlock>Logo 30x30:</TextBlock>
+                <Border Background="{Binding ReceivedShareItem.LogoBackgroundColor}" HorizontalAlignment="Left" VerticalAlignment="Top">
+                <Image  Source="{Binding ReceivedShareItem.Square30x30Logo}" HorizontalAlignment="Left" VerticalAlignment="Top"></Image>
+                </Border>
+            </StackPanel>
+            <StackPanel >
+                <TextBlock>ThumbnailStream:</TextBlock>
+                <Image  Source="{Binding ReceivedShareItem.ThumbnailStream}" HorizontalAlignment="Left" VerticalAlignment="Top"></Image>
+            </StackPanel>
+            <StackPanel >
+                <TextBlock>Description:</TextBlock>  
+                <TextBlock Text="{Binding ReceivedShareItem.Description}"></TextBlock>
+            </StackPanel>
+            <StackPanel >
+                <TextBlock>QuickLinkId:</TextBlock>
+                <TextBlock Text="{Binding ReceivedShareItem.QuickLinkId}"></TextBlock>
+            </StackPanel>
+            <StackPanel >
+                <TextBlock>ContentSourceApplicationLink:</TextBlock>
+                <TextBlock Text="{Binding ReceivedShareItem.ContentSourceApplicationLink}"></TextBlock>
+            </StackPanel>
+            <StackPanel >
+                <TextBlock>ContentSourceWebLink:</TextBlock>
+                <TextBlock Text="{Binding ReceivedShareItem.ContentSourceWebLink}"></TextBlock>
+            </StackPanel>
+
+            <StackPanel >
+                <TextBlock>PackageFamilyName:</TextBlock>
+                <TextBlock Text="{Binding ReceivedShareItem.PackageFamilyName}"></TextBlock>
+            </StackPanel>
+            <ListView ItemsSource="{Binding ReceivedShareItem.AvialableShareItems}">
+            </ListView>
+        </StackPanel>
+        
 
     </Grid>
 </mvvm:MVVMPage>

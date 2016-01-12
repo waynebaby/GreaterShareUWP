@@ -27,7 +27,10 @@ namespace GreaterShare.ViewModels
 
 
 
-
+		protected override Task OnBindedViewLoad(IView view)
+		{
+			return base.OnBindedViewLoad(view);
+		}
 
 
 

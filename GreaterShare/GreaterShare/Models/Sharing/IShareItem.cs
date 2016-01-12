@@ -1,10 +1,11 @@
-﻿using MVVMSidekick.ViewModels;
+﻿using System;
 
 namespace GreaterShare.Models.Sharing
 {
-	public interface IShareItem : IBindable
+	public interface IShareItem
 	{
-		string ContentSourceApplicationLink { get; set; }
+		Uri ContentSourceApplicationLink { get; set; }
+		Uri ContentSourceWebLink { get; set; }
 		string DefaultFailedDisplayText { get; set; }
 		string Description { get; set; }
 		string Title { get; set; }

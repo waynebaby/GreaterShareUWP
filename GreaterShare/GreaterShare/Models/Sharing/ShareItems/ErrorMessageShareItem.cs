@@ -2,15 +2,18 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace GreaterShare.Models.Sharing.ShareItems
 {
+
+	[DataContract]				  
 	public class ErrorMessageShareItem : ShareItemBase<ErrorMessageShareItem>
 	{
 
-
+		[DataMember]			  
 		public String CustomErrorText
 		{
 			get { return _CustomErrorTextLocator(this).Value; }

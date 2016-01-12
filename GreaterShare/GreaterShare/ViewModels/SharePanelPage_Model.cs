@@ -12,6 +12,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
+using GreaterShare.Models.Sharing.ShareItems;
+using Windows.ApplicationModel.DataTransfer.ShareTarget;
+using GreaterShare.Services;
+using Windows.UI;
 
 namespace GreaterShare.ViewModels
 {
@@ -22,79 +26,77 @@ namespace GreaterShare.ViewModels
 		// If you have install the code sniplets, use "propvm + [tab] +[tab]" create a property。
 		// 如果您已经安装了 MVVMSidekick 代码片段，请用 propvm +tab +tab 输入属性
 
-		public String Title
+
+		public SharePanelPage_Model()
 		{
-			get { return _TitleLocator(this).Value; }
-			set { _TitleLocator(this).SetValueAndTryNotify(value); }
+			if (IsInDesignMode)
+			{
+				ReceivedShareItem = new ReceivedShareItem
+				{
+					ContentSourceApplicationLink = new Uri("http://ContentSourceApplicationLink/"),
+					ContentSourceWebLink = new Uri("http://ContentSourceWebLink"),
+					DefaultFailedDisplayText = "Default failed",
+					Description = "Description",
+					LogoBackgroundColor = Colors.Red,
+					QuickLinkId = "QuickLinkId",
+					Square30x30Logo = null,
+					ThumbnailStream = null,
+					PackageFamilyName = "PackageFamilyName",
+					Title = "Title",
+					AvialableShareItems = new ObservableCollection<Models.Sharing.IShareItem>
+					 {
+						new TextSharedItem {  Text="okokok"},
+						new  WebLinkShareItem {  WebLink=new Uri  ("Http://notok")},
+					 }
+				};
+			}
 		}
-		#region Property String Title Setup
-		protected Property<String> _Title = new Property<String> { LocatorFunc = _TitleLocator };
-		static Func<BindableBase, ValueContainer<String>> _TitleLocator = RegisterContainerLocator<String>("Title", model => model.Initialize("Title", ref model._Title, ref _TitleLocator, _TitleDefaultValueFactory));
-		static Func<BindableBase, String> _TitleDefaultValueFactory = m => m.GetType().Name;
+
+
+
+		public ReceivedShareItem ReceivedShareItem
+		{
+			get { return _ReceivedShareItemLocator(this).Value; }
+			set { _ReceivedShareItemLocator(this).SetValueAndTryNotify(value); }
+		}
+		#region Property ReceivedShareItem ReceivedShareItem Setup        
+		protected Property<ReceivedShareItem> _ReceivedShareItem = new Property<ReceivedShareItem> { LocatorFunc = _ReceivedShareItemLocator };
+		static Func<BindableBase, ValueContainer<ReceivedShareItem>> _ReceivedShareItemLocator = RegisterContainerLocator<ReceivedShareItem>("ReceivedShareItem", model => model.Initialize("ReceivedShareItem", ref model._ReceivedShareItem, ref _ReceivedShareItemLocator, _ReceivedShareItemDefaultValueFactory));
+		static Func<ReceivedShareItem> _ReceivedShareItemDefaultValueFactory = () => default(ReceivedShareItem);
 		#endregion
 
 
 
-		#region Life Time Event Handling
 
-		///// <summary>
-		///// This will be invoked by view when this viewmodel instance is set to view's ViewModel property. 
-		///// </summary>
-		///// <param name="view">Set target</param>
-		///// <param name="oldValue">Value before set.</param>
-		///// <returns>Task awaiter</returns>
-		//protected override Task OnBindedToView(MVVMSidekick.Views.IView view, IViewModel oldValue)
-		//{
-		//    return base.OnBindedToView(view, oldValue);
-		//}
-
-		///// <summary>
-		///// This will be invoked by view when this instance of viewmodel in ViewModel property is overwritten.
-		///// </summary>
-		///// <param name="view">Overwrite target view.</param>
-		///// <param name="newValue">The value replacing </param>
-		///// <returns>Task awaiter</returns>
-		//protected override Task OnUnbindedFromView(MVVMSidekick.Views.IView view, IViewModel newValue)
-		//{
-		//    return base.OnUnbindedFromView(view, newValue);
-		//}
-
-		///// <summary>
-		///// This will be invoked by view when the view fires Load event and this viewmodel instance is already in view's ViewModel property
-		///// </summary>
-		///// <param name="view">View that firing Load event</param>
-		///// <returns>Task awaiter</returns>
-		//protected override Task OnBindedViewLoad(MVVMSidekick.Views.IView view)
-		//{
-		//    return base.OnBindedViewLoad(view);
-		//}
-
-		///// <summary>
-		///// This will be invoked by view when the view fires Unload event and this viewmodel instance is still in view's  ViewModel property
-		///// </summary>
-		///// <param name="view">View that firing Unload event</param>
-		///// <returns>Task awaiter</returns>
-		//protected override Task OnBindedViewUnload(MVVMSidekick.Views.IView view)
-		//{
-		//    return base.OnBindedViewUnload(view);
-		//}
-
-		///// <summary>
-		///// <para>If dispose actions got exceptions, will handled here. </para>
-		///// </summary>
-		///// <param name="exceptions">
-		///// <para>The exception and dispose infomation</para>
-		///// </param>
-		//protected override async void OnDisposeExceptions(IList<DisposeInfo> exceptions)
-		//{
-		//    base.OnDisposeExceptions(exceptions);
-		//    await TaskExHelper.Yield();
-		//}
-
+		public ShareOperation SharedOperation
+		{
+			get { return _SharedOperationLocator(this).Value; }
+			set { _SharedOperationLocator(this).SetValueAndTryNotify(value); }
+		}
+		#region Property ShareOperation SharedOperation Setup        
+		protected Property<ShareOperation> _SharedOperation = new Property<ShareOperation> { LocatorFunc = _SharedOperationLocator };
+		static Func<BindableBase, ValueContainer<ShareOperation>> _SharedOperationLocator = RegisterContainerLocator<ShareOperation>("SharedOperation", model => model.Initialize("SharedOperation", ref model._SharedOperation, ref _SharedOperationLocator, _SharedOperationDefaultValueFactory));
+		static Func<ShareOperation> _SharedOperationDefaultValueFactory = () => default(ShareOperation);
 		#endregion
 
+		protected override async Task OnBindedViewLoad(IView view)
+		{
+
+			if (!IsInDesignMode)
+
+			{
+				if (ReceivedShareItem == null)
+				{
 
 
+					var shareService = ServiceLocator.Instance.Resolve<IShareService>();
+					this.ReceivedShareItem = await shareService.GetReceivedSharedItemAsync(SharedOperation);
+
+				}
+			}
+		}
+
+							  
 
 	}
 

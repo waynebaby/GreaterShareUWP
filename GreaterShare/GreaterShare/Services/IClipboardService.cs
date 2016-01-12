@@ -1,5 +1,4 @@
 ﻿using GreaterShare.Models;
-using GreaterShare.Models.ClipboardData;
 using MVVMSidekick.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -14,8 +13,8 @@ namespace GreaterShare.Services
 {
 	public interface IClipboardService : INotifyPropertyChanged
 	{
-		event EventHandler<ClipboardContent> ClipboardContentChanged;
-		ClipboardContent CurrentClipboardContent { get; }
+		//event EventHandler<ClipboardContent> ClipboardContentChanged;
+		//ClipboardContent CurrentClipboardContent { get; }
 	}
 
 

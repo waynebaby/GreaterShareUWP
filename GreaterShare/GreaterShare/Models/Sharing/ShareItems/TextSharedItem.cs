@@ -2,14 +2,16 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace GreaterShare.Models.Sharing.ShareItems
 {
-	public class TextSharedItem	   :ShareItemBase<TextSharedItem>
+	[DataContract]public class TextSharedItem	   :ShareItemBase<TextSharedItem>
 	{
 
+		[DataMember]
 
 		public string Text
 		{
