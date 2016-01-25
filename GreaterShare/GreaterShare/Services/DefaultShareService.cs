@@ -96,20 +96,21 @@ namespace GreaterShare.Services
 					//NotifyUserBackgroundThread("Failed GetTextAsync - " + ex.Message, NotifyType.ErrorMessage);
 				}
 			}
-			//if (sourceOperation.Data.Contains(StandardDataFormats.StorageItems))
-			//{
-			//	try
-			//	{
-			//		var sharedStorageItems = new FilesShareItem
-			//		{
-			//			StorageItems = await sourceOperation.Data.GetStorageItemsAsync()
-			//		};
-			//	}
-			//	catch (Exception ex)
-			//	{
-			//		//NotifyUserBackgroundThread("Failed GetStorageItemsAsync - " + ex.Message, NotifyType.ErrorMessage);
-			//	}
-			//}
+			if (sourceOperation.Data.Contains(StandardDataFormats.StorageItems))
+			{
+				try
+				{
+					var sharedStorageItem = new FilesShareItem
+					{
+						StorageItems = await sourceOperation.Data.GetStorageItemsAsync()
+					};
+					rval.AvialableShareItems.Add(sharedStorageItem);
+				}
+				catch (Exception ex)
+				{
+					//NotifyUserBackgroundThread("Failed GetStorageItemsAsync - " + ex.Message, NotifyType.ErrorMessage);
+				}
+			}
 			//if (sourceOperation.Data.Contains(dataFormatName))
 			//{
 			//	try
@@ -121,28 +122,32 @@ namespace GreaterShare.Services
 			//		//NotifyUserBackgroundThread("Failed GetTextAsync(" + dataFormatName + ") - " + ex.Message, NotifyType.ErrorMessage);
 			//	}
 			//}
-			//if (sourceOperation.Data.Contains(StandardDataFormats.Html))
-			//{
+			if (sourceOperation.Data.Contains(StandardDataFormats.Html))
+			{
+				var sharedHtmlFormatItem = new HtmlShareItem();
+				var sharedHtmlFormat = string.Empty;
+				try
+				{
+					sharedHtmlFormat = await sourceOperation.Data.GetHtmlFormatAsync();
 
 
-			//	try
-			//	{
-			//		var sharedHtmlFormat = await sourceOperation.Data.GetHtmlFormatAsync();
-			//	}
-			//	catch (Exception ex)
-			//	{
-			//		//NotifyUserBackgroundThread("Failed GetHtmlFormatAsync - " + ex.Message, NotifyType.ErrorMessage);
-			//	}
+				}
+				catch (Exception ex)
+				{
+					//NotifyUserBackgroundThread("Failed GetHtmlFormatAsync - " + ex.Message, NotifyType.ErrorMessage);
+				}
+				//try
+				//{
+				//	var sharedResourceMap = await sourceOperation.Data.GetResourceMapAsync();
+				//}
+				//catch (Exception ex)
+				//{
+				//	//NotifyUserBackgroundThread("Failed GetResourceMapAsync - " + ex.Message, NotifyType.ErrorMessage);
+				//}
 
-			//	try
-			//	{
-			//		var sharedResourceMap = await sourceOperation.Data.GetResourceMapAsync();
-			//	}
-			//	catch (Exception ex)
-			//	{
-			//		//NotifyUserBackgroundThread("Failed GetResourceMapAsync - " + ex.Message, NotifyType.ErrorMessage);
-			//	}
-			//}
+				rval.AvialableShareItems.Add(sharedHtmlFormatItem);
+
+			}
 			if (sourceOperation.Data.Contains(StandardDataFormats.Bitmap))
 			{
 				try

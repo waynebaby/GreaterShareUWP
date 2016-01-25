@@ -86,8 +86,7 @@ namespace GreaterShare.ViewModels
 
 			{
 				if (ReceivedShareItem == null)
-				{
-
+				{		   
 
 					var shareService = ServiceLocator.Instance.Resolve<IShareService>();
 					this.ReceivedShareItem = await shareService.GetReceivedSharedItemAsync(SharedOperation);
