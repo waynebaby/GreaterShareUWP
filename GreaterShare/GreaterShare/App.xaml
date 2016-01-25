@@ -3,6 +3,74 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:GreaterShare"
-    RequestedTheme="Light">
+    xmlns:sharemodel="using:GreaterShare.Models.Sharing.ShareItems"
+    xmlns:Glue="using:GreaterShare.Glue"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 
+    RequestedTheme="Light">
+    <Application.Resources>
+        <Glue:StreamImageSourceConverter x:Key="StreamImageSourceConverter"/>
+        <sharemodel:ApplicationLinkShareItem     x:Key="shareItemDesignInstanceApplicationLinkShareItem"/>
+        <sharemodel:CustomDataShareItem          x:Key="shareItemDesignInstanceCustomDataShareItem"/>
+        <sharemodel:DelayRenderedImageShareItem  x:Key="shareItemDesignInstanceDelayRenderedImageShareItem"/>
+        <sharemodel:ErrorMessageShareItem        x:Key="shareItemDesignInstanceErrorMessageShareItem"/>
+        <sharemodel:FilesShareItem               x:Key="shareItemDesignInstanceFilesShareItem"/>
+        <sharemodel:HtmlShareItem                x:Key="shareItemDesignInstanceHtmlShareItem"/>
+        <sharemodel:ImagesShareItem              x:Key="shareItemDesignInstanceImagesShareItem"/>
+        <sharemodel:ReceivedShareItem            x:Key="shareItemDesignInstanceReceivedShareItem"/>
+        <sharemodel:TextSharedItem               x:Key="shareItemDesignInstanceTextSharedItem"/>
+        <sharemodel:WebLinkShareItem             x:Key="shareItemDesignInstanceWebLinkShareItem"/>
+
+
+        <DataTemplate x:Key="DataTemplateOfApplicationLinkShareItem">
+            <StackPanel d:DataContext="{StaticResource shareItemDesignInstanceApplicationLinkShareItem}" >
+                <TextBlock>DataTemplateOfApplicationLinkShareItem</TextBlock>
+            </StackPanel>
+        </DataTemplate>
+        <DataTemplate x:Key="DataTemplateOfCustomDataShareItem">
+            <StackPanel d:DataContext="{StaticResource shareItemDesignInstanceCustomDataShareItem}" >
+                <TextBlock>DataTemplateOfCustomDataShareItem</TextBlock>
+            </StackPanel>
+        </DataTemplate>
+        <DataTemplate x:Key="DataTemplateOfDelayRenderedImageShareItem">
+            <StackPanel d:DataContext="{StaticResource shareItemDesignInstanceDelayRenderedImageShareItem}" >
+                <TextBlock>DataTemplateOfDelayRenderedImageShareItem</TextBlock>
+            </StackPanel>
+        </DataTemplate>
+        <DataTemplate x:Key="DataTemplateOfErrorMessageShareItem">
+            <StackPanel d:DataContext="{StaticResource shareItemDesignInstanceErrorMessageShareItem}" >      
+                <TextBlock>DataTemplateOfErrorMessageShareItem</TextBlock>
+            </StackPanel>
+        </DataTemplate>
+        <DataTemplate x:Key="DataTemplateOfFilesShareItem">
+            <StackPanel d:DataContext="{StaticResource shareItemDesignInstanceFilesShareItem}" >             
+                <TextBlock>DataTemplateOfFilesShareItem</TextBlock>
+            </StackPanel>
+        </DataTemplate>
+        <DataTemplate x:Key="DataTemplateOfHtmlShareItem">
+            <StackPanel d:DataContext="{StaticResource shareItemDesignInstanceHtmlShareItem}" >              
+                <TextBlock>DataTemplateOfHtmlShareItem</TextBlock>
+            </StackPanel>
+        </DataTemplate>
+        <DataTemplate x:Key="DataTemplateOfImagesShareItem">
+            <StackPanel d:DataContext="{StaticResource shareItemDesignInstanceImagesShareItem}" >            
+                <TextBlock>DataTemplateOfImagesShareItem</TextBlock>
+            </StackPanel>
+        </DataTemplate>
+        <DataTemplate x:Key="DataTemplateOfReceivedShareItem">
+            <StackPanel d:DataContext="{StaticResource shareItemDesignInstanceReceivedShareItem}" >          
+                <TextBlock>DataTemplateOfReceivedShareItem</TextBlock>
+            </StackPanel>
+        </DataTemplate>
+        <DataTemplate x:Key="DataTemplateOfTextSharedItem">
+            <StackPanel d:DataContext="{StaticResource shareItemDesignInstanceTextSharedItem}" >             
+                <TextBlock>DataTemplateOfTextSharedItem</TextBlock>
+            </StackPanel>
+        </DataTemplate>
+        <DataTemplate x:Key="DataTemplateOfWebLinkShareItem">
+            <StackPanel d:DataContext="{StaticResource shareItemDesignInstanceWebLinkShareItem}" >
+                <TextBlock>DataTemplateOfWebLinkShareItem</TextBlock>
+            </StackPanel>
+        </DataTemplate>
+    </Application.Resources>
 </Application>

@@ -16,6 +16,7 @@ using GreaterShare.Models.Sharing.ShareItems;
 using Windows.ApplicationModel.DataTransfer.ShareTarget;
 using GreaterShare.Services;
 using Windows.UI;
+using GreaterShare.Models.Sharing;
 
 namespace GreaterShare.ViewModels
 {
@@ -64,6 +65,59 @@ namespace GreaterShare.ViewModels
 		static Func<BindableBase, ValueContainer<ReceivedShareItem>> _ReceivedShareItemLocator = RegisterContainerLocator<ReceivedShareItem>("ReceivedShareItem", model => model.Initialize("ReceivedShareItem", ref model._ReceivedShareItem, ref _ReceivedShareItemLocator, _ReceivedShareItemDefaultValueFactory));
 		static Func<ReceivedShareItem> _ReceivedShareItemDefaultValueFactory = () => default(ReceivedShareItem);
 		#endregion
+
+
+		public IShareItem SelectedShareItem
+		{
+			get { return _SelectedShareItemLocator(this).Value; }
+			set { _SelectedShareItemLocator(this).SetValueAndTryNotify(value); }
+		}
+		#region Property IShareItem SelectedShareItem Setup        
+		protected Property<IShareItem> _SelectedShareItem = new Property<IShareItem> { LocatorFunc = _SelectedShareItemLocator };
+		static Func<BindableBase, ValueContainer<IShareItem>> _SelectedShareItemLocator = RegisterContainerLocator<IShareItem>(nameof(SelectedShareItem), model => model.Initialize(nameof(SelectedShareItem), ref model._SelectedShareItem, ref _SelectedShareItemLocator, _SelectedShareItemDefaultValueFactory));
+		static Func<IShareItem> _SelectedShareItemDefaultValueFactory = () => default(IShareItem);
+		#endregion
+
+
+
+		public CommandModel<ReactiveCommand, string> CommandShareAgain
+		{
+			get { return _CommandShareAgainLocator(this).Value; }
+			set { _CommandShareAgainLocator(this).SetValueAndTryNotify(value); }
+		}
+		#region Property CommandModel<ReactiveCommand, string> CommandShareAgain Setup        
+
+		protected Property<CommandModel<ReactiveCommand, string>> _CommandShareAgain = new Property<CommandModel<ReactiveCommand, string>> { LocatorFunc = _CommandShareAgainLocator };
+		static Func<BindableBase, ValueContainer<CommandModel<ReactiveCommand, string>>> _CommandShareAgainLocator = RegisterContainerLocator<CommandModel<ReactiveCommand, string>>(nameof(CommandShareAgain), model => model.Initialize(nameof(CommandShareAgain), ref model._CommandShareAgain, ref _CommandShareAgainLocator, _CommandShareAgainDefaultValueFactory));
+		static Func<BindableBase, CommandModel<ReactiveCommand, string>> _CommandShareAgainDefaultValueFactory =
+			model =>
+			{
+				var resource = nameof(CommandShareAgain);           // Command resource  
+				var commandId = nameof(CommandShareAgain);
+				var vm = CastToCurrentType(model);
+				var cmd = new ReactiveCommand(canExecute: true) { ViewModel = model }; //New Command Core
+
+				cmd.DoExecuteUIBusyTask(
+						vm,
+						async e =>
+						{
+							//Todo: Add ShareAgain logic here, or
+							await MVVMSidekick.Utilities.TaskExHelper.Yield();
+						})
+					.DoNotifyDefaultEventRouter(vm, commandId)
+					.Subscribe()
+					.DisposeWith(vm);
+
+				var cmdmdl = cmd.CreateCommandModel(resource);
+
+				cmdmdl.ListenToIsUIBusy(
+					model: vm,
+					canExecuteWhenBusy: false);
+				return cmdmdl;
+			};
+
+		#endregion
+
 
 
 

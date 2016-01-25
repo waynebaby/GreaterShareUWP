@@ -95,6 +95,8 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Glue\ShareItemDataTemplateSelector.cs" />
+    <Compile Include="Glue\StreamImageSourceConverter.cs" />
     <Compile Include="Models\Sharing\IShareItem.cs" />
     <Compile Include="Models\Sharing\ShareItems\HtmlShareItem.cs" />
     <Compile Include="Models\Sharing\ShareItems\ReceivedShareItem.cs" />

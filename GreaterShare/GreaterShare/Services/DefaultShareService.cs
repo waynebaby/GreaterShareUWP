@@ -38,7 +38,8 @@ namespace GreaterShare.Services
 					await logoStream.AsStreamForRead().CopyToAsync(logo);
 					logo.Position = 0;
 					rval.Square30x30Logo = logo;
-
+			
+					
 				}
 			}
 			if (sourceOperation.Data.Properties.Thumbnail != null)
