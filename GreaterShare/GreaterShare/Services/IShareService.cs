@@ -12,7 +12,7 @@ namespace GreaterShare.Services
 	{
 		Task<ReceivedShareItem> GetReceivedSharedItemAsync(ShareOperation sourceOperation);
 
-
+		//Task FillShareOperationAsync(ShareOperation sourceOperation, ReceivedShareItem);
 
 	}
 }

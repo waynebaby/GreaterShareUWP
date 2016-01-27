@@ -38,8 +38,8 @@ namespace GreaterShare.Services
 					await logoStream.AsStreamForRead().CopyToAsync(logo);
 					logo.Position = 0;
 					rval.Square30x30Logo = logo;
-			
-					
+
+
 				}
 			}
 			if (sourceOperation.Data.Properties.Thumbnail != null)
@@ -130,8 +130,8 @@ namespace GreaterShare.Services
 				try
 				{
 					sharedHtmlFormat = await sourceOperation.Data.GetHtmlFormatAsync();
-
-
+					sharedHtmlFormatItem.HtmlFormat = sharedHtmlFormat;
+					sharedHtmlFormatItem.HtmlFragment = HtmlFormatHelper.GetStaticFragment(sharedHtmlFormat);
 				}
 				catch (Exception ex)
 				{
@@ -146,6 +146,17 @@ namespace GreaterShare.Services
 				//	//NotifyUserBackgroundThread("Failed GetResourceMapAsync - " + ex.Message, NotifyType.ErrorMessage);
 				//}
 
+				if (sourceOperation.Data.Contains(StandardDataFormats.WebLink))
+				{
+					try
+					{
+						sharedHtmlFormatItem.WebLink = await sourceOperation.Data.GetWebLinkAsync();
+					}
+					catch (Exception ex)
+					{
+						//NotifyUserBackgroundThread("Failed GetWebLinkAsync - " + ex.Message, NotifyType.ErrorMessage);
+					}
+				}
 				rval.AvialableShareItems.Add(sharedHtmlFormatItem);
 
 			}

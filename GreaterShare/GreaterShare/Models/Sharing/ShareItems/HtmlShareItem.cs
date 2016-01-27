@@ -22,5 +22,30 @@ namespace GreaterShare.Models.Sharing.ShareItems
 		static Func<string> _HtmlFormatDefaultValueFactory = () => default(string);
 		#endregion
 
+
+
+		public Uri WebLink
+		{
+			get { return _WebLinkLocator(this).Value; }
+			set { _WebLinkLocator(this).SetValueAndTryNotify(value); }
+		}
+		#region Property Uri WebLink Setup        
+		protected Property<Uri> _WebLink = new Property<Uri> { LocatorFunc = _WebLinkLocator };
+		static Func<BindableBase, ValueContainer<Uri>> _WebLinkLocator = RegisterContainerLocator<Uri>(nameof(WebLink), model => model.Initialize(nameof(WebLink), ref model._WebLink, ref _WebLinkLocator, _WebLinkDefaultValueFactory));
+		static Func<Uri> _WebLinkDefaultValueFactory = () => default(Uri);
+		#endregion
+
+
+		public string HtmlFragment
+		{
+			get { return _HtmlFragmentLocator(this).Value; }
+			set { _HtmlFragmentLocator(this).SetValueAndTryNotify(value); }
+		}
+		#region Property string HtmlFragment Setup        
+		protected Property<string> _HtmlFragment = new Property<string> { LocatorFunc = _HtmlFragmentLocator };
+		static Func<BindableBase, ValueContainer<string>> _HtmlFragmentLocator = RegisterContainerLocator<string>(nameof(HtmlFragment), model => model.Initialize(nameof(HtmlFragment), ref model._HtmlFragment, ref _HtmlFragmentLocator, _HtmlFragmentDefaultValueFactory));
+		static Func<string> _HtmlFragmentDefaultValueFactory = () => default(string);
+		#endregion
+
 	}
 }
