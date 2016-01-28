@@ -43,7 +43,11 @@
                     <TextBlock>
 					<Run Text="Logo 30x30:"/>
                     </TextBlock>
-                    <Border Background="{Binding ReceivedShareItem.LogoBackgroundColor}" HorizontalAlignment="Left" VerticalAlignment="Top">
+                    <Border HorizontalAlignment="Left" VerticalAlignment="Top">
+                        <Border.Background>
+                            <SolidColorBrush Color="{Binding ReceivedShareItem.LogoBackgroundColor}"/>
+                        </Border.Background>
+                        
                         <Image Width="30" Height="30"  HorizontalAlignment="Left" VerticalAlignment="Top"  Source="{Binding ReceivedShareItem.Square30x30Logo, Converter={StaticResource StreamImageSourceConverter}}" />
                     </Border>
                 </StackPanel>
@@ -97,6 +101,13 @@
                 <glue:ShareItemDataTemplateSelector  PrefixOfTemplateKey="DataTemplateOf"/>
             </FlipView.ItemTemplateSelector>
         </FlipView>
-
+        <StackPanel Margin="16" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Right">
+            <Button  Command="{Binding CommandSaveToUserFile}">
+                Save To File
+            </Button>
+            <Button  Command="{Binding CommandSaveAndLauchMainApp}">
+                Open With Greater Share
+            </Button>
+        </StackPanel>
     </Grid>
 </mvvm:MVVMPage>

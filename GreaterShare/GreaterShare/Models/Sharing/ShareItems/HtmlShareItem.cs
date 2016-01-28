@@ -2,15 +2,17 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace GreaterShare.Models.Sharing.ShareItems
 {
-	public class HtmlShareItem : ShareItemBase<HtmlShareItem>
+	[DataContract]
+	public class HtmlShareItem : BindableBase<HtmlShareItem>
 	{
 
-
+		[DataMember]
 		public string HtmlFormat
 		{
 			get { return _HtmlFormatLocator(this).Value; }
@@ -22,8 +24,7 @@ namespace GreaterShare.Models.Sharing.ShareItems
 		static Func<string> _HtmlFormatDefaultValueFactory = () => default(string);
 		#endregion
 
-
-
+		[DataMember]				
 		public Uri WebLink
 		{
 			get { return _WebLinkLocator(this).Value; }
@@ -35,6 +36,7 @@ namespace GreaterShare.Models.Sharing.ShareItems
 		static Func<Uri> _WebLinkDefaultValueFactory = () => default(Uri);
 		#endregion
 
+		[DataMember]
 
 		public string HtmlFragment
 		{

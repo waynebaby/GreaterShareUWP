@@ -95,6 +95,7 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Glue\MemoryStream2.cs" />
     <Compile Include="Glue\NaviagteToStringAction.cs" />
     <Compile Include="Glue\ShareItemDataTemplateSelector.cs" />
     <Compile Include="Glue\StreamImageSourceConverter.cs" />
@@ -110,8 +111,10 @@
     <Compile Include="Models\Sharing\ShareItems\FilesShareItem.cs" />
     <Compile Include="Models\Sharing\ShareItemBase.cs" />
     <Compile Include="Models\Sharing\ShareItems\TextSharedItem.cs" />
+    <Compile Include="Services\DefaultSubStorageService.cs" />
     <Compile Include="Services\DefaultShareService.cs" />
     <Compile Include="Services\IClipboardService.cs" />
+    <Compile Include="Services\ISubStorageService.cs" />
     <Compile Include="Services\IShareService.cs" />
     <Compile Include="Services\ShareItemTransformer\IShareItemTransformer.cs" />
     <Compile Include="SharePanelPage.xaml.cs">

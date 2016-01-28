@@ -14,9 +14,82 @@
         <vm:MainPage_Model x:Key="DesignVM"/>
     </Page.Resources>
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"  DataContext="{StaticResource DesignVM}">
-        <FlipView>
+        <Pivot Margin="32">
+            <PivotItem Header="Current Share">
+                <RelativePanel>
+                    <ScrollViewer RelativePanel.AlignLeftWithPanel="True">
+                        <StackPanel Margin="16" >
+                            <StackPanel >
+                                <TextBlock>
+					<Run Text="Title:"/>
+                                </TextBlock>
+                                <TextBox RelativePanel.AlignBottomWith="" x:Name="pageTitle" Text="{Binding ReceivedShareItem.Title}"  
+					IsHitTestVisible="false" TextWrapping="NoWrap"/>
+                            </StackPanel>
+                            <StackPanel >
+                                <TextBlock>
+					<Run Text="Logo 30x30:"/>
+                                </TextBlock>
+                                <Border Background="{Binding ReceivedShareItem.LogoBackgroundColor}" HorizontalAlignment="Left" VerticalAlignment="Top">
+                                    <Image Width="30" Height="30"  HorizontalAlignment="Left" VerticalAlignment="Top"  Source="{Binding ReceivedShareItem.Square30x30LogoBase64, Converter={StaticResource StreamImageSourceConverter}}" />
+                                </Border>
+                            </StackPanel>
+                            <StackPanel >
+                                <TextBlock>
+					<Run Text="ThumbnailStream:"/>
+                                </TextBlock>
+                                <Image  Source="{Binding ReceivedShareItem.ThumbnailStream}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                            </StackPanel>
+                            <StackPanel >
+                                <TextBlock>
+					<Run Text="Description:"/>
+                                </TextBlock>
+                                <TextBox Text="{Binding ReceivedShareItem.Description}"/>
+                            </StackPanel>
+                            <StackPanel >
+                                <TextBlock>
+					<Run Text="QuickLinkId:"/>
+                                </TextBlock>
+                                <TextBox Text="{Binding ReceivedShareItem.QuickLinkId}"/>
+                            </StackPanel>
+                            <StackPanel >
+                                <TextBlock>
+					<Run Text="ContentSourceApplicationLink:"/>
+                                </TextBlock>
+                                <TextBox Text="{Binding ReceivedShareItem.ContentSourceApplicationLink}"/>
+                            </StackPanel>
+                            <StackPanel >
+                                <TextBlock>
+					<Run Text="ContentSourceWebLink:"/>
+                                </TextBlock>
+                                <TextBox Text="{Binding ReceivedShareItem.ContentSourceWebLink}"/>
+                            </StackPanel>
 
-        </FlipView>                           
+                            <StackPanel >
+                                <TextBlock>
+					<Run Text="PackageFamilyName:"/>
+                                </TextBlock>
+                                <TextBox Text="{Binding ReceivedShareItem.PackageFamilyName}"/>
+                            </StackPanel>
+
+                            <!--<ListView ItemsSource="{Binding ReceivedShareItem.AvialableShareItems}">
+
+            </ListView>-->
+                        </StackPanel>
+                    </ScrollViewer>
+                    <FlipView RelativePanel.AlignRightWithPanel="True" Width="500" xmlns:glue="using:GreaterShare.Glue"
+			Grid.Row="1" Margin="16" ItemsSource="{Binding ReceivedShareItem.AvialableShareItems}"   >
+
+                        <FlipView.ItemTemplateSelector>
+                            <glue:ShareItemDataTemplateSelector  PrefixOfTemplateKey="DataTemplateOf"/>
+                        </FlipView.ItemTemplateSelector>
+                    </FlipView>
+
+                </RelativePanel>
+            </PivotItem>
+            <PivotItem Header="Clipboard Share"></PivotItem>
+            <PivotItem Header="Saved Shares "></PivotItem>
+        </Pivot>
     </Grid>
 
     <mvvm:MVVMPage.BottomAppBar>
@@ -42,4 +115,6 @@
             </StackPanel>
         </AppBar>
     </mvvm:MVVMPage.BottomAppBar>
+   
+
 </mvvm:MVVMPage>

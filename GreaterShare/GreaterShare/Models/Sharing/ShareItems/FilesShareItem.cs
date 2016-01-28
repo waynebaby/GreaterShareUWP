@@ -10,7 +10,7 @@ using Windows.Storage;
 namespace GreaterShare.Models.Sharing.ShareItems
 {
 	[DataContract]
-	public class FilesShareItem : ShareItemBase<FilesShareItem>
+	public class FilesShareItem : BindableBase<FilesShareItem>
 	{
 
 		public IReadOnlyList<IStorageItem> StorageItems

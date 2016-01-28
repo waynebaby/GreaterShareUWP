@@ -9,8 +9,9 @@ using System.Threading.Tasks;
 namespace GreaterShare.Models.Sharing.ShareItems
 {
 	[DataContract]
-	public class WebLinkShareItem : ShareItemBase<WebLinkShareItem>
+	public class WebLinkShareItem : BindableBase<WebLinkShareItem>
 	{
+		[DataMember]
 
 		public Uri WebLink
 		{

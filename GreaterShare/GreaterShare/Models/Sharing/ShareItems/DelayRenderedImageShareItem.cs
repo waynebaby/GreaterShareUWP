@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace GreaterShare.Models.Sharing.ShareItems
 {
 	[DataContract]
-	public class DelayRenderedImageShareItem : ShareItemBase<DelayRenderedImageShareItem>
+	public class DelayRenderedImageShareItem : BindableBase<DelayRenderedImageShareItem>
 	{
 
 		public Stream SelectedImage

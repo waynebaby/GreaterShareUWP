@@ -8,7 +8,8 @@ using System.Threading.Tasks;
 
 namespace GreaterShare.Models.Sharing.ShareItems
 {
-	[DataContract]public class TextSharedItem	   :ShareItemBase<TextSharedItem>
+	[DataContract]
+	public class TextSharedItem : BindableBase<TextSharedItem>
 	{
 
 		[DataMember]

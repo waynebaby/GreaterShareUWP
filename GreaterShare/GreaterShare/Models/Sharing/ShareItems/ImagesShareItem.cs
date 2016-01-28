@@ -10,7 +10,7 @@ using Windows.Storage;
 namespace GreaterShare.Models.Sharing.ShareItems
 {
 	[DataContract]
-	public class ImagesShareItem : ShareItemBase<ImagesShareItem>
+	public class ImagesShareItem : BindableBase<ImagesShareItem>
 	{
 
 		[DataMember]

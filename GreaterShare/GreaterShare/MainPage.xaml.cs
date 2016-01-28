@@ -19,32 +19,33 @@ using GreaterShare.ViewModels;
 
 namespace GreaterShare
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
-    public sealed partial class MainPage : MVVMPage
-    {
-        public MainPage()
-        {
-            this.InitializeComponent();
-            this.RegisterPropertyChangedCallback(ViewModelProperty, (_, __) =>
-            {
-                StrongTypeViewModel = this.ViewModel as MainPage_Model;
-            });
-            StrongTypeViewModel = this.ViewModel as MainPage_Model;
-        }
+	/// <summary>
+	/// An empty page that can be used on its own or navigated to within a Frame.
+	/// </summary>
+	public sealed partial class MainPage : MVVMPage
+	{
+		public MainPage()
+		{
+			this.InitializeComponent();
+			this.RegisterPropertyChangedCallback(ViewModelProperty, (_, __) =>
+			{
+				StrongTypeViewModel = this.ViewModel as MainPage_Model;
+			});
+			StrongTypeViewModel = this.ViewModel as MainPage_Model;
+		}
 
 
-    public MainPage_Model StrongTypeViewModel
-        {
-            get { return (MainPage_Model)GetValue(StrongTypeViewModelProperty); }
-            set { SetValue(StrongTypeViewModelProperty, value); }
-        }
+		public MainPage_Model StrongTypeViewModel
+		{
+			get { return (MainPage_Model)GetValue(StrongTypeViewModelProperty); }
+			set { SetValue(StrongTypeViewModelProperty, value); }
+		}
 
-        public static readonly DependencyProperty StrongTypeViewModelProperty =
-                    DependencyProperty.Register("StrongTypeViewModel", typeof(MainPage_Model), typeof(MainPage), new PropertyMetadata(null));
+		public static readonly DependencyProperty StrongTypeViewModelProperty =
+					DependencyProperty.Register("StrongTypeViewModel", typeof(MainPage_Model), typeof(MainPage), new PropertyMetadata(null));
 
 
+				   
 
-    }
+	}
 }

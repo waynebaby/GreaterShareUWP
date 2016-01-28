@@ -37,6 +37,7 @@ namespace GreaterShare.Services
 					var logo = new MemoryStream();
 					await logoStream.AsStreamForRead().CopyToAsync(logo);
 					logo.Position = 0;
+					//rval.Square30x30LogoBase64 = Convert.ToBase64String(logo.ToArray());
 					rval.Square30x30Logo = logo;
 
 
@@ -185,14 +186,14 @@ namespace GreaterShare.Services
 				}
 			}
 
-			foreach (var item in rval.AvialableShareItems)
-			{
-				item.ContentSourceApplicationLink = rval.ContentSourceApplicationLink;
-				item.ContentSourceWebLink = rval.ContentSourceWebLink;
-				item.DefaultFailedDisplayText = rval.DefaultFailedDisplayText;
-				item.Description = rval.Description;
-				item.Title = rval.Title;
-			}
+			//foreach (var item in rval.AvialableShareItems)
+			//{
+			//	//item.ContentSourceApplicationLink = rval.ContentSourceApplicationLink;
+			//	//item.ContentSourceWebLink = rval.ContentSourceWebLink;
+			//	//item.DefaultFailedDisplayText = rval.DefaultFailedDisplayText;
+			//	//item.Description = rval.Description;
+			//	//item.Title = rval.Title;
+			//}
 
 			return rval;
 		}

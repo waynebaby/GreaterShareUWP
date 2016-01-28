@@ -17,6 +17,7 @@ using Windows.ApplicationModel.DataTransfer.ShareTarget;
 using GreaterShare.Services;
 using Windows.UI;
 using GreaterShare.Models.Sharing;
+using Windows.System;
 
 namespace GreaterShare.ViewModels
 {
@@ -44,7 +45,7 @@ namespace GreaterShare.ViewModels
 					ThumbnailStream = null,
 					PackageFamilyName = "PackageFamilyName",
 					Title = "Title",
-					AvialableShareItems = new ObservableCollection<Models.Sharing.IShareItem>
+					AvialableShareItems = new ObservableCollection<object>
 					 {
 						new TextSharedItem {  Text="okokok"},
 						new  WebLinkShareItem {  WebLink=new Uri  ("Http://notok")},
@@ -67,33 +68,34 @@ namespace GreaterShare.ViewModels
 		#endregion
 
 
-		public IShareItem SelectedShareItem
+
+		public Object SelectedShareItem
 		{
 			get { return _SelectedShareItemLocator(this).Value; }
 			set { _SelectedShareItemLocator(this).SetValueAndTryNotify(value); }
 		}
-		#region Property IShareItem SelectedShareItem Setup        
-		protected Property<IShareItem> _SelectedShareItem = new Property<IShareItem> { LocatorFunc = _SelectedShareItemLocator };
-		static Func<BindableBase, ValueContainer<IShareItem>> _SelectedShareItemLocator = RegisterContainerLocator<IShareItem>(nameof(SelectedShareItem), model => model.Initialize(nameof(SelectedShareItem), ref model._SelectedShareItem, ref _SelectedShareItemLocator, _SelectedShareItemDefaultValueFactory));
-		static Func<IShareItem> _SelectedShareItemDefaultValueFactory = () => default(IShareItem);
+		#region Property Object SelectedShareItem Setup        
+		protected Property<Object> _SelectedShareItem = new Property<Object> { LocatorFunc = _SelectedShareItemLocator };
+		static Func<BindableBase, ValueContainer<Object>> _SelectedShareItemLocator = RegisterContainerLocator<Object>(nameof(SelectedShareItem), model => model.Initialize(nameof(SelectedShareItem), ref model._SelectedShareItem, ref _SelectedShareItemLocator, _SelectedShareItemDefaultValueFactory));
+		static Func<Object> _SelectedShareItemDefaultValueFactory = () => default(Object);
 		#endregion
 
 
 
-		public CommandModel<ReactiveCommand, string> CommandShareAgain
+		public CommandModel<ReactiveCommand, String> CommandSaveToUserFile
 		{
-			get { return _CommandShareAgainLocator(this).Value; }
-			set { _CommandShareAgainLocator(this).SetValueAndTryNotify(value); }
+			get { return _CommandSaveToUserFileLocator(this).Value; }
+			set { _CommandSaveToUserFileLocator(this).SetValueAndTryNotify(value); }
 		}
-		#region Property CommandModel<ReactiveCommand, string> CommandShareAgain Setup        
+		#region Property CommandModel<ReactiveCommand, String> CommandSaveToUserFile Setup        
 
-		protected Property<CommandModel<ReactiveCommand, string>> _CommandShareAgain = new Property<CommandModel<ReactiveCommand, string>> { LocatorFunc = _CommandShareAgainLocator };
-		static Func<BindableBase, ValueContainer<CommandModel<ReactiveCommand, string>>> _CommandShareAgainLocator = RegisterContainerLocator<CommandModel<ReactiveCommand, string>>(nameof(CommandShareAgain), model => model.Initialize(nameof(CommandShareAgain), ref model._CommandShareAgain, ref _CommandShareAgainLocator, _CommandShareAgainDefaultValueFactory));
-		static Func<BindableBase, CommandModel<ReactiveCommand, string>> _CommandShareAgainDefaultValueFactory =
+		protected Property<CommandModel<ReactiveCommand, String>> _CommandSaveToUserFile = new Property<CommandModel<ReactiveCommand, String>> { LocatorFunc = _CommandSaveToUserFileLocator };
+		static Func<BindableBase, ValueContainer<CommandModel<ReactiveCommand, String>>> _CommandSaveToUserFileLocator = RegisterContainerLocator<CommandModel<ReactiveCommand, String>>(nameof(CommandSaveToUserFile), model => model.Initialize(nameof(CommandSaveToUserFile), ref model._CommandSaveToUserFile, ref _CommandSaveToUserFileLocator, _CommandSaveToUserFileDefaultValueFactory));
+		static Func<BindableBase, CommandModel<ReactiveCommand, String>> _CommandSaveToUserFileDefaultValueFactory =
 			model =>
 			{
-				var resource = nameof(CommandShareAgain);           // Command resource  
-				var commandId = nameof(CommandShareAgain);
+				var resource = nameof(CommandSaveToUserFile);           // Command resource  
+				var commandId = nameof(CommandSaveToUserFile);
 				var vm = CastToCurrentType(model);
 				var cmd = new ReactiveCommand(canExecute: true) { ViewModel = model }; //New Command Core
 
@@ -101,7 +103,19 @@ namespace GreaterShare.ViewModels
 						vm,
 						async e =>
 						{
-							//Todo: Add ShareAgain logic here, or
+							var fp = new Windows.Storage.Pickers.FileSavePicker();
+
+							fp.DefaultFileExtension = ".gshare";
+							var fpicked = await fp.PickSaveFileAsync();
+							//if (fpicked != null)
+							//{
+							//App.CurrentFile.OnNext(fpicked);
+							//}			  
+							//Todo: Add SaveToUserFile logic here, or
+
+							var fservice = ServiceLocator.Instance.Resolve<Services.ISubStorageService>();
+							await fservice.SaveToFileAsync(fpicked, vm.ReceivedShareItem);
+
 							await MVVMSidekick.Utilities.TaskExHelper.Yield();
 						})
 					.DoNotifyDefaultEventRouter(vm, commandId)
@@ -137,10 +151,9 @@ namespace GreaterShare.ViewModels
 		{
 
 			if (!IsInDesignMode)
-
 			{
 				if (ReceivedShareItem == null)
-				{		   
+				{
 
 					var shareService = ServiceLocator.Instance.Resolve<IShareService>();
 					this.ReceivedShareItem = await shareService.GetReceivedSharedItemAsync(SharedOperation);
@@ -149,7 +162,61 @@ namespace GreaterShare.ViewModels
 			}
 		}
 
-							  
+
+
+		public CommandModel<ReactiveCommand, String> CommandSaveAndLauchMainApp
+		{
+			get { return _CommandSaveAndLauchMainAppLocator(this).Value; }
+			set { _CommandSaveAndLauchMainAppLocator(this).SetValueAndTryNotify(value); }
+		}
+		#region Property CommandModel<ReactiveCommand, String> CommandSaveAndLauchMainApp Setup        
+
+		protected Property<CommandModel<ReactiveCommand, String>> _CommandSaveAndLauchMainApp = new Property<CommandModel<ReactiveCommand, String>> { LocatorFunc = _CommandSaveAndLauchMainAppLocator };
+		static Func<BindableBase, ValueContainer<CommandModel<ReactiveCommand, String>>> _CommandSaveAndLauchMainAppLocator = RegisterContainerLocator<CommandModel<ReactiveCommand, String>>(nameof(CommandSaveAndLauchMainApp), model => model.Initialize(nameof(CommandSaveAndLauchMainApp), ref model._CommandSaveAndLauchMainApp, ref _CommandSaveAndLauchMainAppLocator, _CommandSaveAndLauchMainAppDefaultValueFactory));
+		static Func<BindableBase, CommandModel<ReactiveCommand, String>> _CommandSaveAndLauchMainAppDefaultValueFactory =
+			model =>
+			{
+				var resource = nameof(CommandSaveAndLauchMainApp);           // Command resource  
+				var commandId = nameof(CommandSaveAndLauchMainApp);
+				var vm = CastToCurrentType(model);
+				var cmd = new ReactiveCommand(canExecute: true) { ViewModel = model }; //New Command Core
+
+				cmd.DoExecuteUIBusyTask(
+						vm,
+						async e =>
+						{
+							var folderService = ServiceLocator.Instance.Resolve<ISubStorageService>();
+
+							var name = folderService.GetNewFileName();
+
+							try
+							{
+								var file = await folderService.SaveToFileAsync(name, vm.ReceivedShareItem);
+								await Launcher.LaunchFileAsync(file);
+							}
+							catch (Exception ex)
+							{
+
+								throw;
+							}
+							vm.SharedOperation.ReportCompleted();
+							vm.SharedOperation.DismissUI();
+
+							await MVVMSidekick.Utilities.TaskExHelper.Yield();
+						})
+					.DoNotifyDefaultEventRouter(vm, commandId)
+					.Subscribe()
+					.DisposeWith(vm);
+
+				var cmdmdl = cmd.CreateCommandModel(resource);
+
+				cmdmdl.ListenToIsUIBusy(
+					model: vm,
+					canExecuteWhenBusy: false);
+				return cmdmdl;
+			};
+
+		#endregion
 
 	}
 

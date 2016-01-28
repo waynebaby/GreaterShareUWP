@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace GreaterShare.Models.Sharing.ShareItems
 {
 	[DataContract]
-	public class CustomDataShareItem : ShareItemBase<CustomDataShareItem>
+	public class CustomDataShareItem : BindableBase<CustomDataShareItem>
 	{
 
 		[DataMember]

@@ -35,6 +35,15 @@
             <uap:DataFormat>ApplicationLink</uap:DataFormat>
           </uap:ShareTarget>
         </uap:Extension>
+        <uap:Extension Category="windows.fileTypeAssociation">
+          <uap:FileTypeAssociation Name=".gshare">
+            <uap:DisplayName>Greater Share File</uap:DisplayName>
+            <uap:InfoTip>Greater Share File</uap:InfoTip>
+            <uap:SupportedFileTypes>
+              <uap:FileType>.gshare</uap:FileType>
+            </uap:SupportedFileTypes>
+          </uap:FileTypeAssociation>
+        </uap:Extension>
       </Extensions>
     </Application>
   </Applications>

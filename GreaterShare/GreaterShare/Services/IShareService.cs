@@ -11,7 +11,6 @@ namespace GreaterShare.Services
 	public interface IShareService
 	{
 		Task<ReceivedShareItem> GetReceivedSharedItemAsync(ShareOperation sourceOperation);
-
 		//Task FillShareOperationAsync(ShareOperation sourceOperation, ReceivedShareItem);
 
 	}

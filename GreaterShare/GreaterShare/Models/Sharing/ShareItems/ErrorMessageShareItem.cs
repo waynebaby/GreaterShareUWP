@@ -10,7 +10,7 @@ namespace GreaterShare.Models.Sharing.ShareItems
 {
 
 	[DataContract]				  
-	public class ErrorMessageShareItem : ShareItemBase<ErrorMessageShareItem>
+	public class ErrorMessageShareItem : BindableBase<ErrorMessageShareItem>
 	{
 
 		[DataMember]			  
