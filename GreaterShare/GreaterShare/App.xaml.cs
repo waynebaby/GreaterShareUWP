@@ -45,7 +45,7 @@ namespace GreaterShare
 		{
 			MVVMSidekick.Startups.StartupFunctions.RunAllConfig();
 			ServiceLocator.Instance.Register<IShareService, DefaultShareService>();
-			ServiceLocator.Instance.Register<ISubStorageService, DefaultSubStorageService>();
+			ServiceLocator.Instance.Register<ISubStorageService,DefaultSubStorageService>();
 
 		}
 

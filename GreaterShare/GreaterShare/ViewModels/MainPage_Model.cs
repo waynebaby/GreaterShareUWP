@@ -35,7 +35,7 @@ namespace GreaterShare.ViewModels
 					LogoBackgroundColor = Colors.Red,
 					QuickLinkId = "QuickLinkId",
 					Square30x30Logo = null,
-					ThumbnailStream = null,
+					Thumbnail = null,
 					PackageFamilyName = "PackageFamilyName",
 					Title = "Title",
 					AvialableShareItems = new ObservableCollection<object>
@@ -51,7 +51,7 @@ namespace GreaterShare.ViewModels
 			{
 				App.CurrentFile
 					.AsObservable()
-					.Where(x=>x!=null)
+					.Where(x => x != null)
 					.ObserveOn(this.Dispatcher)
 					.Subscribe(
 					async f =>
@@ -59,7 +59,7 @@ namespace GreaterShare.ViewModels
 						var loadService = ServiceLocator.Instance.Resolve<Services.ISubStorageService>();
 						var file = f as StorageFile;
 						ReceivedShareItem = await loadService.LoadFromFileAsync<ReceivedShareItem>(file);
-						
+
 					})
 					.DisposeWith(this);
 

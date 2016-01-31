@@ -12,17 +12,18 @@ namespace GreaterShare.Models.Sharing.ShareItems
 	[DataContract]
 	public class DelayRenderedImageShareItem : BindableBase<DelayRenderedImageShareItem>
 	{
-
-		public Stream SelectedImage
+		[DataMember]
+		public MemoryStream SelectedImage
 		{
 			get { return _SelectedImageLocator(this).Value; }
 			set { _SelectedImageLocator(this).SetValueAndTryNotify(value); }
 		}
-		#region Property Stream SelectedImage Setup        
-		protected Property<Stream> _SelectedImage = new Property<Stream> { LocatorFunc = _SelectedImageLocator };
-		static Func<BindableBase, ValueContainer<Stream>> _SelectedImageLocator = RegisterContainerLocator<Stream>(nameof(SelectedImage), model => model.Initialize(nameof(SelectedImage), ref model._SelectedImage, ref _SelectedImageLocator, _SelectedImageDefaultValueFactory));
-		static Func<Stream> _SelectedImageDefaultValueFactory = () => default(Stream);
+		#region Property MemoryStream SelectedImage Setup        
+		protected Property<MemoryStream> _SelectedImage = new Property<MemoryStream> { LocatorFunc = _SelectedImageLocator };
+		static Func<BindableBase, ValueContainer<MemoryStream>> _SelectedImageLocator = RegisterContainerLocator<MemoryStream>("SelectedImage", model => model.Initialize("SelectedImage", ref model._SelectedImage, ref _SelectedImageLocator, _SelectedImageDefaultValueFactory));
+		static Func<MemoryStream> _SelectedImageDefaultValueFactory = () => default(MemoryStream);
 		#endregion
+
 
 
 	}

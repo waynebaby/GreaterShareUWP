@@ -1,4 +1,5 @@
 ﻿using MVVMSidekick.ViewModels;
+using MVVMSidekick.Reactive;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -8,13 +9,15 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.UI;
+using System.Reactive;
+using System.Reactive.Linq;
 
 namespace GreaterShare.Models.Sharing.ShareItems
 {
 	[DataContract()]
 	[KnownType(typeof(HtmlShareItem))]
 	[KnownType(typeof(ApplicationLinkShareItem))]
-	[KnownType(typeof(DelayRenderedImageShareItem))] 
+	[KnownType(typeof(DelayRenderedImageShareItem))]
 	[KnownType(typeof(ErrorMessageShareItem))]
 	[KnownType(typeof(FilesShareItem))]
 	[KnownType(typeof(HtmlShareItem))]
@@ -26,6 +29,8 @@ namespace GreaterShare.Models.Sharing.ShareItems
 
 	public class ReceivedShareItem : BindableBase<ReceivedShareItem>
 	{
+
+
 		[DataMember]
 		public string PackageFamilyName
 		{
@@ -63,29 +68,49 @@ namespace GreaterShare.Models.Sharing.ShareItems
 		//static Func<string> _Square30x30LogoBase64DefaultValueFactory = () => default(string);
 		//#endregion
 
-		//[DataMember]
-		public Stream Square30x30Logo
+		
+
+		[DataMember]
+
+		public MemoryStreamBase64Item Square30x30Logo
 		{
 			get { return _Square30x30LogoLocator(this).Value; }
 			set { _Square30x30LogoLocator(this).SetValueAndTryNotify(value); }
 		}
-		#region Property Stream Square30x30Logo Setup        
-		protected Property<Stream> _Square30x30Logo = new Property<Stream> { LocatorFunc = _Square30x30LogoLocator };
-		static Func<BindableBase, ValueContainer<Stream>> _Square30x30LogoLocator = RegisterContainerLocator<Stream>(nameof(Square30x30Logo), model => model.Initialize(nameof(Square30x30Logo), ref model._Square30x30Logo, ref _Square30x30LogoLocator, _Square30x30LogoDefaultValueFactory));
-		static Func<Stream> _Square30x30LogoDefaultValueFactory = () => default(Stream);
+		#region Property MemoryStreamBase64Item Square30x30Logo Setup        
+		protected Property<MemoryStreamBase64Item> _Square30x30Logo = new Property<MemoryStreamBase64Item> { LocatorFunc = _Square30x30LogoLocator };
+		static Func<BindableBase, ValueContainer<MemoryStreamBase64Item>> _Square30x30LogoLocator = RegisterContainerLocator<MemoryStreamBase64Item>(nameof(Square30x30Logo), model => model.Initialize(nameof(Square30x30Logo), ref model._Square30x30Logo, ref _Square30x30LogoLocator, _Square30x30LogoDefaultValueFactory));
+		static Func<MemoryStreamBase64Item> _Square30x30LogoDefaultValueFactory = () => default(MemoryStreamBase64Item);
 		#endregion
 
 
 		[DataMember]
-		public Stream ThumbnailStream
+
+
+		public MemoryStreamBase64Item Thumbnail
 		{
-			get { return _ThumbnailStreamLocator(this).Value; }
-			set { _ThumbnailStreamLocator(this).SetValueAndTryNotify(value); }
+			get { return _ThumbnailLocator(this).Value; }
+			set { _ThumbnailLocator(this).SetValueAndTryNotify(value); }
 		}
-		#region Property Stream ThumbnailStream Setup        
-		protected Property<Stream> _ThumbnailStream = new Property<Stream> { LocatorFunc = _ThumbnailStreamLocator };
-		static Func<BindableBase, ValueContainer<Stream>> _ThumbnailStreamLocator = RegisterContainerLocator<Stream>(nameof(ThumbnailStream), model => model.Initialize(nameof(ThumbnailStream), ref model._ThumbnailStream, ref _ThumbnailStreamLocator, _ThumbnailStreamDefaultValueFactory));
-		static Func<Stream> _ThumbnailStreamDefaultValueFactory = () => default(Stream);
+		#region Property MemoryStreamBase64Item Thumbnail Setup        
+		protected Property<MemoryStreamBase64Item> _Thumbnail = new Property<MemoryStreamBase64Item> { LocatorFunc = _ThumbnailLocator };
+		static Func<BindableBase, ValueContainer<MemoryStreamBase64Item>> _ThumbnailLocator = RegisterContainerLocator<MemoryStreamBase64Item>(nameof(Thumbnail), model => model.Initialize(nameof(Thumbnail), ref model._Thumbnail, ref _ThumbnailLocator, _ThumbnailDefaultValueFactory));
+		static Func<MemoryStreamBase64Item> _ThumbnailDefaultValueFactory = () => default(MemoryStreamBase64Item);
+		#endregion
+
+
+
+
+		[DataMember]
+		public string ThumbnailStreamBase64String
+		{
+			get { return _ThumbnailStreamBase64StringLocator(this).Value; }
+			set { _ThumbnailStreamBase64StringLocator(this).SetValueAndTryNotify(value); }
+		}
+		#region Property string ThumbnailStreamBase64String Setup        
+		protected Property<string> _ThumbnailStreamBase64String = new Property<string> { LocatorFunc = _ThumbnailStreamBase64StringLocator };
+		static Func<BindableBase, ValueContainer<string>> _ThumbnailStreamBase64StringLocator = RegisterContainerLocator<string>(nameof(ThumbnailStreamBase64String), model => model.Initialize(nameof(ThumbnailStreamBase64String), ref model._ThumbnailStreamBase64String, ref _ThumbnailStreamBase64StringLocator, _ThumbnailStreamBase64StringDefaultValueFactory));
+		static Func<string> _ThumbnailStreamBase64StringDefaultValueFactory = () => default(string);
 		#endregion
 
 
@@ -132,7 +157,6 @@ namespace GreaterShare.Models.Sharing.ShareItems
 
 
 		[DataMember]
-
 		public string Description
 		{
 			get { return _DescriptionLocator(this).Value; }
@@ -179,7 +203,6 @@ namespace GreaterShare.Models.Sharing.ShareItems
 		/// Most of Apps won't care this
 		/// </summary>		   
 		[DataMember]
-
 		public string DefaultFailedDisplayText
 		{
 			get { return _DefaultFailedDisplayTextLocator(this).Value; }

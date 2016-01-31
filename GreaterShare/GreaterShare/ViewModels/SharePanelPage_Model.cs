@@ -42,7 +42,7 @@ namespace GreaterShare.ViewModels
 					LogoBackgroundColor = Colors.Red,
 					QuickLinkId = "QuickLinkId",
 					Square30x30Logo = null,
-					ThumbnailStream = null,
+					Thumbnail = null,
 					PackageFamilyName = "PackageFamilyName",
 					Title = "Title",
 					AvialableShareItems = new ObservableCollection<object>

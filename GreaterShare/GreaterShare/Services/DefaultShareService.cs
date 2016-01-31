@@ -37,8 +37,9 @@ namespace GreaterShare.Services
 					var logo = new MemoryStream();
 					await logoStream.AsStreamForRead().CopyToAsync(logo);
 					logo.Position = 0;
+					var str = Convert.ToBase64String(logo.ToArray());
 					//rval.Square30x30LogoBase64 = Convert.ToBase64String(logo.ToArray());
-					rval.Square30x30Logo = logo;
+					rval.Square30x30Logo = new Models.MemoryStreamBase64Item { Base64String = str};
 
 
 				}
@@ -50,7 +51,8 @@ namespace GreaterShare.Services
 					var thumbnail = new MemoryStream();
 					await thumbnailStream.AsStreamForRead().CopyToAsync(thumbnail);
 					thumbnail.Position = 0;
-					rval.ThumbnailStream = thumbnail;
+					var str = Convert.ToBase64String(thumbnail.ToArray());
+					rval.Thumbnail = new Models.MemoryStreamBase64Item { Base64String =str};
 				}
 			}
 
