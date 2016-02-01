@@ -7,11 +7,16 @@ using GreaterShare.Models.Sharing.ShareItems;
 using Windows.ApplicationModel.DataTransfer.ShareTarget;
 using System.IO;
 using Windows.ApplicationModel.DataTransfer;
+using System.Reactive.Linq;
+using Windows.Foundation;
+using Windows.Storage.Streams;
 
 namespace GreaterShare.Services
 {
 	public class DefaultShareService : IShareService
 	{
+
+
 		public async Task<ReceivedShareItem> GetReceivedSharedItemAsync(ShareOperation sourceOperation)
 		{
 
@@ -20,7 +25,6 @@ namespace GreaterShare.Services
 			{
 				Title = sourceOperation.Data.Properties.Title,
 				Description = sourceOperation.Data.Properties.Description,
-
 				PackageFamilyName = sourceOperation.Data.Properties.PackageFamilyName,
 				ContentSourceWebLink = sourceOperation.Data.Properties.ContentSourceWebLink,
 				ContentSourceApplicationLink = sourceOperation.Data.Properties.ContentSourceApplicationLink,
@@ -39,7 +43,7 @@ namespace GreaterShare.Services
 					logo.Position = 0;
 					var str = Convert.ToBase64String(logo.ToArray());
 					//rval.Square30x30LogoBase64 = Convert.ToBase64String(logo.ToArray());
-					rval.Square30x30Logo = new Models.MemoryStreamBase64Item { Base64String = str};
+					rval.Square30x30Logo = new Models.MemoryStreamBase64Item { Base64String = str };
 
 
 				}
@@ -52,7 +56,7 @@ namespace GreaterShare.Services
 					await thumbnailStream.AsStreamForRead().CopyToAsync(thumbnail);
 					thumbnail.Position = 0;
 					var str = Convert.ToBase64String(thumbnail.ToArray());
-					rval.Thumbnail = new Models.MemoryStreamBase64Item { Base64String =str};
+					rval.Thumbnail = new Models.MemoryStreamBase64Item { Base64String = str };
 				}
 			}
 
@@ -201,5 +205,66 @@ namespace GreaterShare.Services
 		}
 
 
+
+
+		public async Task ShareItemAsync(ReceivedShareItem item)
+		{
+			//PrepareData
+			if (item == null)
+			{
+				return;
+			}
+
+			var sqt = item?.Square30x30Logo?.GetRandowmAccessStreamAsync();
+			var Square30x30Logo = sqt == null ? null : await sqt;
+			var rbt = item?.Thumbnail?.GetRandowmAccessStreamAsync();
+			var Thumbnail = rbt == null ? null : await rbt; ;
+
+			//
+			var dm = DataTransferManager.GetForCurrentView();
+
+			TaskCompletionSource<object> dataTrasferedCompletion
+				= new TaskCompletionSource<object>();
+
+
+			using (Observable.FromEventPattern<TypedEventHandler<DataTransferManager, DataRequestedEventArgs>, DataRequestedEventArgs>
+					(eh => dm.DataRequested += eh,
+					eh => dm.DataRequested -= eh)
+					.Subscribe(
+				e =>
+				{
+
+					//dataTrasferedCompletion.TrySetResult(null);
+					var r = e.EventArgs.Request;
+					r.Data.Properties.ContentSourceApplicationLink = item.ContentSourceApplicationLink;
+					r.Data.Properties.ContentSourceWebLink = item.ContentSourceWebLink;
+					r.Data.Properties.Description = item.Description;
+					r.Data.Properties.PackageFamilyName = item.PackageFamilyName;
+					if (Square30x30Logo != null)
+					{										  
+						r.Data.Properties.Square30x30Logo = RandomAccessStreamReference.CreateFromStream(Square30x30Logo);
+					}
+					if (Thumbnail != null)
+					{
+						r.Data.Properties.Thumbnail = RandomAccessStreamReference.CreateFromStream(Thumbnail);
+
+					}
+					r.Data.Properties.Title = item.Title;
+					r.Data.SetText("test is test");
+
+
+				}
+				))
+			{
+				DataTransferManager.ShowShareUI();
+				await Task.WhenAny(Task.Delay(5000), dataTrasferedCompletion.Task);
+
+			}
+		}
+
+
 	}
+
+
 }
+

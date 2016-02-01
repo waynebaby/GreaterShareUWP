@@ -1,4 +1,4 @@
-﻿<mvvm:MVVMPage
+﻿<mvvm:MVVMPage x:Name="mVVMPage"
     x:Class="GreaterShare.MainPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -13,7 +13,7 @@
         <x:String x:Key="AppName">My Application</x:String>
         <vm:MainPage_Model x:Key="DesignVM"/>
     </Page.Resources>
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"  DataContext="{StaticResource DesignVM}">
+    <Grid x:Name="grid" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"  DataContext="{StaticResource DesignVM}">
         <Pivot Margin="32">
             <PivotItem Header="Current Share">
                 <RelativePanel>
@@ -94,31 +94,28 @@
             <PivotItem Header="Clipboard Share"></PivotItem>
             <PivotItem Header="Saved Shares "></PivotItem>
         </Pivot>
+        <AppBar IsOpen="True"  >
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Orientation="Horizontal">
+                    <AppBarButton x:Name="appBarButton" HorizontalAlignment="Left" Icon="OpenLocal"  Label="Load From File" VerticalAlignment="Top">
+
+                    </AppBarButton>
+                    <AppBarButton  Command="{Binding StrongTypeViewModel.CommandSaveToUserFile, ElementName=mVVMPage}" Icon="SaveLocal" Label="Save Share" >
+
+                    </AppBarButton>
+                </StackPanel>
+                <StackPanel Grid.Column="1" HorizontalAlignment="Right">
+                    <AppBarButton Command="{Binding StrongTypeViewModel.CommandReshare, ElementName=mVVMPage}" HorizontalAlignment="Left" Icon="ReShare"  Label="Reshare" VerticalAlignment="Top">
+
+                    </AppBarButton>
+                </StackPanel>
+            </Grid>
+        </AppBar>
     </Grid>
 
-    <mvvm:MVVMPage.BottomAppBar>
-        <AppBar IsOpen="True">
-            <StackPanel Orientation="Horizontal">
-                <AppBarButton x:Name="appBarButton" HorizontalAlignment="Left" Icon="OpenLocal"  Label="Load From File" VerticalAlignment="Top">
-                    <AppBarButton.Flyout>
-                        <MenuFlyout>
-                            <MenuFlyoutItem>Open Image</MenuFlyoutItem>
-                            <MenuFlyoutItem>Open Text</MenuFlyoutItem>
-                            <MenuFlyoutItem>Open Saved Clip</MenuFlyoutItem>
-                        </MenuFlyout>
-                    </AppBarButton.Flyout>
-                </AppBarButton>
-                <AppBarButton  Icon="SaveLocal" Label="Save Clipboard" >
-                    <AppBarButton.Flyout>
-                        <MenuFlyout>
-                            <MenuFlyoutItem>As It Is</MenuFlyoutItem>
-                            <MenuFlyoutItem>As Saved Clip</MenuFlyoutItem>
-                        </MenuFlyout>
-                    </AppBarButton.Flyout>
-                </AppBarButton>
-            </StackPanel>
-        </AppBar>
-    </mvvm:MVVMPage.BottomAppBar>
-   
 
 </mvvm:MVVMPage>

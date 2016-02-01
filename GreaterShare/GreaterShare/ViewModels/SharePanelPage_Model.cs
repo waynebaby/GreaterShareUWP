@@ -81,60 +81,7 @@ namespace GreaterShare.ViewModels
 		#endregion
 
 
-
-		public CommandModel<ReactiveCommand, String> CommandSaveToUserFile
-		{
-			get { return _CommandSaveToUserFileLocator(this).Value; }
-			set { _CommandSaveToUserFileLocator(this).SetValueAndTryNotify(value); }
-		}
-		#region Property CommandModel<ReactiveCommand, String> CommandSaveToUserFile Setup        
-
-		protected Property<CommandModel<ReactiveCommand, String>> _CommandSaveToUserFile = new Property<CommandModel<ReactiveCommand, String>> { LocatorFunc = _CommandSaveToUserFileLocator };
-		static Func<BindableBase, ValueContainer<CommandModel<ReactiveCommand, String>>> _CommandSaveToUserFileLocator = RegisterContainerLocator<CommandModel<ReactiveCommand, String>>(nameof(CommandSaveToUserFile), model => model.Initialize(nameof(CommandSaveToUserFile), ref model._CommandSaveToUserFile, ref _CommandSaveToUserFileLocator, _CommandSaveToUserFileDefaultValueFactory));
-		static Func<BindableBase, CommandModel<ReactiveCommand, String>> _CommandSaveToUserFileDefaultValueFactory =
-			model =>
-			{
-				var resource = nameof(CommandSaveToUserFile);           // Command resource  
-				var commandId = nameof(CommandSaveToUserFile);
-				var vm = CastToCurrentType(model);
-				var cmd = new ReactiveCommand(canExecute: true) { ViewModel = model }; //New Command Core
-
-				cmd.DoExecuteUIBusyTask(
-						vm,
-						async e =>
-						{
-							var fp = new Windows.Storage.Pickers.FileSavePicker();
-
-							fp.DefaultFileExtension = ".gshare";
-							var fpicked = await fp.PickSaveFileAsync();
-							//if (fpicked != null)
-							//{
-							//App.CurrentFile.OnNext(fpicked);
-							//}			  
-							//Todo: Add SaveToUserFile logic here, or
-
-							var fservice = ServiceLocator.Instance.Resolve<Services.ISubStorageService>();
-							await fservice.SaveToFileAsync(fpicked, vm.ReceivedShareItem);
-
-							await MVVMSidekick.Utilities.TaskExHelper.Yield();
-						})
-					.DoNotifyDefaultEventRouter(vm, commandId)
-					.Subscribe()
-					.DisposeWith(vm);
-
-				var cmdmdl = cmd.CreateCommandModel(resource);
-
-				cmdmdl.ListenToIsUIBusy(
-					model: vm,
-					canExecuteWhenBusy: false);
-				return cmdmdl;
-			};
-
-		#endregion
-
-
-
-
+  
 
 		public ShareOperation SharedOperation
 		{

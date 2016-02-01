@@ -102,9 +102,7 @@
             </FlipView.ItemTemplateSelector>
         </FlipView>
         <StackPanel Margin="16" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Right">
-            <Button  Command="{Binding CommandSaveToUserFile}">
-                Save To File
-            </Button>
+
             <Button  Command="{Binding CommandSaveAndLauchMainApp}">
                 Open With Greater Share
             </Button>
