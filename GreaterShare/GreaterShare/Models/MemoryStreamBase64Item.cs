@@ -22,22 +22,24 @@ namespace GreaterShare.Models
 		{
 		}
 
-		protected override void OnDeserializingActions()
+		public MemoryStreamBase64Item(byte[] bytes)
 		{
-			base.OnDeserializingActions();
-
+			Base64String = Convert.ToBase64String(bytes);
 		}
+
 
 		public async Task<InMemoryRandomAccessStream> GetRandowmAccessStreamAsync()
 		{
 			InMemoryRandomAccessStream stream = new InMemoryRandomAccessStream();
-			var b = Convert.FromBase64String(Base64String);	 
+			var b = Convert.FromBase64String(Base64String);
 			await stream.WriteAsync(b.AsBuffer());
-			stream.Seek(0);		
-
+			stream.Seek(0);
 			return stream;
 		}
-
+		public InMemoryRandomAccessStream GetRandowmAccessStream()
+		{
+			return GetRandowmAccessStreamAsync().Result;
+		}
 
 
 		[DataMember]

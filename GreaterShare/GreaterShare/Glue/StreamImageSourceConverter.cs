@@ -21,16 +21,11 @@ namespace GreaterShare.Glue
 		public StreamImageSourceConverter()
 		{
 			subject.Where(x => x.Item1 != null && x.Item2 != null)
-				.SelectMany(x =>
-					  x.Item2
-					  .GetRandowmAccessStreamAsync()
-					  .ToObservable()
-					  .Select(i => new { bmp = x.Item1, stm = i }))
+				.Select(i =>
+					new { bmp = i.Item1, stm = i.Item2.GetRandowmAccessStream() })
 				.ObserveOnDispatcher()
 				.Subscribe(e =>
-				{
-					e.bmp.SetSource(e.stm);
-				});
+					e.bmp.SetSource(e.stm));
 
 		}
 

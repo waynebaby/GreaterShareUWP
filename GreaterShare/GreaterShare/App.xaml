@@ -20,7 +20,7 @@
         <sharemodel:ErrorMessageShareItem        x:Key="shareItemDesignInstanceErrorMessageShareItem"/>
         <sharemodel:FilesShareItem               x:Key="shareItemDesignInstanceFilesShareItem"/>
         <sharemodel:HtmlShareItem                x:Key="shareItemDesignInstanceHtmlShareItem"/>
-        <sharemodel:ImagesShareItem              x:Key="shareItemDesignInstanceImagesShareItem"/>
+        <!--<sharemodel:ImagesShareItem              x:Key="shareItemDesignInstanceImagesShareItem"/>-->
         <sharemodel:ReceivedShareItem            x:Key="shareItemDesignInstanceReceivedShareItem"/>
         <sharemodel:TextSharedItem               x:Key="shareItemDesignInstanceTextSharedItem"/>
         <sharemodel:WebLinkShareItem             x:Key="shareItemDesignInstanceWebLinkShareItem"/>

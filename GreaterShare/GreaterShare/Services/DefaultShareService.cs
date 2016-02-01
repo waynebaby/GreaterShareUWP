@@ -179,7 +179,7 @@ namespace GreaterShare.Services
 						ms.Position = 0;
 						var sharedBitmapStreamRef = new DelayRenderedImageShareItem
 						{
-							SelectedImage = ms
+							SelectedImage = new Models.MemoryStreamBase64Item(ms.ToArray())
 						};
 
 						rval.AvialableShareItems.Add(sharedBitmapStreamRef);
@@ -234,24 +234,107 @@ namespace GreaterShare.Services
 				e =>
 				{
 
-					//dataTrasferedCompletion.TrySetResult(null);
-					var r = e.EventArgs.Request;
-					r.Data.Properties.ContentSourceApplicationLink = item.ContentSourceApplicationLink;
-					r.Data.Properties.ContentSourceWebLink = item.ContentSourceWebLink;
-					r.Data.Properties.Description = item.Description;
-					r.Data.Properties.PackageFamilyName = item.PackageFamilyName;
-					if (Square30x30Logo != null)
-					{										  
-						r.Data.Properties.Square30x30Logo = RandomAccessStreamReference.CreateFromStream(Square30x30Logo);
-					}
-					if (Thumbnail != null)
+					var def = e.EventArgs.Request.GetDeferral();
+					try
 					{
-						r.Data.Properties.Thumbnail = RandomAccessStreamReference.CreateFromStream(Thumbnail);
+
+
+						//dataTrasferedCompletion.TrySetResult(null);
+						var r = e.EventArgs.Request;
+						r.Data.Properties.ContentSourceApplicationLink = item.ContentSourceApplicationLink;
+						r.Data.Properties.ContentSourceWebLink = item.ContentSourceWebLink;
+						r.Data.Properties.Description = item.Description;
+						r.Data.Properties.PackageFamilyName = item.PackageFamilyName;
+						if (Square30x30Logo != null)
+						{
+							r.Data.Properties.Square30x30Logo = RandomAccessStreamReference.CreateFromStream(Square30x30Logo);
+						}
+						if (Thumbnail != null)
+						{
+							r.Data.Properties.Thumbnail = RandomAccessStreamReference.CreateFromStream(Thumbnail);
+
+						}
+						r.Data.Properties.Title = item.Title;
+						foreach (var subShareItem in item.AvialableShareItems)
+						{
+							if (subShareItem != null)
+							{
+								switch (subShareItem.GetType().Name)
+								{
+									case nameof(ApplicationLinkShareItem):
+										{
+											var sitm = subShareItem as ApplicationLinkShareItem;
+											r.Data.SetApplicationLink(sitm.ApplicationLink);
+										}
+										break;
+									case nameof(CustomDataShareItem):
+										{
+											//var sitm = subShareItem as CustomDataShareItem;
+											//r.Data.SetData
+										}
+										break;
+									case nameof(DelayRenderedImageShareItem):
+										{
+											var sitm = subShareItem as DelayRenderedImageShareItem;
+											r.Data.SetBitmap(RandomAccessStreamReference.CreateFromStream(sitm.SelectedImage.GetRandowmAccessStream()));
+										}
+										break;
+									case nameof(ErrorMessageShareItem):
+										{
+											var sitm = subShareItem as ErrorMessageShareItem;
+											r.FailWithDisplayText(sitm.CustomErrorText);
+										}
+										break;
+									case nameof(FilesShareItem):
+										{
+											var sitm = subShareItem as FilesShareItem;
+											r.Data.SetStorageItems(sitm.StorageItems);
+										}
+										break;
+									case nameof(HtmlShareItem):
+										{
+											var sitm = subShareItem as HtmlShareItem;
+											//r.Data.SetHtmlFormat(sitm.HtmlFormat);
+											var fmt = HtmlFormatHelper.CreateHtmlFormat(sitm.HtmlFragment);
+											r.Data.SetHtmlFormat(fmt);
+										}
+										break;
+									//case nameof(ImagesShareItem):
+									//	{
+									//		var sitm = subShareItem as ImagesShareItem;
+									//		r.Data.SetStorageItems(sitm.StorageItems);
+									//	}
+									//	break;
+									case nameof(TextSharedItem):
+										{
+											var sitm = subShareItem as TextSharedItem;
+											r.Data.SetText(sitm.Text);
+										}
+										break;
+									case nameof(WebLinkShareItem):
+										{
+											var sitm = subShareItem as WebLinkShareItem;
+											r.Data.SetWebLink(sitm.WebLink);
+										}
+										break;
+
+									default:
+										break;
+								}
+
+							}
+
+						}
+					}
+					catch (Exception ex)
+					{
+						e.EventArgs.Request.FailWithDisplayText(ex.Message);
 
 					}
-					r.Data.Properties.Title = item.Title;
-					r.Data.SetText("test is test");
-
+					finally
+					{
+						def.Complete();
+					}
 
 				}
 				))

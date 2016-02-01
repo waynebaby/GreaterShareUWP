@@ -56,7 +56,7 @@ namespace GreaterShare.ViewModels
 					.ObserveOn(this.Dispatcher)
 					.Subscribe(
 					async f =>
-					{
+					{		 
 						var loadService = ServiceLocator.Instance.Resolve<Services.ISubStorageService>();
 						var file = f as StorageFile;
 						ReceivedShareItem = await loadService.LoadFromFileAsync<ReceivedShareItem>(file);
@@ -144,10 +144,23 @@ namespace GreaterShare.ViewModels
 			get { return _CommandSaveToUserFileLocator(this).Value; }
 			set { _CommandSaveToUserFileLocator(this).SetValueAndTryNotify(value); }
 		}
+
+		public static Func<BindableBase, CommandModel<ReactiveCommand, string>> CommandSaveToUserFileDefaultValueFactory
+		{
+			get
+			{
+				return _CommandSaveToUserFileDefaultValueFactory;
+			}
+
+			set
+			{
+				_CommandSaveToUserFileDefaultValueFactory = value;
+			}
+		}
 		#region Property CommandModel<ReactiveCommand, String> CommandSaveToUserFile Setup        
 
 		protected Property<CommandModel<ReactiveCommand, String>> _CommandSaveToUserFile = new Property<CommandModel<ReactiveCommand, String>> { LocatorFunc = _CommandSaveToUserFileLocator };
-		static Func<BindableBase, ValueContainer<CommandModel<ReactiveCommand, String>>> _CommandSaveToUserFileLocator = RegisterContainerLocator<CommandModel<ReactiveCommand, String>>(nameof(CommandSaveToUserFile), model => model.Initialize(nameof(CommandSaveToUserFile), ref model._CommandSaveToUserFile, ref _CommandSaveToUserFileLocator, _CommandSaveToUserFileDefaultValueFactory));
+		static Func<BindableBase, ValueContainer<CommandModel<ReactiveCommand, String>>> _CommandSaveToUserFileLocator = RegisterContainerLocator<CommandModel<ReactiveCommand, String>>(nameof(CommandSaveToUserFile), model => model.Initialize(nameof(CommandSaveToUserFile), ref model._CommandSaveToUserFile, ref _CommandSaveToUserFileLocator, CommandSaveToUserFileDefaultValueFactory));
 		static Func<BindableBase, CommandModel<ReactiveCommand, String>> _CommandSaveToUserFileDefaultValueFactory =
 			model =>
 			{
@@ -162,7 +175,7 @@ namespace GreaterShare.ViewModels
 						{
 							var fp = new Windows.Storage.Pickers.FileSavePicker();
 
-							fp.DefaultFileExtension = ".gshare";
+							fp.DefaultFileExtension = App.FileExtension;
 							var fpicked = await fp.PickSaveFileAsync();
 							//if (fpicked != null)
 							//{

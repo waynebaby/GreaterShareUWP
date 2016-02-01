@@ -23,7 +23,7 @@
                                 <TextBlock>
 					<Run Text="Title:"/>
                                 </TextBlock>
-                                <TextBox RelativePanel.AlignBottomWith="" x:Name="pageTitle" Text="{Binding ReceivedShareItem.Title}"  
+                                <TextBox RelativePanel.AlignBottomWith="" x:Name="pageTitle" Text="{Binding ReceivedShareItem.Title, Mode=TwoWay}"  
 					IsHitTestVisible="false" TextWrapping="NoWrap"/>
                             </StackPanel>
                             <StackPanel >
@@ -48,32 +48,32 @@
                                 <TextBlock>
 					<Run Text="Description:"/>
                                 </TextBlock>
-                                <TextBox Text="{Binding ReceivedShareItem.Description}"/>
+                                <TextBox Text="{Binding ReceivedShareItem.Description, Mode=TwoWay}"/>
                             </StackPanel>
                             <StackPanel >
                                 <TextBlock>
 					<Run Text="QuickLinkId:"/>
                                 </TextBlock>
-                                <TextBox Text="{Binding ReceivedShareItem.QuickLinkId}"/>
+                                <TextBox Text="{Binding ReceivedShareItem.QuickLinkId, Mode=TwoWay}"/>
                             </StackPanel>
                             <StackPanel >
                                 <TextBlock>
 					<Run Text="ContentSourceApplicationLink:"/>
                                 </TextBlock>
-                                <TextBox Text="{Binding ReceivedShareItem.ContentSourceApplicationLink}"/>
+                                <TextBox Text="{Binding ReceivedShareItem.ContentSourceApplicationLink, Mode=TwoWay}"/>
                             </StackPanel>
                             <StackPanel >
                                 <TextBlock>
 					<Run Text="ContentSourceWebLink:"/>
                                 </TextBlock>
-                                <TextBox Text="{Binding ReceivedShareItem.ContentSourceWebLink}"/>
+                                <TextBox Text="{Binding ReceivedShareItem.ContentSourceWebLink, Mode=TwoWay}"/>
                             </StackPanel>
 
                             <StackPanel >
                                 <TextBlock>
 					<Run Text="PackageFamilyName:"/>
                                 </TextBlock>
-                                <TextBox Text="{Binding ReceivedShareItem.PackageFamilyName}"/>
+                                <TextBox Text="{Binding ReceivedShareItem.PackageFamilyName, Mode=TwoWay}"/>
                             </StackPanel>
 
                             <!--<ListView ItemsSource="{Binding ReceivedShareItem.AvialableShareItems}">

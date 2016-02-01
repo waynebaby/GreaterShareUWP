@@ -21,7 +21,7 @@ namespace GreaterShare.Models.Sharing.ShareItems
 	[KnownType(typeof(ErrorMessageShareItem))]
 	[KnownType(typeof(FilesShareItem))]
 	[KnownType(typeof(HtmlShareItem))]
-	[KnownType(typeof(ImagesShareItem))]
+	//[KnownType(typeof(ImagesShareItem))]
 	[KnownType(typeof(TextSharedItem))]
 	[KnownType(typeof(WebLinkShareItem))]
 

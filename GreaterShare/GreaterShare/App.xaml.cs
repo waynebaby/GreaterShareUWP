@@ -45,12 +45,15 @@ namespace GreaterShare
 		{
 			MVVMSidekick.Startups.StartupFunctions.RunAllConfig();
 			ServiceLocator.Instance.Register<IShareService, DefaultShareService>();
-			ServiceLocator.Instance.Register<ISubStorageService,DefaultSubStorageService>();
+			ServiceLocator.Instance.Register<ISubStorageService, DefaultSubStorageService>();
 
 		}
 
 		public static BehaviorSubject<IStorageItem> CurrentFile
 					= new BehaviorSubject<IStorageItem>(null);
+
+		public static string FileExtension { get; internal set; }
+		= ".gshare";
 
 		protected override void OnFileActivated(FileActivatedEventArgs args)
 		{
@@ -58,7 +61,7 @@ namespace GreaterShare
 
 			if (rootFrame.Content == null)
 			{
-				
+
 				rootFrame.Navigate(typeof(MainPage), null);
 			}
 			CurrentFile.OnNext(args.Files.FirstOrDefault());
