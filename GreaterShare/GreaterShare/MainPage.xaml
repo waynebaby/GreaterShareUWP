@@ -1,5 +1,4 @@
-﻿<mvvm:MVVMPage x:Name="mVVMPage"
-    x:Class="GreaterShare.MainPage"
+﻿<mvvm:MVVMPage
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:GreaterShare"
@@ -7,111 +6,204 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:mvvm="using:MVVMSidekick.Views"
     xmlns:vm="using:GreaterShare.ViewModels"
+    xmlns:Interactivity="using:Microsoft.Xaml.Interactivity" xmlns:Core="using:Microsoft.Xaml.Interactions.Core" x:Name="mVVMPage"
+    x:Class="GreaterShare.MainPage"
     mc:Ignorable="d">
-    <Page.Resources>
+    <mvvm:MVVMPage.Resources>
         <!-- TODO: Delete this line if the key AppName is declared in App.xaml -->
         <x:String x:Key="AppName">My Application</x:String>
         <vm:MainPage_Model x:Key="DesignVM"/>
-    </Page.Resources>
+    </mvvm:MVVMPage.Resources>
     <Grid x:Name="grid" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"  DataContext="{StaticResource DesignVM}">
-        <Pivot Margin="32">
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="IsReceivedItemAvailable">
+                <VisualStateGroup.Transitions>
+                    <VisualTransition From="True" GeneratedDuration="0:0:0.2" To="False">
+                        <VisualTransition.GeneratedEasingFunction>
+                            <ExponentialEase EasingMode="EaseIn"/>
+                        </VisualTransition.GeneratedEasingFunction>
+                        <Storyboard>
+
+                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="textBlock">
+                                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="0.7"/>
+                            </DoubleAnimationUsingKeyFrames>
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="relativePanel">
+                                <DiscreteObjectKeyFrame KeyTime="0:0:0.2">
+                                    <DiscreteObjectKeyFrame.Value>
+                                        <Visibility>Collapsed</Visibility>
+                                    </DiscreteObjectKeyFrame.Value>
+                                </DiscreteObjectKeyFrame>
+                            </ObjectAnimationUsingKeyFrames>
+                            <DoubleAnimation Duration="0:0:0.2" To="0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="relativePanel" d:IsOptimized="True"/>
+                        </Storyboard>
+                    </VisualTransition>
+                    <VisualTransition From="False" GeneratedDuration="0:0:0.2" To="True">
+                        <VisualTransition.GeneratedEasingFunction>
+                            <ExponentialEase EasingMode="EaseIn"/>
+                        </VisualTransition.GeneratedEasingFunction>
+                        <Storyboard>
+
+                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="relativePanel">
+                                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="1"/>
+                            </DoubleAnimationUsingKeyFrames>
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="textBlock">
+                                <DiscreteObjectKeyFrame KeyTime="0:0:0.2">
+                                    <DiscreteObjectKeyFrame.Value>
+                                        <Visibility>Collapsed</Visibility>
+                                    </DiscreteObjectKeyFrame.Value>
+                                </DiscreteObjectKeyFrame>
+                            </ObjectAnimationUsingKeyFrames>
+                            <DoubleAnimation Duration="0:0:0.2" To="0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="textBlock" d:IsOptimized="True"/>
+
+                        </Storyboard>
+
+                    </VisualTransition>
+                </VisualStateGroup.Transitions>
+                <VisualState x:Name="True">
+                    <VisualState.Setters>
+                        <Setter Target="textBlock.(UIElement.Opacity)" Value="0"/>
+                        <Setter Target="textBlock.(UIElement.Visibility)" Value="Collapsed"/>
+                    </VisualState.Setters>
+
+                </VisualState>
+                <VisualState x:Name="False">
+                    <VisualState.Setters>
+                        <Setter Target="relativePanel.(UIElement.Opacity)" Value="0"/>
+                        <Setter Target="relativePanel.(UIElement.Visibility)" Value="Collapsed"/>
+                    </VisualState.Setters>
+
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        <Interactivity:Interaction.Behaviors>
+            <Core:DataTriggerBehavior Binding="{Binding ReceivedShareItem}"  Value="{x:Null}">
+                <Core:GoToStateAction StateName="False" UseTransitions="True"/>
+
+            </Core:DataTriggerBehavior>
+
+            <Core:DataTriggerBehavior Binding="{Binding ReceivedShareItem}"  ComparisonCondition="NotEqual" Value="{x:Null}">
+                <Core:GoToStateAction StateName="True" UseTransitions="True"/>
+
+            </Core:DataTriggerBehavior>
+        </Interactivity:Interaction.Behaviors>
+        <Pivot Margin="32,32,32,64"  Background="AliceBlue">
             <PivotItem Header="Current Share">
-                <RelativePanel>
-                    <ScrollViewer RelativePanel.AlignLeftWithPanel="True">
-                        <StackPanel Margin="16" >
-                            <StackPanel >
-                                <TextBlock>
-					<Run Text="Title:"/>
-                                </TextBlock>
-                                <TextBox RelativePanel.AlignBottomWith="" x:Name="pageTitle" Text="{Binding ReceivedShareItem.Title, Mode=TwoWay}"  
-					IsHitTestVisible="false" TextWrapping="NoWrap"/>
-                            </StackPanel>
-                            <StackPanel >
-                                <TextBlock>
-					<Run Text="Logo 30x30:"/>
-                                </TextBlock>
-                                <Border HorizontalAlignment="Left" VerticalAlignment="Top">
-                                    <Border.Background>
-                                        <SolidColorBrush Color="{Binding ReceivedShareItem.LogoBackgroundColor}"/>
-                                    </Border.Background>
+                <Grid x:Name="grid1">
+                    <TextBlock x:Name="textBlock" Opacity=".7" Foreground="#333333" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Center">
+						<Bold>	<Run Text="You have No Data to share."/>
+							<Run/>
+							<LineBreak/>
+							<Run Text="Try Open a .gshare file, "/>
+							<LineBreak/>
+							<Run Text="or import some data from clipboard."/>     </Bold>
+                    </TextBlock>
+                    <RelativePanel x:Name="relativePanel" Opacity="0" Visibility="Collapsed"    >
 
-                                    <Image Width="30" Height="30"  HorizontalAlignment="Left" VerticalAlignment="Top"  Source="{Binding ReceivedShareItem.Square30x30Logo, Converter={StaticResource StreamImageSourceConverter}}" />
-                                </Border>
-                            </StackPanel>
-                            <StackPanel >
-                                <TextBlock>
-					<Run Text="ThumbnailStream:"/>
-                                </TextBlock>
-                                <Image  Source="{Binding ReceivedShareItem.ThumbnailStream}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                            </StackPanel>
-                            <StackPanel >
-                                <TextBlock>
-					<Run Text="Description:"/>
-                                </TextBlock>
-                                <TextBox Text="{Binding ReceivedShareItem.Description, Mode=TwoWay}"/>
-                            </StackPanel>
-                            <StackPanel >
-                                <TextBlock>
-					<Run Text="QuickLinkId:"/>
-                                </TextBlock>
-                                <TextBox Text="{Binding ReceivedShareItem.QuickLinkId, Mode=TwoWay}"/>
-                            </StackPanel>
-                            <StackPanel >
-                                <TextBlock>
-					<Run Text="ContentSourceApplicationLink:"/>
-                                </TextBlock>
-                                <TextBox Text="{Binding ReceivedShareItem.ContentSourceApplicationLink, Mode=TwoWay}"/>
-                            </StackPanel>
-                            <StackPanel >
-                                <TextBlock>
-					<Run Text="ContentSourceWebLink:"/>
-                                </TextBlock>
-                                <TextBox Text="{Binding ReceivedShareItem.ContentSourceWebLink, Mode=TwoWay}"/>
-                            </StackPanel>
+                        <ScrollViewer Margin="16" ScrollViewer.VerticalScrollBarVisibility="Visible" BorderThickness="1"  RelativePanel.AlignLeftWithPanel="True" Width="350" x:Name="propertiesPanel">
+                            <ScrollViewer.Resources>
+                                <Style  TargetType="StackPanel">
+                                    <Setter Property="Margin" Value="8"/>
+                                </Style>
+                            </ScrollViewer.Resources>
+                            <StackPanel  Margin="16" >
+                                <StackPanel >
+                                    <TextBlock>
+										<Run Text="Title:"/>
+                                    </TextBlock>
+                                    <TextBox RelativePanel.AlignBottomWith="" x:Name="pageTitle" Text="{Binding ReceivedShareItem.Title, Mode=TwoWay}"  
+										IsHitTestVisible="false" TextWrapping="NoWrap"/>
+                                </StackPanel>
+                                <StackPanel >
+                                    <TextBlock>
+										<Run Text="Logo 30x30:"/>
+                                    </TextBlock>
+                                    <Border HorizontalAlignment="Left" VerticalAlignment="Top">
+                                        <Border.Background>
+                                            <SolidColorBrush Color="{Binding ReceivedShareItem.LogoBackgroundColor}"/>
+                                        </Border.Background>
+                                        <Image Width="30" Height="30"  HorizontalAlignment="Left" VerticalAlignment="Top"  Source="{Binding ReceivedShareItem.Square30x30Logo, Converter={StaticResource StreamImageSourceConverter}}" />
+                                    </Border>
+                                </StackPanel>
+                                <StackPanel >
+                                    <TextBlock>
+										<Run Text="ThumbnailStream:"/>
+                                    </TextBlock>
+                                    <Image  Source="{Binding ReceivedShareItem.ThumbnailStream}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                </StackPanel>
+                                <StackPanel >
+                                    <TextBlock>
+										<Run Text="Description:"/>
+                                    </TextBlock>
+                                    <TextBox Height="100" ScrollViewer.VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" Text="{Binding ReceivedShareItem.Description, Mode=TwoWay}"/>
+                                </StackPanel>
+                                <StackPanel >
+                                    <TextBlock>
+										<Run Text="QuickLinkId:"/>
+                                    </TextBlock>
+                                    <TextBox Text="{Binding ReceivedShareItem.QuickLinkId, Mode=TwoWay}"/>
+                                </StackPanel>
+                                <StackPanel >
+                                    <RelativePanel >
+                                        <TextBlock x:Name="label">
+											<Run Text="ContentSourceApplicationLink:"/>
+                                        </TextBlock>
+                                        <HyperlinkButton RelativePanel.RightOf="label" NavigateUri="{Binding ReceivedShareItem.ContentSourceApplicationLink}" RelativePanel.AlignVerticalCenterWith="label" HorizontalAlignment="Right" RelativePanel.AlignRightWithPanel="True" Content="Launch"/>
+                                        <TextBox Text="{Binding ReceivedShareItem.ContentSourceApplicationLink, Mode=TwoWay}" RelativePanel.Below="label" RelativePanel.AlignRightWith="" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True"/>
+                                    </RelativePanel>
+                                </StackPanel>
+                                <StackPanel >
+                                    <RelativePanel >
+                                        <TextBlock x:Name="label2">
+											<Run Text="ContentSourceWebLink:"/>
+                                        </TextBlock>
+                                        <HyperlinkButton RelativePanel.RightOf="label2" NavigateUri="{Binding ReceivedShareItem.ContentSourceWebLink}" RelativePanel.AlignVerticalCenterWith="label2" HorizontalAlignment="Right" RelativePanel.AlignRightWithPanel="True" Content="Launch"/>
+                                        <TextBox Text="{Binding ReceivedShareItem.ContentSourceWebLink, Mode=TwoWay}"  RelativePanel.Below="label2" RelativePanel.AlignRightWith="" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True"/>
+                                    </RelativePanel>
+                                </StackPanel>
 
-                            <StackPanel >
-                                <TextBlock>
-					<Run Text="PackageFamilyName:"/>
-                                </TextBlock>
-                                <TextBox Text="{Binding ReceivedShareItem.PackageFamilyName, Mode=TwoWay}"/>
-                            </StackPanel>
 
-                            <!--<ListView ItemsSource="{Binding ReceivedShareItem.AvialableShareItems}">
+                                <StackPanel >
+                                    <TextBlock>
+										<Run Text="PackageFamilyName:"/>
+                                    </TextBlock>
+                                    <TextBox Text="{Binding ReceivedShareItem.PackageFamilyName, Mode=TwoWay}"/>
+                                </StackPanel>
+
+                                <!--<ListView ItemsSource="{Binding ReceivedShareItem.AvialableShareItems}">
 
             </ListView>-->
-                        </StackPanel>
-                    </ScrollViewer>
-                    <FlipView RelativePanel.AlignRightWithPanel="True" Width="500" xmlns:glue="using:GreaterShare.Glue"
-			Grid.Row="1" Margin="16" ItemsSource="{Binding ReceivedShareItem.AvialableShareItems}"   >
+                            </StackPanel>
+                        </ScrollViewer>
+                        <FlipView  xmlns:glue="using:GreaterShare.Glue"
+							RelativePanel.RightOf="propertiesPanel"
+							Grid.Row="1" Margin="16" ItemsSource="{Binding ReceivedShareItem.AvialableShareItems}"   >
 
-                        <FlipView.ItemTemplateSelector>
-                            <glue:ShareItemDataTemplateSelector  PrefixOfTemplateKey="DataTemplateOf"/>
-                        </FlipView.ItemTemplateSelector>
-                    </FlipView>
+                            <FlipView.ItemTemplateSelector>
+                                <glue:ShareItemDataTemplateSelector  PrefixOfTemplateKey="DataTemplateOf"/>
+                            </FlipView.ItemTemplateSelector>
+                        </FlipView>
 
-                </RelativePanel>
+                    </RelativePanel>
+                </Grid>
             </PivotItem>
-            <PivotItem Header="Clipboard Share"></PivotItem>
-            <PivotItem Header="Saved Shares "></PivotItem>
+            <PivotItem Header="Clipboard Share"/>
+            <PivotItem Header="Saved Shares "/>
         </Pivot>
-        <AppBar IsOpen="True"  >
+        <AppBar  IsOpen="True"  VerticalAlignment="Bottom" IsDoubleTapEnabled="False" IsTabStop="True" IsSticky="True" ClosedDisplayMode="Minimal" UseSystemFocusVisuals="True"  >
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <StackPanel Orientation="Horizontal">
-                    <AppBarButton x:Name="appBarButton" HorizontalAlignment="Left" Icon="OpenLocal"  Label="Load From File" VerticalAlignment="Top">
-
-                    </AppBarButton>
-                    <AppBarButton  Command="{Binding StrongTypeViewModel.CommandSaveToUserFile, ElementName=mVVMPage}" Icon="SaveLocal" Label="Save Share" >
-
-                    </AppBarButton>
+                    <AppBarButton x:Name="appBarButton" HorizontalAlignment="Left" Icon="OpenLocal"  Label="Load From File" VerticalAlignment="Top"/>
+                    <AppBarButton  Command="{Binding StrongTypeViewModel.CommandSaveToUserFile, ElementName=mVVMPage}" Icon="SaveLocal" Label="Save Share" />
                 </StackPanel>
-                <StackPanel Grid.Column="1" HorizontalAlignment="Right">
-                    <AppBarButton Command="{Binding StrongTypeViewModel.CommandReshare, ElementName=mVVMPage}" HorizontalAlignment="Left" Icon="ReShare"  Label="Reshare" VerticalAlignment="Top">
-
-                    </AppBarButton>
+                <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+                    <AppBarButton Command="{Binding StrongTypeViewModel.CommandReshare, ElementName=mVVMPage}" HorizontalAlignment="Left" Icon="Bullets"  Label="Reshare Selected" VerticalAlignment="Top"/>
+                    <AppBarButton Command="{Binding StrongTypeViewModel.CommandReshare, ElementName=mVVMPage}" HorizontalAlignment="Left" Icon="ReShare"  Label="Reshare" VerticalAlignment="Top"/>
                 </StackPanel>
             </Grid>
         </AppBar>
