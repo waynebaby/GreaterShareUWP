@@ -16,6 +16,7 @@ using GreaterShare.Models.Sharing.ShareItems;
 using Windows.UI;
 using Windows.Storage;
 using GreaterShare.Services;
+using MVVMSidekick.EventRouting;
 
 namespace GreaterShare.ViewModels
 {
@@ -72,6 +73,7 @@ namespace GreaterShare.ViewModels
 
 		protected override Task OnBindedViewLoad(IView view)
 		{
+			EventRouter.Instance.RaiseEvent(this, this, "Loaded");
 			return base.OnBindedViewLoad(view);
 		}
 
@@ -174,7 +176,7 @@ namespace GreaterShare.ViewModels
 						async e =>
 						{
 							var fp = new Windows.Storage.Pickers.FileSavePicker();
-
+							fp.FileTypeChoices.Add("Greater Share Files", new List<string> { App.FileExtension });
 							fp.DefaultFileExtension = App.FileExtension;
 							var fpicked = await fp.PickSaveFileAsync();
 							//if (fpicked != null)

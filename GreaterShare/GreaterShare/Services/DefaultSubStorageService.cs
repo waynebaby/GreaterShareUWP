@@ -28,8 +28,9 @@ namespace GreaterShare.Services
 									()=>DateTime.Now,
 									()=>new Random().NextDouble().ToString()
 					   };
-		public StorageFolder ParentFolder { get; private set; }
-				= ApplicationData.Current.LocalFolder;
+		public Task<StorageFolder> ParentFolder { get; private set; }
+				//=Task.FromResult(ApplicationData.Current.LocalFolder);
+				= Task.FromResult(ApplicationData.Current.TemporaryFolder);
 
 
 		public string GetNewFileName()
@@ -49,19 +50,19 @@ namespace GreaterShare.Services
 			{
 				return currentFolder;
 			}
-			var item = await ParentFolder.TryGetItemAsync(SubPath);
+			var item = await (await ParentFolder).TryGetItemAsync(SubPath);
 			if (item != null)
 			{
 				if (item.IsOfType(StorageItemTypes.Folder))
 				{
-					return await ParentFolder.GetFolderAsync(SubPath);
+					return await (await ParentFolder).GetFolderAsync(SubPath);
 				}
 				else
 				{
 					await item.RenameAsync(item.Name + new Random().NextDouble().ToString() + ".bak");
 				}
 			}
-			return currentFolder = await ParentFolder.CreateFolderAsync(SubPath);
+			return currentFolder = await (await ParentFolder).CreateFolderAsync(SubPath);
 
 
 		}
@@ -76,7 +77,7 @@ namespace GreaterShare.Services
 			return file;
 		}
 
-		public  async Task SaveToFileAsync<TItem>(IStorageFile file, TItem item)
+		public async Task SaveToFileAsync<TItem>(IStorageFile file, TItem item)
 		{
 			var stm = new MemoryStream();
 			GetCoreSerializer<TItem>().WriteObject(stm, item);
@@ -124,10 +125,11 @@ namespace GreaterShare.Services
 				{
 					SubPath = x.Name,
 					currentFolder = x,
-					ParentFolder = folder,
-				}).ToArray();
+					ParentFolder = ParentFolder,
+				})
+				.ToArray();
 		}
 
-	
+
 	}
 }

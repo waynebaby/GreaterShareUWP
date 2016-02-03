@@ -44,8 +44,6 @@ namespace GreaterShare
 		public static readonly DependencyProperty StrongTypeViewModelProperty =
 					DependencyProperty.Register("StrongTypeViewModel", typeof(MainPage_Model), typeof(MainPage), new PropertyMetadata(null));
 
-
-				   
-
+						 
 	}
 }

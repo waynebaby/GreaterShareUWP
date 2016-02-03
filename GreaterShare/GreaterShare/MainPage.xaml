@@ -100,14 +100,11 @@
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
         <Interactivity:Interaction.Behaviors>
-            <Core:DataTriggerBehavior Binding="{Binding ReceivedShareItem}"  Value="{x:Null}">
-                <Core:GoToStateAction StateName="False" UseTransitions="True"/>
-
-            </Core:DataTriggerBehavior>
-
+            <Core:DataTriggerBehavior  Binding="{Binding ReceivedShareItem}"  Value="{x:Null}">
+                <Core:GoToStateAction StateName="False" UseTransitions="True"/>   
+            </Core:DataTriggerBehavior>      
             <Core:DataTriggerBehavior Binding="{Binding ReceivedShareItem}"  ComparisonCondition="NotEqual" Value="{x:Null}">
-                <Core:GoToStateAction StateName="True" UseTransitions="True"/>
-
+                <Core:GoToStateAction StateName="True" UseTransitions="True"/> 
             </Core:DataTriggerBehavior>
         </Interactivity:Interaction.Behaviors>
         <Pivot Margin="32,32,32,64"  Background="AliceBlue">

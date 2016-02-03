@@ -1,9 +1,13 @@
 ﻿using GreaterShare.Services;
+using GreaterShare.ViewModels;
+using MVVMSidekick.EventRouting;
 using MVVMSidekick.Services;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.ApplicationModel;
@@ -36,6 +40,9 @@ namespace GreaterShare
 		{
 			this.InitializeComponent();
 			this.Suspending += OnSuspending;
+			MVVMSidekick.EventRouting.EventRouter.Instance.GetEventChannel<Exception>()
+				.Subscribe(
+				e => Debug.Write(e.EventData));
 		}
 
 
@@ -57,13 +64,23 @@ namespace GreaterShare
 
 		protected override void OnFileActivated(FileActivatedEventArgs args)
 		{
+			InitNavigationConfigurationInThisAssembly();
 			Frame rootFrame = CreateRootFrame();
 
 			if (rootFrame.Content == null)
 			{
-
 				rootFrame.Navigate(typeof(MainPage), null);
 			}
+
+			EventRouter.Instance.GetEventChannel<MainPage_Model>()
+				.Where(e => e.EventName == "Loaded")
+				.Subscribe(
+				e =>
+				 {
+					 CurrentFile.OnNext(args.Files.FirstOrDefault());
+				 }
+				);
+
 			CurrentFile.OnNext(args.Files.FirstOrDefault());
 			Window.Current.Activate();
 			//base.OnFileActivated(args);
