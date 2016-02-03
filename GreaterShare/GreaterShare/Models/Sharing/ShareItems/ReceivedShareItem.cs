@@ -97,22 +97,7 @@ namespace GreaterShare.Models.Sharing.ShareItems
 		static Func<BindableBase, ValueContainer<MemoryStreamBase64Item>> _ThumbnailLocator = RegisterContainerLocator<MemoryStreamBase64Item>(nameof(Thumbnail), model => model.Initialize(nameof(Thumbnail), ref model._Thumbnail, ref _ThumbnailLocator, _ThumbnailDefaultValueFactory));
 		static Func<MemoryStreamBase64Item> _ThumbnailDefaultValueFactory = () => default(MemoryStreamBase64Item);
 		#endregion
-
-
-
-
-		[DataMember]
-		public string ThumbnailStreamBase64String
-		{
-			get { return _ThumbnailStreamBase64StringLocator(this).Value; }
-			set { _ThumbnailStreamBase64StringLocator(this).SetValueAndTryNotify(value); }
-		}
-		#region Property string ThumbnailStreamBase64String Setup        
-		protected Property<string> _ThumbnailStreamBase64String = new Property<string> { LocatorFunc = _ThumbnailStreamBase64StringLocator };
-		static Func<BindableBase, ValueContainer<string>> _ThumbnailStreamBase64StringLocator = RegisterContainerLocator<string>(nameof(ThumbnailStreamBase64String), model => model.Initialize(nameof(ThumbnailStreamBase64String), ref model._ThumbnailStreamBase64String, ref _ThumbnailStreamBase64StringLocator, _ThumbnailStreamBase64StringDefaultValueFactory));
-		static Func<string> _ThumbnailStreamBase64StringDefaultValueFactory = () => default(string);
-		#endregion
-
+						
 
 		[DataMember]
 		public string QuickLinkId
