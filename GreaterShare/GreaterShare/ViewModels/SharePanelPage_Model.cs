@@ -45,9 +45,10 @@ namespace GreaterShare.ViewModels
 					Thumbnail = null,
 					PackageFamilyName = "PackageFamilyName",
 					Title = "Title",
+					Text = "hhh",
 					AvialableShareItems = new ObservableCollection<object>
 					 {
-						new TextSharedItem {  Text="okokok"},
+
 						new  WebLinkShareItem {  WebLink=new Uri  ("Http://notok")},
 					 }
 				};
@@ -81,7 +82,7 @@ namespace GreaterShare.ViewModels
 		#endregion
 
 
-  
+
 
 		public ShareOperation SharedOperation
 		{

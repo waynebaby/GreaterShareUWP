@@ -12,29 +12,19 @@ namespace GreaterShare.Models.Sharing.ShareItems
 	public class HtmlShareItem : BindableBase<HtmlShareItem>
 	{
 
-		[DataMember]
-		public string HtmlFormat
-		{
-			get { return _HtmlFormatLocator(this).Value; }
-			set { _HtmlFormatLocator(this).SetValueAndTryNotify(value); }
-		}
-		#region Property string HtmlFormat Setup        
-		protected Property<string> _HtmlFormat = new Property<string> { LocatorFunc = _HtmlFormatLocator };
-		static Func<BindableBase, ValueContainer<string>> _HtmlFormatLocator = RegisterContainerLocator<string>(nameof(HtmlFormat), model => model.Initialize(nameof(HtmlFormat), ref model._HtmlFormat, ref _HtmlFormatLocator, _HtmlFormatDefaultValueFactory));
-		static Func<string> _HtmlFormatDefaultValueFactory = () => default(string);
-		#endregion
+		//[DataMember]
+		//public string HtmlFormat
+		//{
+		//	get { return _HtmlFormatLocator(this).Value; }
+		//	set { _HtmlFormatLocator(this).SetValueAndTryNotify(value); }
+		//}
+		//#region Property string HtmlFormat Setup        
+		//protected Property<string> _HtmlFormat = new Property<string> { LocatorFunc = _HtmlFormatLocator };
+		//static Func<BindableBase, ValueContainer<string>> _HtmlFormatLocator = RegisterContainerLocator<string>(nameof(HtmlFormat), model => model.Initialize(nameof(HtmlFormat), ref model._HtmlFormat, ref _HtmlFormatLocator, _HtmlFormatDefaultValueFactory));
+		//static Func<string> _HtmlFormatDefaultValueFactory = () => default(string);
+		//#endregion
 
-		[DataMember]				
-		public Uri WebLink
-		{
-			get { return _WebLinkLocator(this).Value; }
-			set { _WebLinkLocator(this).SetValueAndTryNotify(value); }
-		}
-		#region Property Uri WebLink Setup        
-		protected Property<Uri> _WebLink = new Property<Uri> { LocatorFunc = _WebLinkLocator };
-		static Func<BindableBase, ValueContainer<Uri>> _WebLinkLocator = RegisterContainerLocator<Uri>(nameof(WebLink), model => model.Initialize(nameof(WebLink), ref model._WebLink, ref _WebLinkLocator, _WebLinkDefaultValueFactory));
-		static Func<Uri> _WebLinkDefaultValueFactory = () => default(Uri);
-		#endregion
+	
 
 		[DataMember]
 

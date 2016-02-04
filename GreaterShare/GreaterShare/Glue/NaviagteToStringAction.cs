@@ -12,11 +12,7 @@ namespace GreaterShare.Glue
 	public class NaviagteToStringAction : DependencyObject, IAction
 	{
 
-
-
-
-
-
+																	  
 
 		public string NaviagteHtmlString
 		{

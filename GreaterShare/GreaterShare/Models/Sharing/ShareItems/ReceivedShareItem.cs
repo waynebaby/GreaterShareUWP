@@ -18,11 +18,11 @@ namespace GreaterShare.Models.Sharing.ShareItems
 	[KnownType(typeof(HtmlShareItem))]
 	[KnownType(typeof(ApplicationLinkShareItem))]
 	[KnownType(typeof(DelayRenderedImageShareItem))]
-	[KnownType(typeof(ErrorMessageShareItem))]
+	//[KnownType(typeof(ErrorMessageShareItem))]
 	[KnownType(typeof(FilesShareItem))]
 	[KnownType(typeof(HtmlShareItem))]
 	//[KnownType(typeof(ImagesShareItem))]
-	[KnownType(typeof(TextSharedItem))]
+	//[KnownType(typeof(TextSharedItem))]
 	[KnownType(typeof(WebLinkShareItem))]
 
 
@@ -30,6 +30,17 @@ namespace GreaterShare.Models.Sharing.ShareItems
 	public class ReceivedShareItem : BindableBase<ReceivedShareItem>
 	{
 
+		[DataMember]   
+		public String Text
+		{
+			get { return _TextLocator(this).Value; }
+			set { _TextLocator(this).SetValueAndTryNotify(value); }
+		}
+		#region Property String Text Setup        
+		protected Property<String> _Text = new Property<String> { LocatorFunc = _TextLocator };
+		static Func<BindableBase, ValueContainer<String>> _TextLocator = RegisterContainerLocator<String>(nameof(Text), model => model.Initialize(nameof(Text), ref model._Text, ref _TextLocator, _TextDefaultValueFactory));
+		static Func<String> _TextDefaultValueFactory = () => default(String);
+		#endregion
 
 		[DataMember]
 		public string PackageFamilyName

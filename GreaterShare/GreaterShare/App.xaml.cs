@@ -72,14 +72,14 @@ namespace GreaterShare
 				rootFrame.Navigate(typeof(MainPage), null);
 			}
 
-			EventRouter.Instance.GetEventChannel<MainPage_Model>()
-				.Where(e => e.EventName == "Loaded")
-				.Subscribe(
-				e =>
-				 {
-					 CurrentFile.OnNext(args.Files.FirstOrDefault());
-				 }
-				);
+			//EventRouter.Instance.GetEventChannel<MainPage_Model>()
+			//	.Where(e => e.EventName == "Loaded")
+			//	.Subscribe(
+			//	e =>
+			//	 {
+			//		 CurrentFile.OnNext(args.Files.FirstOrDefault());
+			//	 }
+			//	);
 
 			CurrentFile.OnNext(args.Files.FirstOrDefault());
 			Window.Current.Activate();
@@ -113,6 +113,9 @@ namespace GreaterShare
 				rootFrame.Navigate(typeof(MainPage), e.Arguments);
 			}
 			// Ensure the current window is active
+
+			CurrentFile.OnNext(null);
+
 			Window.Current.Activate();
 		}
 
