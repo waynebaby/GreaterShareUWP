@@ -10,6 +10,11 @@ using Windows.ApplicationModel.DataTransfer;
 using System.Reactive.Linq;
 using Windows.Foundation;
 using Windows.Storage.Streams;
+using Windows.Storage.AccessCache;
+using Windows.Storage;
+using System.Collections.ObjectModel;
+using MVVMSidekick.Reactive;
+using MVVMSidekick.ViewModels;
 
 namespace GreaterShare.Services
 {
@@ -19,24 +24,27 @@ namespace GreaterShare.Services
 
 		public async Task<ReceivedShareItem> GetReceivedSharedItemAsync(ShareOperation sourceOperation)
 		{
+			var packageView = sourceOperation.Data;
+			ReceivedShareItem rval = await FetchDataFromPackageViewAsync(packageView);
+			rval.QuickLinkId = sourceOperation.QuickLinkId;
+			return rval;
+		}
 
-
+		private static async Task<ReceivedShareItem> FetchDataFromPackageViewAsync(DataPackageView packageView)
+		{
 			var rval = new ReceivedShareItem()
 			{
-				Title = sourceOperation.Data.Properties.Title,
-				Description = sourceOperation.Data.Properties.Description,
-				PackageFamilyName = sourceOperation.Data.Properties.PackageFamilyName,
-				ContentSourceWebLink = sourceOperation.Data.Properties.ContentSourceWebLink,
-				ContentSourceApplicationLink = sourceOperation.Data.Properties.ContentSourceApplicationLink,
-				LogoBackgroundColor = sourceOperation.Data.Properties.LogoBackgroundColor,
-				//Square30x30Logo = ,
-				//dThumbnailStreamRef = sourceOperation.Data.Properties.Thumbnail,
-				QuickLinkId = sourceOperation.QuickLinkId,
-			};
+				Title = packageView.Properties.Title,
+				Description = packageView.Properties.Description,
+				PackageFamilyName = packageView.Properties.PackageFamilyName,
+				ContentSourceWebLink = packageView.Properties.ContentSourceWebLink,
+				ContentSourceApplicationLink = packageView.Properties.ContentSourceApplicationLink,
+				LogoBackgroundColor = packageView.Properties.LogoBackgroundColor,
 
-			if (sourceOperation.Data.Properties.Square30x30Logo != null)
+			};
+			if (packageView.Properties.Square30x30Logo != null)
 			{
-				using (var logoStream = await sourceOperation.Data.Properties.Square30x30Logo.OpenReadAsync())
+				using (var logoStream = await packageView.Properties.Square30x30Logo.OpenReadAsync())
 				{
 					var logo = new MemoryStream();
 					await logoStream.AsStreamForRead().CopyToAsync(logo);
@@ -48,9 +56,9 @@ namespace GreaterShare.Services
 
 				}
 			}
-			if (sourceOperation.Data.Properties.Thumbnail != null)
+			if (packageView.Properties.Thumbnail != null)
 			{
-				using (var thumbnailStream = await sourceOperation.Data.Properties.Thumbnail.OpenReadAsync())
+				using (var thumbnailStream = await packageView.Properties.Thumbnail.OpenReadAsync())
 				{
 					var thumbnail = new MemoryStream();
 					await thumbnailStream.AsStreamForRead().CopyToAsync(thumbnail);
@@ -60,13 +68,13 @@ namespace GreaterShare.Services
 				}
 			}
 
-			if (sourceOperation.Data.Contains(StandardDataFormats.WebLink))
+			if (packageView.Contains(StandardDataFormats.WebLink))
 			{
 				try
 				{
 					var link = new WebLinkShareItem
 					{
-						WebLink = await sourceOperation.Data.GetWebLinkAsync()
+						WebLink = await packageView.GetWebLinkAsync()
 					};
 					rval.AvialableShareItems.Add(link);
 				}
@@ -75,13 +83,13 @@ namespace GreaterShare.Services
 					//NotifyUserBackgroundThread("Failed GetWebLinkAsync - " + ex.Message, NotifyType.ErrorMessage);
 				}
 			}
-			if (sourceOperation.Data.Contains(StandardDataFormats.ApplicationLink))
+			if (packageView.Contains(StandardDataFormats.ApplicationLink))
 			{
 				try
 				{
 					var sharedApplicationLink = new ApplicationLinkShareItem
 					{
-						ApplicationLink = await sourceOperation.Data.GetApplicationLinkAsync()
+						ApplicationLink = await packageView.GetApplicationLinkAsync()
 					};
 					rval.AvialableShareItems.Add(sharedApplicationLink);
 
@@ -91,27 +99,54 @@ namespace GreaterShare.Services
 					//NotifyUserBackgroundThread("Failed GetApplicationLinkAsync - " + ex.Message, NotifyType.ErrorMessage);
 				}
 			}
-			if (sourceOperation.Data.Contains(StandardDataFormats.Text))
+			if (packageView.Contains(StandardDataFormats.Text))
 			{
 				try
 				{
-					var sharedText = new TextSharedItem { Text = await sourceOperation.Data.GetTextAsync() };
+					var sharedText = new TextSharedItem { Text = await packageView.GetTextAsync() };
 					rval.AvialableShareItems.Add(sharedText);
-
+					rval.Text = await packageView.GetTextAsync();
+					rval.GetValueContainer(x => x.Text)
+					   	.GetNullObservable()
+						.Subscribe(e => sharedText.Text = rval.Text)
+						.DisposeWith(rval);
 				}
 				catch (Exception ex)
 				{
 					//NotifyUserBackgroundThread("Failed GetTextAsync - " + ex.Message, NotifyType.ErrorMessage);
 				}
 			}
-			if (sourceOperation.Data.Contains(StandardDataFormats.StorageItems))
+			if (packageView.Contains(StandardDataFormats.StorageItems))
 			{
 				try
 				{
+					var files = await packageView.GetStorageItemsAsync();
 					var sharedStorageItem = new FilesShareItem
 					{
-						StorageItems = await sourceOperation.Data.GetStorageItemsAsync()
+						StorageFiles = new ObservableCollection<FileItem>()
+						//StorageItems = 
 					};
+					foreach (StorageFile sf in files)
+					{
+						var guidString = Guid.NewGuid().ToString();
+						StorageApplicationPermissions.FutureAccessList.AddOrReplace(guidString, sf, sf.Name);
+						var ts = await sf.GetScaledImageAsThumbnailAsync(Windows.Storage.FileProperties.ThumbnailMode.PicturesView);
+						var tmbs = new MemoryStream();
+						await ts.AsStreamForRead().CopyToAsync(tmbs);
+						var file = new FileItem
+						{
+							AccessToken = guidString,
+							ContentType = sf.ContentType,
+							FileName = sf.DisplayName,
+							PossiblePath = sf.Path,
+							Thumbnail = new Models.MemoryStreamBase64Item(tmbs.ToArray())
+						};
+
+						sharedStorageItem.StorageFiles.Add(file);
+
+					}
+					//StorageApplicationPermissions.FutureAccessList.AddOrReplace()
+
 					rval.AvialableShareItems.Add(sharedStorageItem);
 				}
 				catch (Exception ex)
@@ -119,25 +154,25 @@ namespace GreaterShare.Services
 					//NotifyUserBackgroundThread("Failed GetStorageItemsAsync - " + ex.Message, NotifyType.ErrorMessage);
 				}
 			}
-			//if (sourceOperation.Data.Contains(dataFormatName))
+			//if (packageView.Contains(dataFormatName))
 			//{
 			//	try
 			//	{
-			//		this.sharedCustomData = await sourceOperation.Data.GetTextAsync(dataFormatName);
+			//		this.sharedCustomData = await packageView.GetTextAsync(dataFormatName);
 			//	}
 			//	catch (Exception ex)
 			//	{
 			//		//NotifyUserBackgroundThread("Failed GetTextAsync(" + dataFormatName + ") - " + ex.Message, NotifyType.ErrorMessage);
 			//	}
 			//}
-			if (sourceOperation.Data.Contains(StandardDataFormats.Html))
+			if (packageView.Contains(StandardDataFormats.Html))
 			{
 				var sharedHtmlFormatItem = new HtmlShareItem();
 				var sharedHtmlFormat = string.Empty;
 				try
 				{
-					sharedHtmlFormat = await sourceOperation.Data.GetHtmlFormatAsync();
-					sharedHtmlFormatItem.HtmlFormat = sharedHtmlFormat;
+					sharedHtmlFormat = await packageView.GetHtmlFormatAsync();
+					//sharedHtmlFormatItem.HtmlFormat = sharedHtmlFormat;
 					sharedHtmlFormatItem.HtmlFragment = HtmlFormatHelper.GetStaticFragment(sharedHtmlFormat);
 				}
 				catch (Exception ex)
@@ -146,32 +181,32 @@ namespace GreaterShare.Services
 				}
 				//try
 				//{
-				//	var sharedResourceMap = await sourceOperation.Data.GetResourceMapAsync();
+				//	var sharedResourceMap = await packageView.GetResourceMapAsync();
 				//}
 				//catch (Exception ex)
 				//{
 				//	//NotifyUserBackgroundThread("Failed GetResourceMapAsync - " + ex.Message, NotifyType.ErrorMessage);
 				//}
 
-				if (sourceOperation.Data.Contains(StandardDataFormats.WebLink))
-				{
-					try
-					{
-						sharedHtmlFormatItem.WebLink = await sourceOperation.Data.GetWebLinkAsync();
-					}
-					catch (Exception ex)
-					{
-						//NotifyUserBackgroundThread("Failed GetWebLinkAsync - " + ex.Message, NotifyType.ErrorMessage);
-					}
-				}
+				//if (packageView.Contains(StandardDataFormats.WebLink))
+				//{
+				//	try
+				//	{
+				//		sharedHtmlFormatItem.WebLink = await packageView.GetWebLinkAsync();
+				//	}
+				//	catch (Exception ex)
+				//	{
+				//		//NotifyUserBackgroundThread("Failed GetWebLinkAsync - " + ex.Message, NotifyType.ErrorMessage);
+				//	}
+				//}
 				rval.AvialableShareItems.Add(sharedHtmlFormatItem);
 
 			}
-			if (sourceOperation.Data.Contains(StandardDataFormats.Bitmap))
+			if (packageView.Contains(StandardDataFormats.Bitmap))
 			{
 				try
 				{
-					var fi = await sourceOperation.Data.GetBitmapAsync();
+					var fi = await packageView.GetBitmapAsync();
 					using (var imgFileStream = await fi.OpenReadAsync())
 					{
 						var ms = new MemoryStream();
@@ -200,12 +235,8 @@ namespace GreaterShare.Services
 			//	//item.Description = rval.Description;
 			//	//item.Title = rval.Title;
 			//}
-
 			return rval;
 		}
-
-
-
 
 		public async Task ShareItemAsync(ReceivedShareItem item)
 		{
@@ -219,8 +250,10 @@ namespace GreaterShare.Services
 			var Square30x30Logo = sqt == null ? null : await sqt;
 			var rbt = item?.Thumbnail?.GetRandowmAccessStreamAsync();
 			var Thumbnail = rbt == null ? null : await rbt; ;
+			var fsitm = item.AvialableShareItems.OfType<FilesShareItem>().FirstOrDefault();
+			var files = await GetStorageItemsAsync(fsitm);
 
-			//
+
 			var dm = DataTransferManager.GetForCurrentView();
 
 			TaskCompletionSource<object> dataTrasferedCompletion
@@ -230,122 +263,144 @@ namespace GreaterShare.Services
 			using (Observable.FromEventPattern<TypedEventHandler<DataTransferManager, DataRequestedEventArgs>, DataRequestedEventArgs>
 					(eh => dm.DataRequested += eh,
 					eh => dm.DataRequested -= eh)
+					//.ObserveOnDispatcher()
 					.Subscribe(
-				e =>
-				{
-
-					var def = e.EventArgs.Request.GetDeferral();
-					try
-					{
-
-
-						//dataTrasferedCompletion.TrySetResult(null);
-						var r = e.EventArgs.Request;
-						r.Data.Properties.ContentSourceApplicationLink = item.ContentSourceApplicationLink;
-						r.Data.Properties.ContentSourceWebLink = item.ContentSourceWebLink;
-						r.Data.Properties.Description = item.Description;
-						r.Data.Properties.PackageFamilyName = item.PackageFamilyName;
-						if (Square30x30Logo != null)
-						{
-							r.Data.Properties.Square30x30Logo = RandomAccessStreamReference.CreateFromStream(Square30x30Logo);
-						}
-						if (Thumbnail != null)
-						{
-							r.Data.Properties.Thumbnail = RandomAccessStreamReference.CreateFromStream(Thumbnail);
-
-						}
-						r.Data.Properties.Title = item.Title;
-						foreach (var subShareItem in item.AvialableShareItems)
-						{
-							if (subShareItem != null)
+						 e =>
 							{
-								switch (subShareItem.GetType().Name)
-								{
-									case nameof(ApplicationLinkShareItem):
-										{
-											var sitm = subShareItem as ApplicationLinkShareItem;
-											r.Data.SetApplicationLink(sitm.ApplicationLink);
-										}
-										break;
-									case nameof(CustomDataShareItem):
-										{
-											//var sitm = subShareItem as CustomDataShareItem;
-											//r.Data.SetData
-										}
-										break;
-									case nameof(DelayRenderedImageShareItem):
-										{
-											var sitm = subShareItem as DelayRenderedImageShareItem;
-											r.Data.SetBitmap(RandomAccessStreamReference.CreateFromStream(sitm.SelectedImage.GetRandowmAccessStream()));
-										}
-										break;
-									case nameof(ErrorMessageShareItem):
-										{
-											var sitm = subShareItem as ErrorMessageShareItem;
-											r.FailWithDisplayText(sitm.CustomErrorText);
-										}
-										break;
-									case nameof(FilesShareItem):
-										{
-											var sitm = subShareItem as FilesShareItem;
-											r.Data.SetStorageItems(sitm.StorageItems);
-										}
-										break;
-									case nameof(HtmlShareItem):
-										{
-											var sitm = subShareItem as HtmlShareItem;
-											//r.Data.SetHtmlFormat(sitm.HtmlFormat);
-											var fmt = HtmlFormatHelper.CreateHtmlFormat(sitm.HtmlFragment);
-											r.Data.SetHtmlFormat(fmt);
-										}
-										break;
-									//case nameof(ImagesShareItem):
-									//	{
-									//		var sitm = subShareItem as ImagesShareItem;
-									//		r.Data.SetStorageItems(sitm.StorageItems);
-									//	}
-									//	break;
-									case nameof(TextSharedItem):
-										{
-											var sitm = subShareItem as TextSharedItem;
-											r.Data.SetText(sitm.Text);
-										}
-										break;
-									case nameof(WebLinkShareItem):
-										{
-											var sitm = subShareItem as WebLinkShareItem;
-											r.Data.SetWebLink(sitm.WebLink);
-										}
-										break;
 
-									default:
-										break;
+								var def = e.EventArgs.Request.GetDeferral();
+								try
+								{
+									//dataTrasferedCompletion.TrySetResult(null);
+									var r = e.EventArgs.Request;
+									var package = r.Data;
+									package.Properties.ContentSourceApplicationLink = item.ContentSourceApplicationLink;
+									package.Properties.ContentSourceWebLink = item.ContentSourceWebLink;
+									package.Properties.Description = item.Description;
+									package.Properties.PackageFamilyName = item.PackageFamilyName;
+									if (Square30x30Logo != null)
+									{
+										package.Properties.Square30x30Logo = RandomAccessStreamReference.CreateFromStream(Square30x30Logo);
+										package.Properties.LogoBackgroundColor = item.LogoBackgroundColor;
+									}
+									if (Thumbnail != null)
+									{
+										package.Properties.Thumbnail = RandomAccessStreamReference.CreateFromStream(Thumbnail);
+									}
+
+									//package.SetText(item.Text?? "Reshared by " + Windows.ApplicationModel.Package.Current.DisplayName);
+
+									package.Properties.Title = item.Title;
+									foreach (var subShareItem in item
+													.AvialableShareItems
+													)
+									{
+										FillPackage(files, package, subShareItem);
+									}
+								}
+								catch (Exception ex)
+								{
+									e.EventArgs.Request.FailWithDisplayText(ex.Message);
+
+								}
+								finally
+								{
+									def.Complete();
 								}
 
 							}
-
-						}
-					}
-					catch (Exception ex)
-					{
-						e.EventArgs.Request.FailWithDisplayText(ex.Message);
-
-					}
-					finally
-					{
-						def.Complete();
-					}
-
-				}
-				))
+							))
 			{
 				DataTransferManager.ShowShareUI();
-				await Task.WhenAny(Task.Delay(5000), dataTrasferedCompletion.Task);
+				await Task.WhenAny(Task.Delay(500), dataTrasferedCompletion.Task);
+			}
+		}
+
+		private static void FillPackage(StorageFile[] files, DataPackage package, object subShareItem)
+		{
+			if (subShareItem != null)
+			{
+				switch (subShareItem.GetType().Name)
+				{
+					case nameof(TextSharedItem):
+						{
+							package.SetText((subShareItem as TextSharedItem).Text);
+						}
+						break;
+					case nameof(ApplicationLinkShareItem):
+						{
+							var sitm = subShareItem as ApplicationLinkShareItem;
+							package.SetApplicationLink(sitm.ApplicationLink);
+						}
+						break;
+
+					case nameof(DelayRenderedImageShareItem):
+						{
+							var sitm = subShareItem as DelayRenderedImageShareItem;
+							package.SetBitmap(RandomAccessStreamReference.CreateFromStream(sitm.SelectedImage.GetRandowmAccessStream()));
+						}
+						break;
+
+					case nameof(FilesShareItem):
+						{
+							StorageFile[] resultArray = files;
+							package.SetStorageItems(resultArray);
+						}
+						break;
+					case nameof(HtmlShareItem):
+						{
+							var sitm = subShareItem as HtmlShareItem;
+							//package.SetHtmlFormat(sitm.HtmlFormat);
+							var fmt = HtmlFormatHelper.CreateHtmlFormat(sitm.HtmlFragment);
+							package.SetHtmlFormat(fmt);
+						}
+						break;
+					case nameof(WebLinkShareItem):
+						{
+							var sitm = subShareItem as WebLinkShareItem;
+							package.SetWebLink(sitm.WebLink);
+						}
+						break;
+
+					default:
+						break;
+				}
 
 			}
 		}
 
+		private static async Task<StorageFile[]> GetStorageItemsAsync(object subShareItem)
+		{
+			var sitm = subShareItem as FilesShareItem;
+			if (sitm == null)
+			{
+				return null;
+			}
+			var resultArray = await Task.WhenAll(
+					sitm.StorageFiles
+						.Select(flitem =>
+						   StorageApplicationPermissions.FutureAccessList.GetFileAsync(flitem.AccessToken).AsTask())
+						.ToArray());
+			return resultArray;
+		}
 
+		public async Task<ReceivedShareItem> GetFromClipboardAsync()
+		{
+			var dataPackageView = Windows.ApplicationModel.DataTransfer.Clipboard.GetContent();
+
+			var rval = await FetchDataFromPackageViewAsync(dataPackageView);
+			//rval.AvialableShareItems.Add(new TextSharedItem { Text = rval.Text });
+			return rval;
+
+		}
+
+		public async Task SetToClipboardAsync(object data)
+		{
+			var files = await GetStorageItemsAsync(data);
+			var dataPackage = new DataPackage();
+			FillPackage(files, dataPackage, data);
+			Clipboard.SetContent(dataPackage);
+		}
 	}
 
 

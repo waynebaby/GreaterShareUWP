@@ -6,10 +6,12 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="using:GreaterShare.ViewModels"
-    xmlns:Glue="using:GreaterShare.Glue" 
+    xmlns:Glue="using:GreaterShare.Glue"
+    xmlns:sharemodel="using:GreaterShare.Models.Sharing.ShareItems"
+   
+    xmlns:Interactivity="using:Microsoft.Xaml.Interactivity" xmlns:Core="using:Microsoft.Xaml.Interactions.Core" 
     x:Name="pageRoot"
     x:Class="GreaterShare.SharePanelPage"
-    xmlns:sharemodel="using:GreaterShare.Models.Sharing.ShareItems"
    
     mc:Ignorable="d">
 
@@ -17,95 +19,185 @@
         <!-- TODO: Delete this line if the key AppName is declared in App.xaml -->
         <x:String x:Key="AppName">My Application</x:String>
         <vm:SharePanelPage_Model x:Key="DesignVM"/>
+        <Style x:Key="Label" TargetType="TextBlock">
+            <Setter Property="RelativePanel.AlignTopWithPanel"  Value="True" />
+            <Setter Property="RelativePanel.AlignLeftWithPanel"  Value="True" />
+            <Setter Property="RelativePanel.AlignRightWithPanel"  Value="False" />
+            <Setter Property="Margin"  Value="8"/>
+            <Setter Property="TextWrapping"  Value="WrapWholeWords" />
+            <Setter Property="FontSize"    Value="{ThemeResource TextStyleLargeFontSize}" />
+        </Style>
+        <Style TargetType="Border" x:Key="ContentOfList" >
+            <Setter Property="Margin"  Value="8"/>
+
+            <Setter Property="RelativePanel.AlignBottomWithPanel"  Value="True" />
+            <Setter Property="RelativePanel.AlignLeftWithPanel"  Value="True" />
+        </Style>
+
     </mvvm:MVVMPage.Resources>
 
-    <Grid Background="#eeeeee"  DataContext="{StaticResource DesignVM}">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="473*"/>
-            <RowDefinition Height="760*"/>
-            <RowDefinition Height="155*"/>
-        </Grid.RowDefinitions>
+    <Grid Margin="16" Background="#eeeeee"  DataContext="{StaticResource DesignVM}">
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="IsTextShareOnly">
+                <VisualState x:Name="True">
+                    <VisualState.Setters>
+                        <Setter Target="shareDataViewer.(UIElement.Visibility)" Value="Collapsed"/>
+                        <Setter Target="otherProperties.(RelativePanel.Above)" Value="openGreaterShare"/>
+                        <Setter Target="otherProperties.(FrameworkElement.Height)" Value="NaN"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="False"/>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+
         <Grid.ChildrenTransitions>
             <TransitionCollection>
                 <EntranceThemeTransition/>
             </TransitionCollection>
         </Grid.ChildrenTransitions>
-        <ScrollViewer>
-            <StackPanel Margin="16" >
-                <StackPanel >
-                    <TextBlock>
-					<Run Text="Title:"/>
-                    </TextBlock>
-                    <TextBox RelativePanel.AlignBottomWith="" x:Name="pageTitle" Text="{Binding ReceivedShareItem.Title}"  
+        <Interactivity:Interaction.Behaviors>
+            <Core:DataTriggerBehavior Value="0" Binding="{Binding ReceivedShareItem.AvialableShareItems.Count, Mode=OneWay}">
+                <Core:GoToStateAction StateName="True" UseTransitions="True"/>
+            </Core:DataTriggerBehavior>
+            <Core:DataTriggerBehavior Value="0" Binding="{Binding ReceivedShareItem.AvialableShareItems.Count, Mode=OneWay}" ComparisonCondition="NotEqual">
+                <Core:GoToStateAction StateName="False" UseTransitions="True"/>
+            </Core:DataTriggerBehavior>
+        </Interactivity:Interaction.Behaviors>
+        <RelativePanel>
+            <StackPanel
+				x:Name="titleAndText"
+				Margin="16"                   
+				RelativePanel.AlignTopWithPanel="True"
+            
+				RelativePanel.AlignRightWithPanel="True"
+				RelativePanel.AlignLeftWithPanel="True">
+                <TextBlock   Style="{StaticResource Label}" x:Name="pageTitle" Text="{Binding ReceivedShareItem.Title}"  
 					IsHitTestVisible="false" TextWrapping="NoWrap"/>
-                </StackPanel>
-                <StackPanel >
-                    <TextBlock>
-					<Run Text="Logo 30x30:"/>
+                <TextBlock>Text:</TextBlock>
+                <TextBox  Height="70"  x:Name="pageText" Text="{Binding ReceivedShareItem.Text}"  
+					IsHitTestVisible="false" TextWrapping="Wrap" ScrollViewer.VerticalScrollMode="Enabled" ScrollViewer.VerticalScrollBarVisibility="Visible"/>
+
+            </StackPanel>
+            <GridView x:Name="otherProperties"
+				RelativePanel.Below="titleAndText"
+				Margin="16" Height="200" 
+				ScrollViewer.HorizontalScrollBarVisibility="Auto" 
+				ScrollViewer.HorizontalScrollMode="Auto"
+				ScrollViewer.VerticalScrollBarVisibility="Auto" 
+				ScrollViewer.VerticalScrollMode="Auto"
+                                                 RelativePanel.AlignLeftWithPanel="True"
+                                                 RelativePanel.AlignRightWithPanel="True"
+          >
+
+                <GridView.Resources>
+                    <Style TargetType="RelativePanel">
+                        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                        <Setter Property="VerticalAlignment" Value="Stretch"/>
+                        <Setter Property="Height" Value="130"/>
+                        <Setter Property="Width" Value="400" />
+                        <Setter Property="Background" Value="AliceBlue" />
+                    </Style>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="TextWrapping"  Value="WrapWholeWords" />
+                    </Style>
+                </GridView.Resources>
+                <GridView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <ItemsWrapGrid  Orientation="Horizontal"   >
+                            <Interactivity:Interaction.Behaviors>
+                                <Glue:MinItemSizeBehavior ItemMinHeight="140" ItemMinWidth="220"/>
+                            </Interactivity:Interaction.Behaviors>
+                        </ItemsWrapGrid>
+                    </ItemsPanelTemplate>
+                </GridView.ItemsPanel>
+
+                <RelativePanel>
+                    <TextBlock  Style="{StaticResource Label}">
+						<Run Text="Logo 30x30:"/>
                     </TextBlock>
-                    <Border HorizontalAlignment="Left" VerticalAlignment="Top">
+                    <Border  BorderThickness="1" BorderBrush="Wheat" VerticalAlignment="Top" d:LayoutOverrides="TopPosition, BottomPosition" Style="{StaticResource ContentOfList}" >
                         <Border.Background>
                             <SolidColorBrush Color="{Binding ReceivedShareItem.LogoBackgroundColor}"/>
                         </Border.Background>
-                        
                         <Image Width="30" Height="30"  HorizontalAlignment="Left" VerticalAlignment="Top"  Source="{Binding ReceivedShareItem.Square30x30Logo, Converter={StaticResource StreamImageSourceConverter}}" />
-                    </Border>
-                </StackPanel>
-                <StackPanel >
-                    <TextBlock>
-					<Run Text="ThumbnailStream:"/>
-                    </TextBlock>
-                    <Image  Source="{Binding ReceivedShareItem.ThumbnailStream}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                </StackPanel>
-                <StackPanel >
-                    <TextBlock>
-					<Run Text="Description:"/>
-                    </TextBlock>
-                    <TextBox Text="{Binding ReceivedShareItem.Description}"/>
-                </StackPanel>
-                <StackPanel >
-                    <TextBlock>
-					<Run Text="QuickLinkId:"/>
-                    </TextBlock>
-                    <TextBox Text="{Binding ReceivedShareItem.QuickLinkId}"/>
-                </StackPanel>
-                <StackPanel >
-                    <TextBlock>
-					<Run Text="ContentSourceApplicationLink:"/>
-                    </TextBlock>
-                    <TextBox Text="{Binding ReceivedShareItem.ContentSourceApplicationLink}"/>
-                </StackPanel>
-                <StackPanel >
-                    <TextBlock>
-					<Run Text="ContentSourceWebLink:"/>
-                    </TextBlock>
-                    <TextBox Text="{Binding ReceivedShareItem.ContentSourceWebLink}"/>
-                </StackPanel>
 
-                <StackPanel >
-                    <TextBlock>
-					<Run Text="PackageFamilyName:"/>
+                    </Border>
+                </RelativePanel>
+                <RelativePanel ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto">
+                    <TextBlock  Style="{StaticResource Label}">
+						<Run Text="Thumbnail:"/>
                     </TextBlock>
-                    <TextBox Text="{Binding ReceivedShareItem.PackageFamilyName}"/>
-                </StackPanel>
+                    <Border VerticalAlignment="Top" d:LayoutOverrides="TopPosition, BottomPosition" Style="{StaticResource ContentOfList}" >
+                        <Image  Source="{Binding ReceivedShareItem.ThumbnailStream}"  HorizontalAlignment="Left" Height="0" Width="0"/>
+                    </Border>
+                </RelativePanel>
+                <RelativePanel>
+                    <TextBlock  Style="{StaticResource Label}">
+						<Run Text="Description:"/>
+                    </TextBlock>
+                    <Border  Style="{StaticResource ContentOfList}"
+                    
+       >
+                        <TextBlock Text="{Binding ReceivedShareItem.Description}" TextWrapping="WrapWholeWords" />
+                    </Border>
+                </RelativePanel>
+                <RelativePanel>
+                    <TextBlock
+						 Style="{StaticResource Label}">
+						<Run Text="QuickLinkId:"/>
+                    </TextBlock>
+                    <Border  d:LayoutOverrides="TopPosition, BottomPosition" Style="{StaticResource ContentOfList}" >
+                        <TextBlock Text="{Binding ReceivedShareItem.QuickLinkId}" 
+                        />
+                    </Border>
+                </RelativePanel>
+                <RelativePanel>
+                    <TextBlock Style="{StaticResource Label}"
+        			>
+						<Run Text="ContentSourceApplicationLink:"/>
+                    </TextBlock>
+                    <Border Style="{StaticResource ContentOfList}">
+                        <TextBlock Text="{Binding ReceivedShareItem.ContentSourceApplicationLink}"  Height="0" Width="0"/>
+                    </Border>
+                </RelativePanel>
+                <RelativePanel>
+                    <TextBlock Style="{StaticResource Label}" >
+						<Run Text="ContentSourceWebLink:"/>
+                    </TextBlock>
+                    <Border Style="{StaticResource ContentOfList}">
+                        <TextBlock Text="{Binding ReceivedShareItem.ContentSourceWebLink}"  Height="0" Width="0"/>
+                    </Border>
+                </RelativePanel>
+                <RelativePanel>
+                    <TextBlock Style="{StaticResource Label}" >
+						<Run Text="PackageFamilyName:"/>
+                    </TextBlock>
+                    <Border Style="{StaticResource ContentOfList}">
+                        <TextBlock Text="{Binding ReceivedShareItem.PackageFamilyName}"  Height="0" Width="0"/>
+                    </Border>
+                </RelativePanel>
 
                 <!--<ListView ItemsSource="{Binding ReceivedShareItem.AvialableShareItems}">
 
             </ListView>-->
-            </StackPanel>
-        </ScrollViewer>
-        <FlipView xmlns:glue="using:GreaterShare.Glue"
-			Grid.Row="1" Margin="16" ItemsSource="{Binding ReceivedShareItem.AvialableShareItems}"   >
-     
-            <FlipView.ItemTemplateSelector>
-                <glue:ShareItemDataTemplateSelector  PrefixOfTemplateKey="DataTemplateOf"/>
-            </FlipView.ItemTemplateSelector>
-        </FlipView>
-        <StackPanel Margin="16" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Right">
 
-            <Button  Command="{Binding CommandSaveAndLauchMainApp}">
-                Open With Greater Share
-            </Button>
-        </StackPanel>
+            </GridView>
+            <FlipView
+				xmlns:glue="using:GreaterShare.Glue"
+				x:Name="shareDataViewer" 
+				RelativePanel.Below="otherProperties"
+				RelativePanel.Above="openGreaterShare"
+				Grid.Row="2" Margin="16" ItemsSource="{Binding ReceivedShareItem.AvialableShareItems}"   >
+                <FlipView.ItemTemplateSelector>
+                    <glue:ShareItemDataTemplateSelector  PrefixOfTemplateKey="DataTemplateOf"/>
+                </FlipView.ItemTemplateSelector>
+            </FlipView>
+
+            <Button x:Name="openGreaterShare" Height="100" 
+				RelativePanel.AlignLeftWithPanel="True"
+				RelativePanel.AlignRightWithPanel="True"
+				RelativePanel.AlignBottomWithPanel="True"
+				FontSize="30" Margin="16" Grid.Row="3"  Command="{Binding CommandSaveAndLauchMainApp}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Content="Open With Greater Share" />
+        </RelativePanel>
     </Grid>
 </mvvm:MVVMPage>

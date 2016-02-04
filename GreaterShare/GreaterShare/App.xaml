@@ -15,9 +15,9 @@
     <Application.Resources>
         <Glue:StreamImageSourceConverter x:Key="StreamImageSourceConverter"/>
         <sharemodel:ApplicationLinkShareItem     x:Key="shareItemDesignInstanceApplicationLinkShareItem"/>
-        <sharemodel:CustomDataShareItem          x:Key="shareItemDesignInstanceCustomDataShareItem"/>
+        <!--<sharemodel:CustomDataShareItem          x:Key="shareItemDesignInstanceCustomDataShareItem"/>-->
         <sharemodel:DelayRenderedImageShareItem  x:Key="shareItemDesignInstanceDelayRenderedImageShareItem"/>
-        <sharemodel:ErrorMessageShareItem        x:Key="shareItemDesignInstanceErrorMessageShareItem"/>
+        <!--<sharemodel:ErrorMessageShareItem        x:Key="shareItemDesignInstanceErrorMessageShareItem"/>-->
         <sharemodel:FilesShareItem               x:Key="shareItemDesignInstanceFilesShareItem"/>
         <sharemodel:HtmlShareItem                x:Key="shareItemDesignInstanceHtmlShareItem"/>
         <!--<sharemodel:ImagesShareItem              x:Key="shareItemDesignInstanceImagesShareItem"/>-->
@@ -42,7 +42,7 @@
                 <TextBlock>
         			<Run Text="DataTemplateOfCustomDataShareItem"/>
                 </TextBlock>
-                <TextBox Text="{Binding}"/>
+                <TextBox Text="{Binding }"/>
             </StackPanel>
         </DataTemplate>
         <DataTemplate x:Key="DataTemplateOfDelayRenderedImageShareItem">
@@ -53,20 +53,39 @@
                 <Image Source="{Binding SelectedImage, Converter={StaticResource StreamImageSourceConverter}}"     />
             </StackPanel>
         </DataTemplate>
-        <DataTemplate x:Key="DataTemplateOfErrorMessageShareItem">
-            <StackPanel d:DataContext="{StaticResource shareItemDesignInstanceErrorMessageShareItem}" >
-                <TextBlock>
-        			<Run Text="DataTemplateOfErrorMessageShareItem"/>
-                </TextBlock>
-            </StackPanel>
+
+        <DataTemplate x:Key="FileGridItem">
+            <RelativePanel>
+                <Image Name="image"
+                  Source="{Binding Thumbnail, Converter={StaticResource StreamImageSourceConverter}}" Stretch="None" 
+                  HorizontalAlignment="Center" 
+                  VerticalAlignment="Center" 
+                  RelativePanel.AlignLeftWithPanel="True"
+                  RelativePanel.AlignTopWithPanel="True" 
+                  RelativePanel.AlignRightWithPanel="True"/>
+                <TextBlock TextWrapping="WrapWholeWords"
+                 Text="{Binding FileName}" 
+                 RelativePanel.Below="image"
+                 RelativePanel.AlignHorizontalCenterWithPanel="True"/>
+            </RelativePanel>
         </DataTemplate>
         <DataTemplate x:Key="DataTemplateOfFilesShareItem">
-            <StackPanel d:DataContext="{StaticResource shareItemDesignInstanceFilesShareItem}" >
-                <TextBlock>
-        			<Run Text="DataTemplateOfFilesShareItem"/>
+            <RelativePanel Background="White"  d:DataContext="{StaticResource shareItemDesignInstanceFilesShareItem}" >
+                <TextBlock Name="title">
+        			<Run Text="Files to Share"/>
                 </TextBlock>
-                <ListBox ItemsSource="{Binding StorageItems}"/>
-            </StackPanel>
+                <GridView ItemsSource="{Binding StorageFiles}" 
+                    RelativePanel.AlignBottomWithPanel="True"
+                    RelativePanel.Below="title"
+                    RelativePanel.AlignLeftWithPanel="True"
+                    RelativePanel.AlignRightWithPanel="True" ItemTemplate="{StaticResource FileGridItem}" >
+                    <GridView.ItemsPanel >
+                        <ItemsPanelTemplate>
+                            <ItemsWrapGrid ItemWidth="220" />
+                        </ItemsPanelTemplate>
+                    </GridView.ItemsPanel>
+                </GridView>
+            </RelativePanel>
         </DataTemplate>
         <DataTemplate x:Key="DataTemplateOfHtmlShareItem">
             <StackPanel d:DataContext="{StaticResource shareItemDesignInstanceHtmlShareItem}" >
@@ -77,37 +96,20 @@
                 <TextBox Text="{Binding HtmlFormat}"/>
 
                 <WebView Height="300" >
-
-
                     <Interactivity:Interaction.Behaviors>
                         <Core:DataTriggerBehavior Binding="{Binding HtmlFragment}" ComparisonCondition="NotEqual" Value="{x:Null}" >
                             <Glue:NaviagteToStringAction NaviagteHtmlString="{Binding HtmlFragment}"/>
                         </Core:DataTriggerBehavior>
                     </Interactivity:Interaction.Behaviors>
-
-
                 </WebView>
             </StackPanel>
         </DataTemplate>
-        <DataTemplate x:Key="DataTemplateOfImagesShareItem">
-            <StackPanel d:DataContext="{StaticResource shareItemDesignInstanceImagesShareItem}" >
-                <TextBlock>
-        			<Run Text="DataTemplateOfImagesShareItem"/>
-                </TextBlock>
-                <ListView ItemsSource="{Binding Images}"/>
-            </StackPanel>
-        </DataTemplate>
-        <!--<DataTemplate x:Key="DataTemplateOfReceivedShareItem">
-            <StackPanel d:DataContext="{StaticResource shareItemDesignInstanceReceivedShareItem}" >
-                <TextBlock>DataTemplateOfReceivedShareItem</TextBlock>
-            </StackPanel>
-        </DataTemplate>-->
         <DataTemplate x:Key="DataTemplateOfTextSharedItem">
             <StackPanel d:DataContext="{StaticResource shareItemDesignInstanceTextSharedItem}" >
                 <TextBlock>
         			<Run Text="DataTemplateOfTextSharedItem"/>
                 </TextBlock>
-                <TextBox Text="{Binding Text}"/>
+                <TextBlock TextWrapping="Wrap" Text="{Binding Text}"/>
             </StackPanel>
         </DataTemplate>
         <DataTemplate x:Key="DataTemplateOfWebLinkShareItem">

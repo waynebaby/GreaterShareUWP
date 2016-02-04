@@ -40,42 +40,61 @@ namespace GreaterShare.ViewModels
 					Thumbnail = null,
 					PackageFamilyName = "PackageFamilyName",
 					Title = "Title",
+					Text = "hhh",
 					AvialableShareItems = new ObservableCollection<object>
 					 {
-						new TextSharedItem {  Text="okokok"},
+
 						new  WebLinkShareItem {  WebLink=new Uri  ("Http://notok")},
 					 }
 				};
 			}
-
 			else
-
 			{
-				App.CurrentFile
-					.AsObservable()
-					.Where(x => x != null)
-					.ObserveOn(this.Dispatcher)
-					.Subscribe(
-					async f =>
-					{		 
-						var loadService = ServiceLocator.Instance.Resolve<Services.ISubStorageService>();
-						var file = f as StorageFile;
-						ReceivedShareItem = await loadService.LoadFromFileAsync<ReceivedShareItem>(file);
-
-					})
-					.DisposeWith(this);
-
+				ReceivedShareItem = new ReceivedShareItem();
 			}
-
 		}
 
 
 
 		protected override Task OnBindedViewLoad(IView view)
 		{
-			EventRouter.Instance.RaiseEvent(this, this, "Loaded");
+			//EventRouter.Instance.RaiseEvent(this, this, "Loaded");
+			App.CurrentFile
+				   .AsObservable()
+				   //.Where(x => x != null)
+				   .ObserveOn(this.Dispatcher)
+				   .Subscribe(
+				   async f =>
+				   {
+					   if (f == null)
+					   {
+						   ReceivedShareItem = null;
+					   }
+					   else
+					   {
+						   var loadService = ServiceLocator.Instance.Resolve<Services.ISubStorageService>();
+						   var file = f as StorageFile;
+						   ReceivedShareItem = await loadService.LoadFromFileAsync<ReceivedShareItem>(file);
+					   }
+				   })
+				   .DisposeWhenUnload(this);
+
 			return base.OnBindedViewLoad(view);
 		}
+
+
+		public ReceivedShareItem ClipboardImportingItem
+		{
+			get { return _ClipboardImportingItemLocator(this).Value; }
+			set { _ClipboardImportingItemLocator(this).SetValueAndTryNotify(value); }
+		}
+		#region Property ReceivedShareItem ClipboardImportingItem Setup        
+		protected Property<ReceivedShareItem> _ClipboardImportingItem = new Property<ReceivedShareItem> { LocatorFunc = _ClipboardImportingItemLocator };
+		static Func<BindableBase, ValueContainer<ReceivedShareItem>> _ClipboardImportingItemLocator = RegisterContainerLocator<ReceivedShareItem>(nameof(ClipboardImportingItem), model => model.Initialize(nameof(ClipboardImportingItem), ref model._ClipboardImportingItem, ref _ClipboardImportingItemLocator, _ClipboardImportingItemDefaultValueFactory));
+		static Func<ReceivedShareItem> _ClipboardImportingItemDefaultValueFactory = () => default(ReceivedShareItem);
+		#endregion
+
+
 
 
 		public ReceivedShareItem ReceivedShareItem
@@ -90,6 +109,20 @@ namespace GreaterShare.ViewModels
 		#endregion
 
 
+
+		public int FocusingViewIndex
+		{
+			get { return _FocusingViewIndexLocator(this).Value; }
+			set { _FocusingViewIndexLocator(this).SetValueAndTryNotify(value); }
+		}
+		#region Property int FocusingViewIndex Setup        
+		protected Property<int> _FocusingViewIndex = new Property<int> { LocatorFunc = _FocusingViewIndexLocator };
+		static Func<BindableBase, ValueContainer<int>> _FocusingViewIndexLocator = RegisterContainerLocator<int>(nameof(FocusingViewIndex), model => model.Initialize(nameof(FocusingViewIndex), ref model._FocusingViewIndex, ref _FocusingViewIndexLocator, _FocusingViewIndexDefaultValueFactory));
+		static Func<int> _FocusingViewIndexDefaultValueFactory = () => default(int);
+		#endregion
+
+
+
 		public CommandModel<ReactiveCommand, String> CommandReshare
 		{
 			get { return _CommandReshareLocator(this).Value; }
@@ -102,11 +135,14 @@ namespace GreaterShare.ViewModels
 		static Func<BindableBase, CommandModel<ReactiveCommand, String>> _CommandReshareDefaultValueFactory =
 			model =>
 			{
+
 				var resource = nameof(CommandReshare);           // Command resource  
 				var commandId = nameof(CommandReshare);
 				var vm = CastToCurrentType(model);
 				var cmd = new ReactiveCommand(canExecute: true) { ViewModel = model }; //New Command Core
-
+				cmd.ListenCanExecuteObservable(
+					vm.ListenChanged(x => x.ReceivedShareItem)
+					.Select(x => vm.ReceivedShareItem != null));
 				cmd.DoExecuteUIBusyTask(
 						vm,
 						async e =>
@@ -140,6 +176,51 @@ namespace GreaterShare.ViewModels
 		#endregion
 
 
+		public CommandModel<ReactiveCommand, String> CommandLoadFromUserFile
+		{
+			get { return _CommandLoadFromUserFileLocator(this).Value; }
+			set { _CommandLoadFromUserFileLocator(this).SetValueAndTryNotify(value); }
+		}
+		#region Property CommandModel<ReactiveCommand, String> CommandLoadFromUserFile Setup        
+
+		protected Property<CommandModel<ReactiveCommand, String>> _CommandLoadFromUserFile = new Property<CommandModel<ReactiveCommand, String>> { LocatorFunc = _CommandLoadFromUserFileLocator };
+		static Func<BindableBase, ValueContainer<CommandModel<ReactiveCommand, String>>> _CommandLoadFromUserFileLocator = RegisterContainerLocator<CommandModel<ReactiveCommand, String>>(nameof(CommandLoadFromUserFile), model => model.Initialize(nameof(CommandLoadFromUserFile), ref model._CommandLoadFromUserFile, ref _CommandLoadFromUserFileLocator, _CommandLoadFromUserFileDefaultValueFactory));
+		static Func<BindableBase, CommandModel<ReactiveCommand, String>> _CommandLoadFromUserFileDefaultValueFactory =
+			model =>
+			{
+				var resource = nameof(CommandLoadFromUserFile);           // Command resource  
+				var commandId = nameof(CommandLoadFromUserFile);
+				var vm = CastToCurrentType(model);
+				var cmd = new ReactiveCommand(canExecute: true) { ViewModel = model }; //New Command Core
+
+				cmd.DoExecuteUIBusyTask(
+						vm,
+						async e =>
+						{
+							var fp = new Windows.Storage.Pickers.FileOpenPicker();
+							fp.FileTypeFilter.Add(App.FileExtension);
+							fp.CommitButtonText = "Load";
+							var fpicked = await fp.PickSingleFileAsync();
+							if (fpicked != null)
+							{
+								var fservice = ServiceLocator.Instance.Resolve<Services.ISubStorageService>();
+								vm.ReceivedShareItem = await fservice.LoadFromFileAsync<ReceivedShareItem>(fpicked);
+							}
+						})
+					.DoNotifyDefaultEventRouter(vm, commandId)
+					.Subscribe()
+					.DisposeWith(vm);
+
+				var cmdmdl = cmd.CreateCommandModel(resource);
+
+				cmdmdl.ListenToIsUIBusy(
+					model: vm,
+					canExecuteWhenBusy: false);
+				return cmdmdl;
+			};
+
+		#endregion
+
 
 		public CommandModel<ReactiveCommand, String> CommandSaveToUserFile
 		{
@@ -147,22 +228,11 @@ namespace GreaterShare.ViewModels
 			set { _CommandSaveToUserFileLocator(this).SetValueAndTryNotify(value); }
 		}
 
-		public static Func<BindableBase, CommandModel<ReactiveCommand, string>> CommandSaveToUserFileDefaultValueFactory
-		{
-			get
-			{
-				return _CommandSaveToUserFileDefaultValueFactory;
-			}
 
-			set
-			{
-				_CommandSaveToUserFileDefaultValueFactory = value;
-			}
-		}
 		#region Property CommandModel<ReactiveCommand, String> CommandSaveToUserFile Setup        
 
 		protected Property<CommandModel<ReactiveCommand, String>> _CommandSaveToUserFile = new Property<CommandModel<ReactiveCommand, String>> { LocatorFunc = _CommandSaveToUserFileLocator };
-		static Func<BindableBase, ValueContainer<CommandModel<ReactiveCommand, String>>> _CommandSaveToUserFileLocator = RegisterContainerLocator<CommandModel<ReactiveCommand, String>>(nameof(CommandSaveToUserFile), model => model.Initialize(nameof(CommandSaveToUserFile), ref model._CommandSaveToUserFile, ref _CommandSaveToUserFileLocator, CommandSaveToUserFileDefaultValueFactory));
+		static Func<BindableBase, ValueContainer<CommandModel<ReactiveCommand, String>>> _CommandSaveToUserFileLocator = RegisterContainerLocator<CommandModel<ReactiveCommand, String>>(nameof(CommandSaveToUserFile), model => model.Initialize(nameof(CommandSaveToUserFile), ref model._CommandSaveToUserFile, ref _CommandSaveToUserFileLocator, _CommandSaveToUserFileDefaultValueFactory));
 		static Func<BindableBase, CommandModel<ReactiveCommand, String>> _CommandSaveToUserFileDefaultValueFactory =
 			model =>
 			{
@@ -170,6 +240,9 @@ namespace GreaterShare.ViewModels
 				var commandId = nameof(CommandSaveToUserFile);
 				var vm = CastToCurrentType(model);
 				var cmd = new ReactiveCommand(canExecute: true) { ViewModel = model }; //New Command Core
+				cmd.ListenCanExecuteObservable(
+					vm.ListenChanged(x => x.ReceivedShareItem)
+					.Select(x => vm.ReceivedShareItem != null));
 
 				cmd.DoExecuteUIBusyTask(
 						vm,
@@ -179,15 +252,51 @@ namespace GreaterShare.ViewModels
 							fp.FileTypeChoices.Add("Greater Share Files", new List<string> { App.FileExtension });
 							fp.DefaultFileExtension = App.FileExtension;
 							var fpicked = await fp.PickSaveFileAsync();
-							//if (fpicked != null)
-							//{
-							//App.CurrentFile.OnNext(fpicked);
-							//}			  
-							//Todo: Add SaveToUserFile logic here, or
+							if (fpicked != null)
+							{
+								var fservice = ServiceLocator.Instance.Resolve<Services.ISubStorageService>();
+								await fservice.SaveToFileAsync(fpicked, vm.ReceivedShareItem);
+							}
+						})
+					.DoNotifyDefaultEventRouter(vm, commandId)
+					.Subscribe()
+					.DisposeWith(vm);
 
-							var fservice = ServiceLocator.Instance.Resolve<Services.ISubStorageService>();
-							await fservice.SaveToFileAsync(fpicked, vm.ReceivedShareItem);
+				var cmdmdl = cmd.CreateCommandModel(resource);
 
+				cmdmdl.ListenToIsUIBusy(
+					model: vm,
+					canExecuteWhenBusy: false);
+				return cmdmdl;
+			};
+
+		#endregion
+
+
+		public CommandModel<ReactiveCommand, String> CommandGetFromClipboard
+		{
+			get { return _CommandGetFromClipboardLocator(this).Value; }
+			set { _CommandGetFromClipboardLocator(this).SetValueAndTryNotify(value); }
+		}
+		#region Property CommandModel<ReactiveCommand, String> CommandGetFromClipboard Setup        
+
+		protected Property<CommandModel<ReactiveCommand, String>> _CommandGetFromClipboard = new Property<CommandModel<ReactiveCommand, String>> { LocatorFunc = _CommandGetFromClipboardLocator };
+		static Func<BindableBase, ValueContainer<CommandModel<ReactiveCommand, String>>> _CommandGetFromClipboardLocator = RegisterContainerLocator<CommandModel<ReactiveCommand, String>>(nameof(CommandGetFromClipboard), model => model.Initialize(nameof(CommandGetFromClipboard), ref model._CommandGetFromClipboard, ref _CommandGetFromClipboardLocator, _CommandGetFromClipboardDefaultValueFactory));
+		static Func<BindableBase, CommandModel<ReactiveCommand, String>> _CommandGetFromClipboardDefaultValueFactory =
+			model =>
+			{
+				var resource = nameof(CommandGetFromClipboard);           // Command resource  
+				var commandId = nameof(CommandGetFromClipboard);
+				var vm = CastToCurrentType(model);
+				var cmd = new ReactiveCommand(canExecute: true) { ViewModel = model }; //New Command Core
+
+				cmd.DoExecuteUIBusyTask(
+						vm,
+						async e =>
+						{
+							var svc = ServiceLocator.Instance.Resolve<IShareService>();
+							var item = await svc.GetFromClipboardAsync();
+							vm.ClipboardImportingItem = item;
 							await MVVMSidekick.Utilities.TaskExHelper.Yield();
 						})
 					.DoNotifyDefaultEventRouter(vm, commandId)
@@ -203,6 +312,51 @@ namespace GreaterShare.ViewModels
 			};
 
 		#endregion
+
+
+
+
+
+		public CommandModel<ReactiveCommand, String> CommandPushClipToCurrentItem
+		{
+			get { return _CommandPushClipToCurrentItemLocator(this).Value; }
+			set { _CommandPushClipToCurrentItemLocator(this).SetValueAndTryNotify(value); }
+		}
+		#region Property CommandModel<ReactiveCommand, String> CommandPushClipToCurrentItem Setup        
+
+		protected Property<CommandModel<ReactiveCommand, String>> _CommandPushClipToCurrentItem = new Property<CommandModel<ReactiveCommand, String>> { LocatorFunc = _CommandPushClipToCurrentItemLocator };
+		static Func<BindableBase, ValueContainer<CommandModel<ReactiveCommand, String>>> _CommandPushClipToCurrentItemLocator = RegisterContainerLocator<CommandModel<ReactiveCommand, String>>(nameof(CommandPushClipToCurrentItem), model => model.Initialize(nameof(CommandPushClipToCurrentItem), ref model._CommandPushClipToCurrentItem, ref _CommandPushClipToCurrentItemLocator, _CommandPushClipToCurrentItemDefaultValueFactory));
+		static Func<BindableBase, CommandModel<ReactiveCommand, String>> _CommandPushClipToCurrentItemDefaultValueFactory =
+			model =>
+			{
+				var resource = nameof(CommandPushClipToCurrentItem);           // Command resource  
+				var commandId = nameof(CommandPushClipToCurrentItem);
+				var vm = CastToCurrentType(model);
+				var cmd = new ReactiveCommand(canExecute: true) { ViewModel = model }; //New Command Core
+
+				cmd.DoExecuteUIBusyTask(
+						vm,
+						async e =>
+						{
+							vm.ReceivedShareItem = vm.ClipboardImportingItem;
+							vm.FocusingViewIndex = 0;
+							//Todo: Add PushClipToCurrentItem logic here, or
+							await MVVMSidekick.Utilities.TaskExHelper.Yield();
+						})
+					.DoNotifyDefaultEventRouter(vm, commandId)
+					.Subscribe()
+					.DisposeWith(vm);
+
+				var cmdmdl = cmd.CreateCommandModel(resource);
+
+				cmdmdl.ListenToIsUIBusy(
+					model: vm,
+					canExecuteWhenBusy: false);
+				return cmdmdl;
+			};
+
+		#endregion
+
 
 
 

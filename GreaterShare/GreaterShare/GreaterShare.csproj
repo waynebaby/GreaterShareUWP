@@ -95,6 +95,7 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Glue\MinItemSizeBehavior.cs" />
     <Compile Include="Glue\NaviagteToStringAction.cs" />
     <Compile Include="Glue\ShareItemDataTemplateSelector.cs" />
     <Compile Include="Glue\StreamImageSourceConverter.cs" />
@@ -102,18 +103,14 @@
     <Compile Include="Models\Sharing\IShareItem.cs" />
     <Compile Include="Models\Sharing\ShareItems\HtmlShareItem.cs" />
     <Compile Include="Models\Sharing\ShareItems\ReceivedShareItem.cs" />
+    <Compile Include="Models\Sharing\ShareItems\TextSharedItem.cs" />
     <Compile Include="Models\Sharing\ShareItems\WebLinkShareItem.cs" />
     <Compile Include="Models\Sharing\ShareItems\ApplicationLinkShareItem.cs" />
-    <Compile Include="Models\Sharing\ShareItems\CustomDataShareItem.cs" />
-    <Compile Include="Models\Sharing\ShareItems\ImagesShareItem.cs" />
     <Compile Include="Models\Sharing\ShareItems\DelayRenderedImageShareItem.cs" />
-    <Compile Include="Models\Sharing\ShareItems\ErrorMessageShareItem.cs" />
     <Compile Include="Models\Sharing\ShareItems\FilesShareItem.cs" />
     <Compile Include="Models\Sharing\ShareItemBase.cs" />
-    <Compile Include="Models\Sharing\ShareItems\TextSharedItem.cs" />
     <Compile Include="Services\DefaultSubStorageService.cs" />
     <Compile Include="Services\DefaultShareService.cs" />
-    <Compile Include="Services\IClipboardService.cs" />
     <Compile Include="Services\ISubStorageService.cs" />
     <Compile Include="Services\IShareService.cs" />
     <Compile Include="Services\ShareItemTransformer\IShareItemTransformer.cs" />

@@ -39,6 +39,7 @@ namespace GreaterShare
 		{
 			get { return (MainPage_Model)GetValue(StrongTypeViewModelProperty); }
 			set { SetValue(StrongTypeViewModelProperty, value); }
+			
 		}
 
 		public static readonly DependencyProperty StrongTypeViewModelProperty =
