@@ -36,7 +36,7 @@
 
     </mvvm:MVVMPage.Resources>
 
-    <Grid Margin="16" Background="#eeeeee"  DataContext="{StaticResource DesignVM}">
+    <Grid  Background="#eeeeee"  DataContext="{StaticResource DesignVM}">
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="IsTextShareOnly">
                 <VisualState x:Name="True">
@@ -63,7 +63,7 @@
                 <Core:GoToStateAction StateName="False" UseTransitions="True"/>
             </Core:DataTriggerBehavior>
         </Interactivity:Interaction.Behaviors>
-        <RelativePanel>
+   <local:Background Canvas.ZIndex="-1" />     <RelativePanel>
             <StackPanel
 				x:Name="titleAndText"
 				Margin="16"                   

@@ -95,6 +95,9 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Background.xaml.cs">
+      <DependentUpon>Background.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Glue\MinItemSizeBehavior.cs" />
     <Compile Include="Glue\NaviagteToStringAction.cs" />
     <Compile Include="Glue\ShareItemDataTemplateSelector.cs" />
@@ -151,6 +154,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Background.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
