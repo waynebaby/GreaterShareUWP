@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace GreaterShare.Models.Sharing.ShareItems
 {
 	[DataContract]
-	public class WebLinkShareItem : BindableBase<WebLinkShareItem>
+	public class WebLinkShareItem : BindableBase<WebLinkShareItem>, IShareItem
 	{
 		[DataMember]
 
@@ -24,6 +24,17 @@ namespace GreaterShare.Models.Sharing.ShareItems
 		static Func<Uri> _WebLinkDefaultValueFactory = () => default(Uri);
 		#endregion
 
+
+		public bool IsSelected
+		{
+			get { return _IsSelectedLocator(this).Value; }
+			set { _IsSelectedLocator(this).SetValueAndTryNotify(value); }
+		}
+		#region Property bool IsSelected Setup        
+		protected Property<bool> _IsSelected = new Property<bool> { LocatorFunc = _IsSelectedLocator };
+		static Func<BindableBase, ValueContainer<bool>> _IsSelectedLocator = RegisterContainerLocator<bool>(nameof(IsSelected), model => model.Initialize(nameof(IsSelected), ref model._IsSelected, ref _IsSelectedLocator, _IsSelectedDefaultValueFactory));
+		static Func<bool> _IsSelectedDefaultValueFactory = () => true;
+		#endregion
 
 
 	}

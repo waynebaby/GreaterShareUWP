@@ -64,6 +64,7 @@ namespace GreaterShare
 
 		protected override void OnFileActivated(FileActivatedEventArgs args)
 		{
+
 			InitNavigationConfigurationInThisAssembly();
 			Frame rootFrame = CreateRootFrame();
 
@@ -168,6 +169,8 @@ namespace GreaterShare
 
 		protected override void OnShareTargetActivated(ShareTargetActivatedEventArgs args)
 		{
+
+
 			InitNavigationConfigurationInThisAssembly();
 			var rootFrame = CreateRootFrame();
 
@@ -181,5 +184,10 @@ namespace GreaterShare
 			base.OnShareTargetActivated(args);
 
 		}
+
+		
+
 	}
+
+	
 }

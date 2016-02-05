@@ -43,7 +43,6 @@ namespace GreaterShare.ViewModels
 					Text = "hhh",
 					AvialableShareItems = new ObservableCollection<object>
 					 {
-
 						new  WebLinkShareItem {  WebLink=new Uri  ("Http://notok")},
 					 }
 				};
@@ -96,6 +95,19 @@ namespace GreaterShare.ViewModels
 
 
 
+		public Object CurrentViewingItem
+		{
+			get { return _CurrentViewingItemLocator(this).Value; }
+			set { _CurrentViewingItemLocator(this).SetValueAndTryNotify(value); }
+		}
+		#region Property Object CurrentViewingItem Setup        
+		protected Property<Object> _CurrentViewingItem = new Property<Object> { LocatorFunc = _CurrentViewingItemLocator };
+		static Func<BindableBase, ValueContainer<Object>> _CurrentViewingItemLocator = RegisterContainerLocator<Object>(nameof(CurrentViewingItem), model => model.Initialize(nameof(CurrentViewingItem), ref model._CurrentViewingItem, ref _CurrentViewingItemLocator, _CurrentViewingItemDefaultValueFactory));
+		static Func<Object> _CurrentViewingItemDefaultValueFactory = () => default(Object);
+		#endregion
+
+
+
 
 		public ReceivedShareItem ReceivedShareItem
 		{
@@ -123,6 +135,122 @@ namespace GreaterShare.ViewModels
 
 
 
+		public CommandModel<ReactiveCommand, String> CommandReshareSelected
+		{
+			get { return _CommandReshareSelectedLocator(this).Value; }
+			set { _CommandReshareSelectedLocator(this).SetValueAndTryNotify(value); }
+		}
+		#region Property CommandModel<ReactiveCommand, String> CommandReshareSelected Setup        
+
+		protected Property<CommandModel<ReactiveCommand, String>> _CommandReshareSelected = new Property<CommandModel<ReactiveCommand, String>> { LocatorFunc = _CommandReshareSelectedLocator };
+		static Func<BindableBase, ValueContainer<CommandModel<ReactiveCommand, String>>> _CommandReshareSelectedLocator = RegisterContainerLocator<CommandModel<ReactiveCommand, String>>(nameof(CommandReshareSelected), model => model.Initialize(nameof(CommandReshareSelected), ref model._CommandReshareSelected, ref _CommandReshareSelectedLocator, _CommandReshareSelectedDefaultValueFactory));
+		static Func<BindableBase, CommandModel<ReactiveCommand, String>> _CommandReshareSelectedDefaultValueFactory =
+			model =>
+			{
+				var resource = nameof(CommandReshareSelected);           // Command resource  
+				var commandId = nameof(CommandReshareSelected);
+				var vm = CastToCurrentType(model);
+				var cmd = new ReactiveCommand(canExecute: true) { ViewModel = model }; //New Command Core
+
+				cmd.DoExecuteUIBusyTask(
+						vm,
+						async e =>
+						{
+							if (vm.ReceivedShareItem?.AvialableShareItems !=null)
+							{
+								var shareitems = vm.ReceivedShareItem.AvialableShareItems.OfType<IShareItem>()
+									.Where (x=>x.IsSelected).ToArray();
+								if (shareitems.Length>0)
+								{
+
+									var svc = ServiceLocator.Instance.Resolve<IShareService>();
+
+									var nr = new ReceivedShareItem();
+									vm.ReceivedShareItem.CopyTo(nr);
+									nr.AvialableShareItems = new ObservableCollection<object>(shareitems);
+									await svc.ShareItemAsync(nr);
+								}
+							}
+
+							//Todo: Add ReshareSelected logic here, or
+							await MVVMSidekick.Utilities.TaskExHelper.Yield();
+						})
+					.DoNotifyDefaultEventRouter(vm, commandId)
+					.Subscribe()
+					.DisposeWith(vm);
+
+				var cmdmdl = cmd.CreateCommandModel(resource);
+
+				cmd.ListenCanExecuteObservable(
+				  vm.ListenChanged(m => m.ReceivedShareItem, m => m.IsUIBusy)
+				  .Select(
+					  x => vm.ReceivedShareItem != null
+					  && vm.ReceivedShareItem.AvialableShareItems != null
+					  && !vm.IsUIBusy));
+				return cmdmdl;
+			};
+
+		#endregion
+
+
+
+		public CommandModel<ReactiveCommand, String> CommandReshareCurrent
+		{
+			get { return _CommandReshareCurrentLocator(this).Value; }
+			set { _CommandReshareCurrentLocator(this).SetValueAndTryNotify(value); }
+		}
+		#region Property CommandModel<ReactiveCommand, String> CommandReshareCurrent Setup        
+
+		protected Property<CommandModel<ReactiveCommand, String>> _CommandReshareCurrent = new Property<CommandModel<ReactiveCommand, String>> { LocatorFunc = _CommandReshareCurrentLocator };
+		static Func<BindableBase, ValueContainer<CommandModel<ReactiveCommand, String>>> _CommandReshareCurrentLocator = RegisterContainerLocator<CommandModel<ReactiveCommand, String>>(nameof(CommandReshareCurrent), model => model.Initialize(nameof(CommandReshareCurrent), ref model._CommandReshareCurrent, ref _CommandReshareCurrentLocator, _CommandReshareCurrentDefaultValueFactory));
+		static Func<BindableBase, CommandModel<ReactiveCommand, String>> _CommandReshareCurrentDefaultValueFactory =
+			model =>
+			{
+				var resource = nameof(CommandReshareCurrent);           // Command resource  
+				var commandId = nameof(CommandReshareCurrent);
+				var vm = CastToCurrentType(model);
+				var cmd = new ReactiveCommand(canExecute: false ) { ViewModel = model }; //New Command Core
+				
+				cmd.DoExecuteUIBusyTask(
+						vm,
+						async e =>
+						{
+							var current = vm.CurrentViewingItem;
+							if (current != null)
+							{
+								var svc = ServiceLocator.Instance.Resolve<IShareService>();
+
+								var nr = new ReceivedShareItem();
+								vm.ReceivedShareItem.CopyTo(nr);
+								nr.AvialableShareItems = new ObservableCollection<object>();
+								nr.AvialableShareItems.Add(current);
+
+								await svc.ShareItemAsync(nr);
+							}
+							//Todo: Add ReshareCurrent logic here, or
+							await MVVMSidekick.Utilities.TaskExHelper.Yield();
+						})
+					.DoNotifyDefaultEventRouter(vm, commandId)
+					.Subscribe()
+					.DisposeWith(vm);
+
+				var cmdmdl = cmd.CreateCommandModel(resource);
+				cmd.ListenCanExecuteObservable(
+				  vm.ListenChanged(m => m.CurrentViewingItem,m=>m.IsUIBusy)
+				  .Select(
+					  x => vm.ReceivedShareItem != null 
+					  && vm.CurrentViewingItem != null
+					  && !vm.IsUIBusy)
+				);
+				//cmdmdl.ListenToIsUIBusy(
+				//	model: vm,
+				//	canExecuteWhenBusy: false);
+				return cmdmdl;
+			};
+
+		#endregion
+
+
 		public CommandModel<ReactiveCommand, String> CommandReshare
 		{
 			get { return _CommandReshareLocator(this).Value; }
@@ -139,10 +267,8 @@ namespace GreaterShare.ViewModels
 				var resource = nameof(CommandReshare);           // Command resource  
 				var commandId = nameof(CommandReshare);
 				var vm = CastToCurrentType(model);
-				var cmd = new ReactiveCommand(canExecute: true) { ViewModel = model }; //New Command Core
-				cmd.ListenCanExecuteObservable(
-					vm.ListenChanged(x => x.ReceivedShareItem)
-					.Select(x => vm.ReceivedShareItem != null));
+				var cmd = new ReactiveCommand(canExecute: false) { ViewModel = model }; //New Command Core
+
 				cmd.DoExecuteUIBusyTask(
 						vm,
 						async e =>
@@ -167,9 +293,12 @@ namespace GreaterShare.ViewModels
 
 				var cmdmdl = cmd.CreateCommandModel(resource);
 
-				cmdmdl.ListenToIsUIBusy(
-					model: vm,
-					canExecuteWhenBusy: false);
+				cmd.ListenCanExecuteObservable(
+								vm.ListenChanged(x => x.ReceivedShareItem, x => vm.IsUIBusy)
+								.Select(x => vm.ReceivedShareItem != null
+									&& vm.ReceivedShareItem.AvialableShareItems != null
+									&& vm.ReceivedShareItem.AvialableShareItems.Count > 0
+									&& !vm.IsUIBusy));
 				return cmdmdl;
 			};
 
@@ -239,10 +368,8 @@ namespace GreaterShare.ViewModels
 				var resource = nameof(CommandSaveToUserFile);           // Command resource  
 				var commandId = nameof(CommandSaveToUserFile);
 				var vm = CastToCurrentType(model);
-				var cmd = new ReactiveCommand(canExecute: true) { ViewModel = model }; //New Command Core
-				cmd.ListenCanExecuteObservable(
-					vm.ListenChanged(x => x.ReceivedShareItem)
-					.Select(x => vm.ReceivedShareItem != null));
+				var cmd = new ReactiveCommand(canExecute: false ) { ViewModel = model }; //New Command Core
+
 
 				cmd.DoExecuteUIBusyTask(
 						vm,
@@ -263,10 +390,12 @@ namespace GreaterShare.ViewModels
 					.DisposeWith(vm);
 
 				var cmdmdl = cmd.CreateCommandModel(resource);
-
-				cmdmdl.ListenToIsUIBusy(
-					model: vm,
-					canExecuteWhenBusy: false);
+				cmd.ListenCanExecuteObservable(
+					vm.ListenChanged(x => x.ReceivedShareItem,x=>x.IsUIBusy)
+					.Select(x => vm.ReceivedShareItem != null &&(!vm.IsUIBusy)));
+				//cmdmdl.ListenToIsUIBusy(
+				//	model: vm,
+				//	canExecuteWhenBusy: false);
 				return cmdmdl;
 			};
 
@@ -297,6 +426,7 @@ namespace GreaterShare.ViewModels
 							var svc = ServiceLocator.Instance.Resolve<IShareService>();
 							var item = await svc.GetFromClipboardAsync();
 							vm.ClipboardImportingItem = item;
+							item.Title = "Pasted to Greater Share at " + DateTime.Now.ToString();
 							await MVVMSidekick.Utilities.TaskExHelper.Yield();
 						})
 					.DoNotifyDefaultEventRouter(vm, commandId)

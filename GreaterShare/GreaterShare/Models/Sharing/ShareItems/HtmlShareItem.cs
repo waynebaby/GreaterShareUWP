@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace GreaterShare.Models.Sharing.ShareItems
 {
 	[DataContract]
-	public class HtmlShareItem : BindableBase<HtmlShareItem>
+	public class HtmlShareItem : BindableBase<HtmlShareItem>, IShareItem
 	{
 
 		//[DataMember]
@@ -38,6 +38,15 @@ namespace GreaterShare.Models.Sharing.ShareItems
 		static Func<BindableBase, ValueContainer<string>> _HtmlFragmentLocator = RegisterContainerLocator<string>(nameof(HtmlFragment), model => model.Initialize(nameof(HtmlFragment), ref model._HtmlFragment, ref _HtmlFragmentLocator, _HtmlFragmentDefaultValueFactory));
 		static Func<string> _HtmlFragmentDefaultValueFactory = () => default(string);
 		#endregion
-
+		public bool IsSelected
+		{
+			get { return _IsSelectedLocator(this).Value; }
+			set { _IsSelectedLocator(this).SetValueAndTryNotify(value); }
+		}
+		#region Property bool IsSelected Setup        
+		protected Property<bool> _IsSelected = new Property<bool> { LocatorFunc = _IsSelectedLocator };
+		static Func<BindableBase, ValueContainer<bool>> _IsSelectedLocator = RegisterContainerLocator<bool>(nameof(IsSelected), model => model.Initialize(nameof(IsSelected), ref model._IsSelected, ref _IsSelectedLocator, _IsSelectedDefaultValueFactory));
+		static Func<bool> _IsSelectedDefaultValueFactory = () => true;
+		#endregion
 	}
 }

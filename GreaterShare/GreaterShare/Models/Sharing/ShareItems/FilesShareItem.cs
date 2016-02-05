@@ -11,7 +11,7 @@ using Windows.Storage;
 namespace GreaterShare.Models.Sharing.ShareItems
 {
 	[DataContract]
-	public class FilesShareItem : BindableBase<FilesShareItem>
+	public class FilesShareItem : BindableBase<FilesShareItem>, IShareItem
 	{
 
 		//[DataMember]
@@ -38,7 +38,16 @@ namespace GreaterShare.Models.Sharing.ShareItems
 		static Func<ObservableCollection<FileItem>> _StorageFilesDefaultValueFactory = () => default(ObservableCollection<FileItem>);
 		#endregion
 
-
+		public bool IsSelected
+		{
+			get { return _IsSelectedLocator(this).Value; }
+			set { _IsSelectedLocator(this).SetValueAndTryNotify(value); }
+		}
+		#region Property bool IsSelected Setup        
+		protected Property<bool> _IsSelected = new Property<bool> { LocatorFunc = _IsSelectedLocator };
+		static Func<BindableBase, ValueContainer<bool>> _IsSelectedLocator = RegisterContainerLocator<bool>(nameof(IsSelected), model => model.Initialize(nameof(IsSelected), ref model._IsSelected, ref _IsSelectedLocator, _IsSelectedDefaultValueFactory));
+		static Func<bool> _IsSelectedDefaultValueFactory = () => true;
+		#endregion
 
 
 	}

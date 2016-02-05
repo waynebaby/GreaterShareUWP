@@ -98,11 +98,14 @@
     <Compile Include="Background.xaml.cs">
       <DependentUpon>Background.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Glue\HideWhenNotMatchConverter.cs" />
+    <Compile Include="Glue\HideWhenInShareConverter.cs" />
     <Compile Include="Glue\MinItemSizeBehavior.cs" />
     <Compile Include="Glue\NaviagteToStringAction.cs" />
     <Compile Include="Glue\ShareItemDataTemplateSelector.cs" />
     <Compile Include="Glue\StreamImageSourceConverter.cs" />
     <Compile Include="Models\MemoryStreamBase64Item.cs" />
+    <Compile Include="Models\Sharing\CopyShareItemToClipboardCommand.cs" />
     <Compile Include="Models\Sharing\IShareItem.cs" />
     <Compile Include="Models\Sharing\ShareItems\HtmlShareItem.cs" />
     <Compile Include="Models\Sharing\ShareItems\ReceivedShareItem.cs" />

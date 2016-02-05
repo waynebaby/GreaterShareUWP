@@ -110,6 +110,10 @@ namespace GreaterShare.Services
 					   	.GetNullObservable()
 						.Subscribe(e => sharedText.Text = rval.Text)
 						.DisposeWith(rval);
+					sharedText.GetValueContainer(x => x.Text)
+						.GetNullObservable()
+						.Subscribe(e => rval.Text = sharedText.Text)
+						.DisposeWith(rval);
 				}
 				catch (Exception ex)
 				{
@@ -350,15 +354,19 @@ namespace GreaterShare.Services
 					case nameof(HtmlShareItem):
 						{
 							var sitm = subShareItem as HtmlShareItem;
-							//package.SetHtmlFormat(sitm.HtmlFormat);
+						
 							var fmt = HtmlFormatHelper.CreateHtmlFormat(sitm.HtmlFragment);
 							package.SetHtmlFormat(fmt);
+							package.SetText(sitm.HtmlFragment);
+
 						}
 						break;
 					case nameof(WebLinkShareItem):
 						{
 							var sitm = subShareItem as WebLinkShareItem;
 							package.SetWebLink(sitm.WebLink);
+							package.SetText(sitm.WebLink?.ToString());
+
 						}
 						break;
 
