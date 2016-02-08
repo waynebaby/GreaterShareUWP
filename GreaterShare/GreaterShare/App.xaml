@@ -186,7 +186,9 @@
                     Visibility="{Binding Converter={StaticResource HideWhenInShareConverter}, Mode=OneWay}" 
                     RelativePanel.AlignRightWithPanel="True"  RelativePanel.AlignTopWithPanel="True"/>
                     <StackPanel Margin="8" x:Name="linkButtons" Orientation="Horizontal" RelativePanel.Below="label">
-                        <HyperlinkButton x:Name="linkVisit"  NavigateUri="{Binding WebLink}" Visibility="{Binding Converter={StaticResource HideWhenInShareConverter}, Mode=OneWay}" >
+                        <HyperlinkButton x:Name="linkVisit"  NavigateUri="{Binding WebLink}"  >
+                            <!--Visibility="{Binding Converter={StaticResource HideWhenInShareConverter}, Mode=OneWay}"-->
+
                             <StackPanel  Orientation="Horizontal" Margin="0,0,12,0">
                                 <FontIcon FontFamily="Segoe UI Symbol" Glyph="&#xE128;" HorizontalAlignment="Center" VerticalAlignment="Center" />
                                 <TextBlock VerticalAlignment="Center" HorizontalAlignment="Right" Margin="8,0,0,0">

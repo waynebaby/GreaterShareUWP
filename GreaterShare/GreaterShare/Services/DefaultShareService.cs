@@ -295,12 +295,12 @@ namespace GreaterShare.Services
 									//package.SetText(item.Text?? "Reshared by " + Windows.ApplicationModel.Package.Current.DisplayName);
 
 									package.Properties.Title = item.Title;
-									foreach (var subShareItem in item
-													.AvialableShareItems
-													)
+									var order = item.AvialableShareItems.OrderBy(x => x is TextSharedItem);
+									 //make sure text share item execute last
+									foreach (var subShareItem in order)
 									{
 										FillPackage(files, package, subShareItem);
-									}
+									}	 
 								}
 								catch (Exception ex)
 								{
@@ -354,7 +354,7 @@ namespace GreaterShare.Services
 					case nameof(HtmlShareItem):
 						{
 							var sitm = subShareItem as HtmlShareItem;
-						
+
 							var fmt = HtmlFormatHelper.CreateHtmlFormat(sitm.HtmlFragment);
 							package.SetHtmlFormat(fmt);
 							package.SetText(sitm.HtmlFragment);
