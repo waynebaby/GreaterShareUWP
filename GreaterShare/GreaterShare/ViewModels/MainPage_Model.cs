@@ -60,26 +60,72 @@ namespace GreaterShare.ViewModels
 			//EventRouter.Instance.RaiseEvent(this, this, "Loaded");
 			App.CurrentFile
 				   .AsObservable()
-				   //.Where(x => x != null)
 				   .ObserveOn(this.Dispatcher)
-				   .Subscribe(
-				   async f =>
-				   {
-					   if (f == null)
-					   {
-						   ReceivedShareItem = null;
-					   }
-					   else
-					   {
-						   var loadService = ServiceLocator.Instance.Resolve<Services.ISubStorageService>();
-						   var file = f as StorageFile;
-						   ReceivedShareItem = await loadService.LoadFromFileAsync<ReceivedShareItem>(file);
-					   }
-				   })
+				   .DoExecuteUIBusyTask(
+						this,
+					 async f =>
+					 {
+						 if (f == null)
+						 {
+							 ReceivedShareItem = null;
+						 }
+						 else
+						 {
+							 var loadService = ServiceLocator.Instance.Resolve<Services.ISubStorageService>();
+							 var file = f as StorageFile;
+							 ReceivedShareItem = await loadService.LoadFromFileAsync<ReceivedShareItem>(file);
+							 FocusingViewIndex = 0;
+						 }
+					 })
+				   .Subscribe()
 				   .DisposeWhenUnload(this);
+			var obv = this.ListenChanged(
+				x => x.FocusingViewIndex,
+				x => x.ReceivedShareItem,
+				x => x.ClipboardImportingItem);
+
+			obv.Where(_ => this.FocusingViewIndex == 0)
+				.Where(_ => this.ReceivedShareItem == null)
+				.Subscribe(_ => SugguestingCommand = nameof(CommandLoadFromUserFile))
+				.DisposeWhenUnload(this);
+
+
+
+			obv.Where(_ => this.FocusingViewIndex == 0)
+				.Where(_ => this.ReceivedShareItem != null)
+				.Subscribe(_ => SugguestingCommand = nameof(CommandReshare))
+				.DisposeWhenUnload(this);
+			obv.Where(_ => this.FocusingViewIndex == 1)
+			   .Where(_ => this.ClipboardImportingItem != null)
+			   .Where(_ => this.ClipboardImportingItem.AvialableShareItems != null)
+			   .Where(_ => this.ClipboardImportingItem.AvialableShareItems.Count > 0)
+			   .Subscribe(_ => SugguestingCommand = nameof(CommandPushClipToCurrentItem))
+			   .DisposeWhenUnload(this);
+
+
+			obv.Where(_ => this.FocusingViewIndex == 1)
+				.Where(
+					_ =>
+					   this.ClipboardImportingItem == null ||
+					   this.ClipboardImportingItem.AvialableShareItems == null ||
+					   this.ClipboardImportingItem.AvialableShareItems.Count == 0)
+			   .Subscribe(_ => SugguestingCommand = nameof(CommandGetFromClipboard))
+			   .DisposeWhenUnload(this);
+
 
 			return base.OnBindedViewLoad(view);
 		}
+
+		public string SugguestingCommand
+		{
+			get { return _SugguestingCommandLocator(this).Value; }
+			set { _SugguestingCommandLocator(this).SetValueAndTryNotify(value); }
+		}
+		#region Property string SugguestingCommand Setup        
+		protected Property<string> _SugguestingCommand = new Property<string> { LocatorFunc = _SugguestingCommandLocator };
+		static Func<BindableBase, ValueContainer<string>> _SugguestingCommandLocator = RegisterContainerLocator<string>(nameof(SugguestingCommand), model => model.Initialize(nameof(SugguestingCommand), ref model._SugguestingCommand, ref _SugguestingCommandLocator, _SugguestingCommandDefaultValueFactory));
+		static Func<string> _SugguestingCommandDefaultValueFactory = () => default(string);
+		#endregion
 
 
 		public ReceivedShareItem ClipboardImportingItem
@@ -166,7 +212,7 @@ namespace GreaterShare.ViewModels
 									var svc = ServiceLocator.Instance.Resolve<IShareService>();
 
 									var nr = CreateACopyOfShareItem(vm.ReceivedShareItem);
-									
+
 									nr.AvialableShareItems = new ObservableCollection<object>(shareitems);
 									await svc.ShareItemAsync(nr);
 								}
@@ -262,7 +308,7 @@ namespace GreaterShare.ViewModels
 				Square30x30Logo = sharedsource.Square30x30Logo,
 				Text = sharedsource.Text,
 				Thumbnail = sharedsource.Thumbnail,
-				Title = sharedsource.Title,	
+				Title = sharedsource.Title,
 			};
 		}
 
@@ -480,7 +526,7 @@ namespace GreaterShare.ViewModels
 				var resource = nameof(CommandPushClipToCurrentItem);           // Command resource  
 				var commandId = nameof(CommandPushClipToCurrentItem);
 				var vm = CastToCurrentType(model);
-				var cmd = new ReactiveCommand(canExecute: true) { ViewModel = model }; //New Command Core
+				var cmd = new ReactiveCommand(canExecute: false) { ViewModel = model }; //New Command Core
 
 				cmd.DoExecuteUIBusyTask(
 						vm,
@@ -497,9 +543,15 @@ namespace GreaterShare.ViewModels
 
 				var cmdmdl = cmd.CreateCommandModel(resource);
 
-				cmdmdl.ListenToIsUIBusy(
-					model: vm,
-					canExecuteWhenBusy: false);
+				cmdmdl.CommandCore.ListenCanExecuteObservable(
+					vm.ListenChanged(x => x.IsUIBusy, x => x.ClipboardImportingItem)
+						.Select(v =>
+							   {
+								   var count = vm.ClipboardImportingItem?.AvialableShareItems?.Count ?? 0;
+								   return (!vm.IsUIBusy) && count > 0;
+							   }
+						)
+					);
 				return cmdmdl;
 			};
 

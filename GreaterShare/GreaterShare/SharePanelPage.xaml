@@ -94,7 +94,7 @@
                         <Setter Property="VerticalAlignment" Value="Stretch"/>
                         <Setter Property="Height" Value="130"/>
                         <Setter Property="Width" Value="400" />
-                        <Setter Property="Background" Value="#99F0F8FF" />
+                        <Setter Property="Background" Value="#88888888" />
                     </Style>
                     <Style TargetType="TextBlock">
                         <Setter Property="TextWrapping"  Value="WrapWholeWords" />

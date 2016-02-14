@@ -6,7 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:mvvm="using:MVVMSidekick.Views"
     xmlns:vm="using:GreaterShare.ViewModels"
-    xmlns:Interactivity="using:Microsoft.Xaml.Interactivity" xmlns:Core="using:Microsoft.Xaml.Interactions.Core" xmlns:Glue="using:GreaterShare.Glue" x:Name="mVVMPage"
+    xmlns:Interactivity="using:Microsoft.Xaml.Interactivity" xmlns:Core="using:Microsoft.Xaml.Interactions.Core" xmlns:Glue="using:GreaterShare.Glue" xmlns:Media="using:Microsoft.Xaml.Interactions.Media" xmlns:Mocks="using:Mocks" x:Name="mVVMPage"
     x:Class="GreaterShare.MainPage"
     mc:Ignorable="d">
     <mvvm:MVVMPage.Resources>
@@ -14,6 +14,7 @@
         <!-- TODO: Delete this line if the key AppName is declared in App.xaml -->
         <x:String x:Key="AppName">My Application</x:String>
         <vm:MainPage_Model x:Key="DesignVM"/>
+
     </mvvm:MVVMPage.Resources>
     <Grid x:Name="grid" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"  DataContext="{StaticResource DesignVM}">
         <VisualStateManager.VisualStateGroups>
@@ -64,6 +65,89 @@
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
+            <VisualStateGroup x:Name="SuggestButton">
+                <VisualStateGroup.Transitions>
+
+                    <VisualTransition GeneratedDuration="0:0:1" To="CommandGetFromClipboard"       >
+                    
+                    </VisualTransition>
+                    <VisualTransition GeneratedDuration="0:0:1" To="CommandPushClipToCurrentItem"  >
+                       
+                    </VisualTransition>
+                    <VisualTransition GeneratedDuration="0:0:1" To="CommandLoadFromUserFile"      >
+                       
+                    </VisualTransition>
+                    <VisualTransition GeneratedDuration="0:0:1" To="CommandReshare"                >
+                       
+                    </VisualTransition>
+                    <VisualTransition GeneratedDuration="0:0:1">
+                        <VisualTransition.GeneratedEasingFunction>
+                            <BounceEase EasingMode="EaseOut"/>
+                        </VisualTransition.GeneratedEasingFunction>
+                    </VisualTransition>
+                </VisualStateGroup.Transitions>
+                <VisualState x:Name="CommandGetFromClipboard">
+                    <Storyboard>
+                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Projection).(PlaneProjection.LocalOffsetZ)" Storyboard.TargetName="appBarButton1">
+                            <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                            <EasingDoubleKeyFrame KeyTime="0:0:.5" Value="200">
+                                <EasingDoubleKeyFrame.EasingFunction>
+                                    <BounceEase EasingMode="EaseOut"/>
+                                </EasingDoubleKeyFrame.EasingFunction>
+                            </EasingDoubleKeyFrame>
+                        </DoubleAnimationUsingKeyFrames>
+                    </Storyboard>
+                </VisualState>
+                <VisualState x:Name="CommandPushClipToCurrentItem">
+                    <VisualState.Setters>
+                        <Setter Target="appBarButton2.(UIElement.Projection).(PlaneProjection.LocalOffsetZ)" Value="200"/>
+                    </VisualState.Setters>
+                    <Storyboard>
+                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Projection).(PlaneProjection.LocalOffsetZ)" Storyboard.TargetName="appBarButton2">
+                            <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                            <EasingDoubleKeyFrame KeyTime="0:0:.5" Value="200">
+                                <EasingDoubleKeyFrame.EasingFunction>
+                                    <BounceEase EasingMode="EaseOut"/>
+                                </EasingDoubleKeyFrame.EasingFunction>
+                            </EasingDoubleKeyFrame>
+                        </DoubleAnimationUsingKeyFrames>
+                    </Storyboard>
+                </VisualState>
+                <VisualState x:Name="CommandLoadFromUserFile">
+                    <VisualState.Setters>
+                        <Setter Target="appBarButton.(UIElement.Projection).(PlaneProjection.LocalOffsetZ)" Value="200"/>
+                    </VisualState.Setters>
+                    <Storyboard>
+                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Projection).(PlaneProjection.LocalOffsetZ)" Storyboard.TargetName="appBarButton">
+                            <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                            <EasingDoubleKeyFrame KeyTime="0:0:.5" Value="200">
+                                <EasingDoubleKeyFrame.EasingFunction>
+                                    <BounceEase EasingMode="EaseOut"/>
+                                </EasingDoubleKeyFrame.EasingFunction>
+                            </EasingDoubleKeyFrame>
+                        </DoubleAnimationUsingKeyFrames>
+                    </Storyboard>
+                </VisualState>
+                <VisualState x:Name="CommandReshare">
+                    <VisualState.Setters>
+                        <Setter Target="appBarButton3.(UIElement.Projection).(PlaneProjection.RotationZ)">
+                            <Setter.Value>
+                                <x:Double>0</x:Double>
+                            </Setter.Value>
+                        </Setter>
+                    </VisualState.Setters>
+                    <Storyboard>
+                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Projection).(PlaneProjection.LocalOffsetZ)" Storyboard.TargetName="appBarButton3">
+                            <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                            <EasingDoubleKeyFrame KeyTime="0:0:.5" Value="200">
+                                <EasingDoubleKeyFrame.EasingFunction>
+                                    <BounceEase EasingMode="EaseOut"/>
+                                </EasingDoubleKeyFrame.EasingFunction>
+                            </EasingDoubleKeyFrame>
+                        </DoubleAnimationUsingKeyFrames>
+                    </Storyboard>
+                </VisualState>
+            </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
         <Interactivity:Interaction.Behaviors>
             <Core:DataTriggerBehavior  Binding="{Binding ReceivedShareItem}"  Value="{x:Null}">
@@ -76,25 +160,26 @@
         <Pivot x:Name="pivot" Margin="32,32,32,72" SelectedIndex="{Binding FocusingViewIndex, Mode=TwoWay}"  Background="#33F0F8FF">
             <PivotItem Header="Current Share">
                 <Grid x:Name="grid1">
+                
                     <StackPanel 
-                             HorizontalAlignment="Center" VerticalAlignment="Center"
-                     Orientation="Vertical" x:Name="textBlock" d:LayoutOverrides="Height">
+						HorizontalAlignment="Center" VerticalAlignment="Center"
+						Orientation="Vertical" x:Name="textBlock" d:LayoutOverrides="Height">
 
                         <TextBlock  TextAlignment="Center"
-                			TextWrapping="Wrap"
-                			 Opacity=".7" Foreground="#333333" FontSize="30" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin, LeftPosition, RightPosition, TopPosition, BottomPosition">
+							TextWrapping="Wrap"
+							Opacity=".7" Foreground="#333333" FontSize="30" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin, LeftPosition, RightPosition, TopPosition, BottomPosition">
                     	    
-                			<Bold>	<Run Text="You have No Data to share."/>
-                				<Run/>
-                				<Run Text="Try open a .gshare file, "/>
-                				<Run Text="or import some data from"/>   </Bold>
+							<Bold>	<Run Text="You have No Data to share."/>
+								<Run/>
+								<Run Text="Try open a .gshare file, "/>
+								<Run Text="or import some data from"/>   </Bold>
                         </TextBlock>
-                        <HyperlinkButton x:Name="hyperlinkButton" HorizontalAlignment="Center" FontSize="34.667" FontWeight="Bold">
+                        <HyperlinkButton x:Name="hyperlinkButton" HorizontalAlignment="Center" FontSize="34.667" FontWeight="Bold" Content="Clipboard">
                             <Interactivity:Interaction.Behaviors>
                                 <Core:EventTriggerBehavior EventName="Click" SourceObject="{Binding ElementName=hyperlinkButton}">
                                     <Core:ChangePropertyAction TargetObject="{Binding ElementName=pivot, Mode=OneWay}" PropertyName="SelectedIndex" Value="1"/>
                                 </Core:EventTriggerBehavior>
-                            </Interactivity:Interaction.Behaviors>Clipboard
+                            </Interactivity:Interaction.Behaviors>
                         </HyperlinkButton>
                     </StackPanel>
                     <Grid x:Name="relativePanel"  >
@@ -186,7 +271,7 @@
                         </ScrollViewer>
                         <Grid x:Name="flipView" RelativePanel.RightOf="propertiesPanel"  RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignTopWithPanel="True" Height="{Binding Width, RelativeSource={RelativeSource Mode=Self}}"   Margin="16" Grid.RowSpan="2" Grid.Column="1" MinHeight="400" MinWidth="400" >
                             <FlipView  xmlns:glue="using:GreaterShare.Glue" 
-							 ItemsSource="{Binding ReceivedShareItem.AvialableShareItems}" SelectedItem="{Binding CurrentViewingItem, Mode=TwoWay}"   >
+								ItemsSource="{Binding ReceivedShareItem.AvialableShareItems}" SelectedItem="{Binding CurrentViewingItem, Mode=TwoWay}"   >
 
                                 <FlipView.ItemTemplateSelector>
                                     <glue:ShareItemDataTemplateSelector  PrefixOfTemplateKey="DataTemplateOf"/>
@@ -232,25 +317,46 @@
         </Pivot>
         <local:Background Canvas.ZIndex="-2"/>
         <AppBar  VerticalAlignment="Bottom" IsDoubleTapEnabled="False" IsTabStop="True" IsSticky="True" ClosedDisplayMode="Minimal" UseSystemFocusVisuals="True" IsOpen="True"  >
-            <Grid>
+            <Interactivity:Interaction.Behaviors>
+                <Core:DataTriggerBehavior Binding="{Binding SugguestingCommand}" ComparisonCondition="NotEqual" Value="{x:Null}">
+                    <Core:GoToStateAction StateName="{Binding SugguestingCommand}"/>
+                </Core:DataTriggerBehavior>
+            </Interactivity:Interaction.Behaviors>
+            <Grid Margin="8">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <StackPanel Orientation="Horizontal"  Visibility="{Binding SelectedIndex, ConverterParameter=0, Converter={StaticResource HideWhenNotMatchConverter}, ElementName=pivot}">
-                    <AppBarButton Command="{Binding StrongTypeViewModel.CommandLoadFromUserFile, ElementName=mVVMPage}" x:Name="appBarButton" HorizontalAlignment="Left" Icon="OpenLocal"  Label="Load From File" VerticalAlignment="Top"/>
+                    <AppBarButton Command="{Binding StrongTypeViewModel.CommandLoadFromUserFile, ElementName=mVVMPage}" x:Name="appBarButton" HorizontalAlignment="Left" Icon="OpenLocal"  Label="Load From File" VerticalAlignment="Top">
+                        <AppBarButton.Projection>
+                            <PlaneProjection/>
+                        </AppBarButton.Projection>
+                    </AppBarButton>
                     <AppBarButton Command="{Binding StrongTypeViewModel.CommandSaveToUserFile, ElementName=mVVMPage}" Icon="SaveLocal" Label="Save Share" />
                 </StackPanel>
                 <StackPanel x:Name="stackPanel1" Grid.Column="1"  Orientation="Horizontal" HorizontalAlignment="Right" Visibility="{Binding SelectedIndex, ConverterParameter=1, Converter={StaticResource HideWhenNotMatchConverter}, ElementName=pivot}">
 
-                    <AppBarButton  Label="Paste Here"  Command="{Binding StrongTypeViewModel.CommandGetFromClipboard, ElementName=mVVMPage}" Icon="Paste" />
-                    <AppBarButton Label="To Share" Command="{Binding StrongTypeViewModel.CommandPushClipToCurrentItem, ElementName=mVVMPage}" Icon="Import"/>
+                    <AppBarButton x:Name="appBarButton1"  Label="Paste Here"  Command="{Binding StrongTypeViewModel.CommandGetFromClipboard, ElementName=mVVMPage}" Icon="Paste" >
+                        <AppBarButton.Projection>
+                            <PlaneProjection/>
+                        </AppBarButton.Projection>
+                    </AppBarButton>
+                    <AppBarButton x:Name="appBarButton2" Label="To Share" Command="{Binding StrongTypeViewModel.CommandPushClipToCurrentItem, ElementName=mVVMPage}" Icon="Import">
+                        <AppBarButton.Projection>
+                            <PlaneProjection/>
+                        </AppBarButton.Projection>
+                    </AppBarButton>
 
                 </StackPanel>
                 <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" x:Name="stackPanel2"  Visibility="{Binding SelectedIndex, ConverterParameter=0, Converter={StaticResource HideWhenNotMatchConverter}, ElementName=pivot}">
                     <AppBarButton Command="{Binding StrongTypeViewModel.CommandReshareCurrent, ElementName=mVVMPage}" HorizontalAlignment="Left" Icon="Target"  Label="Reshare Current" VerticalAlignment="Top"/>
                     <AppBarButton Command="{Binding StrongTypeViewModel.CommandReshareSelected, ElementName=mVVMPage}" HorizontalAlignment="Left" Icon="Bullets"  Label="Reshare Selcted" VerticalAlignment="Top"/>
-                    <AppBarButton Command="{Binding StrongTypeViewModel.CommandReshare, ElementName=mVVMPage}" HorizontalAlignment="Left" Icon="ReShare"  Label="Reshare All" VerticalAlignment="Top"/>
+                    <AppBarButton x:Name="appBarButton3" Command="{Binding StrongTypeViewModel.CommandReshare, ElementName=mVVMPage}" HorizontalAlignment="Left" Icon="ReShare"  Label="Reshare All" VerticalAlignment="Top">
+                        <AppBarButton.Projection>
+                            <PlaneProjection/>
+                        </AppBarButton.Projection>
+                    </AppBarButton>
                 </StackPanel>
             </Grid>
         </AppBar>

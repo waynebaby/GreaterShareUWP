@@ -14,6 +14,8 @@
 
     RequestedTheme="Light">
     <Application.Resources>
+
+       
         <Glue:UriStringConverter x:Key="UriStringConverter"/>
         <Glue:HideWhenInShareConverter x:Key="HideWhenInShareConverter"/>
         <Style  TargetType="TextBlock" x:Key="ContentViewerLabel"  >
