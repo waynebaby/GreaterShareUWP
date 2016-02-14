@@ -94,7 +94,7 @@
                                 <Core:EventTriggerBehavior EventName="Click" SourceObject="{Binding ElementName=hyperlinkButton}">
                                     <Core:ChangePropertyAction TargetObject="{Binding ElementName=pivot, Mode=OneWay}" PropertyName="SelectedIndex" Value="1"/>
                                 </Core:EventTriggerBehavior>
-                            </Interactivity:Interaction.Behaviors> Clipboard
+                            </Interactivity:Interaction.Behaviors>Clipboard
                         </HyperlinkButton>
                     </StackPanel>
                     <Grid x:Name="relativePanel"  >
@@ -155,19 +155,19 @@
                                 <StackPanel >
                                     <RelativePanel >
                                         <TextBlock x:Name="label">
-											<Run Text="ContentSourceApplicationLink:"/>
+											<Run Text="Content Source ApplicationLink:"/>
                                         </TextBlock>
                                         <HyperlinkButton RelativePanel.RightOf="label" NavigateUri="{Binding ReceivedShareItem.ContentSourceApplicationLink}" RelativePanel.AlignVerticalCenterWith="label" HorizontalAlignment="Right" RelativePanel.AlignRightWithPanel="True" Content="Launch"/>
-                                        <TextBox Text="{Binding ReceivedShareItem.ContentSourceApplicationLink, Mode=TwoWay}" RelativePanel.Below="label" RelativePanel.AlignRightWith="" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True"/>
+                                        <TextBox Text="{Binding ReceivedShareItem.ContentSourceApplicationLink, Converter={StaticResource UriStringConverter}, Mode=TwoWay}" RelativePanel.Below="label" RelativePanel.AlignRightWith="" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True"/>
                                     </RelativePanel>
                                 </StackPanel>
                                 <StackPanel >
                                     <RelativePanel >
                                         <TextBlock x:Name="label2">
-											<Run Text="ContentSourceWebLink:"/>
+											<Run Text="Content Source WebLink:"/>
                                         </TextBlock>
                                         <HyperlinkButton RelativePanel.RightOf="label2" NavigateUri="{Binding ReceivedShareItem.ContentSourceWebLink}" RelativePanel.AlignVerticalCenterWith="label2" HorizontalAlignment="Right" RelativePanel.AlignRightWithPanel="True" Content="Launch"/>
-                                        <TextBox Text="{Binding ReceivedShareItem.ContentSourceWebLink, Mode=TwoWay}"  RelativePanel.Below="label2" RelativePanel.AlignRightWith="" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True"/>
+                                        <TextBox Text="{Binding ReceivedShareItem.ContentSourceWebLink, Converter={StaticResource UriStringConverter}, Mode=TwoWay}"  RelativePanel.Below="label2" RelativePanel.AlignRightWith="" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True"/>
                                     </RelativePanel>
                                 </StackPanel>
 
@@ -250,7 +250,7 @@
                 <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" x:Name="stackPanel2"  Visibility="{Binding SelectedIndex, ConverterParameter=0, Converter={StaticResource HideWhenNotMatchConverter}, ElementName=pivot}">
                     <AppBarButton Command="{Binding StrongTypeViewModel.CommandReshareCurrent, ElementName=mVVMPage}" HorizontalAlignment="Left" Icon="Target"  Label="Reshare Current" VerticalAlignment="Top"/>
                     <AppBarButton Command="{Binding StrongTypeViewModel.CommandReshareSelected, ElementName=mVVMPage}" HorizontalAlignment="Left" Icon="Bullets"  Label="Reshare Selcted" VerticalAlignment="Top"/>
-                    <AppBarButton Command="{Binding StrongTypeViewModel.CommandReshare, ElementName=mVVMPage}" HorizontalAlignment="Left" Icon="ReShare"  Label="Reshare" VerticalAlignment="Top"/>
+                    <AppBarButton Command="{Binding StrongTypeViewModel.CommandReshare, ElementName=mVVMPage}" HorizontalAlignment="Left" Icon="ReShare"  Label="Reshare All" VerticalAlignment="Top"/>
                 </StackPanel>
             </Grid>
         </AppBar>

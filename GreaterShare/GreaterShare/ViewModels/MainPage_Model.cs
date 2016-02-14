@@ -156,17 +156,17 @@ namespace GreaterShare.ViewModels
 						vm,
 						async e =>
 						{
-							if (vm.ReceivedShareItem?.AvialableShareItems !=null)
+							if (vm.ReceivedShareItem?.AvialableShareItems != null)
 							{
 								var shareitems = vm.ReceivedShareItem.AvialableShareItems.OfType<IShareItem>()
-									.Where (x=>x.IsSelected).ToArray();
-								if (shareitems.Length>0)
+									.Where(x => x.IsSelected).ToArray();
+								if (shareitems.Length > 0)
 								{
 
 									var svc = ServiceLocator.Instance.Resolve<IShareService>();
 
-									var nr = new ReceivedShareItem();
-									vm.ReceivedShareItem.CopyTo(nr);
+									var nr = CreateACopyOfShareItem(vm.ReceivedShareItem);
+									
 									nr.AvialableShareItems = new ObservableCollection<object>(shareitems);
 									await svc.ShareItemAsync(nr);
 								}
@@ -209,8 +209,8 @@ namespace GreaterShare.ViewModels
 				var resource = nameof(CommandReshareCurrent);           // Command resource  
 				var commandId = nameof(CommandReshareCurrent);
 				var vm = CastToCurrentType(model);
-				var cmd = new ReactiveCommand(canExecute: false ) { ViewModel = model }; //New Command Core
-				
+				var cmd = new ReactiveCommand(canExecute: false) { ViewModel = model }; //New Command Core
+
 				cmd.DoExecuteUIBusyTask(
 						vm,
 						async e =>
@@ -219,9 +219,9 @@ namespace GreaterShare.ViewModels
 							if (current != null)
 							{
 								var svc = ServiceLocator.Instance.Resolve<IShareService>();
+								var sharedsource = vm.ReceivedShareItem;
+								ReceivedShareItem nr = CreateACopyOfShareItem(sharedsource);
 
-								var nr = new ReceivedShareItem();
-								vm.ReceivedShareItem.CopyTo(nr);
 								nr.AvialableShareItems = new ObservableCollection<object>();
 								nr.AvialableShareItems.Add(current);
 
@@ -236,9 +236,9 @@ namespace GreaterShare.ViewModels
 
 				var cmdmdl = cmd.CreateCommandModel(resource);
 				cmd.ListenCanExecuteObservable(
-				  vm.ListenChanged(m => m.CurrentViewingItem,m=>m.IsUIBusy)
+				  vm.ListenChanged(m => m.CurrentViewingItem, m => m.IsUIBusy)
 				  .Select(
-					  x => vm.ReceivedShareItem != null 
+					  x => vm.ReceivedShareItem != null
 					  && vm.CurrentViewingItem != null
 					  && !vm.IsUIBusy)
 				);
@@ -247,6 +247,24 @@ namespace GreaterShare.ViewModels
 				//	canExecuteWhenBusy: false);
 				return cmdmdl;
 			};
+
+		private static ReceivedShareItem CreateACopyOfShareItem(ReceivedShareItem sharedsource)
+		{
+			return new ReceivedShareItem()
+			{
+				ContentSourceApplicationLink = sharedsource.ContentSourceApplicationLink,
+				DefaultFailedDisplayText = sharedsource.DefaultFailedDisplayText,
+				ContentSourceWebLink = sharedsource.ContentSourceWebLink,
+				Description = sharedsource.Description,
+				LogoBackgroundColor = sharedsource.LogoBackgroundColor,
+				PackageFamilyName = sharedsource.PackageFamilyName,
+				QuickLinkId = sharedsource.QuickLinkId,
+				Square30x30Logo = sharedsource.Square30x30Logo,
+				Text = sharedsource.Text,
+				Thumbnail = sharedsource.Thumbnail,
+				Title = sharedsource.Title,	
+			};
+		}
 
 		#endregion
 
@@ -368,7 +386,7 @@ namespace GreaterShare.ViewModels
 				var resource = nameof(CommandSaveToUserFile);           // Command resource  
 				var commandId = nameof(CommandSaveToUserFile);
 				var vm = CastToCurrentType(model);
-				var cmd = new ReactiveCommand(canExecute: false ) { ViewModel = model }; //New Command Core
+				var cmd = new ReactiveCommand(canExecute: false) { ViewModel = model }; //New Command Core
 
 
 				cmd.DoExecuteUIBusyTask(
@@ -391,8 +409,8 @@ namespace GreaterShare.ViewModels
 
 				var cmdmdl = cmd.CreateCommandModel(resource);
 				cmd.ListenCanExecuteObservable(
-					vm.ListenChanged(x => x.ReceivedShareItem,x=>x.IsUIBusy)
-					.Select(x => vm.ReceivedShareItem != null &&(!vm.IsUIBusy)));
+					vm.ListenChanged(x => x.ReceivedShareItem, x => x.IsUIBusy)
+					.Select(x => vm.ReceivedShareItem != null && (!vm.IsUIBusy)));
 				//cmdmdl.ListenToIsUIBusy(
 				//	model: vm,
 				//	canExecuteWhenBusy: false);

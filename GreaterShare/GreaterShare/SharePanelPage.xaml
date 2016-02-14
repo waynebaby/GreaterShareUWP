@@ -28,8 +28,7 @@
             <Setter Property="FontSize"    Value="{ThemeResource TextStyleLargeFontSize}" />
         </Style>
         <Style TargetType="Border" x:Key="ContentOfList" >
-            <Setter Property="Margin"  Value="8"/>
-
+            <Setter Property="Margin"  Value="8"/> 
             <Setter Property="RelativePanel.AlignBottomWithPanel"  Value="True" />
             <Setter Property="RelativePanel.AlignLeftWithPanel"  Value="True" />
         </Style>
@@ -95,7 +94,7 @@
                         <Setter Property="VerticalAlignment" Value="Stretch"/>
                         <Setter Property="Height" Value="130"/>
                         <Setter Property="Width" Value="400" />
-                        <Setter Property="Background" Value="AliceBlue" />
+                        <Setter Property="Background" Value="#99F0F8FF" />
                     </Style>
                     <Style TargetType="TextBlock">
                         <Setter Property="TextWrapping"  Value="WrapWholeWords" />
