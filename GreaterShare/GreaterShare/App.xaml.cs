@@ -12,9 +12,12 @@ using System.Reactive.Subjects;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
+using Windows.ApplicationModel.Core;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Storage;
+using Windows.UI;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -82,6 +85,8 @@ namespace GreaterShare
 			//	 }
 			//	);
 
+			ConfigTitlebar();
+
 			CurrentFile.OnNext(args.Files.FirstOrDefault());
 			Window.Current.Activate();
 			//base.OnFileActivated(args);
@@ -116,8 +121,17 @@ namespace GreaterShare
 			// Ensure the current window is active
 
 			CurrentFile.OnNext(null);
-
+			ConfigTitlebar();
 			Window.Current.Activate();
+		}
+
+		private static void ConfigTitlebar()
+		{
+			var view = CoreApplication.GetCurrentView();
+			CoreApplicationViewTitleBar coreTitleBar = view.TitleBar;
+			coreTitleBar.ExtendViewIntoTitleBar = true;
+			ApplicationViewTitleBar formatableTitlebar = ApplicationView.GetForCurrentView().TitleBar;
+			formatableTitlebar.ButtonBackgroundColor = Color.FromArgb(64, 64, 64, 64);
 		}
 
 
@@ -185,9 +199,9 @@ namespace GreaterShare
 
 		}
 
-		
+
 
 	}
 
-	
+
 }

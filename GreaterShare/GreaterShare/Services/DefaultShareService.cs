@@ -134,7 +134,7 @@ namespace GreaterShare.Services
 					{
 						var guidString = Guid.NewGuid().ToString();
 						StorageApplicationPermissions.FutureAccessList.AddOrReplace(guidString, sf, sf.Name);
-						var ts = await sf.GetScaledImageAsThumbnailAsync(Windows.Storage.FileProperties.ThumbnailMode.PicturesView);
+						var ts = await sf.GetScaledImageAsThumbnailAsync(Windows.Storage.FileProperties.ThumbnailMode.VideosView);
 						var tmbs = new MemoryStream();
 						await ts.AsStreamForRead().CopyToAsync(tmbs);
 						var file = new FileItem

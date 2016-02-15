@@ -6,7 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:mvvm="using:MVVMSidekick.Views"
     xmlns:vm="using:GreaterShare.ViewModels"
-    xmlns:Interactivity="using:Microsoft.Xaml.Interactivity" xmlns:Core="using:Microsoft.Xaml.Interactions.Core" xmlns:Glue="using:GreaterShare.Glue" xmlns:Media="using:Microsoft.Xaml.Interactions.Media" xmlns:Mocks="using:Mocks" x:Name="mVVMPage"
+    xmlns:Interactivity="using:Microsoft.Xaml.Interactivity" xmlns:Core="using:Microsoft.Xaml.Interactions.Core" xmlns:Glue="using:GreaterShare.Glue" xmlns:Media="using:Microsoft.Xaml.Interactions.Media" x:Name="mVVMPage"
     x:Class="GreaterShare.MainPage"
     mc:Ignorable="d">
     <mvvm:MVVMPage.Resources>
