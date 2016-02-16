@@ -141,10 +141,7 @@
         			RelativePanel.AlignRightWithPanel="True" ItemTemplate="{StaticResource FileGridItem}" >
                     <GridView.ItemsPanel >
                         <ItemsPanelTemplate>
-                            <ItemsWrapGrid >
-                                <Interactivity:Interaction.Behaviors>
-                                    <Glue:MinItemSizeBehavior ItemMinHeight="300" ItemMinWidth="300"/>
-                                </Interactivity:Interaction.Behaviors>
+                            <ItemsWrapGrid ItemHeight="240">
 
                             </ItemsWrapGrid>
                         </ItemsPanelTemplate>
