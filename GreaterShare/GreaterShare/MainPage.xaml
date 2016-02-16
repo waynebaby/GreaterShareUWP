@@ -69,16 +69,16 @@
                 <VisualStateGroup.Transitions>
 
                     <VisualTransition GeneratedDuration="0:0:1" To="CommandGetFromClipboard"       >
-                    
+
                     </VisualTransition>
                     <VisualTransition GeneratedDuration="0:0:1" To="CommandPushClipToCurrentItem"  >
-                       
+
                     </VisualTransition>
                     <VisualTransition GeneratedDuration="0:0:1" To="CommandLoadFromUserFile"      >
-                       
+
                     </VisualTransition>
                     <VisualTransition GeneratedDuration="0:0:1" To="CommandReshare"                >
-                       
+
                     </VisualTransition>
                     <VisualTransition GeneratedDuration="0:0:1">
                         <VisualTransition.GeneratedEasingFunction>
@@ -160,7 +160,7 @@
         <Pivot x:Name="pivot" Margin="32,32,32,72" SelectedIndex="{Binding FocusingViewIndex, Mode=TwoWay}"  Background="#33F0F8FF">
             <PivotItem Header="Current Share">
                 <Grid x:Name="grid1">
-                
+
                     <StackPanel 
 						HorizontalAlignment="Center" VerticalAlignment="Center"
 						Orientation="Vertical" x:Name="textBlock" d:LayoutOverrides="Height">
@@ -270,8 +270,13 @@
                             </StackPanel>
                         </ScrollViewer>
                         <Grid x:Name="flipView" RelativePanel.RightOf="propertiesPanel"  RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignTopWithPanel="True" Height="{Binding Width, RelativeSource={RelativeSource Mode=Self}}"   Margin="16" Grid.RowSpan="2" Grid.Column="1" MinHeight="400" MinWidth="400" >
-                            <FlipView  xmlns:glue="using:GreaterShare.Glue" 
+                            <FlipView  xmlns:glue="using:GreaterShare.Glue" x:Name="flipView1" 
 								ItemsSource="{Binding ReceivedShareItem.AvialableShareItems}" SelectedItem="{Binding CurrentViewingItem, Mode=TwoWay}"   >
+                                <Interactivity:Interaction.Behaviors>
+                                    <Core:EventTriggerBehavior EventName="SelectionChanged">
+                                        <Core:CallMethodAction TargetObject="{Binding  ElementName=mVVMPage}" MethodName="UpdateLayout"/>
+                                    </Core:EventTriggerBehavior>
+                                </Interactivity:Interaction.Behaviors>
 
                                 <FlipView.ItemTemplateSelector>
                                     <glue:ShareItemDataTemplateSelector  PrefixOfTemplateKey="DataTemplateOf"/>

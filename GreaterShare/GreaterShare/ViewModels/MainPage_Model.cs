@@ -532,7 +532,33 @@ namespace GreaterShare.ViewModels
 						vm,
 						async e =>
 						{
-							vm.ReceivedShareItem = vm.ClipboardImportingItem;
+
+							if (vm.ReceivedShareItem == null)
+							{
+								vm.ReceivedShareItem = vm.ClipboardImportingItem;
+							}
+							else
+							{
+								var newItem = vm.ClipboardImportingItem.AvialableShareItems[0];
+								var targetItemPair = vm.ReceivedShareItem.AvialableShareItems
+								  .Select((o, i) => new { o, i })
+								  .Where(p => p.o?.GetType() == newItem.GetType()).FirstOrDefault();
+
+								if (targetItemPair != null)
+								{
+									vm.ReceivedShareItem.AvialableShareItems[targetItemPair.i] = newItem;
+								}
+								else
+								{
+									vm.ReceivedShareItem.AvialableShareItems.Insert(0,newItem); 
+								}
+
+								//var index = targetItemPair == null ? 0 : targetItemPair.i;
+								await Task.Delay(200);
+								vm.CurrentViewingItem = newItem;
+
+							}
+
 							vm.FocusingViewIndex = 0;
 							//Todo: Add PushClipToCurrentItem logic here, or
 							await MVVMSidekick.Utilities.TaskExHelper.Yield();

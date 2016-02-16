@@ -213,7 +213,7 @@
                     <TextBox RelativePanel.Below="linkButtons"             
                     RelativePanel.AlignRightWithPanel="True" 
                     RelativePanel.AlignLeftWithPanel="True"                 
-        				x:Name="linkText"  Margin="8" Text="{Binding Text, Converter={StaticResource UriStringConverter}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"   MinHeight="200" TextWrapping="Wrap"/>
+        				x:Name="linkText"  Margin="8" Text="{Binding Text}"   MinHeight="200" TextWrapping="Wrap"/>
                 </RelativePanel>
             </Grid>
         </DataTemplate>

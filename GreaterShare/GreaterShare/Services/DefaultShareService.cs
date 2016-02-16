@@ -106,10 +106,10 @@ namespace GreaterShare.Services
 					var sharedText = new TextSharedItem { Text = await packageView.GetTextAsync() };
 					rval.AvialableShareItems.Add(sharedText);
 					rval.Text = await packageView.GetTextAsync();
-					rval.GetValueContainer(x => x.Text)
-					   	.GetNullObservable()
-						.Subscribe(e => sharedText.Text = rval.Text)
-						.DisposeWith(rval);
+					//rval.GetValueContainer(x => x.Text)
+					//   	.GetNullObservable()
+					//	.Subscribe(e => sharedText.Text = rval.Text)
+					//	.DisposeWith(rval);
 					sharedText.GetValueContainer(x => x.Text)
 						.GetNullObservable()
 						.Subscribe(e => rval.Text = sharedText.Text)
