@@ -10,16 +10,9 @@
     x:Class="GreaterShare.MainPage"
     mc:Ignorable="d">
     <mvvm:MVVMPage.Resources>
-        <Glue:IsNotNullConverter x:Key="IsNotNullConverter"/>
-        <Glue:IsWellFormedUriStringConveter x:Key="IsWellFormedUriStringConveter"/>
-        <Glue:FalseIfIsStringNullOrEmptyConverter x:Key="FalseIfIsStringNullOrEmptyConverter"/>
 
-        <Glue:HideWhenNotMatchConverter x:Key="HideWhenNotMatchConverter"/>
-        <!-- TODO: Delete this line if the key AppName is declared in App.xaml -->
-        <x:String x:Key="AppName">My Application</x:String>
+
         <vm:MainPage_Model x:Key="DesignVM"/>
-        <x:String x:Key="AppendToTextShare">Append To Text Share</x:String>
-        <x:String x:Key="VisitUri">Visit Uri</x:String>
         <!--<Glue:EqualConverter x:Key="EqualConverter"/>-->
     </mvvm:MVVMPage.Resources>
     <Grid x:Name="grid" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"  DataContext="{StaticResource DesignVM}">
@@ -268,7 +261,7 @@
                                     <StackPanel HorizontalAlignment="Right" Margin="0">
                                         <HyperlinkButton
                                             IsEnabled="{Binding ReceivedShareItem.QuickLinkId,Converter={StaticResource FalseIfIsStringNullOrEmptyConverter}}"   
-                                        
+                                       
                                          Command="{Binding CommandSendParameterToText}" CommandParameter="{Binding ReceivedShareItem.QuickLinkId}" ToolTipService.ToolTip="{StaticResource AppendToTextShare}">
                                             <FontIcon FontSize="14" FontFamily="Segoe UI Symbol" Glyph="&#xE17D;" />
                                         </HyperlinkButton>

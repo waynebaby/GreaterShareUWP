@@ -14,13 +14,22 @@
 
     RequestedTheme="Light">
     <Application.Resources>
+        <Glue:IsNotNullConverter x:Key="IsNotNullConverter"/>
+        <Glue:IsWellFormedUriStringConveter x:Key="IsWellFormedUriStringConveter"/>
+        <Glue:FalseIfIsStringNullOrEmptyConverter x:Key="FalseIfIsStringNullOrEmptyConverter"/>
 
+        <Glue:HideWhenNotMatchConverter x:Key="HideWhenNotMatchConverter"/>
+        <!-- TODO: Delete this line if the key AppName is declared in App.xaml -->
+        <x:String x:Key="AppName">My Application</x:String>
+
+        <x:String x:Key="AppendToTextShare">Append To Text Share</x:String>
+        <x:String x:Key="VisitUri">Visit Uri</x:String>
         <Glue:AddTextCommentsCommand x:Key="AddTextCommentCommand"/>
         <Glue:UriStringConverter x:Key="UriStringConverter"/>
         <Glue:HideWhenIsNotEditingConverter x:Key="HideWhenIsNotEditingConverter"/>
         <Style  TargetType="TextBlock" x:Key="ContentViewerLabel"  >
-            <Setter Property="Margin" Value="32" />
-            <Setter Property="FontSize"  Value="24" />
+            <Setter Property="Margin" Value="32,4,0,0" />
+            <Setter Property="FontSize"  Value="18" />
         </Style>
         <Style  TargetType="HyperlinkButton" x:Key="LabelButton"  >
 
@@ -87,7 +96,7 @@
                         ScrollViewer.VerticalScrollMode="Auto"
                         ScrollViewer.HorizontalScrollBarVisibility="Auto"
                         ScrollViewer.VerticalScrollBarVisibility="Auto"                     
-        				x:Name="linkText"  Margin="8" Text="{Binding ApplicationLink, Converter={StaticResource UriStringConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Stretch"  MinHeight="200" TextWrapping="Wrap"/>
+        				x:Name="linkText"  Margin="8" Text="{Binding ApplicationLink, Converter={StaticResource UriStringConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Stretch"   TextWrapping="Wrap"/>
                 </RelativePanel>
             </Grid>
         </DataTemplate>
@@ -214,7 +223,7 @@
                     </HyperlinkButton>
                 </StackPanel>
 
-                <WebView MinHeight="300"   
+                <WebView    
                         RelativePanel.Below="label"             
                         RelativePanel.Above="linkButtons"                            
                         RelativePanel.AlignRightWithPanel="True" 
@@ -303,6 +312,12 @@
                                 </TextBlock>
                             </StackPanel>
                         </HyperlinkButton>
+                        <HyperlinkButton
+                                     
+                                            IsEnabled="{Binding Text,Converter={StaticResource IsWellFormedUriStringConveter}}"   
+                                            NavigateUri="{Binding Text}" ToolTipService.ToolTip="{StaticResource VisitUri}" >
+                            <FontIcon FontFamily="Segoe UI Symbol" Glyph="&#xE12B;" />
+                        </HyperlinkButton>
                     </StackPanel>
 
                     <TextBox 
@@ -314,7 +329,7 @@
                         ScrollViewer.VerticalScrollMode="Auto"
                         ScrollViewer.HorizontalScrollBarVisibility="Auto"
                         ScrollViewer.VerticalScrollBarVisibility="Auto"                           
-        				x:Name="linkText"  Margin="8" Text="{Binding Text, Mode=TwoWay}"   MinHeight="200" MinWidth="100" TextWrapping="Wrap" AcceptsReturn="True"/>
+        				x:Name="linkText"  Margin="8" Text="{Binding Text, Mode=TwoWay}"   MinWidth="100" TextWrapping="Wrap" AcceptsReturn="True"/>
                 </RelativePanel>
             </Grid>
         </DataTemplate>
@@ -356,7 +371,7 @@
                         ScrollViewer.VerticalScrollMode="Auto"
                         ScrollViewer.HorizontalScrollBarVisibility="Auto"
                         ScrollViewer.VerticalScrollBarVisibility="Auto"               
-        				x:Name="linkText"  Margin="8" Text="{Binding WebLink, Converter={StaticResource UriStringConverter}, Mode=TwoWay}" HorizontalAlignment="Stretch"  MinHeight="200" TextWrapping="Wrap"/>
+        				x:Name="linkText"  Margin="8" Text="{Binding WebLink, Converter={StaticResource UriStringConverter}, Mode=TwoWay}" HorizontalAlignment="Stretch"  TextWrapping="Wrap"/>
 
 
                 </RelativePanel>
