@@ -30,7 +30,7 @@ namespace GreaterShare.Models.Sharing.ShareItems
 	public class ReceivedShareItem : BindableBase<ReceivedShareItem>
 	{
 
-		[DataMember]   
+		[DataMember]
 		public String Text
 		{
 			get { return _TextLocator(this).Value; }
@@ -79,7 +79,17 @@ namespace GreaterShare.Models.Sharing.ShareItems
 		//static Func<string> _Square30x30LogoBase64DefaultValueFactory = () => default(string);
 		//#endregion
 
-		
+		public bool IsInEditing
+		{
+			get { return _IsInEditingLocator(this).Value; }
+			set { _IsInEditingLocator(this).SetValueAndTryNotify(value); }
+		}
+		#region Property bool IsInEditing Setup        
+		protected Property<bool> _IsInEditing = new Property<bool> { LocatorFunc = _IsInEditingLocator };
+		static Func<BindableBase, ValueContainer<bool>> _IsInEditingLocator = RegisterContainerLocator<bool>(nameof(IsInEditing), model => model.Initialize(nameof(IsInEditing), ref model._IsInEditing, ref _IsInEditingLocator, _IsInEditingDefaultValueFactory));
+		static Func<bool> _IsInEditingDefaultValueFactory = () => default(bool);
+		#endregion
+
 
 		[DataMember]
 
@@ -108,7 +118,7 @@ namespace GreaterShare.Models.Sharing.ShareItems
 		static Func<BindableBase, ValueContainer<MemoryStreamBase64Item>> _ThumbnailLocator = RegisterContainerLocator<MemoryStreamBase64Item>(nameof(Thumbnail), model => model.Initialize(nameof(Thumbnail), ref model._Thumbnail, ref _ThumbnailLocator, _ThumbnailDefaultValueFactory));
 		static Func<MemoryStreamBase64Item> _ThumbnailDefaultValueFactory = () => default(MemoryStreamBase64Item);
 		#endregion
-						
+
 
 		[DataMember]
 		public string QuickLinkId
@@ -210,6 +220,39 @@ namespace GreaterShare.Models.Sharing.ShareItems
 		static Func<string> _DefaultFailedDisplayTextDefaultValueFactory = () => default(string);
 		#endregion
 
+		static string[][] templates =
+			new[]{
+				new[] {
+					"{2}\r\n\r\n{1}",
+					"{2}\r\n\r\n/*Merged at {0:yy-MM-dd HH:mm:ss}*/\r\n{1}"},
+				new [] {
+					"\r\n{1}\r\n\r\n{2}",
+					"/*Merged at {0:yy-MM-dd HH:mm:ss}*/\r\n{1}\r\n\r\n{2}"
+				},
+
+			};
+		public static void MergeNewText(TextSharedItem oldText, string newTextString, bool showTag = false, bool headInsert = false)
+		{
+
+			var template = templates[headInsert ? 1 : 0][showTag ? 1 : 0];
+			if (headInsert)
+			{
+				oldText.Text = string.Format(template,
+				  DateTime.Now,
+				  newTextString,
+				  oldText.Text);
+			}
+			else
+			{
+				oldText.Text = string.Format(template,
+				DateTime.Now,
+				newTextString,
+				oldText.Text);
+			}
+		}
+
+
+	
 
 	}
 }

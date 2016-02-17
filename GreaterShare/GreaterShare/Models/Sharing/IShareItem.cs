@@ -5,5 +5,7 @@
 public interface IShareItem
 {
 	bool IsSelected { get; set; }
+
+
 }
 //}

@@ -15,15 +15,25 @@
     RequestedTheme="Light">
     <Application.Resources>
 
-       
+        <Glue:AddTextCommentsCommand x:Key="AddTextCommentCommand"/>
         <Glue:UriStringConverter x:Key="UriStringConverter"/>
-        <Glue:HideWhenInShareConverter x:Key="HideWhenInShareConverter"/>
+        <Glue:HideWhenIsNotEditingConverter x:Key="HideWhenIsNotEditingConverter"/>
         <Style  TargetType="TextBlock" x:Key="ContentViewerLabel"  >
             <Setter Property="Margin" Value="32" />
             <Setter Property="FontSize"  Value="24" />
         </Style>
+        <Style  TargetType="HyperlinkButton" x:Key="LabelButton"  >
 
-        <sharing:CopyShareItemToClipboardCommand x:Key="copyCommand" />
+        </Style>
+        <Style TargetType="StackPanel" x:Key="LabelButtons">
+            <Setter Property="RelativePanel.AlignRightWithPanel"  Value="True" />
+            <Setter Property="RelativePanel.AlignLeftWithPanel"  Value="False" />
+            <Setter Property="RelativePanel.AlignBottomWithPanel"  Value="True" />
+            <Setter Property="RelativePanel.AlignTopWithPanel"  Value="False" />
+            <Setter Property="VerticalAlignment" Value="Bottom"/>
+      
+        </Style>
+        <Glue:CopyShareItemToClipboardCommand x:Key="copyCommand" />
         <!--<sharing:CopyShareItemToClipboardCommand x:Key="shareThisCommand" />-->
 
         <Glue:StreamImageSourceConverter x:Key="StreamImageSourceConverter"/>
@@ -45,12 +55,12 @@
                     <TextBlock x:Name="label" Style="{StaticResource ContentViewerLabel}" >
                     	<Run Text="Application Link:"/>
                     </TextBlock>
-                    <CheckBox IsChecked="{Binding IsSelected, Mode=TwoWay}" 
-                    Visibility="{Binding Converter={StaticResource HideWhenInShareConverter}, Mode=OneWay}" 
+                    <CheckBox IsChecked="{Binding IsSelected, Mode=TwoWay}"  
+                    Visibility="{Binding Converter={StaticResource HideWhenIsNotEditingConverter}, Mode=OneWay}" 
                     RelativePanel.AlignLeftWithPanel="True"  RelativePanel.AlignTopWithPanel="True"/>
-                    <StackPanel Margin="8" x:Name="linkButtons" Orientation="Horizontal" RelativePanel.Below="label">
-                        <HyperlinkButton x:Name="linkVisit"  NavigateUri="{Binding ApplicationLink}"  >
-                            <!--Visibility="{Binding Converter={StaticResource HideWhenInShareConverter}, Mode=OneWay}"-->
+                    <StackPanel Margin="8" x:Name="linkButtons"   Style="{StaticResource LabelButtons}"  Orientation="Horizontal" >
+                        <HyperlinkButton  Style="{StaticResource LabelButton}" x:Name="linkVisit"  NavigateUri="{Binding ApplicationLink}"  >
+                            <!--Visibility="{Binding Converter={StaticResource HideWhenIsNotEditingConverter}, Mode=OneWay}"-->
                             <StackPanel  Orientation="Horizontal" Margin="0,0,12,0">
                                 <FontIcon FontFamily="Segoe UI Symbol" Glyph="&#xE128;" HorizontalAlignment="Center" VerticalAlignment="Center" />
                                 <TextBlock VerticalAlignment="Center" HorizontalAlignment="Right" Margin="8,0,0,0">
@@ -58,7 +68,7 @@
                                 </TextBlock>
                             </StackPanel>
                         </HyperlinkButton>
-                        <HyperlinkButton x:Name="linkCopy"  Command="{StaticResource copyCommand}" CommandParameter="{Binding Mode=OneWay}" >
+                        <HyperlinkButton  Style="{StaticResource LabelButton}" x:Name="linkCopy"  Command="{StaticResource copyCommand}" CommandParameter="{Binding Mode=OneWay}" >
                             <StackPanel  Orientation="Horizontal" Margin="0,0,12,0">
                                 <FontIcon FontFamily="Segoe UI Symbol" Glyph="&#xE16F;" HorizontalAlignment="Center" VerticalAlignment="Center" />
                                 <TextBlock VerticalAlignment="Center" HorizontalAlignment="Right" Margin="8,0,0,0">
@@ -68,9 +78,15 @@
                         </HyperlinkButton>
                     </StackPanel>
 
-                    <TextBox RelativePanel.Below="linkButtons"             
-                    RelativePanel.AlignRightWithPanel="True" 
-                    RelativePanel.AlignLeftWithPanel="True"                 
+                    <TextBox
+                         RelativePanel.Below="label"             
+                        RelativePanel.Above="linkButtons"                            
+                        RelativePanel.AlignRightWithPanel="True" 
+                        RelativePanel.AlignLeftWithPanel="True"  
+                        ScrollViewer.HorizontalScrollMode="Auto" 
+                        ScrollViewer.VerticalScrollMode="Auto"
+                        ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                        ScrollViewer.VerticalScrollBarVisibility="Auto"                     
         				x:Name="linkText"  Margin="8" Text="{Binding ApplicationLink, Converter={StaticResource UriStringConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Stretch"  MinHeight="200" TextWrapping="Wrap"/>
                 </RelativePanel>
             </Grid>
@@ -85,19 +101,34 @@
         </DataTemplate>-->
         <DataTemplate x:Key="DataTemplateOfDelayRenderedImageShareItem">
             <RelativePanel d:DataContext="{StaticResource shareItemDesignInstanceDelayRenderedImageShareItem}" >
-                <TextBlock x:Name="title" Style="{StaticResource ContentViewerLabel}" >
+                <TextBlock x:Name="label" Style="{StaticResource ContentViewerLabel}" >
         			<Run Text="Image to Share"/>
                 </TextBlock>
                 <CheckBox IsChecked="{Binding IsSelected, Mode=TwoWay}" 
-                    Visibility="{Binding Converter={StaticResource HideWhenInShareConverter}, Mode=OneWay}" 
+                    Visibility="{Binding Converter={StaticResource HideWhenIsNotEditingConverter}, Mode=OneWay}" 
                     RelativePanel.AlignLeftWithPanel="True"  RelativePanel.AlignTopWithPanel="True"/>
 
                 <Image            
-                	RelativePanel.AlignBottomWithPanel="True"
-                	RelativePanel.Below="title"
-                	RelativePanel.AlignLeftWithPanel="True"
-                	RelativePanel.AlignRightWithPanel="True"                  
+                	     RelativePanel.Below="label"             
+                        RelativePanel.Above="linkButtons"                            
+                        RelativePanel.AlignRightWithPanel="True" 
+                        RelativePanel.AlignLeftWithPanel="True"  
+                        ScrollViewer.HorizontalScrollMode="Auto" 
+                        ScrollViewer.VerticalScrollMode="Auto"
+                        ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                        ScrollViewer.VerticalScrollBarVisibility="Auto"                       
                     Source="{Binding SelectedImage, Converter={StaticResource StreamImageSourceConverter}}"     />
+                <StackPanel Margin="8" x:Name="linkButtons"   Style="{StaticResource LabelButtons}"  Orientation="Horizontal" >
+                    <HyperlinkButton  Style="{StaticResource LabelButton}" x:Name="linkComment"  Visibility="{Binding Converter={StaticResource HideWhenIsNotEditingConverter}, Mode=OneWay}"  Command="{StaticResource AddTextCommentCommand}"  >
+                        <!--Visibility="{Binding Converter={StaticResource HideWhenIsNotEditingConverter}, Mode=OneWay}"-->
+                        <StackPanel  Orientation="Horizontal" Margin="0,0,12,0">
+                            <FontIcon FontFamily="Segoe UI Symbol" Glyph="&#xE200;" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Right" Margin="8,0,0,0">
+        							<Run Text="Add Comment"/>
+                            </TextBlock>
+                        </StackPanel>
+                    </HyperlinkButton>
+                </StackPanel>
             </RelativePanel>
         </DataTemplate>
 
@@ -123,22 +154,24 @@
         </DataTemplate>
         <DataTemplate x:Key="DataTemplateOfFilesShareItem">
             <RelativePanel   d:DataContext="{StaticResource shareItemDesignInstanceFilesShareItem}" >
-                <TextBlock x:Name="title" Style="{StaticResource ContentViewerLabel}" >
+                <TextBlock x:Name="label" Style="{StaticResource ContentViewerLabel}" >
         			<Run Text="Files to Share"/>
                 </TextBlock>
                 <CheckBox IsChecked="{Binding IsSelected, Mode=TwoWay}" 
-                    Visibility="{Binding Converter={StaticResource HideWhenInShareConverter}, Mode=OneWay}" 
+                    Visibility="{Binding Converter={StaticResource HideWhenIsNotEditingConverter}, Mode=OneWay}" 
                     RelativePanel.AlignLeftWithPanel="True"  RelativePanel.AlignTopWithPanel="True"/>
 
                 <GridView  ItemsSource="{Binding StorageFiles}" 
-                    ScrollViewer.HorizontalScrollBarVisibility="Auto" 
-			        ScrollViewer.HorizontalScrollMode="Auto"
-			        ScrollViewer.VerticalScrollBarVisibility="Auto" 
-			        ScrollViewer.VerticalScrollMode="Auto"
-        			RelativePanel.AlignBottomWithPanel="True"
-        			RelativePanel.Below="title"
-        			RelativePanel.AlignLeftWithPanel="True"
-        			RelativePanel.AlignRightWithPanel="True" ItemTemplate="{StaticResource FileGridItem}" >
+                        RelativePanel.Below="label"             
+                        RelativePanel.Above="linkButtons"                            
+                        RelativePanel.AlignRightWithPanel="True" 
+                        RelativePanel.AlignLeftWithPanel="True"  
+                        ScrollViewer.HorizontalScrollMode="Auto" 
+                        ScrollViewer.VerticalScrollMode="Auto"
+                        ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                        ScrollViewer.VerticalScrollBarVisibility="Auto"  
+                    
+                    ItemTemplate="{StaticResource FileGridItem}" >
                     <GridView.ItemsPanel >
                         <ItemsPanelTemplate>
                             <ItemsWrapGrid ItemHeight="240">
@@ -147,6 +180,17 @@
                         </ItemsPanelTemplate>
                     </GridView.ItemsPanel>
                 </GridView>
+                <StackPanel Margin="8" x:Name="linkButtons"   Style="{StaticResource LabelButtons}"  Orientation="Horizontal" >
+                    <HyperlinkButton  Style="{StaticResource LabelButton}" x:Name="linkComment"  Visibility="{Binding Converter={StaticResource HideWhenIsNotEditingConverter}, Mode=OneWay}"  Command="{StaticResource AddTextCommentCommand}" >
+                        <!--Visibility="{Binding Converter={StaticResource HideWhenIsNotEditingConverter}, Mode=OneWay}"-->
+                        <StackPanel  Orientation="Horizontal" Margin="0,0,12,0">
+                            <FontIcon FontFamily="Segoe UI Symbol" Glyph="&#xE200;" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Right" Margin="8,0,0,0">
+        							<Run Text="Add Comment"/>
+                            </TextBlock>
+                        </StackPanel>
+                    </HyperlinkButton>
+                </StackPanel>
             </RelativePanel>
         </DataTemplate>
         <DataTemplate x:Key="DataTemplateOfHtmlShareItem">
@@ -155,12 +199,12 @@
         				<Run Text="Html Content:"/>
                 </TextBlock>
                 <CheckBox IsChecked="{Binding IsSelected, Mode=TwoWay}" 
-                    Visibility="{Binding Converter={StaticResource HideWhenInShareConverter}, Mode=OneWay}" 
+                    Visibility="{Binding Converter={StaticResource HideWhenIsNotEditingConverter}, Mode=OneWay}" 
                     RelativePanel.AlignLeftWithPanel="True"  RelativePanel.AlignTopWithPanel="True"/>
 
-                <StackPanel Margin="8" x:Name="linkButtons" Orientation="Horizontal" RelativePanel.Below="label">
+                <StackPanel Margin="8" x:Name="linkButtons"   Style="{StaticResource LabelButtons}"  Orientation="Horizontal" >
 
-                    <HyperlinkButton x:Name="linkCopy"  Command="{StaticResource copyCommand}" CommandParameter="{Binding Mode=OneWay}" >
+                    <HyperlinkButton  Style="{StaticResource LabelButton}" x:Name="linkCopy"  Command="{StaticResource copyCommand}" CommandParameter="{Binding Mode=OneWay}" >
                         <StackPanel  Orientation="Horizontal" Margin="0,0,12,0">
                             <FontIcon FontFamily="Segoe UI Symbol" Glyph="&#xE16F;" HorizontalAlignment="Center" VerticalAlignment="Center" />
                             <TextBlock VerticalAlignment="Center" HorizontalAlignment="Right" Margin="8,0,0,0">
@@ -171,13 +215,14 @@
                 </StackPanel>
 
                 <WebView MinHeight="300"   
-                            ScrollViewer.HorizontalScrollMode="Auto" 
-                            ScrollViewer.VerticalScrollMode="Auto"
-                            ScrollViewer.HorizontalScrollBarVisibility="Auto"
-                            ScrollViewer.VerticalScrollBarVisibility="Auto"
-                            RelativePanel.Below="linkButtons"             
-                            RelativePanel.AlignRightWithPanel="True" 
-                            RelativePanel.AlignLeftWithPanel="True"                         
+                        RelativePanel.Below="label"             
+                        RelativePanel.Above="linkButtons"                            
+                        RelativePanel.AlignRightWithPanel="True" 
+                        RelativePanel.AlignLeftWithPanel="True"  
+                        ScrollViewer.HorizontalScrollMode="Auto" 
+                        ScrollViewer.VerticalScrollMode="Auto"
+                        ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                        ScrollViewer.VerticalScrollBarVisibility="Auto"                         
                           IsTapEnabled="False"  IsDoubleTapEnabled="False"   IsRightTapEnabled="False"                       >
                     <Interactivity:Interaction.Behaviors>
                         <Core:DataTriggerBehavior Binding="{Binding HtmlFragment}" ComparisonCondition="NotEqual" Value="{x:Null}" >
@@ -196,12 +241,61 @@
         				<Run Text="Text Content:"/>
                     </TextBlock>
                     <CheckBox IsChecked="{Binding IsSelected, Mode=TwoWay}" 
-                    Visibility="{Binding Converter={StaticResource HideWhenInShareConverter}, Mode=OneWay}" 
+                    Visibility="{Binding Converter={StaticResource HideWhenIsNotEditingConverter}, Mode=OneWay}" 
                     RelativePanel.AlignLeftWithPanel="True"  RelativePanel.AlignTopWithPanel="True"/>
 
-                    <StackPanel Margin="8" x:Name="linkButtons" Orientation="Horizontal" RelativePanel.Below="label">
+                    <StackPanel Margin="8" x:Name="linkButtons"   Style="{StaticResource LabelButtons}"  Orientation="Horizontal" >
+                         <HyperlinkButton  Style="{StaticResource LabelButton}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">
+                            <HyperlinkButton.Command>
+                                <Glue:ShowFlyoutCommand ></Glue:ShowFlyoutCommand>
+                            </HyperlinkButton.Command>
+                            <FlyoutBase.AttachedFlyout>
+                                <MenuFlyout>
+                                    <MenuFlyoutItem Command="{Binding  CommandToBase64}">
+                                        Convert to Base64
+                                    </MenuFlyoutItem>
+                                    <MenuFlyoutItem Command="{Binding CommandFromBase64}">
+                                        Convert back to Text
+                                    </MenuFlyoutItem>
 
-                        <HyperlinkButton x:Name="linkCopy"  Command="{StaticResource copyCommand}" CommandParameter="{Binding Mode=OneWay}" >
+                                </MenuFlyout>
+                            </FlyoutBase.AttachedFlyout>
+
+                            <StackPanel  Orientation="Horizontal" Margin="0,0,12,0">
+                                <FontIcon FontFamily="Segoe UI Symbol" Glyph="&#x4DFF;" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Right" Margin="8,0,0,0">
+        							<Run Text="Base64"/>
+                                </TextBlock>
+                            </StackPanel>
+                        </HyperlinkButton>
+
+                        <HyperlinkButton  Style="{StaticResource LabelButton}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">
+                            <HyperlinkButton.Command>
+                                <Glue:ShowFlyoutCommand ></Glue:ShowFlyoutCommand>
+                            </HyperlinkButton.Command>
+                            <FlyoutBase.AttachedFlyout>
+                                <MenuFlyout>
+                                    <MenuFlyoutItem Command="{Binding  CommandMagnetChop}">
+                                        Chop a magnet link to binary string.
+                                    </MenuFlyoutItem>
+                                    <MenuFlyoutItem Command="{Binding CommandMagnetRecovery}">
+                                        Recover a magnet link.
+                                    </MenuFlyoutItem>
+
+                                </MenuFlyout>
+                            </FlyoutBase.AttachedFlyout>
+
+                            <StackPanel  Orientation="Horizontal" Margin="0,0,12,0">
+                                <FontIcon FontFamily="Segoe UI Symbol" Glyph="&#x26D3;" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Right" Margin="8,0,0,0">
+        							<Run Text="Magnet"/>
+                                </TextBlock>
+                            </StackPanel>
+                        </HyperlinkButton>
+
+
+                        <HyperlinkButton  Style="{StaticResource LabelButton}" 
+                            x:Name="linkCopy"  Command="{StaticResource copyCommand}" CommandParameter="{Binding Mode=OneWay}" >
                             <StackPanel  Orientation="Horizontal" Margin="0,0,12,0">
                                 <FontIcon FontFamily="Segoe UI Symbol" Glyph="&#xE16F;" HorizontalAlignment="Center" VerticalAlignment="Center" />
                                 <TextBlock VerticalAlignment="Center" HorizontalAlignment="Right" Margin="8,0,0,0">
@@ -210,10 +304,17 @@
                             </StackPanel>
                         </HyperlinkButton>
                     </StackPanel>
-                    <TextBox RelativePanel.Below="linkButtons"             
-                    RelativePanel.AlignRightWithPanel="True" 
-                    RelativePanel.AlignLeftWithPanel="True"                 
-        				x:Name="linkText"  Margin="8" Text="{Binding Text}"   MinHeight="200" TextWrapping="Wrap"/>
+
+                    <TextBox 
+                        RelativePanel.Below="label"             
+                        RelativePanel.Above="linkButtons"                            
+                        RelativePanel.AlignRightWithPanel="True" 
+                        RelativePanel.AlignLeftWithPanel="True"  
+                        ScrollViewer.HorizontalScrollMode="Auto" 
+                        ScrollViewer.VerticalScrollMode="Auto"
+                        ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                        ScrollViewer.VerticalScrollBarVisibility="Auto"                           
+        				x:Name="linkText"  Margin="8" Text="{Binding Text, Mode=TwoWay}"   MinHeight="200" MinWidth="100" TextWrapping="Wrap" AcceptsReturn="True"/>
                 </RelativePanel>
             </Grid>
         </DataTemplate>
@@ -224,11 +325,11 @@
         				<Run Text="WebLink:"/>
                     </TextBlock>
                     <CheckBox IsChecked="{Binding IsSelected, Mode=TwoWay}" 
-                    Visibility="{Binding Converter={StaticResource HideWhenInShareConverter}, Mode=OneWay}" 
+                    Visibility="{Binding Converter={StaticResource HideWhenIsNotEditingConverter}, Mode=OneWay}" 
                     RelativePanel.AlignLeftWithPanel="True"  RelativePanel.AlignTopWithPanel="True"/>
-                    <StackPanel Margin="8" x:Name="linkButtons" Orientation="Horizontal" RelativePanel.Below="label">
-                        <HyperlinkButton x:Name="linkVisit"  NavigateUri="{Binding WebLink}"  >
-                            <!--Visibility="{Binding Converter={StaticResource HideWhenInShareConverter}, Mode=OneWay}"-->
+                    <StackPanel Margin="8" x:Name="linkButtons"   Style="{StaticResource LabelButtons}"  Orientation="Horizontal" >
+                          <HyperlinkButton  Style="{StaticResource LabelButton}" x:Name="linkVisit"  NavigateUri="{Binding WebLink}"  >
+                            <!--Visibility="{Binding Converter={StaticResource HideWhenIsNotEditingConverter}, Mode=OneWay}"-->
                             <StackPanel  Orientation="Horizontal" Margin="0,0,12,0">
                                 <FontIcon FontFamily="Segoe UI Symbol" Glyph="&#xE128;" HorizontalAlignment="Center" VerticalAlignment="Center" />
                                 <TextBlock VerticalAlignment="Center" HorizontalAlignment="Right" Margin="8,0,0,0">
@@ -236,7 +337,7 @@
                                 </TextBlock>
                             </StackPanel>
                         </HyperlinkButton>
-                        <HyperlinkButton x:Name="linkCopy"  Command="{StaticResource copyCommand}" CommandParameter="{Binding Mode=OneWay}" >
+                        <HyperlinkButton  Style="{StaticResource LabelButton}" x:Name="linkCopy"  Command="{StaticResource copyCommand}" CommandParameter="{Binding Mode=OneWay}" >
                             <StackPanel  Orientation="Horizontal" Margin="0,0,12,0">
                                 <FontIcon FontFamily="Segoe UI Symbol" Glyph="&#xE16F;" HorizontalAlignment="Center" VerticalAlignment="Center" />
                                 <TextBlock VerticalAlignment="Center" HorizontalAlignment="Right" Margin="8,0,0,0">
@@ -246,14 +347,21 @@
                         </HyperlinkButton>
                     </StackPanel>
 
-                    <TextBox RelativePanel.Below="linkButtons"             
-                    RelativePanel.AlignRightWithPanel="True" 
-                    RelativePanel.AlignLeftWithPanel="True"                 
+                    <TextBox 
+                        RelativePanel.Below="label"             
+                        RelativePanel.Above="linkButtons"                            
+                        RelativePanel.AlignRightWithPanel="True" 
+                        RelativePanel.AlignLeftWithPanel="True"  
+                        ScrollViewer.HorizontalScrollMode="Auto" 
+                        ScrollViewer.VerticalScrollMode="Auto"
+                        ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                        ScrollViewer.VerticalScrollBarVisibility="Auto"               
         				x:Name="linkText"  Margin="8" Text="{Binding WebLink, Converter={StaticResource UriStringConverter}, Mode=TwoWay}" HorizontalAlignment="Stretch"  MinHeight="200" TextWrapping="Wrap"/>
 
 
                 </RelativePanel>
             </Grid>
         </DataTemplate>
+        <Thickness x:Key="ThinBoderThickness">.2</Thickness>
     </Application.Resources>
 </Application>

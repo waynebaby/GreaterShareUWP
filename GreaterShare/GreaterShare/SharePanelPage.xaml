@@ -72,9 +72,9 @@
 				RelativePanel.AlignLeftWithPanel="True">
                 <TextBlock   Style="{StaticResource Label}" x:Name="pageTitle" Text="{Binding ReceivedShareItem.Title}"  
 					IsHitTestVisible="false" TextWrapping="NoWrap"/>
-                <TextBlock>Text:</TextBlock>
+                <!--<TextBlock>Text:</TextBlock>
                 <TextBox  Height="70"  x:Name="pageText" Text="{Binding ReceivedShareItem.Text}"  
-					IsHitTestVisible="false" TextWrapping="Wrap" ScrollViewer.VerticalScrollMode="Enabled" ScrollViewer.VerticalScrollBarVisibility="Visible"/>
+					IsHitTestVisible="false" TextWrapping="Wrap" ScrollViewer.VerticalScrollMode="Enabled" ScrollViewer.VerticalScrollBarVisibility="Visible"/>-->
 
             </StackPanel>
             <GridView x:Name="otherProperties"
@@ -127,7 +127,7 @@
 						<Run Text="Thumbnail:"/>
                     </TextBlock>
                     <Border VerticalAlignment="Top" d:LayoutOverrides="TopPosition, BottomPosition" Style="{StaticResource ContentOfList}" >
-                        <Image  Source="{Binding ReceivedShareItem.ThumbnailStream}"  HorizontalAlignment="Left" Height="0" Width="0"/>
+                        <Image  Source="{Binding ReceivedShareItem.Thumbnail}"  HorizontalAlignment="Left" Height="0" Width="0"/>
                     </Border>
                 </RelativePanel>
                 <RelativePanel>

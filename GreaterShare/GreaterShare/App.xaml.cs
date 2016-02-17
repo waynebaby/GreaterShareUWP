@@ -196,7 +196,7 @@ namespace GreaterShare
 
 			Window.Current.Activate();
 			base.OnShareTargetActivated(args);
-
+			
 		}
 
 

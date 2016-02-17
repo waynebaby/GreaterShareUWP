@@ -56,6 +56,9 @@
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <ErrorReport>prompt</ErrorReport>
     <Prefer32Bit>true</Prefer32Bit>
+    <UseDotNetNativeToolchain>false</UseDotNetNativeToolchain>
+    <EnableGatekeeperAnalysis>true</EnableGatekeeperAnalysis>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
     <OutputPath>bin\x64\Release\</OutputPath>
@@ -102,16 +105,21 @@
     <Compile Include="Background.xaml.cs">
       <DependentUpon>Background.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Glue\AddTextCommentsCommand.cs" />
+    <Compile Include="Glue\CopyShareItemToClipboardCommand.cs" />
+    <Compile Include="Glue\IsNotNullConverter.cs" />
+    <Compile Include="Glue\IsWellFormedUriStringConveter.cs" />
+    <Compile Include="Glue\FalseIfIsStringNullOrEmptyConverter.cs" />
     <Compile Include="Glue\HideWhenNotMatchConverter.cs" />
-    <Compile Include="Glue\HideWhenInShareConverter.cs" />
+    <Compile Include="Glue\HideWhenIsNotEditingConverter.cs" />
     <Compile Include="Glue\IsStoryboardPlayingBehavior.cs" />
     <Compile Include="Glue\MinItemSizeBehavior.cs" />
     <Compile Include="Glue\NaviagteToStringAction.cs" />
     <Compile Include="Glue\ShareItemDataTemplateSelector.cs" />
+    <Compile Include="Glue\ShowFlyoutCommand.cs" />
     <Compile Include="Glue\StreamImageSourceConverter.cs" />
     <Compile Include="Glue\UriStringConverter.cs" />
     <Compile Include="Models\MemoryStreamBase64Item.cs" />
-    <Compile Include="Models\Sharing\CopyShareItemToClipboardCommand.cs" />
     <Compile Include="Models\Sharing\IShareItem.cs" />
     <Compile Include="Models\Sharing\ShareItems\HtmlShareItem.cs" />
     <Compile Include="Models\Sharing\ShareItems\ReceivedShareItem.cs" />
@@ -130,6 +138,7 @@
       <DependentUpon>SharePanelPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Startups\SharePanelPage.cs" />
+    <Compile Include="ViewModels\EventMessage.cs" />
     <Compile Include="ViewModels\MainPage_Model.cs" />
     <Compile Include="Startups\StartupFunctions.cs" />
     <Compile Include="App.xaml.cs">

@@ -57,7 +57,7 @@ namespace GreaterShare.ViewModels
 
 		protected override Task OnBindedViewLoad(IView view)
 		{
-			//EventRouter.Instance.RaiseEvent(this, this, "Loaded");
+			//New file activation;
 			App.CurrentFile
 				   .AsObservable()
 				   .ObserveOn(this.Dispatcher)
@@ -79,18 +79,16 @@ namespace GreaterShare.ViewModels
 					 })
 				   .Subscribe()
 				   .DisposeWhenUnload(this);
+
+			//View switching:  suggests Different command
 			var obv = this.ListenChanged(
 				x => x.FocusingViewIndex,
 				x => x.ReceivedShareItem,
 				x => x.ClipboardImportingItem);
-
 			obv.Where(_ => this.FocusingViewIndex == 0)
 				.Where(_ => this.ReceivedShareItem == null)
 				.Subscribe(_ => SugguestingCommand = nameof(CommandLoadFromUserFile))
 				.DisposeWhenUnload(this);
-
-
-
 			obv.Where(_ => this.FocusingViewIndex == 0)
 				.Where(_ => this.ReceivedShareItem != null)
 				.Subscribe(_ => SugguestingCommand = nameof(CommandReshare))
@@ -101,8 +99,6 @@ namespace GreaterShare.ViewModels
 			   .Where(_ => this.ClipboardImportingItem.AvialableShareItems.Count > 0)
 			   .Subscribe(_ => SugguestingCommand = nameof(CommandPushClipToCurrentItem))
 			   .DisposeWhenUnload(this);
-
-
 			obv.Where(_ => this.FocusingViewIndex == 1)
 				.Where(
 					_ =>
@@ -111,6 +107,34 @@ namespace GreaterShare.ViewModels
 					   this.ClipboardImportingItem.AvialableShareItems.Count == 0)
 			   .Subscribe(_ => SugguestingCommand = nameof(CommandGetFromClipboard))
 			   .DisposeWhenUnload(this);
+
+
+			//Receive Global messages
+			EventRouter.Instance.GetEventChannel<Tuple<EventMessage, Object>>()
+				.Where(x => 
+						x.EventData.Item1 == EventMessage.AddTextComment)
+				.Where(x =>
+					ReceivedShareItem != null)
+				.Where(x => 
+					ReceivedShareItem.AvialableShareItems != null)
+
+				.Subscribe(
+					tp =>
+					{
+						var target = ReceivedShareItem.AvialableShareItems.OfType<TextSharedItem>().FirstOrDefault();
+						if (target == null)
+						{
+							target = new TextSharedItem() { Text = "Add you comments here..." };
+							ReceivedShareItem.AvialableShareItems.Add(target);
+						}
+						else
+						{
+							ReceivedShareItem.MergeNewText(target, "Add you comments here...", true, false);
+						}
+						CurrentViewingItem = target;
+
+					}
+				).DisposeWhenUnload(this);
 
 
 			return base.OnBindedViewLoad(view);
@@ -546,20 +570,39 @@ namespace GreaterShare.ViewModels
 
 								if (targetItemPair != null)
 								{
-									vm.ReceivedShareItem.AvialableShareItems[targetItemPair.i] = newItem;
+
+									switch (newItem.GetType().Name)
+									{
+										case nameof(TextSharedItem):
+											var newText = newItem as TextSharedItem;
+											var oldText = vm.ReceivedShareItem.AvialableShareItems[targetItemPair.i] as TextSharedItem;
+											var newTextString = newText.Text;
+											ReceivedShareItem.MergeNewText(oldText, newTextString, true, true);
+											break;
+										case nameof(FilesShareItem):
+											var newFile = newItem as FilesShareItem;
+											var oldFile = vm.ReceivedShareItem.AvialableShareItems[targetItemPair.i] as FilesShareItem;
+											oldFile.StorageFiles = new ObservableCollection<FileItem>(oldFile.StorageFiles.Concat(newFile.StorageFiles));
+											break;
+										default:
+											vm.ReceivedShareItem.AvialableShareItems[targetItemPair.i] = newItem;
+											break;
+									}
 								}
 								else
 								{
-									vm.ReceivedShareItem.AvialableShareItems.Insert(0,newItem); 
+
+									vm.ReceivedShareItem.AvialableShareItems.Add(newItem);
 								}
 
 								//var index = targetItemPair == null ? 0 : targetItemPair.i;
-								await Task.Delay(200);
+
 								vm.CurrentViewingItem = newItem;
 
 							}
 
 							vm.FocusingViewIndex = 0;
+							vm.ClipboardImportingItem = null;
 							//Todo: Add PushClipToCurrentItem logic here, or
 							await MVVMSidekick.Utilities.TaskExHelper.Yield();
 						})
@@ -581,9 +624,65 @@ namespace GreaterShare.ViewModels
 				return cmdmdl;
 			};
 
+
+
 		#endregion
 
 
+
+
+
+		public CommandModel<ReactiveCommand, String> CommandSendParameterToText
+		{
+			get { return _CommandSendParameterToTextLocator(this).Value; }
+			set { _CommandSendParameterToTextLocator(this).SetValueAndTryNotify(value); }
+		}
+		#region Property CommandModel<ReactiveCommand, String> CommandSendParameterToText Setup        
+
+		protected Property<CommandModel<ReactiveCommand, String>> _CommandSendParameterToText = new Property<CommandModel<ReactiveCommand, String>> { LocatorFunc = _CommandSendParameterToTextLocator };
+		static Func<BindableBase, ValueContainer<CommandModel<ReactiveCommand, String>>> _CommandSendParameterToTextLocator = RegisterContainerLocator<CommandModel<ReactiveCommand, String>>(nameof(CommandSendParameterToText), model => model.Initialize(nameof(CommandSendParameterToText), ref model._CommandSendParameterToText, ref _CommandSendParameterToTextLocator, _CommandSendParameterToTextDefaultValueFactory));
+		static Func<BindableBase, CommandModel<ReactiveCommand, String>> _CommandSendParameterToTextDefaultValueFactory =
+			model =>
+			{
+				var resource = nameof(CommandSendParameterToText);           // Command resource  
+				var commandId = nameof(CommandSendParameterToText);
+				var vm = CastToCurrentType(model);
+				var cmd = new ReactiveCommand(canExecute: true) { ViewModel = model }; //New Command Core
+
+				cmd.Do(
+						e =>
+						{
+							var p = (e?.EventArgs?.Parameter?.ToString());
+							if (!string.IsNullOrWhiteSpace(p))
+							{
+
+								var target = vm.ReceivedShareItem.AvialableShareItems.OfType<TextSharedItem>().FirstOrDefault();
+								if (target == null)
+								{
+									target = new TextSharedItem() { Text = p };
+									vm.ReceivedShareItem.AvialableShareItems.Add(target);
+
+								}
+								else
+								{
+									ReceivedShareItem.MergeNewText(target, p, false, false);
+								}
+
+								vm.CurrentViewingItem = target;
+							}
+						})
+					.DoNotifyDefaultEventRouter(vm, commandId)
+					.Subscribe()
+					.DisposeWith(vm);
+
+				var cmdmdl = cmd.CreateCommandModel(resource);
+				cmdmdl.ListenToIsUIBusy(
+				   model: vm,
+				   canExecuteWhenBusy: false);
+				return cmdmdl;
+			};
+
+		#endregion
 
 
 

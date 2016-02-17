@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace GreaterShare.Models.Sharing
+namespace GreaterShare.Glue
 {
 	public class CopyShareItemToClipboardCommand : ICommand
 	{
