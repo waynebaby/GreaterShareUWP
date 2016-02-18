@@ -46,5 +46,8 @@ namespace GreaterShare.Models.Sharing.ShareItems
 		static Func<BindableBase, ValueContainer<bool>> _IsSelectedLocator = RegisterContainerLocator<bool>(nameof(IsSelected), model => model.Initialize(nameof(IsSelected), ref model._IsSelected, ref _IsSelectedLocator, _IsSelectedDefaultValueFactory));
 		static Func<bool> _IsSelectedDefaultValueFactory = () => true;
 		#endregion
+
+
+		
 	}
 }

@@ -515,6 +515,8 @@ namespace GreaterShare.ViewModels
 							var item = await svc.GetFromClipboardAsync();
 							vm.ClipboardImportingItem = item;
 							item.Title = "Pasted to Greater Share at " + DateTime.Now.ToString();
+
+							vm.FocusingViewIndex = 1;
 							await MVVMSidekick.Utilities.TaskExHelper.Yield();
 						})
 					.DoNotifyDefaultEventRouter(vm, commandId)

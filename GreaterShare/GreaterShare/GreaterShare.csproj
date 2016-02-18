@@ -9,8 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>GreaterShare</RootNamespace>
     <AssemblyName>GreaterShare</AssemblyName>
-    <DefaultLanguage>
-    </DefaultLanguage>
+    <DefaultLanguage>en</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion>10.0.10586.0</TargetPlatformVersion>
     <TargetPlatformMinVersion>10.0.10586.0</TargetPlatformMinVersion>
@@ -118,6 +117,7 @@
     <Compile Include="Glue\IsStoryboardPlayingBehavior.cs" />
     <Compile Include="Glue\MinItemSizeBehavior.cs" />
     <Compile Include="Glue\NaviagteToStringAction.cs" />
+    <Compile Include="Glue\SaveImageCommand.cs" />
     <Compile Include="Glue\ShareItemDataTemplateSelector.cs" />
     <Compile Include="Glue\ShowFlyoutCommand.cs" />
     <Compile Include="Glue\StreamImageSourceConverter.cs" />

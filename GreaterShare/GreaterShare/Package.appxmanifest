@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
-  <Identity Name="57081WaynebabyPresents.26639897010B1" Publisher="CN=4D2E4444-E4BB-4498-B89B-C3BC2D2D50F2" Version="1.1.2.0" />
+  <Identity Name="57081WaynebabyPresents.26639897010B1" Publisher="CN=4D2E4444-E4BB-4498-B89B-C3BC2D2D50F2" Version="1.1.3.0" />
   <mp:PhoneIdentity PhoneProductId="861bead5-9d79-4a95-8960-914a7da91be4" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>GreaterShare</DisplayName>
@@ -32,6 +32,15 @@
         </uap:InitialRotationPreference>
       </uap:VisualElements>
       <Extensions>
+        <uap:Extension Category="windows.fileTypeAssociation">
+          <uap:FileTypeAssociation Name=".gshare">
+            <uap:DisplayName>Greater Share File</uap:DisplayName>
+            <uap:InfoTip>Greater Share File</uap:InfoTip>
+            <uap:SupportedFileTypes>
+              <uap:FileType>.gshare</uap:FileType>
+            </uap:SupportedFileTypes>
+          </uap:FileTypeAssociation>
+        </uap:Extension>
         <uap:Extension Category="windows.shareTarget">
           <uap:ShareTarget Description="Share To Greater Share">
             <uap:SupportedFileTypes>
@@ -45,15 +54,6 @@
             <uap:DataFormat>WebLink</uap:DataFormat>
             <uap:DataFormat>ApplicationLink</uap:DataFormat>
           </uap:ShareTarget>
-        </uap:Extension>
-        <uap:Extension Category="windows.fileTypeAssociation">
-          <uap:FileTypeAssociation Name=".gshare">
-            <uap:DisplayName>Greater Share File</uap:DisplayName>
-            <uap:InfoTip>Greater Share File</uap:InfoTip>
-            <uap:SupportedFileTypes>
-              <uap:FileType>.gshare</uap:FileType>
-            </uap:SupportedFileTypes>
-          </uap:FileTypeAssociation>
         </uap:Extension>
       </Extensions>
     </Application>
