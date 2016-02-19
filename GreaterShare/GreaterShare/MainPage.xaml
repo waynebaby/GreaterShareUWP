@@ -15,7 +15,15 @@
         <vm:MainPage_Model x:Key="DesignVM"/>
         <!--<Glue:EqualConverter x:Key="EqualConverter"/>-->
     </mvvm:MVVMPage.Resources>
-    <Grid x:Name="grid" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"  DataContext="{StaticResource DesignVM}">
+    <RelativePanel x:Name="grid" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"  DataContext="{StaticResource DesignVM}">
+        <Interactivity:Interaction.Behaviors>
+            <Core:DataTriggerBehavior  Binding="{Binding ReceivedShareItem}"  Value="{x:Null}">
+                <Core:GoToStateAction StateName="False" UseTransitions="True"/>
+            </Core:DataTriggerBehavior>
+            <Core:DataTriggerBehavior Binding="{Binding ReceivedShareItem}"  ComparisonCondition="NotEqual" Value="{x:Null}">
+                <Core:GoToStateAction StateName="True" UseTransitions="True"/>
+            </Core:DataTriggerBehavior>
+        </Interactivity:Interaction.Behaviors>
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="IsReceivedItemAvailable">
                 <VisualState x:Name="True">
@@ -67,18 +75,10 @@
             <VisualStateGroup x:Name="SuggestButton">
                 <VisualStateGroup.Transitions>
 
-                    <VisualTransition GeneratedDuration="0:0:1" To="CommandGetFromClipboard"       >
-
-                    </VisualTransition>
-                    <VisualTransition GeneratedDuration="0:0:1" To="CommandPushClipToCurrentItem"  >
-
-                    </VisualTransition>
-                    <VisualTransition GeneratedDuration="0:0:1" To="CommandLoadFromUserFile"      >
-
-                    </VisualTransition>
-                    <VisualTransition GeneratedDuration="0:0:1" To="CommandReshare"                >
-
-                    </VisualTransition>
+                    <VisualTransition GeneratedDuration="0:0:1" To="CommandGetFromClipboard"       />
+                    <VisualTransition GeneratedDuration="0:0:1" To="CommandPushClipToCurrentItem"  />
+                    <VisualTransition GeneratedDuration="0:0:1" To="CommandLoadFromUserFile"      />
+                    <VisualTransition GeneratedDuration="0:0:1" To="CommandReshare"                />
                     <VisualTransition GeneratedDuration="0:0:1">
                         <VisualTransition.GeneratedEasingFunction>
                             <BounceEase EasingMode="EaseOut"/>
@@ -148,21 +148,13 @@
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
-        <Interactivity:Interaction.Behaviors>
-            <Core:DataTriggerBehavior  Binding="{Binding ReceivedShareItem}"  Value="{x:Null}">
-                <Core:GoToStateAction StateName="False" UseTransitions="True"/>
-            </Core:DataTriggerBehavior>
-            <Core:DataTriggerBehavior Binding="{Binding ReceivedShareItem}"  ComparisonCondition="NotEqual" Value="{x:Null}">
-                <Core:GoToStateAction StateName="True" UseTransitions="True"/>
-            </Core:DataTriggerBehavior>
-        </Interactivity:Interaction.Behaviors>
-        <Pivot x:Name="pivot" Margin="32,32,32,128" SelectedIndex="{Binding FocusingViewIndex, Mode=TwoWay}"  Background="#33F0F8FF">
+        <Pivot x:Name="pivot" Margin="8" SelectedIndex="{Binding FocusingViewIndex, Mode=TwoWay}"  Background="#33F0F8FF" RelativePanel.Above="AppBar" RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True">
             <PivotItem Header="Current Share">
                 <Grid x:Name="grid1">
 
                     <StackPanel 
 						HorizontalAlignment="Center" VerticalAlignment="Center"
-						Orientation="Vertical" x:Name="textBlock" d:LayoutOverrides="Height">
+						Orientation="Vertical" x:Name="textBlock" d:LayoutOverrides="Height" d:IsHidden="True">
 
                         <TextBlock  TextAlignment="Center"
 							TextWrapping="Wrap"
@@ -192,7 +184,7 @@
                         </Grid.RowDefinitions>
 
 
-                        <ScrollViewer BorderThickness="{StaticResource ThinBoderThickness}" BorderBrush="{ThemeResource TextBoxBorderThemeBrush}" Background="#19001010" Margin="16"  ScrollViewer.VerticalScrollBarVisibility="Visible"  RelativePanel.AlignLeftWithPanel="True" x:Name="propertiesPanel" Grid.RowSpan="2">
+                        <ScrollViewer BorderBrush="{ThemeResource TextBoxBorderThemeBrush}" Background="#19001010" Margin="8"  ScrollViewer.VerticalScrollBarVisibility="Visible"  RelativePanel.AlignLeftWithPanel="True" x:Name="propertiesPanel" Grid.RowSpan="2">
                             <ScrollViewer.Resources>
                                 <Style  TargetType="StackPanel">
                                     <Setter Property="Margin" Value="8"/>
@@ -201,6 +193,9 @@
                                     <Setter Property="Margin"  Value="10,0,10,0" />
                                 </Style>
                             </ScrollViewer.Resources>
+                            <ScrollViewer.BorderThickness>
+                                <StaticResource ResourceKey="ThinBoderThickness"/>
+                            </ScrollViewer.BorderThickness>
                             <StackPanel x:Name="stackPanel"  Margin="16" >
                                 <StackPanel >
                                     <TextBlock>
@@ -210,9 +205,9 @@
 										IsHitTestVisible="false" TextWrapping="NoWrap"/>
                                     <StackPanel HorizontalAlignment="Right" Margin="0">
                                         <HyperlinkButton
-                                            IsEnabled="{Binding ReceivedShareItem.Title,Converter={StaticResource FalseIfIsStringNullOrEmptyConverter}}"   
+											IsEnabled="{Binding ReceivedShareItem.Title, Converter={StaticResource FalseIfIsStringNullOrEmptyConverter}}"   
                                         
-                                         Command="{Binding CommandSendParameterToText}" CommandParameter="{Binding ReceivedShareItem.Title}" ToolTipService.ToolTip="{StaticResource AppendToTextShare}">
+											Command="{Binding CommandSendParameterToText}" CommandParameter="{Binding ReceivedShareItem.Title}" ToolTipService.ToolTip="{StaticResource AppendToTextShare}">
                                             <FontIcon FontSize="14" FontFamily="Segoe UI Symbol" Glyph="&#xE17D;" />
                                         </HyperlinkButton>
                                     </StackPanel>
@@ -243,12 +238,12 @@
 										<Run Text="Description:"/>
                                     </TextBlock>
 
-                                    <TextBox Height="100" ScrollViewer.VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" AcceptsReturn="True" Text="{Binding ReceivedShareItem.Description, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                                    <TextBox Height="100" ScrollViewer.VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" AcceptsReturn="True" Text="{Binding ReceivedShareItem.Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                                     <StackPanel HorizontalAlignment="Right" Margin="0">
                                         <HyperlinkButton 
-                                            IsEnabled="{Binding ReceivedShareItem.Description,Converter={StaticResource FalseIfIsStringNullOrEmptyConverter}}"   
+											IsEnabled="{Binding ReceivedShareItem.Description, Converter={StaticResource FalseIfIsStringNullOrEmptyConverter}}"   
                                         
-                                        Command="{Binding CommandSendParameterToText}" CommandParameter="{Binding ReceivedShareItem.Description}" ToolTipService.ToolTip="{StaticResource AppendToTextShare}">
+											Command="{Binding CommandSendParameterToText}" CommandParameter="{Binding ReceivedShareItem.Description}" ToolTipService.ToolTip="{StaticResource AppendToTextShare}">
                                             <FontIcon FontSize="14" FontFamily="Segoe UI Symbol" Glyph="&#xE17D;" />
                                         </HyperlinkButton>
                                     </StackPanel>
@@ -257,12 +252,12 @@
                                     <TextBlock>
 										<Run Text="QuickLinkId:"/>
                                     </TextBlock>
-                                    <TextBox Text="{Binding ReceivedShareItem.QuickLinkId, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                                    <TextBox Text="{Binding ReceivedShareItem.QuickLinkId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                                     <StackPanel HorizontalAlignment="Right" Margin="0">
                                         <HyperlinkButton
-                                            IsEnabled="{Binding ReceivedShareItem.QuickLinkId,Converter={StaticResource FalseIfIsStringNullOrEmptyConverter}}"   
+											IsEnabled="{Binding ReceivedShareItem.QuickLinkId, Converter={StaticResource FalseIfIsStringNullOrEmptyConverter}}"   
                                        
-                                         Command="{Binding CommandSendParameterToText}" CommandParameter="{Binding ReceivedShareItem.QuickLinkId}" ToolTipService.ToolTip="{StaticResource AppendToTextShare}">
+											Command="{Binding CommandSendParameterToText}" CommandParameter="{Binding ReceivedShareItem.QuickLinkId}" ToolTipService.ToolTip="{StaticResource AppendToTextShare}">
                                             <FontIcon FontSize="14" FontFamily="Segoe UI Symbol" Glyph="&#xE17D;" />
                                         </HyperlinkButton>
                                     </StackPanel>
@@ -272,19 +267,19 @@
                                         <TextBlock x:Name="label">
 											<Run Text="Content Source ApplicationLink:"/>
                                         </TextBlock>
-                                        <TextBox x:Name="textBox" Text="{Binding ReceivedShareItem.ContentSourceApplicationLink, Converter={StaticResource UriStringConverter}, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" RelativePanel.Below="label" RelativePanel.AlignRightWith="" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True"/>
+                                        <TextBox x:Name="textBox" Text="{Binding ReceivedShareItem.ContentSourceApplicationLink, Converter={StaticResource UriStringConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" RelativePanel.Below="label" RelativePanel.AlignRightWith="" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True"/>
 
                                     </RelativePanel>
                                     <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Margin="0">
                                         <HyperlinkButton
-                                         x:Name="hyperlinkButton1" 
-                                            IsEnabled="{Binding ReceivedShareItem.ContentSourceApplicationLink,Converter={StaticResource IsNotNullConverter}}"   
-                                            NavigateUri="{Binding ReceivedShareItem.ContentSourceApplicationLink}" ToolTipService.ToolTip="{StaticResource VisitUri}" >
+											x:Name="hyperlinkButton1" 
+											IsEnabled="{Binding ReceivedShareItem.ContentSourceApplicationLink, Converter={StaticResource IsNotNullConverter}}"   
+											NavigateUri="{Binding ReceivedShareItem.ContentSourceApplicationLink}" ToolTipService.ToolTip="{StaticResource VisitUri}" >
                                             <FontIcon FontFamily="Segoe UI Symbol" Glyph="&#xE12B;" />
                                         </HyperlinkButton>
                                         <HyperlinkButton 
-                                            IsEnabled="{Binding ReceivedShareItem.ContentSourceApplicationLink,Converter={StaticResource IsNotNullConverter}}"   
-                                            Command="{Binding CommandSendParameterToText}" CommandParameter="{Binding ReceivedShareItem.ContentSourceApplicationLink}" ToolTipService.ToolTip="{StaticResource AppendToTextShare}">
+											IsEnabled="{Binding ReceivedShareItem.ContentSourceApplicationLink, Converter={StaticResource IsNotNullConverter}}"   
+											Command="{Binding CommandSendParameterToText}" CommandParameter="{Binding ReceivedShareItem.ContentSourceApplicationLink}" ToolTipService.ToolTip="{StaticResource AppendToTextShare}">
                                             <FontIcon FontSize="14" FontFamily="Segoe UI Symbol" Glyph="&#xE17D;" />
                                         </HyperlinkButton>
                                     </StackPanel>
@@ -294,18 +289,18 @@
                                         <TextBlock x:Name="label2">
 											<Run Text="Content Source WebLink:"/>
                                         </TextBlock>
-                                        <TextBox Text="{Binding ReceivedShareItem.ContentSourceWebLink, Converter={StaticResource UriStringConverter}, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  RelativePanel.Below="label2" RelativePanel.AlignRightWith="" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True"/>
+                                        <TextBox Text="{Binding ReceivedShareItem.ContentSourceWebLink, Converter={StaticResource UriStringConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  RelativePanel.Below="label2" RelativePanel.AlignRightWith="" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True"/>
 
                                     </RelativePanel>
                                     <StackPanel HorizontalAlignment="Right" Margin="0" Orientation="Horizontal">
                                         <HyperlinkButton 
-                                            IsEnabled="{Binding ReceivedShareItem.ContentSourceWebLink,Converter={StaticResource IsNotNullConverter}}"   
-                                           NavigateUri="{Binding ReceivedShareItem.ContentSourceWebLink}" ToolTipService.ToolTip="{StaticResource VisitUri}" >
+											IsEnabled="{Binding ReceivedShareItem.ContentSourceWebLink, Converter={StaticResource IsNotNullConverter}}"   
+											NavigateUri="{Binding ReceivedShareItem.ContentSourceWebLink}" ToolTipService.ToolTip="{StaticResource VisitUri}" >
                                             <FontIcon FontFamily="Segoe UI Symbol" Glyph="&#xE12B;" />
                                         </HyperlinkButton>
                                         <HyperlinkButton 
-                                            IsEnabled="{Binding ReceivedShareItem.ContentSourceWebLink,Converter={StaticResource IsNotNullConverter}}"   
-                                            Command="{Binding CommandSendParameterToText}" CommandParameter="{Binding ReceivedShareItem.ContentSourceWebLink}" ToolTipService.ToolTip="{StaticResource AppendToTextShare}">
+											IsEnabled="{Binding ReceivedShareItem.ContentSourceWebLink, Converter={StaticResource IsNotNullConverter}}"   
+											Command="{Binding CommandSendParameterToText}" CommandParameter="{Binding ReceivedShareItem.ContentSourceWebLink}" ToolTipService.ToolTip="{StaticResource AppendToTextShare}">
                                             <FontIcon FontSize="14" FontFamily="Segoe UI Symbol" Glyph="&#xE17D;" />
                                         </HyperlinkButton>
                                     </StackPanel>
@@ -316,13 +311,13 @@
                                     <TextBlock>
 										<Run Text="PackageFamilyName:"/>
                                     </TextBlock>
-                                    <TextBox Text="{Binding ReceivedShareItem.PackageFamilyName, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                                    <TextBox Text="{Binding ReceivedShareItem.PackageFamilyName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
                                     <StackPanel HorizontalAlignment="Right" Margin="0">
                                         <HyperlinkButton 
-                                            IsEnabled="{Binding ReceivedShareItem.PackageFamilyName,Converter={StaticResource FalseIfIsStringNullOrEmptyConverter}}"   
+											IsEnabled="{Binding ReceivedShareItem.PackageFamilyName, Converter={StaticResource FalseIfIsStringNullOrEmptyConverter}}"   
                                         
-                                            Command="{Binding CommandSendParameterToText}" CommandParameter="{Binding ReceivedShareItem.PackageFamilyName}" ToolTipService.ToolTip="{StaticResource AppendToTextShare}">
+											Command="{Binding CommandSendParameterToText}" CommandParameter="{Binding ReceivedShareItem.PackageFamilyName}" ToolTipService.ToolTip="{StaticResource AppendToTextShare}">
 
 
                                             <FontIcon FontSize="14" FontFamily="Segoe UI Symbol" Glyph="&#xE17D;" />
@@ -335,13 +330,13 @@
             </ListView>-->
                             </StackPanel>
                         </ScrollViewer>
-                        <Grid BorderBrush="{ThemeResource TextBoxBorderThemeBrush}"  BorderThickness="{StaticResource ThinBoderThickness}" x:Name="flipView" RelativePanel.RightOf="propertiesPanel"  RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignTopWithPanel="True" Height="{Binding Width, RelativeSource={RelativeSource Mode=Self}}"   Margin="16" Grid.RowSpan="2" Grid.Column="1" MinHeight="400" MinWidth="400" >
+                        <Grid BorderBrush="{ThemeResource TextBoxBorderThemeBrush}"  BorderThickness="{StaticResource ThinBoderThickness}" x:Name="flipView" RelativePanel.RightOf="propertiesPanel"  RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignTopWithPanel="True" Height="{Binding Width, RelativeSource={RelativeSource Mode=Self}}"   Margin="8" Grid.RowSpan="2" Grid.Column="1"  >
                             <FlipView   xmlns:glue="using:GreaterShare.Glue" x:Name="flipView1" 
 								ItemsSource="{Binding ReceivedShareItem.AvialableShareItems}" 
-                                SelectedItem="{Binding CurrentViewingItem, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"   >
+								SelectedItem="{Binding CurrentViewingItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"   >
                                 <Interactivity:Interaction.Behaviors>
                                     <Core:EventTriggerBehavior EventName="SelectionChanged">
-                                        <Core:CallMethodAction TargetObject="{Binding  ElementName=mVVMPage}" MethodName="UpdateLayout"/>
+                                        <Core:CallMethodAction TargetObject="{Binding ElementName=mVVMPage}" MethodName="UpdateLayout"/>
                                     </Core:EventTriggerBehavior>
                                 </Interactivity:Interaction.Behaviors>
 
@@ -367,7 +362,7 @@
                         <ColumnDefinition Width="64*"/>
                         <ColumnDefinition Width="18*"/>
                     </Grid.ColumnDefinitions>
-                    <FlipView  BorderThickness="{StaticResource ThinBoderThickness}" BorderBrush="{ThemeResource TextBoxBorderThemeBrush}" xmlns:glue="using:GreaterShare.Glue" x:Name="flipViewClipboard"
+                    <FlipView xmlns:glue="using:GreaterShare.Glue"  BorderThickness="{StaticResource ThinBoderThickness}" BorderBrush="{ThemeResource TextBoxBorderThemeBrush}" x:Name="flipViewClipboard"
 						RelativePanel.RightOf="propertiesPanel" ItemsSource="{Binding ClipboardImportingItem.AvialableShareItems}" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignTopWithPanel="True" Height="{Binding Width, RelativeSource={RelativeSource Mode=Self}}"   Margin="16" Grid.RowSpan="3" Grid.Column="1"   >
                         <FlipView.ItemTemplateSelector>
                             <glue:ShareItemDataTemplateSelector  PrefixOfTemplateKey="DataTemplateOf"/>
@@ -386,8 +381,8 @@
             </PivotItem>
 
         </Pivot>
-        <local:Background Canvas.ZIndex="-2"/>
-        <AppBar  VerticalAlignment="Bottom" IsDoubleTapEnabled="False" IsTabStop="True" IsSticky="True" ClosedDisplayMode="Minimal" UseSystemFocusVisuals="True" IsOpen="True"  >
+        <local:Background Canvas.ZIndex="-2" Margin="0" RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignTopWithPanel="True"/>
+        <AppBar x:Name="AppBar"  VerticalAlignment="Bottom" IsDoubleTapEnabled="False" IsTabStop="True" IsSticky="True" ClosedDisplayMode="Minimal" UseSystemFocusVisuals="True" IsOpen="True"  Margin="0" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignBottomWithPanel="True"  >
             <Interactivity:Interaction.Behaviors>
                 <Core:DataTriggerBehavior Binding="{Binding SugguestingCommand}" ComparisonCondition="NotEqual" Value="{x:Null}">
                     <Core:GoToStateAction StateName="{Binding SugguestingCommand}"/>
@@ -431,7 +426,7 @@
                 </StackPanel>
             </Grid>
         </AppBar>
-    </Grid>
+    </RelativePanel>
 
 
 </mvvm:MVVMPage>

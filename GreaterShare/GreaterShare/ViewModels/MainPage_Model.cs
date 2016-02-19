@@ -117,7 +117,7 @@ namespace GreaterShare.ViewModels
 					ReceivedShareItem != null)
 				.Where(x => 
 					ReceivedShareItem.AvialableShareItems != null)
-
+				.ObserveOnDispatcher()
 				.Subscribe(
 					tp =>
 					{

@@ -10,6 +10,7 @@ using System.Linq;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.Core;
@@ -64,6 +65,11 @@ namespace GreaterShare
 
 		public static string FileExtension { get; internal set; }
 		= ".gshare";
+
+		public static Task<Uri> CurrentAppUri = Task.Factory.StartNew(()=>
+		{
+			return new Uri("https://www.microsoft.com/store/apps/9nblggh5fmm2");
+		});
 
 		protected override void OnFileActivated(FileActivatedEventArgs args)
 		{

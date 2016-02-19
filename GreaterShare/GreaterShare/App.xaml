@@ -153,16 +153,17 @@
         </DataTemplate>
 
         <DataTemplate x:Key="FileGridItem">
-            <RelativePanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="230">
+            <RelativePanel Height="135" Width="120" BorderThickness="{StaticResource ThinBoderThickness}" BorderBrush="Gray" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="#20202020" >
                 <Image x:Name="image"
-                    Margin="32"
-        			Source="{Binding Thumbnail, Converter={StaticResource StreamImageSourceConverter}}" Stretch="None" 
+                    Margin="10"
+        			Source="{Binding Thumbnail, Converter={StaticResource StreamImageSourceConverter}}" Stretch="Uniform"
+                    Width="80"
+                    Height="80"
         			HorizontalAlignment="Center" 
         			VerticalAlignment="Center"  
         			RelativePanel.AlignLeftWithPanel="True"
         			RelativePanel.AlignTopWithPanel="True" 
-        			RelativePanel.AlignRightWithPanel="True"
-                    
+        			RelativePanel.AlignRightWithPanel="True"                     
                     />
 
                 <TextBlock TextWrapping="WrapWholeWords"   Name="fileName"
@@ -181,7 +182,7 @@
                     Visibility="{Binding Converter={StaticResource HideWhenIsNotEditingConverter}, Mode=OneWay}" 
                     RelativePanel.AlignLeftWithPanel="True"  RelativePanel.AlignTopWithPanel="True"/>
 
-                <GridView  ItemsSource="{Binding StorageFiles}" 
+                <GridView Margin="8" ItemsSource="{Binding StorageFiles}" 
                         RelativePanel.Below="label"             
                         RelativePanel.Above="linkButtons"                            
                         RelativePanel.AlignRightWithPanel="True" 
@@ -194,7 +195,7 @@
                     ItemTemplate="{StaticResource FileGridItem}" >
                     <GridView.ItemsPanel >
                         <ItemsPanelTemplate>
-                            <ItemsWrapGrid ItemHeight="240">
+                            <ItemsWrapGrid  Orientation="Horizontal" >
 
                             </ItemsWrapGrid>
                         </ItemsPanelTemplate>

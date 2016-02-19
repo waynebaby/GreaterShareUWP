@@ -7,8 +7,8 @@
     xmlns:Interactivity="using:Microsoft.Xaml.Interactivity" xmlns:Core="using:Microsoft.Xaml.Interactions.Core" xmlns:Media="using:Microsoft.Xaml.Interactions.Media"
     x:Class="GreaterShare.Background"
     mc:Ignorable="d"
-    d:DesignHeight="1200"
-    d:DesignWidth="1400">
+    d:DesignHeight="800"
+    d:DesignWidth="1200">
     <UserControl.Resources>
         <Storyboard x:Name="GreaterMove" RepeatBehavior="Forever" AutoReverse="True">
             <DoubleAnimation Duration="0:0:11" To="5" Storyboard.TargetProperty="(UIElement.Projection).(PlaneProjection.LocalOffsetX)" Storyboard.TargetName="greater" d:IsOptimized="True">
@@ -86,22 +86,22 @@
     </Interactivity:Interaction.Behaviors>
 
     <Grid >
-
-
-        <FontIcon x:Name="shareIcon"  FontWeight="ExtraBold" FontFamily="Segoe UI Symbol" Glyph="&#xE2FD;" VerticalAlignment="Center" Foreground="#FF9C9C9C" RenderTransformOrigin="0.5,0.5"  >
+        <Viewbox>
+        <FontIcon x:Name="shareIcon" Margin="-4" FontWeight="ExtraBold" FontFamily="Segoe UI Symbol" Glyph="&#xE2FD;" VerticalAlignment="Center" Foreground="#FF9C9C9C" RenderTransformOrigin="0.5,0.5"  >
             <FontIcon.Projection>
                 <PlaneProjection/>
             </FontIcon.Projection>
-            <FontIcon.RenderTransform>
+            <!--<FontIcon.RenderTransform>
                 <CompositeTransform ScaleX="40" ScaleY="40"/>
-            </FontIcon.RenderTransform>
-        </FontIcon>
-
+            </FontIcon.RenderTransform>-->
+            </FontIcon>
+        </Viewbox>
 
 
         <Border Background="#AAEAEAEA" Canvas.ZIndex="1"/>
-        <RelativePanel Margin="96" VerticalAlignment="Bottom" HorizontalAlignment="Right" >
-
+        <Viewbox Margin="96" MaxWidth="200" VerticalAlignment="Bottom" HorizontalAlignment="Right">
+            <RelativePanel   >
+      
             <TextBlock x:Name="greater" FontWeight="ExtraBold"  FontSize="80" 
 				Foreground="#FF3E729E"
             >
@@ -123,7 +123,8 @@
                 </TextBlock.Projection>
 				<Run Text="Share"/>
             </TextBlock>
-        </RelativePanel>
+            </RelativePanel>
+        </Viewbox>
 
 
     </Grid>

@@ -249,7 +249,7 @@ namespace GreaterShare.Services
 			{
 				return;
 			}
-
+			var defaultUri = await App.CurrentAppUri;
 			var sqt = item?.Square30x30Logo?.GetRandowmAccessStreamAsync();
 			var Square30x30Logo = sqt == null ? null : await sqt;
 			var rbt = item?.Thumbnail?.GetRandowmAccessStreamAsync();
@@ -275,11 +275,13 @@ namespace GreaterShare.Services
 								var def = e.EventArgs.Request.GetDeferral();
 								try
 								{
+					
+
 									//dataTrasferedCompletion.TrySetResult(null);
 									var r = e.EventArgs.Request;
 									var package = r.Data;
-									package.Properties.ContentSourceApplicationLink = item.ContentSourceApplicationLink;
-									package.Properties.ContentSourceWebLink = item.ContentSourceWebLink;
+									package.Properties.ContentSourceApplicationLink = item.ContentSourceApplicationLink ?? defaultUri;
+									package.Properties.ContentSourceWebLink = item.ContentSourceWebLink?? defaultUri;
 									package.Properties.Description = item.Description;
 									package.Properties.PackageFamilyName = item.PackageFamilyName;
 									if (Square30x30Logo != null)
@@ -296,11 +298,11 @@ namespace GreaterShare.Services
 
 									package.Properties.Title = item.Title;
 									var order = item.AvialableShareItems.OrderBy(x => x is TextSharedItem);
-									 //make sure text share item execute last
+									//make sure text share item execute last
 									foreach (var subShareItem in order)
 									{
 										FillPackage(files, package, subShareItem);
-									}	 
+									}
 								}
 								catch (Exception ex)
 								{
