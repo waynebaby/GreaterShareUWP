@@ -13,36 +13,68 @@ namespace GreaterShare.Glue
 {
 	public class StateTriggerActiveReadingBehavior : Behavior<Panel>
 	{
+		long NarrowTriggerPropertyReg;
+		long WideTriggerPropertyReg;
 
 		protected override void OnAttached()
 		{
 			AssociatedObject.SizeChanged += AssociatedObject_SizeChanged;
+			NarrowTriggerPropertyReg = RegisterPropertyChangedCallback(NarrowTriggerProperty, (o, a) => RefreshState());
+			WideTriggerPropertyReg = RegisterPropertyChangedCallback(WideTriggerProperty, (o, a) => RefreshState());
 
 			base.OnAttached();
 		}
 
 		private void AssociatedObject_SizeChanged(object sender, SizeChangedEventArgs e)
 		{
-			var isInNarrowMode = AssociatedObject.ActualWidth < AssociatedObject.ActualHeight;
-			var isInWideMode = !isInNarrowMode;
-			if (NarrowTrigger!=null && isInNarrowMode && (!NarrowTrigger.IsActive))
-			{
-				WideTrigger.IsActive = false;
-				NarrowTrigger.IsActive = true;
-			}
-			if (WideTrigger!=null&& isInWideMode &&(!WideTrigger.IsActive))
-			{
-				NarrowTrigger.IsActive = false;
-				WideTrigger.IsActive = true;
-			}
+			RefreshState();
 
+		}
+
+		private void RefreshState()
+		{
+			try
+			{
+				if (AssociatedObject == null)
+				{
+					return;
+
+
+				}
+				var isInNarrowMode = AssociatedObject.ActualWidth < AssociatedObject.ActualHeight;
+				var isInWideMode = !isInNarrowMode;
+				if (NarrowTrigger != null && isInNarrowMode && (!NarrowTrigger.IsActive))
+				{
+					if (WideTrigger != null)
+					{
+						WideTrigger.IsActive = false;
+
+					}
+					NarrowTrigger.IsActive = true;
+				}
+				if (WideTrigger != null && isInWideMode && (!WideTrigger.IsActive))
+				{
+					if (NarrowTrigger != null)
+					{
+						NarrowTrigger.IsActive = false;
+
+					}
+					WideTrigger.IsActive = true;
+				}
+
+			}
+			catch (Exception ex)
+			{
+
+			}
 		}
 
 		protected override void OnDetaching()
 		{
 			base.OnDetaching();
 			AssociatedObject.SizeChanged -= AssociatedObject_SizeChanged;
-
+			UnregisterPropertyChangedCallback(NarrowTriggerProperty, NarrowTriggerPropertyReg);
+			UnregisterPropertyChangedCallback(WideTriggerProperty, WideTriggerPropertyReg);
 		}
 
 

@@ -59,8 +59,8 @@
             <VisualStateGroup x:Name="WidthCheck">
                 <VisualState x:Name="NarrowView">
                     <VisualState.StateTriggers>
-                        <!--<AdaptiveTrigger MinWindowWidth="0" MinWindowHeight="0"/>-->  
-                       
+                        <!--<AdaptiveTrigger MinWindowWidth="0" MinWindowHeight="0"/>-->
+
                         <StateTrigger x:Name="narrowTrigger"/>
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
@@ -173,7 +173,7 @@
                     <VisualState.Setters>
                         <Setter Target="pivot.(FrameworkElement.Margin)">
                             <Setter.Value>
-                                <Thickness>8,8,8,8</Thickness>
+                                <Thickness>8,8,8,12</Thickness>
                             </Setter.Value>
                         </Setter>
                     </VisualState.Setters>
@@ -182,16 +182,16 @@
                     <VisualState.Setters>
                         <Setter Target="pivot.(FrameworkElement.Margin)">
                             <Setter.Value>
-                                <Thickness>8,8,8,96</Thickness>
+                                <Thickness>8,8,8,72</Thickness>
                             </Setter.Value>
                         </Setter>
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
-        <Pivot x:Name="pivot" Margin="8,8,8,16" SelectedIndex="{Binding FocusingViewIndex, Mode=TwoWay}"  Background="#33F0F8FF" RelativePanel.Above="AppBar" RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True">
+        <Pivot x:Name="pivot" Margin="8,8,8,12" SelectedIndex="{Binding FocusingViewIndex, Mode=TwoWay}"  Background="#33F0F8FF" RelativePanel.Above="AppBar" RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True">
             <PivotItem Header="Current Share">
-               <Grid x:Name="grid1" >
+                <Grid x:Name="grid1" >
 
                     <StackPanel 
 						HorizontalAlignment="Center" VerticalAlignment="Center"
@@ -214,15 +214,15 @@
                             </Interactivity:Interaction.Behaviors>-->
                         </HyperlinkButton>
                     </StackPanel>
-                    
+
                     <Grid x:Name="relativePanel"  >
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="36*"/>
                             <ColumnDefinition Width="64*"/>
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="50*"/>
-                            <RowDefinition Height="50*"/>
+                            <RowDefinition Height="64*"/>
+                            <RowDefinition Height="36*"/>
                         </Grid.RowDefinitions>
 
 
@@ -395,7 +395,7 @@
                                                                         
                                 ScrollViewer.HorizontalScrollMode="Disabled"
                                 ScrollViewer.VerticalScrollMode="Disabled"
-                                 SelectedItem="{Binding SelectedItem, ElementName=flipView1, Mode=TwoWay}" ItemsSource="{Binding ItemsSource, ElementName=flipView1}"  Grid.Row="1" d:LayoutOverrides="TopMargin, BottomMargin" HorizontalAlignment="Center" VerticalAlignment="Bottom" ItemContainerStyle="{StaticResource IndicatorListViewItem}" ItemTemplate="{StaticResource IndicatorItemTemplate}">
+                                 SelectedItem="{Binding SelectedItem, ElementName=flipView1, Mode=TwoWay}" ItemsSource="{Binding ItemsSource, ElementName=flipView1}"  Grid.Row="1" d:LayoutOverrides="TopMargin, BottomMargin" HorizontalAlignment="Center" VerticalAlignment="Top" ItemContainerStyle="{StaticResource IndicatorListViewItem}" ItemTemplate="{StaticResource IndicatorItemTemplate}">
 
                                 <ListView.ItemsPanel>
                                     <ItemsPanelTemplate>
@@ -420,7 +420,7 @@
                         <ColumnDefinition Width="64*"/>
                         <ColumnDefinition Width="18*"/>
                     </Grid.ColumnDefinitions>
-                    <Grid x:Name="flipViewClipboard"   Margin="16" Grid.RowSpan="3" Grid.Column="1">
+                    <Grid x:Name="flipViewClipboard"   Margin="4" Grid.RowSpan="3" Grid.Column="1">
                         <FlipView Name="flipview2" 
                         xmlns:glue="using:GreaterShare.Glue"  
                         BorderThickness="{StaticResource ThinBoderThickness}" 
@@ -440,7 +440,7 @@
                                                                         
                                 ScrollViewer.HorizontalScrollMode="Disabled"
                                 ScrollViewer.VerticalScrollMode="Disabled"
-                                 SelectedItem="{Binding SelectedItem, ElementName=flipview2, Mode=TwoWay}" ItemsSource="{Binding ItemsSource, ElementName=flipview2}"  Grid.Row="1" d:LayoutOverrides="TopMargin, BottomMargin" HorizontalAlignment="Center" VerticalAlignment="Bottom" ItemContainerStyle="{StaticResource IndicatorListViewItem}" ItemTemplate="{StaticResource IndicatorItemTemplate}">
+                                 SelectedItem="{Binding SelectedItem, ElementName=flipview2, Mode=TwoWay}" ItemsSource="{Binding ItemsSource, ElementName=flipview2}"  Grid.Row="1" d:LayoutOverrides="TopMargin, BottomMargin" HorizontalAlignment="Center" VerticalAlignment="Top" ItemContainerStyle="{StaticResource IndicatorListViewItem}" ItemTemplate="{StaticResource IndicatorItemTemplate}">
 
                             <ListView.ItemsPanel>
                                 <ItemsPanelTemplate>
@@ -475,25 +475,25 @@
                     <Core:GoToStateAction StateName="Folded"/>
                 </Core:DataTriggerBehavior>
             </Interactivity:Interaction.Behaviors>
-        
+
             <Grid Margin="1">
-              
+
                 <StackPanel Orientation="Horizontal"  Visibility="{Binding SelectedIndex, ConverterParameter=0, Converter={StaticResource HideWhenNotMatchConverter}, ElementName=pivot}">
-                    <AppBarButton Command="{Binding StrongTypeViewModel.CommandLoadFromUserFile, ElementName=mVVMPage}" x:Name="appBarButton" HorizontalAlignment="Left" Icon="OpenLocal"  Label="Load From File" VerticalAlignment="Top">
+                    <AppBarButton Command="{Binding StrongTypeViewModel.CommandLoadFromUserFile, ElementName=mVVMPage}" x:Name="appBarButton" HorizontalAlignment="Left" Icon="OpenLocal"  Label="Load" VerticalAlignment="Top">
                         <AppBarButton.Projection>
                             <PlaneProjection/>
                         </AppBarButton.Projection>
                     </AppBarButton>
-                    <AppBarButton Command="{Binding StrongTypeViewModel.CommandSaveToUserFile, ElementName=mVVMPage}" Icon="SaveLocal" Label="Save Share" />
+                    <AppBarButton Command="{Binding StrongTypeViewModel.CommandSaveToUserFile, ElementName=mVVMPage}" Icon="SaveLocal" Label="Save" />
                 </StackPanel>
                 <StackPanel x:Name="stackPanel1" Grid.Column="1"  Orientation="Horizontal" HorizontalAlignment="Right" Visibility="{Binding SelectedIndex, ConverterParameter=1, Converter={StaticResource HideWhenNotMatchConverter}, ElementName=pivot}">
 
-                    <AppBarButton x:Name="appBarButton1"  Label="Paste Here"  Command="{Binding StrongTypeViewModel.CommandGetFromClipboard, ElementName=mVVMPage}" Icon="Paste" >
+                    <AppBarButton x:Name="appBarButton1"  Label="Paste"  Command="{Binding StrongTypeViewModel.CommandGetFromClipboard, ElementName=mVVMPage}" Icon="Paste" >
                         <AppBarButton.Projection>
                             <PlaneProjection/>
                         </AppBarButton.Projection>
                     </AppBarButton>
-                    <AppBarButton x:Name="appBarButton2" Label="To Share" Command="{Binding StrongTypeViewModel.CommandPushClipToCurrentItem, ElementName=mVVMPage}" Icon="Import">
+                    <AppBarButton x:Name="appBarButton2" Label="Append" Command="{Binding StrongTypeViewModel.CommandPushClipToCurrentItem, ElementName=mVVMPage}" Icon="Import">
                         <AppBarButton.Projection>
                             <PlaneProjection/>
                         </AppBarButton.Projection>
@@ -501,16 +501,27 @@
 
                 </StackPanel>
                 <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" x:Name="stackPanel2"  Visibility="{Binding SelectedIndex, ConverterParameter=0, Converter={StaticResource HideWhenNotMatchConverter}, ElementName=pivot}">
-                    <AppBarButton Command="{Binding StrongTypeViewModel.CommandReshareCurrent, ElementName=mVVMPage}" HorizontalAlignment="Left" Icon="Target"  Label="Reshare Current" VerticalAlignment="Top"/>
-                    <AppBarButton Command="{Binding StrongTypeViewModel.CommandReshareSelected, ElementName=mVVMPage}" HorizontalAlignment="Left" Icon="Bullets"  Label="Reshare Selcted" VerticalAlignment="Top"/>
-                    <AppBarButton x:Name="appBarButton3" Command="{Binding StrongTypeViewModel.CommandReshare, ElementName=mVVMPage}" HorizontalAlignment="Left" Icon="ReShare"  Label="Reshare All" VerticalAlignment="Top">
+
+                    <!--<AppBarButton Command="{Binding StrongTypeViewModel.CommandReshareCurrent, ElementName=mVVMPage}" HorizontalAlignment="Left" Icon="Target"  Label="Reshare" VerticalAlignment="Top"/>
+                    <AppBarButton Command="{Binding StrongTypeViewModel.CommandReshareSelected, ElementName=mVVMPage}" HorizontalAlignment="Left" Icon="Bullets"  Label="Reshare " VerticalAlignment="Top"/>-->
+                    <AppBarButton x:Name="appBarButton3"
+                     HorizontalAlignment="Left" Icon="ReShare"  Label="Reshare"   Command="{Binding CommandReshare}" CommandParameter="NoExecute" VerticalAlignment="Top">
+                        <AppBarButton.Flyout>
+                            <MenuFlyout >
+                                <MenuFlyoutItem  Command="{Binding CommandReshareCurrent}">This</MenuFlyoutItem>
+                                <MenuFlyoutItem  Command="{Binding CommandReshareSelected}">Selected</MenuFlyoutItem>
+                                <MenuFlyoutItem Name="reshareAll"  Command="{Binding CommandReshare}">All</MenuFlyoutItem>
+
+                            </MenuFlyout>
+                        </AppBarButton.Flyout>
+
                         <AppBarButton.Projection>
                             <PlaneProjection/>
                         </AppBarButton.Projection>
                     </AppBarButton>
                 </StackPanel>
-                </Grid>
-         
+            </Grid>
+
         </AppBar>
     </RelativePanel>
 

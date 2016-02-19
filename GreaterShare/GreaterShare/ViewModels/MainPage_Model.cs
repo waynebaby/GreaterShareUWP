@@ -279,7 +279,7 @@ namespace GreaterShare.ViewModels
 				var resource = nameof(CommandReshareCurrent);           // Command resource  
 				var commandId = nameof(CommandReshareCurrent);
 				var vm = CastToCurrentType(model);
-				var cmd = new ReactiveCommand(canExecute: false) { ViewModel = model }; //New Command Core
+				var cmd = new ReactiveCommand(canExecute: true) { ViewModel = model }; //New Command Core
 
 				cmd.DoExecuteUIBusyTask(
 						vm,
@@ -351,6 +351,7 @@ namespace GreaterShare.ViewModels
 		static Func<BindableBase, CommandModel<ReactiveCommand, String>> _CommandReshareDefaultValueFactory =
 			model =>
 			{
+		
 
 				var resource = nameof(CommandReshare);           // Command resource  
 				var commandId = nameof(CommandReshare);
@@ -363,6 +364,10 @@ namespace GreaterShare.ViewModels
 						{
 							try
 							{
+								if (e.EventArgs.Parameter?.ToString() =="NoExecute")
+								{
+									return;
+								}
 
 								var svc = ServiceLocator.Instance.Resolve<IShareService>();
 								await svc.ShareItemAsync(vm.ReceivedShareItem);

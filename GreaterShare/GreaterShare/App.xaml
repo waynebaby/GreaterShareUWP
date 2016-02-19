@@ -33,7 +33,7 @@
             <Setter Property="FontSize"  Value="18" />
         </Style>
         <Style  TargetType="HyperlinkButton" x:Key="LabelButton"  >
-
+            <Setter Property="HorizontalAlignment" Value="Center" />
         </Style>
         <Style x:Key="IndicatorListViewItem" TargetType="ListViewItem">
             <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}"/>
@@ -79,10 +79,11 @@ DragForeground="{ThemeResource ListViewItemDragForegroundThemeBrush}"
 
         <Style TargetType="StackPanel" x:Key="LabelButtons">
             <Setter Property="RelativePanel.AlignRightWithPanel"  Value="True" />
-            <Setter Property="RelativePanel.AlignLeftWithPanel"  Value="False" />
+            <Setter Property="RelativePanel.AlignLeftWithPanel"  Value="True" />
             <Setter Property="RelativePanel.AlignBottomWithPanel"  Value="True" />
             <Setter Property="RelativePanel.AlignTopWithPanel"  Value="False" />
             <Setter Property="VerticalAlignment" Value="Bottom"/>
+            <Setter Property="HorizontalAlignment" Value="Center" />
 
         </Style>
         <Glue:CopyShareItemToClipboardCommand x:Key="copyCommand" />
@@ -111,12 +112,12 @@ DragForeground="{ThemeResource ListViewItemDragForegroundThemeBrush}"
                     Visibility="{Binding Converter={StaticResource HideWhenIsNotEditingConverter}, Mode=OneWay}" 
                     RelativePanel.AlignLeftWithPanel="True"  RelativePanel.AlignTopWithPanel="True"/>
                     <StackPanel  x:Name="linkButtons"   Style="{StaticResource LabelButtons}"  Orientation="Horizontal" >
-                
+
                         <HyperlinkButton  Style="{StaticResource LabelButton}" x:Name="linkCopy"  Command="{StaticResource copyCommand}" CommandParameter="{Binding Mode=OneWay}" >
                             <StackPanel ToolTipService.ToolTip="Copy" Orientation="Horizontal" Margin="0,0,12,0">
                                 <FontIcon FontFamily="Segoe UI Symbol" Glyph="&#xE16F;" HorizontalAlignment="Center" VerticalAlignment="Center" />
                             </StackPanel>
-                        </HyperlinkButton>          
+                        </HyperlinkButton>
                         <HyperlinkButton  ToolTipService.ToolTip="Visit" Style="{StaticResource LabelButton}" x:Name="linkVisit"  NavigateUri="{Binding ApplicationLink}"  >
                             <!--Visibility="{Binding Converter={StaticResource HideWhenIsNotEditingConverter}, Mode=OneWay}"-->
                             <StackPanel  Orientation="Horizontal" Margin="0,0,12,0">
@@ -154,8 +155,8 @@ DragForeground="{ThemeResource ListViewItemDragForegroundThemeBrush}"
                 <CheckBox IsChecked="{Binding IsSelected, Mode=TwoWay}" 
                     Visibility="{Binding Converter={StaticResource HideWhenIsNotEditingConverter}, Mode=OneWay}" 
                     RelativePanel.AlignLeftWithPanel="True"  RelativePanel.AlignTopWithPanel="True"/>
-        
-                    <Image  
+
+                <Image  
                             
                 	     RelativePanel.Below="label"             
                         RelativePanel.Above="linkButtons"                            
@@ -168,13 +169,13 @@ DragForeground="{ThemeResource ListViewItemDragForegroundThemeBrush}"
                     Source="{Binding SelectedImage, Converter={StaticResource StreamImageSourceConverter}}"     />
 
 
-                
+
                 <StackPanel  x:Name="linkButtons"   Style="{StaticResource LabelButtons}"  Orientation="Horizontal" >
                     <HyperlinkButton ToolTipService.ToolTip="Add Comment"  Style="{StaticResource LabelButton}" x:Name="linkComment"  Visibility="{Binding Converter={StaticResource HideWhenIsNotEditingConverter}, Mode=OneWay}"  Command="{StaticResource AddTextCommentCommand}"  >
                         <!--Visibility="{Binding Converter={StaticResource HideWhenIsNotEditingConverter}, Mode=OneWay}"-->
                         <StackPanel  Orientation="Horizontal" Margin="0,0,12,0">
                             <FontIcon FontFamily="Segoe UI Symbol" Glyph="&#xE200;" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                        
+
                         </StackPanel>
                     </HyperlinkButton>
 
@@ -183,7 +184,7 @@ DragForeground="{ThemeResource ListViewItemDragForegroundThemeBrush}"
                         <!--Visibility="{Binding Converter={StaticResource HideWhenIsNotEditingConverter}, Mode=OneWay}"-->
                         <StackPanel  Orientation="Horizontal" Margin="0,0,12,0">
                             <FontIcon FontFamily="Segoe UI Symbol" Glyph="&#xE105;" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                         
+
                         </StackPanel>
                     </HyperlinkButton>
                 </StackPanel>
@@ -212,7 +213,7 @@ DragForeground="{ThemeResource ListViewItemDragForegroundThemeBrush}"
             </RelativePanel>
         </DataTemplate>
         <DataTemplate x:Key="DataTemplateOfFilesShareItem">
-            <RelativePanel   d:DataContext="{StaticResource shareItemDesignInstanceFilesShareItem}" >
+            <RelativePanel Margin="8"  d:DataContext="{StaticResource shareItemDesignInstanceFilesShareItem}" >
                 <TextBlock x:Name="label" Style="{StaticResource ContentViewerLabel}" >
         			<Run Text="Files to Share"/>
                 </TextBlock>
@@ -244,14 +245,14 @@ DragForeground="{ThemeResource ListViewItemDragForegroundThemeBrush}"
                         <!--Visibility="{Binding Converter={StaticResource HideWhenIsNotEditingConverter}, Mode=OneWay}"-->
                         <StackPanel  Orientation="Horizontal" Margin="0,0,12,0">
                             <FontIcon FontFamily="Segoe UI Symbol" Glyph="&#xE200;" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                         
+
                         </StackPanel>
                     </HyperlinkButton>
                 </StackPanel>
             </RelativePanel>
         </DataTemplate>
         <DataTemplate x:Key="DataTemplateOfHtmlShareItem">
-            <RelativePanel d:DataContext="{StaticResource shareItemDesignInstanceHtmlShareItem}" Margin="16" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <RelativePanel  d:DataContext="{StaticResource shareItemDesignInstanceHtmlShareItem}" Margin="8" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                 <TextBlock x:Name="label" Style="{StaticResource ContentViewerLabel}" >
         				<Run Text="Html Content:"/>
                 </TextBlock>
@@ -290,7 +291,7 @@ DragForeground="{ThemeResource ListViewItemDragForegroundThemeBrush}"
         </DataTemplate>
         <DataTemplate x:Key="DataTemplateOfTextSharedItem">
             <Grid  d:DataContext="{StaticResource shareItemDesignInstanceTextSharedItem}" >
-                <RelativePanel Margin="16" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <RelativePanel Margin="8" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                     <TextBlock x:Name="label" Style="{StaticResource ContentViewerLabel}" >
         				<Run Text="Text Content:"/>
                     </TextBlock>
@@ -317,7 +318,7 @@ DragForeground="{ThemeResource ListViewItemDragForegroundThemeBrush}"
 
                             <StackPanel  Orientation="Horizontal" Margin="0,0,12,0">
                                 <FontIcon FontFamily="Segoe UI Symbol" Glyph="&#x4DFF;" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                            
+
                             </StackPanel>
                         </HyperlinkButton>
 
@@ -339,7 +340,7 @@ DragForeground="{ThemeResource ListViewItemDragForegroundThemeBrush}"
 
                             <StackPanel  Orientation="Horizontal" Margin="0,0,12,0">
                                 <FontIcon FontFamily="Segoe UI Symbol" Glyph="&#x26D3;" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                        
+
                             </StackPanel>
                         </HyperlinkButton>
 
@@ -348,7 +349,7 @@ DragForeground="{ThemeResource ListViewItemDragForegroundThemeBrush}"
                             x:Name="linkCopy"  Command="{StaticResource copyCommand}" CommandParameter="{Binding Mode=OneWay}" >
                             <StackPanel  Orientation="Horizontal" Margin="0,0,12,0">
                                 <FontIcon FontFamily="Segoe UI Symbol" Glyph="&#xE16F;" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                               
+
                             </StackPanel>
                         </HyperlinkButton>
                         <HyperlinkButton
@@ -374,7 +375,7 @@ DragForeground="{ThemeResource ListViewItemDragForegroundThemeBrush}"
         </DataTemplate>
         <DataTemplate x:Key="DataTemplateOfWebLinkShareItem">
             <Grid  d:DataContext="{StaticResource shareItemDesignInstanceWebLinkShareItem}" >
-                <RelativePanel Margin="16" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <RelativePanel Margin="8" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                     <TextBlock x:Name="label" Style="{StaticResource ContentViewerLabel}" >
         				<Run Text="WebLink:"/>
                     </TextBlock>
@@ -386,7 +387,7 @@ DragForeground="{ThemeResource ListViewItemDragForegroundThemeBrush}"
                         <HyperlinkButton  ToolTipService.ToolTip="Copy" Style="{StaticResource LabelButton}" x:Name="linkCopy"  Command="{StaticResource copyCommand}" CommandParameter="{Binding Mode=OneWay}" >
                             <StackPanel  Orientation="Horizontal" Margin="0,0,12,0">
                                 <FontIcon FontFamily="Segoe UI Symbol" Glyph="&#xE16F;" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                               
+
                             </StackPanel>
                         </HyperlinkButton>
                         <HyperlinkButton ToolTipService.ToolTip="Visit" Style="{StaticResource LabelButton}" x:Name="linkVisit"  NavigateUri="{Binding WebLink}"  >

@@ -44,6 +44,7 @@ namespace GreaterShare
 				StrongTypeViewModel = this.ViewModel as SharePanelPage_Model;
 			});
 			StrongTypeViewModel = this.ViewModel as SharePanelPage_Model;
+			Windows.Graphics.Display.DisplayInformation.AutoRotationPreferences = Windows.Graphics.Display.DisplayOrientations.Portrait;
 		}
 
 
