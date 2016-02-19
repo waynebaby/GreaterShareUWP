@@ -5,7 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:mvvm="using:MVVMSidekick.Views"
-    xmlns:vm="using:GreaterShare.ViewModels"
+    xmlns:vm="using:GreaterShare.ViewModels"  
     xmlns:Interactivity="using:Microsoft.Xaml.Interactivity" xmlns:Core="using:Microsoft.Xaml.Interactions.Core" xmlns:Glue="using:GreaterShare.Glue" xmlns:Media="using:Microsoft.Xaml.Interactions.Media" x:Name="mVVMPage"
     x:Class="GreaterShare.MainPage"
     mc:Ignorable="d">
@@ -23,7 +23,20 @@
             <Core:DataTriggerBehavior Binding="{Binding ReceivedShareItem}"  ComparisonCondition="NotEqual" Value="{x:Null}">
                 <Core:GoToStateAction StateName="True" UseTransitions="True"/>
             </Core:DataTriggerBehavior>
+            <Glue:StateTriggerActiveReadingBehavior x:Name="StateTriggerActiveReadingBehavior"
+                 WideTrigger="{Binding ElementName=wideTrigger}"
+                 NarrowTrigger="{Binding ElementName=narrowTrigger}"
+
+            ></Glue:StateTriggerActiveReadingBehavior>
+            <!--<Core:DataTriggerBehavior Binding="{Binding  ActualWidth  , ElementName=grid, FallbackValue=0}" ComparisonCondition="GreaterThan"  Value="{Binding ActualHeight, ElementName=grid, FallbackValue=0}">
+                <Core:GoToStateAction StateName="WideView"/>
+            </Core:DataTriggerBehavior>
+            <Core:DataTriggerBehavior Binding="{Binding ActualWidth, ElementName=grid, FallbackValue=0}" ComparisonCondition="LessThanOrEqual" Value="{Binding  ActualHeight  , ElementName=grid,FallbackValue=0}">
+                <Core:GoToStateAction StateName="NarrowView"/>
+            </Core:DataTriggerBehavior>-->
         </Interactivity:Interaction.Behaviors>
+
+
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="IsReceivedItemAvailable">
                 <VisualState x:Name="True">
@@ -46,7 +59,9 @@
             <VisualStateGroup x:Name="WidthCheck">
                 <VisualState x:Name="NarrowView">
                     <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="0"/>
+                        <!--<AdaptiveTrigger MinWindowWidth="0" MinWindowHeight="0"/>-->  
+                       
+                        <StateTrigger x:Name="narrowTrigger"/>
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
 
@@ -65,7 +80,10 @@
                 </VisualState>
                 <VisualState x:Name="WideView">
                     <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="600"/>
+                        <!--<AdaptiveTrigger MinWindowWidth="480" MinWindowHeight="800"   />-->
+                        <!--<StateTrigger IsActive="{Binding IsInWideMode, ElementName=StateTriggerActiveReadingBehavior}" />-->
+                        <StateTrigger x:Name="wideTrigger"/>
+
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="pivot.(UIElement.Visibility)" Value="Visible"/>
@@ -147,10 +165,33 @@
                     </Storyboard>
                 </VisualState>
             </VisualStateGroup>
+            <VisualStateGroup x:Name="AppBarFolded">
+                <VisualStateGroup.Transitions>
+                    <VisualTransition GeneratedDuration="0:0:0.2"/>
+                </VisualStateGroup.Transitions>
+                <VisualState x:Name="Folded">
+                    <VisualState.Setters>
+                        <Setter Target="pivot.(FrameworkElement.Margin)">
+                            <Setter.Value>
+                                <Thickness>8,8,8,8</Thickness>
+                            </Setter.Value>
+                        </Setter>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="Unfolded">
+                    <VisualState.Setters>
+                        <Setter Target="pivot.(FrameworkElement.Margin)">
+                            <Setter.Value>
+                                <Thickness>8,8,8,96</Thickness>
+                            </Setter.Value>
+                        </Setter>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
-        <Pivot x:Name="pivot" Margin="8" SelectedIndex="{Binding FocusingViewIndex, Mode=TwoWay}"  Background="#33F0F8FF" RelativePanel.Above="AppBar" RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True">
+        <Pivot x:Name="pivot" Margin="8,8,8,16" SelectedIndex="{Binding FocusingViewIndex, Mode=TwoWay}"  Background="#33F0F8FF" RelativePanel.Above="AppBar" RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True">
             <PivotItem Header="Current Share">
-                <Grid x:Name="grid1">
+               <Grid x:Name="grid1" >
 
                     <StackPanel 
 						HorizontalAlignment="Center" VerticalAlignment="Center"
@@ -173,6 +214,7 @@
                             </Interactivity:Interaction.Behaviors>-->
                         </HyperlinkButton>
                     </StackPanel>
+                    
                     <Grid x:Name="relativePanel"  >
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="36*"/>
@@ -201,8 +243,8 @@
                                     <TextBlock>
 										<Run Text="Title:"/>
                                     </TextBlock>
-                                    <TextBox RelativePanel.AlignBottomWith="" x:Name="pageTitle" Text="{Binding ReceivedShareItem.Title, Mode=TwoWay}"  
-										IsHitTestVisible="false" TextWrapping="NoWrap"/>
+                                    <TextBox  x:Name="pageTitle" Text="{Binding ReceivedShareItem.Title, Mode=TwoWay}"  
+										 TextWrapping="NoWrap"/>
                                     <StackPanel HorizontalAlignment="Right" Margin="0">
                                         <HyperlinkButton
 											IsEnabled="{Binding ReceivedShareItem.Title, Converter={StaticResource FalseIfIsStringNullOrEmptyConverter}}"   
@@ -331,9 +373,10 @@
                             </StackPanel>
                         </ScrollViewer>
                         <Grid BorderBrush="{ThemeResource TextBoxBorderThemeBrush}"  BorderThickness="{StaticResource ThinBoderThickness}" x:Name="flipView" RelativePanel.RightOf="propertiesPanel"  RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignTopWithPanel="True" Height="{Binding Width, RelativeSource={RelativeSource Mode=Self}}"   Margin="8" Grid.RowSpan="2" Grid.Column="1"  >
+
                             <FlipView   xmlns:glue="using:GreaterShare.Glue" x:Name="flipView1" 
 								ItemsSource="{Binding ReceivedShareItem.AvialableShareItems}" 
-								SelectedItem="{Binding CurrentViewingItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"   >
+								SelectedItem="{Binding CurrentViewingItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  d:LayoutOverrides="LeftPosition, RightPosition, TopPosition, BottomPosition"   >
                                 <Interactivity:Interaction.Behaviors>
                                     <Core:EventTriggerBehavior EventName="SelectionChanged">
                                         <Core:CallMethodAction TargetObject="{Binding ElementName=mVVMPage}" MethodName="UpdateLayout"/>
@@ -344,7 +387,22 @@
                                     <glue:ShareItemDataTemplateSelector  PrefixOfTemplateKey="DataTemplateOf"/>
                                 </FlipView.ItemTemplateSelector>
                             </FlipView>
+                            <ListView  Background="#20202020"
+                         
+                            Canvas.ZIndex="2"    Height="8"
+                                ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                                ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                                                                        
+                                ScrollViewer.HorizontalScrollMode="Disabled"
+                                ScrollViewer.VerticalScrollMode="Disabled"
+                                 SelectedItem="{Binding SelectedItem, ElementName=flipView1, Mode=TwoWay}" ItemsSource="{Binding ItemsSource, ElementName=flipView1}"  Grid.Row="1" d:LayoutOverrides="TopMargin, BottomMargin" HorizontalAlignment="Center" VerticalAlignment="Bottom" ItemContainerStyle="{StaticResource IndicatorListViewItem}" ItemTemplate="{StaticResource IndicatorItemTemplate}">
 
+                                <ListView.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <VirtualizingStackPanel   AreScrollSnapPointsRegular="True" Orientation="Horizontal"/>
+                                    </ItemsPanelTemplate>
+                                </ListView.ItemsPanel>
+                            </ListView>
                         </Grid>
 
                     </Grid>
@@ -362,12 +420,35 @@
                         <ColumnDefinition Width="64*"/>
                         <ColumnDefinition Width="18*"/>
                     </Grid.ColumnDefinitions>
-                    <FlipView xmlns:glue="using:GreaterShare.Glue"  BorderThickness="{StaticResource ThinBoderThickness}" BorderBrush="{ThemeResource TextBoxBorderThemeBrush}" x:Name="flipViewClipboard"
-						RelativePanel.RightOf="propertiesPanel" ItemsSource="{Binding ClipboardImportingItem.AvialableShareItems}" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignTopWithPanel="True" Height="{Binding Width, RelativeSource={RelativeSource Mode=Self}}"   Margin="16" Grid.RowSpan="3" Grid.Column="1"   >
-                        <FlipView.ItemTemplateSelector>
-                            <glue:ShareItemDataTemplateSelector  PrefixOfTemplateKey="DataTemplateOf"/>
-                        </FlipView.ItemTemplateSelector>
-                    </FlipView>
+                    <Grid x:Name="flipViewClipboard"   Margin="16" Grid.RowSpan="3" Grid.Column="1">
+                        <FlipView Name="flipview2" 
+                        xmlns:glue="using:GreaterShare.Glue"  
+                        BorderThickness="{StaticResource ThinBoderThickness}" 
+                        BorderBrush="{ThemeResource TextBoxBorderThemeBrush}" 
+                        ItemsSource="{Binding ClipboardImportingItem.AvialableShareItems}" 
+                        Height="{Binding Width, RelativeSource={RelativeSource Mode=Self}}"   
+                         >
+                            <FlipView.ItemTemplateSelector>
+                                <glue:ShareItemDataTemplateSelector  PrefixOfTemplateKey="DataTemplateOf"/>
+                            </FlipView.ItemTemplateSelector>
+                        </FlipView>
+                        <ListView  Background="#20202020"
+                         
+                            Canvas.ZIndex="2"    Height="8"
+                                ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                                ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                                                                        
+                                ScrollViewer.HorizontalScrollMode="Disabled"
+                                ScrollViewer.VerticalScrollMode="Disabled"
+                                 SelectedItem="{Binding SelectedItem, ElementName=flipview2, Mode=TwoWay}" ItemsSource="{Binding ItemsSource, ElementName=flipview2}"  Grid.Row="1" d:LayoutOverrides="TopMargin, BottomMargin" HorizontalAlignment="Center" VerticalAlignment="Bottom" ItemContainerStyle="{StaticResource IndicatorListViewItem}" ItemTemplate="{StaticResource IndicatorItemTemplate}">
+
+                            <ListView.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <VirtualizingStackPanel   AreScrollSnapPointsRegular="True" Orientation="Horizontal"/>
+                                </ItemsPanelTemplate>
+                            </ListView.ItemsPanel>
+                        </ListView>
+                    </Grid>
                     <!--<StackPanel Grid.Column="1"  Orientation="Vertical" Grid.ColumnSpan="2" Grid.Row="1" Grid.RowSpan="2" HorizontalAlignment="Right" Margin="16" VerticalAlignment="Bottom">
                         -->
                     <!--<AppBar>-->
@@ -387,12 +468,16 @@
                 <Core:DataTriggerBehavior Binding="{Binding SugguestingCommand}" ComparisonCondition="NotEqual" Value="{x:Null}">
                     <Core:GoToStateAction StateName="{Binding SugguestingCommand}"/>
                 </Core:DataTriggerBehavior>
+                <Core:DataTriggerBehavior Binding="{Binding IsOpen, ElementName=AppBar}" ComparisonCondition="Equal" Value="True">
+                    <Core:GoToStateAction StateName="Unfolded"/>
+                </Core:DataTriggerBehavior>
+                <Core:DataTriggerBehavior Binding="{Binding IsOpen, ElementName=AppBar}" ComparisonCondition="Equal" Value="False">
+                    <Core:GoToStateAction StateName="Folded"/>
+                </Core:DataTriggerBehavior>
             </Interactivity:Interaction.Behaviors>
-            <Grid Margin="8">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
+        
+            <Grid Margin="1">
+              
                 <StackPanel Orientation="Horizontal"  Visibility="{Binding SelectedIndex, ConverterParameter=0, Converter={StaticResource HideWhenNotMatchConverter}, ElementName=pivot}">
                     <AppBarButton Command="{Binding StrongTypeViewModel.CommandLoadFromUserFile, ElementName=mVVMPage}" x:Name="appBarButton" HorizontalAlignment="Left" Icon="OpenLocal"  Label="Load From File" VerticalAlignment="Top">
                         <AppBarButton.Projection>
@@ -424,7 +509,8 @@
                         </AppBarButton.Projection>
                     </AppBarButton>
                 </StackPanel>
-            </Grid>
+                </Grid>
+         
         </AppBar>
     </RelativePanel>
 

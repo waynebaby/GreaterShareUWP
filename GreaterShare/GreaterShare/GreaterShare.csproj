@@ -109,6 +109,7 @@
     </Compile>
     <Compile Include="Glue\AddTextCommentsCommand.cs" />
     <Compile Include="Glue\CopyShareItemToClipboardCommand.cs" />
+    <Compile Include="Glue\DebuggingEmptyConverter.cs" />
     <Compile Include="Glue\IsNotNullConverter.cs" />
     <Compile Include="Glue\IsWellFormedUriStringConveter.cs" />
     <Compile Include="Glue\FalseIfIsStringNullOrEmptyConverter.cs" />
@@ -122,6 +123,7 @@
     <Compile Include="Glue\ShowFlyoutCommand.cs" />
     <Compile Include="Glue\StreamImageSourceConverter.cs" />
     <Compile Include="Glue\UriStringConverter.cs" />
+    <Compile Include="Glue\StateTriggerActiveReadingBehavior.cs" />
     <Compile Include="Models\MemoryStreamBase64Item.cs" />
     <Compile Include="Models\Sharing\IShareItem.cs" />
     <Compile Include="Models\Sharing\ShareItems\HtmlShareItem.cs" />

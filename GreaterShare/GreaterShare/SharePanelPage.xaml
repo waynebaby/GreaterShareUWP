@@ -71,29 +71,31 @@
 				RelativePanel.AlignRightWithPanel="True"
 				RelativePanel.AlignLeftWithPanel="True">
                 <TextBlock   Style="{StaticResource Label}" x:Name="pageTitle" Text="{Binding ReceivedShareItem.Title}"  
-					IsHitTestVisible="false" TextWrapping="NoWrap"/>
+					 TextWrapping="NoWrap"/>
                 <!--<TextBlock>Text:</TextBlock>
                 <TextBox  Height="70"  x:Name="pageText" Text="{Binding ReceivedShareItem.Text}"  
 					IsHitTestVisible="false" TextWrapping="Wrap" ScrollViewer.VerticalScrollMode="Enabled" ScrollViewer.VerticalScrollBarVisibility="Visible"/>-->
 
             </StackPanel>
-            <GridView x:Name="otherProperties"
+            <GridView x:Name="otherProperties" 
+            BorderBrush="{StaticResource TextBoxBorderThemeBrush}"
+            BorderThickness="{StaticResource ThinBoderThickness}"
 				RelativePanel.Below="titleAndText"
-				Margin="16" Height="200" 
+				Margin="8" Height="200" 
 				ScrollViewer.HorizontalScrollBarVisibility="Auto" 
 				ScrollViewer.HorizontalScrollMode="Auto"
 				ScrollViewer.VerticalScrollBarVisibility="Auto" 
 				ScrollViewer.VerticalScrollMode="Auto"
-                                                 RelativePanel.AlignLeftWithPanel="True"
-                                                 RelativePanel.AlignRightWithPanel="True"
+                RelativePanel.AlignLeftWithPanel="True"
+                RelativePanel.AlignRightWithPanel="True"
           >
 
                 <GridView.Resources>
                     <Style TargetType="RelativePanel">
                         <Setter Property="HorizontalAlignment" Value="Stretch"/>
                         <Setter Property="VerticalAlignment" Value="Stretch"/>
-                        <Setter Property="Height" Value="130"/>
-                        <Setter Property="Width" Value="400" />
+                        <Setter Property="Height" Value="100"/>
+                        <Setter Property="Width" Value="200" />
                         <Setter Property="Background" Value="#88888888" />
                     </Style>
                     <Style TargetType="TextBlock">
@@ -104,7 +106,7 @@
                     <ItemsPanelTemplate>
                         <ItemsWrapGrid  Orientation="Horizontal"   >
                             <Interactivity:Interaction.Behaviors>
-                                <Glue:MinItemSizeBehavior ItemMinHeight="140" ItemMinWidth="220"/>
+                                <Glue:MinItemSizeBehavior ItemMinHeight="100" ItemMinWidth="200"/>
                             </Interactivity:Interaction.Behaviors>
                         </ItemsWrapGrid>
                     </ItemsPanelTemplate>
@@ -181,16 +183,40 @@
             </ListView>-->
 
             </GridView>
-            <FlipView
-				xmlns:glue="using:GreaterShare.Glue"
-				x:Name="shareDataViewer" 
-				RelativePanel.Below="otherProperties"
-				RelativePanel.Above="openGreaterShare"
-				Grid.Row="2" Margin="16" ItemsSource="{Binding ReceivedShareItem.AvialableShareItems}"   >
-                <FlipView.ItemTemplateSelector>
-                    <glue:ShareItemDataTemplateSelector  PrefixOfTemplateKey="DataTemplateOf"/>
-                </FlipView.ItemTemplateSelector>
-            </FlipView>
+            <Grid
+            		RelativePanel.Below="otherProperties"
+            		RelativePanel.Above="openGreaterShare"
+                    Margin="8"
+                    BorderBrush="{StaticResource TextBoxBorderThemeBrush}"
+            BorderThickness="{StaticResource ThinBoderThickness}"
+			
+            >
+                <ListView  Background="#20202020"
+                         
+                            Canvas.ZIndex="2"    Height="8"
+                                ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                                ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                                                                        
+                                ScrollViewer.HorizontalScrollMode="Disabled"
+                                ScrollViewer.VerticalScrollMode="Disabled"
+                                 SelectedItem="{Binding SelectedItem, ElementName=shareDataViewer, Mode=TwoWay}" ItemsSource="{Binding ItemsSource, ElementName=shareDataViewer}"  Grid.Row="1" d:LayoutOverrides="TopMargin, BottomMargin" HorizontalAlignment="Center" VerticalAlignment="Bottom" ItemContainerStyle="{StaticResource IndicatorListViewItem}" ItemTemplate="{StaticResource IndicatorItemTemplate}">
+
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <VirtualizingStackPanel   AreScrollSnapPointsRegular="True" Orientation="Horizontal"/>
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
+                </ListView>
+                <FlipView
+            		xmlns:glue="using:GreaterShare.Glue"
+            		x:Name="shareDataViewer"                    
+            		ItemsSource="{Binding ReceivedShareItem.AvialableShareItems}"   >
+                    <FlipView.ItemTemplateSelector>
+                        <glue:ShareItemDataTemplateSelector  PrefixOfTemplateKey="DataTemplateOf"/>
+                    </FlipView.ItemTemplateSelector>
+                </FlipView>
+
+            </Grid>
 
             <Button x:Name="openGreaterShare" Height="100" 
 				RelativePanel.AlignLeftWithPanel="True"
