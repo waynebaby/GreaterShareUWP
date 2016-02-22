@@ -76,6 +76,7 @@ namespace GreaterShare.Services
 					{
 						WebLink = await packageView.GetWebLinkAsync()
 					};
+				
 					rval.AvialableShareItems.Add(link);
 				}
 				catch (Exception ex)
@@ -103,7 +104,7 @@ namespace GreaterShare.Services
 			{
 				try
 				{
-					var sharedText = new TextSharedItem { Text = await packageView.GetTextAsync() };
+					var sharedText = new TextShareItem { Text = await packageView.GetTextAsync() };
 					rval.AvialableShareItems.Add(sharedText);
 					rval.Text = await packageView.GetTextAsync();
 					//rval.GetValueContainer(x => x.Text)
@@ -275,13 +276,13 @@ namespace GreaterShare.Services
 								var def = e.EventArgs.Request.GetDeferral();
 								try
 								{
-					
+
 
 									//dataTrasferedCompletion.TrySetResult(null);
 									var r = e.EventArgs.Request;
 									var package = r.Data;
 									package.Properties.ContentSourceApplicationLink = item.ContentSourceApplicationLink ?? defaultUri;
-									package.Properties.ContentSourceWebLink = item.ContentSourceWebLink?? defaultUri;
+									package.Properties.ContentSourceWebLink = item.ContentSourceWebLink ?? defaultUri;
 									package.Properties.Description = item.Description;
 									package.Properties.PackageFamilyName = item.PackageFamilyName;
 									if (Square30x30Logo != null)
@@ -297,7 +298,7 @@ namespace GreaterShare.Services
 									//package.SetText(item.Text?? "Reshared by " + Windows.ApplicationModel.Package.Current.DisplayName);
 
 									package.Properties.Title = item.Title;
-									var order = item.AvialableShareItems.OrderBy(x => x is TextSharedItem);
+									var order = item.AvialableShareItems.OrderBy(x => x is TextShareItem);
 									//make sure text share item execute last
 									foreach (var subShareItem in order)
 									{
@@ -328,9 +329,9 @@ namespace GreaterShare.Services
 			{
 				switch (subShareItem.GetType().Name)
 				{
-					case nameof(TextSharedItem):
+					case nameof(TextShareItem):
 						{
-							package.SetText((subShareItem as TextSharedItem).Text);
+							package.SetText((subShareItem as TextShareItem).Text);
 						}
 						break;
 					case nameof(ApplicationLinkShareItem):
@@ -399,7 +400,7 @@ namespace GreaterShare.Services
 			var dataPackageView = Windows.ApplicationModel.DataTransfer.Clipboard.GetContent();
 
 			var rval = await FetchDataFromPackageViewAsync(dataPackageView);
-			//rval.AvialableShareItems.Add(new TextSharedItem { Text = rval.Text });
+			//rval.AvialableShareItems.Add(new TextShareItem { Text = rval.Text });
 			return rval;
 
 		}

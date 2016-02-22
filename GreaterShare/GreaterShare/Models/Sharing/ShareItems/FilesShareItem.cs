@@ -13,7 +13,16 @@ namespace GreaterShare.Models.Sharing.ShareItems
 	[DataContract]
 	public class FilesShareItem : BindableBase<FilesShareItem>, IShareItem
 	{
+		public FilesShareItem()
+		{
+			WireEvent();
+		}
 
+		protected override void OnDeserializingActions()
+		{
+			base.OnDeserializingActions();
+			WireEvent();
+		}
 		//[DataMember]
 		//public IReadOnlyList<IStorageItem> StorageItems
 		//{
@@ -43,12 +52,25 @@ namespace GreaterShare.Models.Sharing.ShareItems
 			get { return _IsSelectedLocator(this).Value; }
 			set { _IsSelectedLocator(this).SetValueAndTryNotify(value); }
 		}
+
+	
 		#region Property bool IsSelected Setup        
 		protected Property<bool> _IsSelected = new Property<bool> { LocatorFunc = _IsSelectedLocator };
 		static Func<BindableBase, ValueContainer<bool>> _IsSelectedLocator = RegisterContainerLocator<bool>(nameof(IsSelected), model => model.Initialize(nameof(IsSelected), ref model._IsSelected, ref _IsSelectedLocator, _IsSelectedDefaultValueFactory));
 		static Func<bool> _IsSelectedDefaultValueFactory = () => true;
+
+
 		#endregion
 
+		public void WireEvent()
+		{
+			if (!IsEventWired)
+			{
+				IsEventWired = true;
+			}
+		}
+
+		public bool IsEventWired { get; set; } = false;
 
 	}
 
@@ -131,7 +153,6 @@ namespace GreaterShare.Models.Sharing.ShareItems
 		static Func<BindableBase, ValueContainer<bool>> _IsTokenAvaliableNowLocator = RegisterContainerLocator<bool>(nameof(IsTokenAvaliableNow), model => model.Initialize(nameof(IsTokenAvaliableNow), ref model._IsTokenAvaliableNow, ref _IsTokenAvaliableNowLocator, _IsTokenAvaliableNowDefaultValueFactory));
 		static Func<bool> _IsTokenAvaliableNowDefaultValueFactory = () => default(bool);
 		#endregion
-
 
 	}
 

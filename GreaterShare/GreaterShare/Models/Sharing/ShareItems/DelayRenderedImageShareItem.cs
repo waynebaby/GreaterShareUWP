@@ -12,6 +12,17 @@ namespace GreaterShare.Models.Sharing.ShareItems
 	[DataContract]
 	public class DelayRenderedImageShareItem : BindableBase<DelayRenderedImageShareItem>, IShareItem
 	{
+
+		public DelayRenderedImageShareItem()
+		{
+			WireEvent();
+		}
+
+		protected override void OnDeserializingActions()
+		{
+			base.OnDeserializingActions();
+			WireEvent();
+		}
 		//[DataMember]
 		//public MemoryStream SelectedImage
 		//{
@@ -46,8 +57,16 @@ namespace GreaterShare.Models.Sharing.ShareItems
 		static Func<BindableBase, ValueContainer<bool>> _IsSelectedLocator = RegisterContainerLocator<bool>(nameof(IsSelected), model => model.Initialize(nameof(IsSelected), ref model._IsSelected, ref _IsSelectedLocator, _IsSelectedDefaultValueFactory));
 		static Func<bool> _IsSelectedDefaultValueFactory = () => true;
 		#endregion
+		public void WireEvent()
+		{
+			if (!IsEventWired)
+			{
+				IsEventWired = true;
+			}
+		}
+
+		public bool IsEventWired { get; set; } = false;
 
 
-		
 	}
 }

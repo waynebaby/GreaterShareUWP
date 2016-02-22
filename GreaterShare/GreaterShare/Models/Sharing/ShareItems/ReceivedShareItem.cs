@@ -22,7 +22,7 @@ namespace GreaterShare.Models.Sharing.ShareItems
 	[KnownType(typeof(FilesShareItem))]
 	[KnownType(typeof(HtmlShareItem))]
 	//[KnownType(typeof(ImagesShareItem))]
-	[KnownType(typeof(TextSharedItem))]
+	[KnownType(typeof(TextShareItem))]
 	[KnownType(typeof(WebLinkShareItem))]
 
 
@@ -30,6 +30,8 @@ namespace GreaterShare.Models.Sharing.ShareItems
 	public class ReceivedShareItem : BindableBase<ReceivedShareItem>
 	{
 
+
+	
 		[DataMember]
 		public String Text
 		{
@@ -231,7 +233,7 @@ namespace GreaterShare.Models.Sharing.ShareItems
 				},
 
 			};
-		public static void MergeNewText(TextSharedItem oldText, string newTextString, bool showTag = false, bool headInsert = false)
+		public static void MergeNewText(TextShareItem oldText, string newTextString, bool showTag = false, bool headInsert = false)
 		{
 
 			var template = templates[headInsert ? 1 : 0][showTag ? 1 : 0];

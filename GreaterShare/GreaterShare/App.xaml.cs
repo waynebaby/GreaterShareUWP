@@ -1,4 +1,5 @@
-﻿using GreaterShare.Services;
+﻿using GreaterShare.Models.Sharing.ShareItems;
+using GreaterShare.Services;
 using GreaterShare.ViewModels;
 using MVVMSidekick.EventRouting;
 using MVVMSidekick.Services;
@@ -9,6 +10,7 @@ using System.IO;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using Windows.ApplicationModel;
@@ -57,6 +59,8 @@ namespace GreaterShare
 			MVVMSidekick.Startups.StartupFunctions.RunAllConfig();
 			ServiceLocator.Instance.Register<IShareService, DefaultShareService>();
 			ServiceLocator.Instance.Register<ISubStorageService, DefaultSubStorageService>();
+			RuntimeHelpers.RunClassConstructor(typeof (TextShareItem).TypeHandle);
+			RuntimeHelpers.RunClassConstructor(typeof(WebLinkShareItem).TypeHandle);
 
 		}
 

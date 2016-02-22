@@ -1,30 +1,69 @@
-﻿using MVVMSidekick.Reactive;
+﻿using GreaterShare.ViewModels;
+using MVVMSidekick.EventRouting;
+using MVVMSidekick.Reactive;
 using MVVMSidekick.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive.Linq;
+using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.System;
+using Windows.UI.Popups;
 
 namespace GreaterShare.Models.Sharing.ShareItems
 {
 	[DataContract]
-	public class TextSharedItem : BindableBase<TextSharedItem>, IShareItem
+	public class TextShareItem : BindableBase<TextShareItem>, IShareItem
 	{
-
-		public TextSharedItem()
+		public TextShareItem()
 		{
-			this.GetValueContainer(x => x.Text).GetEventObservable()
-				.Subscribe(
-					e =>
-					{
-						History.Add(e.EventArgs.OldValue);
-					}
-				)
-				.DisposeWith(this);
+			WireEvent();
+		}
+
+		protected override void OnDeserializingActions()
+		{
+			base.OnDeserializingActions();
+			WireEvent();
+		}
+		public bool IsEventWired { get; set; } = false;
+		public void WireEvent()
+		{
+			if (!IsEventWired)
+			{
+				//RuntimeHelpers.RunClassConstructor(this.GetType().TypeHandle);
+				this.GetValueContainer(x => x.Text).GetEventObservable()
+					.Subscribe(
+						e =>
+						{
+							if (!_IsExpectingRemoveFromHistory)
+							{
+								History.Add(e.EventArgs.OldValue);
+								while (History.Count > 20)
+								{
+									History.RemoveAt(0);
+								}
+							}
+							else
+							{
+
+								_IsExpectingRemoveFromHistory = false;
+							}
+						}
+					)
+					.DisposeWith(this);
+
+				CommandBackHistory.CommandCore.ListenCanExecuteObservable(History
+					.GetEventObservable(this)
+					.Select(x =>
+							History.Count > 1));
+
+				IsEventWired = true;
+			}
 		}
 
 		[DataMember]
@@ -36,8 +75,10 @@ namespace GreaterShare.Models.Sharing.ShareItems
 		}
 		#region Property string Text Setup        
 		protected Property<string> _Text = new Property<string> { LocatorFunc = _TextLocator };
-		static Func<BindableBase, ValueContainer<string>> _TextLocator = RegisterContainerLocator<string>(nameof(Text), model => model.Initialize(nameof(Text), ref model._Text, ref _TextLocator, _TextDefaultValueFactory));
-		static Func<string> _TextDefaultValueFactory = () => default(string);
+		static Func<BindableBase, ValueContainer<string>> _TextLocator =
+			RegisterContainerLocator<string>(nameof(Text), model => model.Initialize(nameof(Text), ref model._Text, ref _TextLocator, _TextDefaultValueFactory));
+		static Func<string> _TextDefaultValueFactory = () =>
+			default(string);
 		#endregion
 		public bool IsSelected
 		{
@@ -65,7 +106,7 @@ namespace GreaterShare.Models.Sharing.ShareItems
 		static Func<ObservableCollection<string>> _HistoryDefaultValueFactory = () => new ObservableCollection<string>();
 		#endregion
 
-
+		bool _IsExpectingRemoveFromHistory = false;
 
 		public CommandModel<ReactiveCommand, String> CommandBackHistory
 		{
@@ -88,17 +129,16 @@ namespace GreaterShare.Models.Sharing.ShareItems
 					   {
 						   var last = vm.History.Count - 1;
 						   var oldOne = vm.History[last];
-						   vm.History.RemoveAt(last);
-						   vm._Text.Container.SetValue(oldOne);
+						   vm.History.RemoveAt(vm.History.Count - 1);
+						   vm._IsExpectingRemoveFromHistory = true;
+						   vm.Text = oldOne;
+
 						   //Todo: Add BackHistory logic here
 					   })
 					.DoNotifyDefaultEventRouter(vm, commandId)
 					.Subscribe()
 					.DisposeWith(vm);
 
-				cmd.ListenCanExecuteObservable(vm.History
-						.GetEventObservable(vm)
-						.Select(x => vm.History.Count > 0));
 
 				var cmdmdl = cmd.CreateCommandModel(resource);
 
@@ -387,6 +427,66 @@ namespace GreaterShare.Models.Sharing.ShareItems
 			value = null;
 			return false;
 		}
+
+
+		public CommandModel<ReactiveCommand, String> CommandConvertToWebUri
+		{
+			get { return _CommandConvertToWebUriLocator(this).Value; }
+			set { _CommandConvertToWebUriLocator(this).SetValueAndTryNotify(value); }
+		}
+		#region Property CommandModel<ReactiveCommand, String> CommandConvertToWebUri Setup        
+
+		protected Property<CommandModel<ReactiveCommand, String>> _CommandConvertToWebUri = new Property<CommandModel<ReactiveCommand, String>> { LocatorFunc = _CommandConvertToWebUriLocator };
+		static Func<BindableBase, ValueContainer<CommandModel<ReactiveCommand, String>>> _CommandConvertToWebUriLocator = RegisterContainerLocator<CommandModel<ReactiveCommand, String>>(nameof(CommandConvertToWebUri), model => model.Initialize(nameof(CommandConvertToWebUri), ref model._CommandConvertToWebUri, ref _CommandConvertToWebUriLocator, _CommandConvertToWebUriDefaultValueFactory));
+		static Func<BindableBase, CommandModel<ReactiveCommand, String>> _CommandConvertToWebUriDefaultValueFactory =
+			model =>
+			{
+				var resource = nameof(CommandConvertToWebUri);           // Command resource  
+				var commandId = nameof(CommandConvertToWebUri);
+				var vm = CastToCurrentType(model);
+				var cmd = new ReactiveCommand(canExecute: true) { ViewModel = model }; //New Command Core
+
+				cmd.Do(async e =>
+				{
+
+					var msb = new MessageDialog("What's next?", "The Text is a well formed uri.");
+					var commandOpenLink = new UICommand(
+						"Open Link",
+						async c =>
+						{
+							await Launcher.LaunchUriAsync(new Uri(vm.Text));
+						});
+
+					var commandCovertIt = new UICommand("Covert To Weblink",
+						c =>
+						{
+							EventRouter.Instance.RaiseEvent<Tuple<EventMessage, Object>>(
+							vm,
+							Tuple.Create<EventMessage, Object>(EventMessage.ConvertToWebUri, vm.Text)
+							);
+
+						});
+					var commandCancelIt = new UICommand("Leave");
+					msb.Commands.Add(commandOpenLink);
+					msb.Commands.Add(commandCovertIt);
+					msb.Commands.Add(commandCancelIt);
+					msb.CancelCommandIndex = 2;
+					msb.DefaultCommandIndex = 1;
+					var selected = await msb.ShowAsync();
+
+
+				})
+					.DoNotifyDefaultEventRouter(vm, commandId)
+					.Subscribe()
+					.DisposeWith(vm);
+
+				var cmdmdl = cmd.CreateCommandModel(resource);
+
+
+				return cmdmdl;
+			};
+
+		#endregion
 
 
 	}

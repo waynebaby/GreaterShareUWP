@@ -98,7 +98,7 @@ DragForeground="{ThemeResource ListViewItemDragForegroundThemeBrush}"
         <sharemodel:HtmlShareItem                x:Key="shareItemDesignInstanceHtmlShareItem"/>
         <!--<sharemodel:ImagesShareItem              x:Key="shareItemDesignInstanceImagesShareItem"/>-->
         <sharemodel:ReceivedShareItem            x:Key="shareItemDesignInstanceReceivedShareItem"/>
-        <sharemodel:TextSharedItem               x:Key="shareItemDesignInstanceTextSharedItem"/>
+        <sharemodel:TextShareItem               x:Key="shareItemDesignInstanceTextShareItem"/>
         <sharemodel:WebLinkShareItem             x:Key="shareItemDesignInstanceWebLinkShareItem"/>
 
 
@@ -289,8 +289,8 @@ DragForeground="{ThemeResource ListViewItemDragForegroundThemeBrush}"
 
 
         </DataTemplate>
-        <DataTemplate x:Key="DataTemplateOfTextSharedItem">
-            <Grid  d:DataContext="{StaticResource shareItemDesignInstanceTextSharedItem}" >
+        <DataTemplate x:Key="DataTemplateOfTextShareItem">
+            <Grid  d:DataContext="{StaticResource shareItemDesignInstanceTextShareItem}" >
                 <RelativePanel Margin="8" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                     <TextBlock x:Name="label" Style="{StaticResource ContentViewerLabel}" >
         				<Run Text="Text Content:"/>
@@ -300,18 +300,28 @@ DragForeground="{ThemeResource ListViewItemDragForegroundThemeBrush}"
                     RelativePanel.AlignLeftWithPanel="True"  RelativePanel.AlignTopWithPanel="True"/>
 
                     <StackPanel  x:Name="linkButtons"   Style="{StaticResource LabelButtons}"  Orientation="Horizontal" >
-                        <HyperlinkButton  ToolTipService.ToolTip="Base64" Style="{StaticResource LabelButton}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">
+                        <HyperlinkButton  ToolTipService.ToolTip="Binary String Tools" Style="{StaticResource LabelButton}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">
                             <HyperlinkButton.Command>
-                                <Glue:ShowFlyoutCommand ></Glue:ShowFlyoutCommand>
+                                <Glue:ShowFlyoutCommand></Glue:ShowFlyoutCommand>
                             </HyperlinkButton.Command>
                             <FlyoutBase.AttachedFlyout>
                                 <MenuFlyout>
-                                    <MenuFlyoutItem Command="{Binding  CommandToBase64}">
-                                        Convert to Base64
-                                    </MenuFlyoutItem>
-                                    <MenuFlyoutItem Command="{Binding CommandFromBase64}">
-                                        Convert back to Text
-                                    </MenuFlyoutItem>
+                                    <!--<MenuFlyoutSubItem Text="">
+                                        <MenuFlyoutSubItem.Items>-->
+                                    <MenuFlyoutSubItem Text="Convert to 
+                                    " >
+                                        <MenuFlyoutSubItem.Items>
+                                            <MenuFlyoutItem Command="{Binding  CommandToBase64}" CommandParameter="UTF8" Text="UTF8" ></MenuFlyoutItem>
+                                        </MenuFlyoutSubItem.Items>
+                                    </MenuFlyoutSubItem>
+                                    <MenuFlyoutSubItem  Text="Convert back to Text" >
+                                        <MenuFlyoutSubItem.Items>
+                                            <MenuFlyoutItem Command="{Binding  CommandFromBase64}" CommandParameter="UTF8" Text="UTF8" ></MenuFlyoutItem>
+                                        </MenuFlyoutSubItem.Items>
+                                    </MenuFlyoutSubItem>
+                                    <!--</MenuFlyoutSubItem.Items>
+                                    </MenuFlyoutSubItem>-->
+
 
                                 </MenuFlyout>
                             </FlyoutBase.AttachedFlyout>
@@ -322,19 +332,18 @@ DragForeground="{ThemeResource ListViewItemDragForegroundThemeBrush}"
                             </StackPanel>
                         </HyperlinkButton>
 
-                        <HyperlinkButton ToolTipService.ToolTip="Magnet"  Style="{StaticResource LabelButton}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">
+                        <HyperlinkButton ToolTipService.ToolTip="Url Tools"  Style="{StaticResource LabelButton}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">
                             <HyperlinkButton.Command>
-                                <Glue:ShowFlyoutCommand ></Glue:ShowFlyoutCommand>
+                                <Glue:ShowFlyoutCommand></Glue:ShowFlyoutCommand>
                             </HyperlinkButton.Command>
                             <FlyoutBase.AttachedFlyout>
                                 <MenuFlyout>
                                     <MenuFlyoutItem Command="{Binding  CommandMagnetChop}">
-                                        Chop a Magnet Link to binary string.
+                                        Chop a Magnet Link to Binary String.
                                     </MenuFlyoutItem>
                                     <MenuFlyoutItem Command="{Binding CommandMagnetRecovery}">
-                                        Recover a Magnet Link.
+                                        Recover a Magnet Link from Binary String.
                                     </MenuFlyoutItem>
-
                                 </MenuFlyout>
                             </FlyoutBase.AttachedFlyout>
 
@@ -352,12 +361,19 @@ DragForeground="{ThemeResource ListViewItemDragForegroundThemeBrush}"
 
                             </StackPanel>
                         </HyperlinkButton>
-                        <HyperlinkButton
-                                     
-                            IsEnabled="{Binding Text,Converter={StaticResource IsWellFormedUriStringConveter}}"   
-                            NavigateUri="{Binding Text}" ToolTipService.ToolTip="{StaticResource VisitUri}" >
+                        <HyperlinkButton  
+                         Visibility="{Binding Converter={StaticResource HideWhenIsNotEditingConverter}, Mode=OneWay}"                                      
+                            IsEnabled="{Binding Text,Converter={StaticResource IsWellFormedUriStringConveter}}"  
+                            Command="{Binding CommandConvertToWebUri }"
+                             
+                            ToolTipService.ToolTip="{StaticResource VisitUri}" >
                             <FontIcon FontFamily="Segoe UI Symbol" Glyph="&#xE12B;" />
                         </HyperlinkButton>
+
+                        <HyperlinkButton  ToolTipService.ToolTip="Undo" Command="{Binding CommandBackHistory}" >
+                            <FontIcon FontFamily="Segoe UI Symbol" Glyph="&#xE26A;" />
+                        </HyperlinkButton>
+
                     </StackPanel>
 
                     <TextBox 
@@ -369,7 +385,7 @@ DragForeground="{ThemeResource ListViewItemDragForegroundThemeBrush}"
                         ScrollViewer.VerticalScrollMode="Auto"
                         ScrollViewer.HorizontalScrollBarVisibility="Auto"
                         ScrollViewer.VerticalScrollBarVisibility="Auto"                           
-        				x:Name="linkText"  Margin="8" Text="{Binding Text, Mode=TwoWay}"   MinWidth="100" TextWrapping="Wrap" AcceptsReturn="True"/>
+        				x:Name="linkText"  Margin="8" Text="{Binding Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"   MinWidth="100" TextWrapping="Wrap" AcceptsReturn="True"/>
                 </RelativePanel>
             </Grid>
         </DataTemplate>
@@ -384,18 +400,25 @@ DragForeground="{ThemeResource ListViewItemDragForegroundThemeBrush}"
                     RelativePanel.AlignLeftWithPanel="True"  RelativePanel.AlignTopWithPanel="True"/>
                     <StackPanel  x:Name="linkButtons"   Style="{StaticResource LabelButtons}"  Orientation="Horizontal" >
 
+                        <HyperlinkButton  ToolTipService.ToolTip="Remove Query" Style="{StaticResource LabelButton}" x:Name="linkRemoveQuery"  Command="{Binding CommandRemoveQueryParams}" CommandParameter="{Binding Mode=OneWay}" >
+                            <StackPanel  Orientation="Horizontal" Margin="0,0,12,0">
+                                <FontIcon FontFamily="Segoe UI Symbol" Glyph="&#xE12C;" HorizontalAlignment="Center" VerticalAlignment="Center" />
+
+                            </StackPanel>
+                        </HyperlinkButton>
                         <HyperlinkButton  ToolTipService.ToolTip="Copy" Style="{StaticResource LabelButton}" x:Name="linkCopy"  Command="{StaticResource copyCommand}" CommandParameter="{Binding Mode=OneWay}" >
                             <StackPanel  Orientation="Horizontal" Margin="0,0,12,0">
                                 <FontIcon FontFamily="Segoe UI Symbol" Glyph="&#xE16F;" HorizontalAlignment="Center" VerticalAlignment="Center" />
 
                             </StackPanel>
                         </HyperlinkButton>
-                        <HyperlinkButton ToolTipService.ToolTip="Visit" Style="{StaticResource LabelButton}" x:Name="linkVisit"  NavigateUri="{Binding WebLink}"  >
-                            <!--Visibility="{Binding Converter={StaticResource HideWhenIsNotEditingConverter}, Mode=OneWay}"-->
+                        <HyperlinkButton ToolTipService.ToolTip="Visit" Style="{StaticResource LabelButton}" x:Name="linkVisit"  NavigateUri="{Binding WebLink}">
                             <StackPanel  Orientation="Horizontal" Margin="0,0,12,0">
                                 <FontIcon FontFamily="Segoe UI Symbol" Glyph="&#xE128;" HorizontalAlignment="Center" VerticalAlignment="Center" />
-
                             </StackPanel>
+                        </HyperlinkButton>
+                        <HyperlinkButton  ToolTipService.ToolTip="Undo" Command="{Binding CommandBackHistory}" >
+                            <FontIcon FontFamily="Segoe UI Symbol" Glyph="&#xE26A;" />
                         </HyperlinkButton>
                     </StackPanel>
 

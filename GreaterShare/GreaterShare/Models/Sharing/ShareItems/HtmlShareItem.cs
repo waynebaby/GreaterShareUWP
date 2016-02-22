@@ -12,6 +12,16 @@ namespace GreaterShare.Models.Sharing.ShareItems
 	public class HtmlShareItem : BindableBase<HtmlShareItem>, IShareItem
 	{
 
+		public HtmlShareItem()
+		{
+			WireEvent();
+		}
+
+		protected override void OnDeserializingActions()
+		{
+			base.OnDeserializingActions();
+			WireEvent();
+		}
 		//[DataMember]
 		//public string HtmlFormat
 		//{
@@ -24,7 +34,7 @@ namespace GreaterShare.Models.Sharing.ShareItems
 		//static Func<string> _HtmlFormatDefaultValueFactory = () => default(string);
 		//#endregion
 
-	
+
 
 		[DataMember]
 
@@ -48,5 +58,15 @@ namespace GreaterShare.Models.Sharing.ShareItems
 		static Func<BindableBase, ValueContainer<bool>> _IsSelectedLocator = RegisterContainerLocator<bool>(nameof(IsSelected), model => model.Initialize(nameof(IsSelected), ref model._IsSelected, ref _IsSelectedLocator, _IsSelectedDefaultValueFactory));
 		static Func<bool> _IsSelectedDefaultValueFactory = () => true;
 		#endregion
+
+		public void WireEvent()
+		{
+			if (!IsEventWired)
+			{
+				IsEventWired = true;
+			}
+		}
+
+		public bool IsEventWired { get; set; } = false;
 	}
 }

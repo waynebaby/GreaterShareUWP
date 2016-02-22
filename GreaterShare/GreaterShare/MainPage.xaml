@@ -377,11 +377,7 @@
                             <FlipView   xmlns:glue="using:GreaterShare.Glue" x:Name="flipView1" 
 								ItemsSource="{Binding ReceivedShareItem.AvialableShareItems}" 
 								SelectedItem="{Binding CurrentViewingItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  d:LayoutOverrides="LeftPosition, RightPosition, TopPosition, BottomPosition"   >
-                                <Interactivity:Interaction.Behaviors>
-                                    <Core:EventTriggerBehavior EventName="SelectionChanged">
-                                        <Core:CallMethodAction TargetObject="{Binding ElementName=mVVMPage}" MethodName="UpdateLayout"/>
-                                    </Core:EventTriggerBehavior>
-                                </Interactivity:Interaction.Behaviors>
+                            
 
                                 <FlipView.ItemTemplateSelector>
                                     <glue:ShareItemDataTemplateSelector  PrefixOfTemplateKey="DataTemplateOf"/>

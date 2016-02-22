@@ -111,20 +111,20 @@ namespace GreaterShare.ViewModels
 
 			//Receive Global messages
 			EventRouter.Instance.GetEventChannel<Tuple<EventMessage, Object>>()
-				.Where(x => 
+				.Where(x =>
 						x.EventData.Item1 == EventMessage.AddTextComment)
 				.Where(x =>
 					ReceivedShareItem != null)
-				.Where(x => 
+				.Where(x =>
 					ReceivedShareItem.AvialableShareItems != null)
 				.ObserveOnDispatcher()
 				.Subscribe(
 					tp =>
 					{
-						var target = ReceivedShareItem.AvialableShareItems.OfType<TextSharedItem>().FirstOrDefault();
+						var target = ReceivedShareItem.AvialableShareItems.OfType<TextShareItem>().FirstOrDefault();
 						if (target == null)
 						{
-							target = new TextSharedItem() { Text = "Add you comments here..." };
+							target = new TextShareItem() { Text = "Add you comments here..." };
 							ReceivedShareItem.AvialableShareItems.Add(target);
 						}
 						else
@@ -135,6 +135,39 @@ namespace GreaterShare.ViewModels
 
 					}
 				).DisposeWhenUnload(this);
+
+
+			EventRouter.Instance.GetEventChannel<Tuple<EventMessage, Object>>()
+			.Where(x =>
+					x.EventData.Item1 == EventMessage.ConvertToWebUri && x.EventData.Item2 != null)
+			.Where(x =>
+				ReceivedShareItem != null)
+			.Where(x =>
+				ReceivedShareItem.AvialableShareItems != null)
+			.ObserveOnDispatcher()
+			.Subscribe(
+				tp =>
+				{
+					if (!Uri.IsWellFormedUriString(tp.EventData.Item2 as string, UriKind.Absolute))
+					{
+						return;
+					}
+					var uri = new Uri(tp.EventData.Item2.ToString());
+					var target = ReceivedShareItem.AvialableShareItems.OfType<WebLinkShareItem>().FirstOrDefault();
+					if (target == null)
+					{
+						target = new WebLinkShareItem() { WebLink = uri};
+						ReceivedShareItem.AvialableShareItems.Add(target);
+					}
+					else
+					{
+						target.WebLink = uri;
+						//ReceivedShareItem.MergeNewText(target, tp.EventData.Item2.ToString(), true, false);
+					}
+					CurrentViewingItem = target;
+
+				}
+			).DisposeWhenUnload(this);
 
 
 			return base.OnBindedViewLoad(view);
@@ -351,7 +384,7 @@ namespace GreaterShare.ViewModels
 		static Func<BindableBase, CommandModel<ReactiveCommand, String>> _CommandReshareDefaultValueFactory =
 			model =>
 			{
-		
+
 
 				var resource = nameof(CommandReshare);           // Command resource  
 				var commandId = nameof(CommandReshare);
@@ -364,7 +397,7 @@ namespace GreaterShare.ViewModels
 						{
 							try
 							{
-								if (e.EventArgs.Parameter?.ToString() =="NoExecute")
+								if (e.EventArgs.Parameter?.ToString() == "NoExecute")
 								{
 									return;
 								}
@@ -580,9 +613,9 @@ namespace GreaterShare.ViewModels
 
 									switch (newItem.GetType().Name)
 									{
-										case nameof(TextSharedItem):
-											var newText = newItem as TextSharedItem;
-											var oldText = vm.ReceivedShareItem.AvialableShareItems[targetItemPair.i] as TextSharedItem;
+										case nameof(TextShareItem):
+											var newText = newItem as TextShareItem;
+											var oldText = vm.ReceivedShareItem.AvialableShareItems[targetItemPair.i] as TextShareItem;
 											var newTextString = newText.Text;
 											ReceivedShareItem.MergeNewText(oldText, newTextString, true, true);
 											break;
@@ -663,10 +696,10 @@ namespace GreaterShare.ViewModels
 							if (!string.IsNullOrWhiteSpace(p))
 							{
 
-								var target = vm.ReceivedShareItem.AvialableShareItems.OfType<TextSharedItem>().FirstOrDefault();
+								var target = vm.ReceivedShareItem.AvialableShareItems.OfType<TextShareItem>().FirstOrDefault();
 								if (target == null)
 								{
-									target = new TextSharedItem() { Text = p };
+									target = new TextShareItem() { Text = p };
 									vm.ReceivedShareItem.AvialableShareItems.Add(target);
 
 								}

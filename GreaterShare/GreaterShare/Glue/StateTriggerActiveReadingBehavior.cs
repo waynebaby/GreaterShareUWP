@@ -37,9 +37,7 @@ namespace GreaterShare.Glue
 			{
 				if (AssociatedObject == null)
 				{
-					return;
-
-
+					return;	   
 				}
 				var isInNarrowMode = AssociatedObject.ActualWidth < AssociatedObject.ActualHeight;
 				var isInWideMode = !isInNarrowMode;
@@ -77,10 +75,7 @@ namespace GreaterShare.Glue
 			UnregisterPropertyChangedCallback(WideTriggerProperty, WideTriggerPropertyReg);
 		}
 
-
-
-
-		public StateTrigger NarrowTrigger
+   		public StateTrigger NarrowTrigger
 		{
 			get { return (StateTrigger)GetValue(NarrowTriggerProperty); }
 			set { SetValue(NarrowTriggerProperty, value); }
@@ -104,36 +99,5 @@ namespace GreaterShare.Glue
 
 
 
-		//public bool IsInWideMode
-		//{
-		//	get { return (bool)GetValue(IsInWideModeProperty); }
-		//	set { SetValue(IsInWideModeProperty, value); }
-		//}
-
-		//// Using a DependencyProperty as the backing store for IsInWideMode.  This enables animation, styling, binding, etc...
-		//public static readonly DependencyProperty IsInWideModeProperty =
-		//	DependencyProperty.Register("IsInWideMode", typeof(bool), typeof(StateTriggerActiveReadingBehavior), new PropertyMetadata(false));
-
-
-
-		//public bool IsInNarrowMode
-		//{
-		//	get { return (bool)GetValue(IsInNarrowModeProperty); }
-		//	set { SetValue(IsInNarrowModeProperty, value); }
-		//}
-
-		//// Using a DependencyProperty as the backing store for IsInNarrowMode.  This enables animation, styling, binding, etc...
-		//public static readonly DependencyProperty IsInNarrowModeProperty =
-		//	DependencyProperty.Register("IsInNarrowMode", typeof(bool), typeof(bool), new PropertyMetadata(true ));
-
-
-
-
-		//public bool ForWideView { get; set; }
-
-		//public object ConvertBack(object value, Type targetType, object parameter, string language)
-		//{
-		//	throw new NotImplementedException();
-		//}
 	}
 }

@@ -9,9 +9,17 @@ using System.Threading.Tasks;
 namespace GreaterShare.Models.Sharing.ShareItems
 {
 	[DataContract]
-	public class ApplicationLinkShareItem : BindableBase<ApplicationLinkShareItem>	  ,IShareItem
+	public class ApplicationLinkShareItem : BindableBase<ApplicationLinkShareItem>, IShareItem
 	{
-
+		public ApplicationLinkShareItem()
+		{
+			WireEvent();
+		}
+		protected override void OnDeserializingActions()
+		{
+			base.OnDeserializingActions();
+			WireEvent();
+		}
 		[DataMember]
 		public Uri ApplicationLink
 		{
@@ -34,7 +42,17 @@ namespace GreaterShare.Models.Sharing.ShareItems
 		protected Property<bool> _IsSelected = new Property<bool> { LocatorFunc = _IsSelectedLocator };
 		static Func<BindableBase, ValueContainer<bool>> _IsSelectedLocator = RegisterContainerLocator<bool>(nameof(IsSelected), model => model.Initialize(nameof(IsSelected), ref model._IsSelected, ref _IsSelectedLocator, _IsSelectedDefaultValueFactory));
 		static Func<bool> _IsSelectedDefaultValueFactory = () => true;
-		#endregion
 
+
+		#endregion
+		public void WireEvent()
+		{
+			if (!IsEventWired)
+			{
+				IsEventWired = true;
+			}
+		}
+
+		public bool IsEventWired{get;set;}=false ;
 	}
 }
