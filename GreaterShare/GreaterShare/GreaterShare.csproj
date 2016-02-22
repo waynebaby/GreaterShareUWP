@@ -19,7 +19,7 @@
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <!--<PackageCertificateKeyFile>GreaterShare_StoreKey.pfx</PackageCertificateKeyFile>
     <PackageCertificateThumbprint>7C3831043AFD0C3947551E71F95B0155B02E58E0</PackageCertificateThumbprint>-->
-    <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
+    <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
     <AppxBundle>Always</AppxBundle>
     <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
     <PackageCertificateThumbprint>1A69915044087E6DCAFB9928661D02118660E647</PackageCertificateThumbprint>

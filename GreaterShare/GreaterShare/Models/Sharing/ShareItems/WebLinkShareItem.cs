@@ -68,10 +68,10 @@ namespace GreaterShare.Models.Sharing.ShareItems
 					}
 				)
 				.DisposeWith(this);
-				CommandBackHistory.CommandCore.ListenCanExecuteObservable(History
-					.GetEventObservable(this)
-					.Select(x =>
-							History.Count > 1));
+				//CommandBackHistory.CommandCore.ListenCanExecuteObservable(History
+				//	.GetEventObservable(this)
+				//	.Select(x =>
+				//			History.Count > 1));
 				IsEventWired = true;
 			}
 		}
@@ -129,10 +129,14 @@ namespace GreaterShare.Models.Sharing.ShareItems
 				var resource = "CommandBackHistory";           // Command resource  
 				var commandId = "CommandBackHistory";
 				var vm = CastToCurrentType(model);
-				var cmd = new ReactiveCommand(canExecute: false) { ViewModel = model }; //New Command Core
+				var cmd = new ReactiveCommand(canExecute: true) { ViewModel = model }; //New Command Core
 
 				cmd.Do(e =>
 				{
+					if (vm.History.Count <= 1)
+					{
+						return;
+					}
 					var last = vm.History.Count - 1;
 					var oldOne = vm.History[last];
 					vm.History.RemoveAt(vm.History.Count - 1);
@@ -145,6 +149,10 @@ namespace GreaterShare.Models.Sharing.ShareItems
 					.Subscribe()
 					.DisposeWith(vm);
 
+				//cmd.ListenCanExecuteObservable(vm.History
+				//	.GetEventObservable(vm)
+				//	.Select(x =>
+				//	vm.History.Count > 1));
 
 				var cmdmdl = cmd.CreateCommandModel(resource);
 

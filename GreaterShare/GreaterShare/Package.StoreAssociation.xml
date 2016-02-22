@@ -358,14 +358,14 @@
     <Language Code="zu-za" InMinimumRequirementSet="true" />
   </SupportedLocales>
   <ProductReservedInfo>
-    <MainPackageIdentityName>57081WaynebabyPresents.GreaterShare</MainPackageIdentityName>
+    <MainPackageIdentityName>57081WaynebabyPresents.26639897010B1</MainPackageIdentityName>
     <ReservedNames>
-      <ReservedName>Greater Share</ReservedName>
+      <ReservedName>GreaterShare</ReservedName>
     </ReservedNames>
   </ProductReservedInfo>
   <AccountPackageIdentityNames>
     <MainPackageIdentityName>57081WaynebabyPresents.341501B5FB485</MainPackageIdentityName>
-    <MainPackageIdentityName>57081WaynebabyPresents.26639897010B1</MainPackageIdentityName>
+    <MainPackageIdentityName>57081WaynebabyPresents.GreaterShare</MainPackageIdentityName>
   </AccountPackageIdentityNames>
-  <PackageInfoList LandingUrl="https://dev.windows.com/dashboard/Application?appId=9NBLGGGZMJ7V" />
+  <PackageInfoList LandingUrl="https://dev.windows.com/dashboard/Application?appId=9NBLGGH5FMM2" />
 </StoreAssociation>
