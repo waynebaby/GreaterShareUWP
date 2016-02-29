@@ -124,7 +124,7 @@ namespace GreaterShare.Models.Sharing.ShareItems
 
 				cmd.Do(e =>
 					   {
-						   if (vm.History.Count<=1)
+						   if (vm.History.Count <= 1)
 						   {
 							   return;
 						   }
@@ -153,6 +153,15 @@ namespace GreaterShare.Models.Sharing.ShareItems
 		#endregion
 
 
+		static Dictionary<string, Encoding>
+			_dic = new Dictionary<string, Encoding>()
+			{
+				{ "UTF8"    ,   Encoding.UTF8 },
+				{ "ASCII"       ,Encoding.ASCII },
+				//{ "GB2312"  ,Encoding.GetEncoding (936)},
+			};
+
+
 		public CommandModel<ReactiveCommand, String> CommandToBase64
 		{
 			get { return _CommandToBase64Locator(this).Value; }
@@ -176,9 +185,18 @@ namespace GreaterShare.Models.Sharing.ShareItems
 
 							try
 							{
-								var bytes = Encoding.UTF8.GetBytes(vm.Text);
-								var base64 = Convert.ToBase64String(bytes);
-								vm.Text = base64;
+
+								Encoding encoding;
+
+								if (_dic.TryGetValue(e?.EventArgs?.Parameter?.ToString() ?? "", out encoding))
+								{
+
+									var bytes = encoding.GetBytes(vm.Text);
+									var base64 = Convert.ToBase64String(bytes);
+									vm.Text = base64;
+								}
+
+
 							}
 							catch (Exception)
 							{

@@ -1,4 +1,6 @@
-﻿using MVVMSidekick.Reactive;
+﻿using GreaterShare.ViewModels;
+using MVVMSidekick.EventRouting;
+using MVVMSidekick.Reactive;
 using MVVMSidekick.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -41,17 +43,20 @@ namespace GreaterShare.Models.Sharing.ShareItems
 						//var rightUrlsegment = "&geoMarket";
 						int index = -1;
 						if (link != null &&
-							link.WebLink != null &&
-							!link.WebLink.PathAndQuery.Contains("?") &&
-							(index = link.WebLink.PathAndQuery.IndexOf(wrongUrlsegment)) != -1)
+							link.WebLink != null)
 						{
-							var ub = new UriBuilder(link.WebLink);
-							var removed = link.WebLink.PathAndQuery.Substring(index);
-							ub.Path = link.WebLink.PathAndQuery.Remove(index);
-							ub.Query = "fixedByGreaterShare=1" + removed;
-							link.WebLink = ub.Uri;
-						}
 
+
+							if (!link.WebLink.PathAndQuery.Contains("?") &&
+								(index = link.WebLink.PathAndQuery.IndexOf(wrongUrlsegment)) != -1)
+							{
+								var ub = new UriBuilder(link.WebLink);
+								var removed = link.WebLink.PathAndQuery.Substring(index);
+								ub.Path = link.WebLink.PathAndQuery.Remove(index);
+								ub.Query = "fixedByGreaterShare=1" + removed;
+								link.WebLink = ub.Uri;
+							}						 
+						}
 						if (!_IsExpectingRemoveFromHistory)
 						{
 							History.Add(e.EventArgs.OldValue);
@@ -68,10 +73,10 @@ namespace GreaterShare.Models.Sharing.ShareItems
 					}
 				)
 				.DisposeWith(this);
-				//CommandBackHistory.CommandCore.ListenCanExecuteObservable(History
-				//	.GetEventObservable(this)
-				//	.Select(x =>
-				//			History.Count > 1));
+
+
+
+
 				IsEventWired = true;
 			}
 		}
@@ -156,6 +161,45 @@ namespace GreaterShare.Models.Sharing.ShareItems
 
 				var cmdmdl = cmd.CreateCommandModel(resource);
 
+				return cmdmdl;
+			};
+
+		#endregion
+
+
+
+		public CommandModel<ReactiveCommand, String> CommandCoverterToString
+		{
+			get { return _CommandCoverterToStringLocator(this).Value; }
+			set { _CommandCoverterToStringLocator(this).SetValueAndTryNotify(value); }
+		}
+		#region Property CommandModel<ReactiveCommand, String> CommandCoverterToString Setup        
+
+		protected Property<CommandModel<ReactiveCommand, String>> _CommandCoverterToString = new Property<CommandModel<ReactiveCommand, String>> { LocatorFunc = _CommandCoverterToStringLocator };
+		static Func<BindableBase, ValueContainer<CommandModel<ReactiveCommand, String>>> _CommandCoverterToStringLocator = RegisterContainerLocator<CommandModel<ReactiveCommand, String>>(nameof(CommandCoverterToString), model => model.Initialize(nameof(CommandCoverterToString), ref model._CommandCoverterToString, ref _CommandCoverterToStringLocator, _CommandCoverterToStringDefaultValueFactory));
+		static Func<BindableBase, CommandModel<ReactiveCommand, String>> _CommandCoverterToStringDefaultValueFactory =
+			model =>
+			{
+				var resource = nameof(CommandCoverterToString);           // Command resource  
+				var commandId = nameof(CommandCoverterToString);
+				var vm = CastToCurrentType(model);
+				var cmd = new ReactiveCommand(canExecute: true) { ViewModel = model }; //New Command Core
+
+				cmd.Do(
+						 e =>
+						{
+							//Todo: Add CoverterToString logic here, or
+							EventRouter.Instance.RaiseEvent<Tuple<EventMessage, Object>>(
+							vm,
+							Tuple.Create<EventMessage, Object>(EventMessage.ConvertToText, vm.WebLink)
+								);
+						})
+					.DoNotifyDefaultEventRouter(vm, commandId)
+					.Subscribe()
+					.DisposeWith(vm);
+
+				var cmdmdl = cmd.CreateCommandModel(resource);
+
 
 				return cmdmdl;
 			};
@@ -182,16 +226,16 @@ namespace GreaterShare.Models.Sharing.ShareItems
 				var cmd = new ReactiveCommand(canExecute: true) { ViewModel = model }; //New Command Core
 
 				cmd.Where(e => vm.WebLink != null)
-					.Do(e =>
-					 {
-						 var ub = new UriBuilder(vm.WebLink);
-						 ub.Query = null;
-						 vm.WebLink = ub.Uri;
-					 }
-					)
-					.DoNotifyDefaultEventRouter(vm, commandId)
-					.Subscribe()
-					.DisposeWith(vm);
+				.Do(e =>
+				 {
+					 var ub = new UriBuilder(vm.WebLink);
+					 ub.Query = null;
+					 vm.WebLink = ub.Uri;
+				 }
+				)
+				.DoNotifyDefaultEventRouter(vm, commandId)
+				.Subscribe()
+				.DisposeWith(vm);
 
 				var cmdmdl = cmd.CreateCommandModel(resource);
 

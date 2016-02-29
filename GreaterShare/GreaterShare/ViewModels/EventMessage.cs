@@ -9,7 +9,7 @@ namespace GreaterShare.ViewModels
 	public enum EventMessage
 	{
 		AddTextComment,
-		//ConvertToText,
+		ConvertToText,
 		ConvertToWebUri
 	}
 }

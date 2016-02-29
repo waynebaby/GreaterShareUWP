@@ -112,7 +112,6 @@ DragForeground="{ThemeResource ListViewItemDragForegroundThemeBrush}"
                     Visibility="{Binding Converter={StaticResource HideWhenIsNotEditingConverter}, Mode=OneWay}" 
                     RelativePanel.AlignLeftWithPanel="True"  RelativePanel.AlignTopWithPanel="True"/>
                     <StackPanel  x:Name="linkButtons"   Style="{StaticResource LabelButtons}"  Orientation="Horizontal" >
-
                         <HyperlinkButton  Style="{StaticResource LabelButton}" x:Name="linkCopy"  Command="{StaticResource copyCommand}" CommandParameter="{Binding Mode=OneWay}" >
                             <StackPanel ToolTipService.ToolTip="Copy" Orientation="Horizontal" Margin="0,0,12,0">
                                 <FontIcon FontFamily="Segoe UI Symbol" Glyph="&#xE16F;" HorizontalAlignment="Center" VerticalAlignment="Center" />
@@ -312,11 +311,13 @@ DragForeground="{ThemeResource ListViewItemDragForegroundThemeBrush}"
                                     " >
                                         <MenuFlyoutSubItem.Items>
                                             <MenuFlyoutItem Command="{Binding  CommandToBase64}" CommandParameter="UTF8" Text="UTF8" ></MenuFlyoutItem>
+                                            <MenuFlyoutItem Command="{Binding  CommandToBase64}" CommandParameter="ASCII" Text="ASCII" ></MenuFlyoutItem>
                                         </MenuFlyoutSubItem.Items>
                                     </MenuFlyoutSubItem>
                                     <MenuFlyoutSubItem  Text="Convert back to Text" >
                                         <MenuFlyoutSubItem.Items>
                                             <MenuFlyoutItem Command="{Binding  CommandFromBase64}" CommandParameter="UTF8" Text="UTF8" ></MenuFlyoutItem>
+                                            <MenuFlyoutItem Command="{Binding  CommandFromBase64}" CommandParameter="ASCII" Text="ASCII" ></MenuFlyoutItem>
                                         </MenuFlyoutSubItem.Items>
                                     </MenuFlyoutSubItem>
                                     <!--</MenuFlyoutSubItem.Items>
@@ -364,7 +365,7 @@ DragForeground="{ThemeResource ListViewItemDragForegroundThemeBrush}"
                         <HyperlinkButton  
                          Visibility="{Binding Converter={StaticResource HideWhenIsNotEditingConverter}, Mode=OneWay}"                                      
                             IsEnabled="{Binding Text,Converter={StaticResource IsWellFormedUriStringConveter}}"  
-                            Command="{Binding CommandConvertToWebUri }"
+                            Command="{Binding CommandConvertToWebUri}"
                              
                             ToolTipService.ToolTip="{StaticResource VisitUri}" >
                             <FontIcon FontFamily="Segoe UI Symbol" Glyph="&#xE12B;" />
@@ -410,6 +411,11 @@ DragForeground="{ThemeResource ListViewItemDragForegroundThemeBrush}"
                             <StackPanel  Orientation="Horizontal" Margin="0,0,12,0">
                                 <FontIcon FontFamily="Segoe UI Symbol" Glyph="&#xE16F;" HorizontalAlignment="Center" VerticalAlignment="Center" />
 
+                            </StackPanel>
+                        </HyperlinkButton>
+                        <HyperlinkButton ToolTipService.ToolTip="To Text" Style="{StaticResource LabelButton}" x:Name="linkToText"  Command="{Binding CommandCoverterToString}">
+                            <StackPanel  Orientation="Horizontal" Margin="0,0,12,0">
+                                <FontIcon FontFamily="Segoe UI Symbol" Glyph="&#xE14C;" HorizontalAlignment="Center" VerticalAlignment="Center" />
                             </StackPanel>
                         </HyperlinkButton>
                         <HyperlinkButton ToolTipService.ToolTip="Visit" Style="{StaticResource LabelButton}" x:Name="linkVisit"  NavigateUri="{Binding WebLink}">

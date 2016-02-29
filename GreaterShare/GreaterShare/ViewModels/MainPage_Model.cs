@@ -156,7 +156,7 @@ namespace GreaterShare.ViewModels
 					var target = ReceivedShareItem.AvialableShareItems.OfType<WebLinkShareItem>().FirstOrDefault();
 					if (target == null)
 					{
-						target = new WebLinkShareItem() { WebLink = uri};
+						target = new WebLinkShareItem() { WebLink = uri };
 						ReceivedShareItem.AvialableShareItems.Add(target);
 					}
 					else
@@ -169,6 +169,34 @@ namespace GreaterShare.ViewModels
 				}
 			).DisposeWhenUnload(this);
 
+			EventRouter.Instance.GetEventChannel<Tuple<EventMessage, Object>>()
+			.Where(x =>
+					x.EventData.Item1 == EventMessage.ConvertToText && x.EventData.Item2 != null)
+			.Where(x =>
+				ReceivedShareItem != null)
+			.Where(x =>
+				ReceivedShareItem.AvialableShareItems != null)
+			.ObserveOnDispatcher()
+			.Subscribe(
+				tp =>
+				{
+
+					var str = tp.EventData.Item2.ToString();
+					var target = ReceivedShareItem.AvialableShareItems.OfType<TextShareItem>().FirstOrDefault();
+					if (target == null)
+					{
+						target = new TextShareItem() { Text = str };
+						ReceivedShareItem.AvialableShareItems.Add(target);
+					}
+					else
+					{
+						target.Text = str;
+						//ReceivedShareItem.MergeNewText(target, tp.EventData.Item2.ToString(), true, false);
+					}
+					CurrentViewingItem = target;
+
+				}
+			).DisposeWhenUnload(this);
 
 			return base.OnBindedViewLoad(view);
 		}
