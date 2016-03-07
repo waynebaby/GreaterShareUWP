@@ -206,7 +206,7 @@
 								<Run Text="Try open a .gshare file, "/>
 								<Run Text="or import some data from"/>   </Bold>
                         </TextBlock>
-                        <HyperlinkButton x:Name="hyperlinkButton" HorizontalAlignment="Center" FontSize="34.667" FontWeight="Bold" Content="Clipboard" Command="{Binding CommandGetFromClipboard}">
+                        <HyperlinkButton x:Name="hyperlinkButton" HorizontalAlignment="Center" FontSize="34.667" FontWeight="Bold" Content="Clipboard" Command="{Binding CommandGetFromClipboard}" CommandParameter="PushClipboardToCurrent">
                             <!--<Interactivity:Interaction.Behaviors>
                                 <Core:EventTriggerBehavior EventName="Click" SourceObject="{Binding ElementName=hyperlinkButton}">
                                     <Core:ChangePropertyAction TargetObject="{Binding ElementName=pivot, Mode=OneWay}" PropertyName="SelectedIndex" Value="1"/>

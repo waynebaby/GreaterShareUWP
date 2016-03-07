@@ -581,8 +581,16 @@ namespace GreaterShare.ViewModels
 							var item = await svc.GetFromClipboardAsync();
 							vm.ClipboardImportingItem = item;
 							item.Title = "Pasted to Greater Share at " + DateTime.Now.ToString();
+						
+								vm.FocusingViewIndex = 1;
 
-							vm.FocusingViewIndex = 1;
+							if (e.EventArgs?.Parameter?.ToString() == nameof(PushClipboardToCurrent))
+							{
+						   
+								await Task.Delay(1000*.8);
+								PushClipboardToCurrent(vm);
+							}
+
 							await MVVMSidekick.Utilities.TaskExHelper.Yield();
 						})
 					.DoNotifyDefaultEventRouter(vm, commandId)
@@ -624,53 +632,7 @@ namespace GreaterShare.ViewModels
 						vm,
 						async e =>
 						{
-
-							if (vm.ReceivedShareItem == null)
-							{
-								vm.ReceivedShareItem = vm.ClipboardImportingItem;
-							}
-							else
-							{
-								var newItem = vm.ClipboardImportingItem.AvialableShareItems[0];
-								var targetItemPair = vm.ReceivedShareItem.AvialableShareItems
-								  .Select((o, i) => new { o, i })
-								  .Where(p => p.o?.GetType() == newItem.GetType()).FirstOrDefault();
-
-								if (targetItemPair != null)
-								{
-
-									switch (newItem.GetType().Name)
-									{
-										case nameof(TextShareItem):
-											var newText = newItem as TextShareItem;
-											var oldText = vm.ReceivedShareItem.AvialableShareItems[targetItemPair.i] as TextShareItem;
-											var newTextString = newText.Text;
-											ReceivedShareItem.MergeNewText(oldText, newTextString, true, true);
-											break;
-										case nameof(FilesShareItem):
-											var newFile = newItem as FilesShareItem;
-											var oldFile = vm.ReceivedShareItem.AvialableShareItems[targetItemPair.i] as FilesShareItem;
-											oldFile.StorageFiles = new ObservableCollection<FileItem>(oldFile.StorageFiles.Concat(newFile.StorageFiles));
-											break;
-										default:
-											vm.ReceivedShareItem.AvialableShareItems[targetItemPair.i] = newItem;
-											break;
-									}
-								}
-								else
-								{
-
-									vm.ReceivedShareItem.AvialableShareItems.Add(newItem);
-								}
-
-								//var index = targetItemPair == null ? 0 : targetItemPair.i;
-
-								vm.CurrentViewingItem = newItem;
-
-							}
-
-							vm.FocusingViewIndex = 0;
-							vm.ClipboardImportingItem = null;
+							PushClipboardToCurrent(vm);
 							//Todo: Add PushClipToCurrentItem logic here, or
 							await MVVMSidekick.Utilities.TaskExHelper.Yield();
 						})
@@ -691,6 +653,56 @@ namespace GreaterShare.ViewModels
 					);
 				return cmdmdl;
 			};
+
+		private static void PushClipboardToCurrent(MainPage_Model vm)
+		{
+			if (vm.ReceivedShareItem == null)
+			{
+				vm.ReceivedShareItem = vm.ClipboardImportingItem;
+			}
+			else
+			{
+				var newItem = vm.ClipboardImportingItem.AvialableShareItems[0];
+				var targetItemPair = vm.ReceivedShareItem.AvialableShareItems
+				  .Select((o, i) => new { o, i })
+				  .Where(p => p.o?.GetType() == newItem.GetType()).FirstOrDefault();
+
+				if (targetItemPair != null)
+				{
+
+					switch (newItem.GetType().Name)
+					{
+						case nameof(TextShareItem):
+							var newText = newItem as TextShareItem;
+							var oldText = vm.ReceivedShareItem.AvialableShareItems[targetItemPair.i] as TextShareItem;
+							var newTextString = newText.Text;
+							ReceivedShareItem.MergeNewText(oldText, newTextString, true, false);
+							break;
+						case nameof(FilesShareItem):
+							var newFile = newItem as FilesShareItem;
+							var oldFile = vm.ReceivedShareItem.AvialableShareItems[targetItemPair.i] as FilesShareItem;
+							oldFile.StorageFiles = new ObservableCollection<FileItem>(oldFile.StorageFiles.Concat(newFile.StorageFiles));
+							break;
+						default:
+							vm.ReceivedShareItem.AvialableShareItems[targetItemPair.i] = newItem;
+							break;
+					}
+				}
+				else
+				{
+
+					vm.ReceivedShareItem.AvialableShareItems.Add(newItem);
+				}
+
+				//var index = targetItemPair == null ? 0 : targetItemPair.i;
+
+				vm.CurrentViewingItem = newItem;
+
+			}
+
+			vm.FocusingViewIndex = 0;
+			vm.ClipboardImportingItem = null;
+		}
 
 
 
