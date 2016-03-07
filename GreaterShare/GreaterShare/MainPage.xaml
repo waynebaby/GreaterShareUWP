@@ -12,10 +12,13 @@
     <mvvm:MVVMPage.Resources>
 
 
-        <vm:MainPage_Model x:Key="DesignVM"/>
         <!--<Glue:EqualConverter x:Key="EqualConverter"/>-->
+        <Glue:NotValueConverter x:Key="NotValueConverter"/>
+
+
+        <vm:MainPage_Model x:Key="DesignVM"/>
     </mvvm:MVVMPage.Resources>
-    <RelativePanel x:Name="grid" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"  DataContext="{StaticResource DesignVM}">
+    <RelativePanel  x:Name="grid" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"  DataContext="{StaticResource DesignVM}">
         <Interactivity:Interaction.Behaviors>
             <Core:DataTriggerBehavior  Binding="{Binding ReceivedShareItem}"  Value="{x:Null}">
                 <Core:GoToStateAction StateName="False" UseTransitions="True"/>
@@ -23,11 +26,10 @@
             <Core:DataTriggerBehavior Binding="{Binding ReceivedShareItem}"  ComparisonCondition="NotEqual" Value="{x:Null}">
                 <Core:GoToStateAction StateName="True" UseTransitions="True"/>
             </Core:DataTriggerBehavior>
-            <Glue:StateTriggerActiveReadingBehavior x:Name="StateTriggerActiveReadingBehavior"
-                 WideTrigger="{Binding ElementName=wideTrigger}"
-                 NarrowTrigger="{Binding ElementName=narrowTrigger}"
-
-            ></Glue:StateTriggerActiveReadingBehavior>
+            <Glue:StateTriggerActiveReadingBehavior 
+                x:Name="StateTriggerActiveReadingBehavior"
+                WideTrigger="{Binding ElementName=wideTrigger}"
+                NarrowTrigger="{Binding ElementName=narrowTrigger}"/>
             <!--<Core:DataTriggerBehavior Binding="{Binding  ActualWidth  , ElementName=grid, FallbackValue=0}" ComparisonCondition="GreaterThan"  Value="{Binding ActualHeight, ElementName=grid, FallbackValue=0}">
                 <Core:GoToStateAction StateName="WideView"/>
             </Core:DataTriggerBehavior>
@@ -35,8 +37,6 @@
                 <Core:GoToStateAction StateName="NarrowView"/>
             </Core:DataTriggerBehavior>-->
         </Interactivity:Interaction.Behaviors>
-
-
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="IsReceivedItemAvailable">
                 <VisualState x:Name="True">
@@ -189,7 +189,14 @@
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
-        <Pivot x:Name="pivot" Margin="8,8,8,12" SelectedIndex="{Binding FocusingViewIndex, Mode=TwoWay}"  Background="#33F0F8FF" RelativePanel.Above="AppBar" RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True">
+        <ProgressRing
+        RelativePanel.AlignBottomWithPanel="True" 
+        RelativePanel.AlignTopWithPanel="True"
+        RelativePanel.AlignLeftWithPanel="True"
+        RelativePanel.AlignRightWithPanel="True"  
+          MaxWidth="200" MaxHeight="200"        
+         IsActive="{Binding IsUIBusy}" Canvas.ZIndex="1000"   HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ></ProgressRing>
+        <Pivot IsEnabled="{Binding IsUIBusy, Converter={StaticResource NotValueConverter}}" x:Name="pivot" Margin="8,8,8,12"  SelectedIndex="{Binding FocusingViewIndex, Mode=TwoWay}"  Background="#33F0F8FF" RelativePanel.Above="AppBar" RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True">
             <PivotItem Header="Current Share">
                 <Grid x:Name="grid1" >
 
@@ -377,7 +384,7 @@
                             <FlipView   xmlns:glue="using:GreaterShare.Glue" x:Name="flipView1" 
 								ItemsSource="{Binding ReceivedShareItem.AvialableShareItems}" 
 								SelectedItem="{Binding CurrentViewingItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  d:LayoutOverrides="LeftPosition, RightPosition, TopPosition, BottomPosition"   >
-                            
+
 
                                 <FlipView.ItemTemplateSelector>
                                     <glue:ShareItemDataTemplateSelector  PrefixOfTemplateKey="DataTemplateOf"/>

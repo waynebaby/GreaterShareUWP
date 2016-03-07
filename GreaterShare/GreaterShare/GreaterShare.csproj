@@ -108,6 +108,7 @@
       <DependentUpon>Background.xaml</DependentUpon>
     </Compile>
     <Compile Include="Glue\AddTextCommentsCommand.cs" />
+    <Compile Include="Glue\NotValueConverter.cs" />
     <Compile Include="Glue\CopyShareItemToClipboardCommand.cs" />
     <Compile Include="Glue\DebuggingEmptyConverter.cs" />
     <Compile Include="Glue\IsNotNullConverter.cs" />
