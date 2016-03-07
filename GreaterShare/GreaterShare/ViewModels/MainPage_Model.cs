@@ -587,7 +587,7 @@ namespace GreaterShare.ViewModels
 							if (e.EventArgs?.Parameter?.ToString() == nameof(PushClipboardToCurrent))
 							{
 						   
-								await Task.Delay(1000*.8);
+								await Task.Delay(800);
 								PushClipboardToCurrent(vm);
 							}
 
