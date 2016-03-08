@@ -109,7 +109,7 @@ DragForeground="{ThemeResource ListViewItemDragForegroundThemeBrush}"
                     	<Run Text="Application Link:"/>
                     </TextBlock>
                     <CheckBox IsChecked="{Binding IsSelected, Mode=TwoWay}"  
-                    Visibility="{Binding Converter={StaticResource HideWhenIsNotEditingConverter}, Mode=OneWay}" 
+                    Visibility="{Binding Converter={StaticResource HideWhenIsNotEditingConverter}, RelativeSource={RelativeSource Mode=Self}}" 
                     RelativePanel.AlignLeftWithPanel="True"  RelativePanel.AlignTopWithPanel="True"/>
                     <StackPanel  x:Name="linkButtons"   Style="{StaticResource LabelButtons}"  Orientation="Horizontal" >
                         <HyperlinkButton  Style="{StaticResource LabelButton}" x:Name="linkCopy"  Command="{StaticResource copyCommand}" CommandParameter="{Binding Mode=OneWay}" >
@@ -118,7 +118,7 @@ DragForeground="{ThemeResource ListViewItemDragForegroundThemeBrush}"
                             </StackPanel>
                         </HyperlinkButton>
                         <HyperlinkButton  ToolTipService.ToolTip="Visit" Style="{StaticResource LabelButton}" x:Name="linkVisit"  NavigateUri="{Binding ApplicationLink}"  >
-                            <!--Visibility="{Binding Converter={StaticResource HideWhenIsNotEditingConverter}, Mode=OneWay}"-->
+                            <!--Visibility="{Binding Converter={StaticResource HideWhenIsNotEditingConverter}, RelativeSource={RelativeSource Mode=Self}, Mode=OneWay}"-->
                             <StackPanel  Orientation="Horizontal" Margin="0,0,12,0">
                                 <FontIcon FontFamily="Segoe UI Symbol" Glyph="&#xE128;" HorizontalAlignment="Center" VerticalAlignment="Center" />
                             </StackPanel>
@@ -152,7 +152,7 @@ DragForeground="{ThemeResource ListViewItemDragForegroundThemeBrush}"
         			<Run Text="Image to Share"/>
                 </TextBlock>
                 <CheckBox IsChecked="{Binding IsSelected, Mode=TwoWay}" 
-                    Visibility="{Binding Converter={StaticResource HideWhenIsNotEditingConverter}, Mode=OneWay}" 
+                    Visibility="{Binding Converter={StaticResource HideWhenIsNotEditingConverter}, RelativeSource={RelativeSource Mode=Self}, Mode=OneWay}" 
                     RelativePanel.AlignLeftWithPanel="True"  RelativePanel.AlignTopWithPanel="True"/>
 
                 <Image  
@@ -170,8 +170,8 @@ DragForeground="{ThemeResource ListViewItemDragForegroundThemeBrush}"
 
 
                 <StackPanel  x:Name="linkButtons"   Style="{StaticResource LabelButtons}"  Orientation="Horizontal" >
-                    <HyperlinkButton ToolTipService.ToolTip="Add Comment"  Style="{StaticResource LabelButton}" x:Name="linkComment"  Visibility="{Binding Converter={StaticResource HideWhenIsNotEditingConverter}, Mode=OneWay}"  Command="{StaticResource AddTextCommentCommand}"  >
-                        <!--Visibility="{Binding Converter={StaticResource HideWhenIsNotEditingConverter}, Mode=OneWay}"-->
+                    <HyperlinkButton ToolTipService.ToolTip="Add Comment"  Style="{StaticResource LabelButton}" x:Name="linkComment"  Visibility="{Binding Converter={StaticResource HideWhenIsNotEditingConverter}, RelativeSource={RelativeSource Mode=Self}, Mode=OneWay}"  Command="{StaticResource AddTextCommentCommand}"  >
+                        <!--Visibility="{Binding Converter={StaticResource HideWhenIsNotEditingConverter}, RelativeSource={RelativeSource Mode=Self}, Mode=OneWay}"-->
                         <StackPanel  Orientation="Horizontal" Margin="0,0,12,0">
                             <FontIcon FontFamily="Segoe UI Symbol" Glyph="&#xE200;" HorizontalAlignment="Center" VerticalAlignment="Center" />
 
@@ -179,8 +179,8 @@ DragForeground="{ThemeResource ListViewItemDragForegroundThemeBrush}"
                     </HyperlinkButton>
 
 
-                    <HyperlinkButton  Style="{StaticResource LabelButton}" ToolTipService.ToolTip="Save to File" x:Name="linkSave"  Visibility="{Binding Converter={StaticResource HideWhenIsNotEditingConverter}, Mode=OneWay}"  Command="{StaticResource SaveImageCommand}" CommandParameter="{Binding SelectedImage}" >
-                        <!--Visibility="{Binding Converter={StaticResource HideWhenIsNotEditingConverter}, Mode=OneWay}"-->
+                    <HyperlinkButton  Style="{StaticResource LabelButton}" ToolTipService.ToolTip="Save to File" x:Name="linkSave"  Visibility="{Binding Converter={StaticResource HideWhenIsNotEditingConverter}, RelativeSource={RelativeSource Mode=Self}, Mode=OneWay}"  Command="{StaticResource SaveImageCommand}" CommandParameter="{Binding SelectedImage}" >
+                        <!--Visibility="{Binding Converter={StaticResource HideWhenIsNotEditingConverter}, RelativeSource={RelativeSource Mode=Self}, Mode=OneWay}"-->
                         <StackPanel  Orientation="Horizontal" Margin="0,0,12,0">
                             <FontIcon FontFamily="Segoe UI Symbol" Glyph="&#xE105;" HorizontalAlignment="Center" VerticalAlignment="Center" />
 
@@ -217,7 +217,7 @@ DragForeground="{ThemeResource ListViewItemDragForegroundThemeBrush}"
         			<Run Text="Files to Share"/>
                 </TextBlock>
                 <CheckBox IsChecked="{Binding IsSelected, Mode=TwoWay}" 
-                    Visibility="{Binding Converter={StaticResource HideWhenIsNotEditingConverter}, Mode=OneWay}" 
+                    Visibility="{Binding Converter={StaticResource HideWhenIsNotEditingConverter}, RelativeSource={RelativeSource Mode=Self}, Mode=OneWay}" 
                     RelativePanel.AlignLeftWithPanel="True"  RelativePanel.AlignTopWithPanel="True"/>
 
                 <GridView SelectionMode="None" Margin="8" ItemsSource="{Binding StorageFiles}" 
@@ -240,8 +240,8 @@ DragForeground="{ThemeResource ListViewItemDragForegroundThemeBrush}"
                     </GridView.ItemsPanel>
                 </GridView>
                 <StackPanel  x:Name="linkButtons"  ToolTipService.ToolTip="Add Comment" Style="{StaticResource LabelButtons}"  Orientation="Horizontal" >
-                    <HyperlinkButton  Style="{StaticResource LabelButton}" x:Name="linkComment"  Visibility="{Binding Converter={StaticResource HideWhenIsNotEditingConverter}, Mode=OneWay}"  Command="{StaticResource AddTextCommentCommand}" >
-                        <!--Visibility="{Binding Converter={StaticResource HideWhenIsNotEditingConverter}, Mode=OneWay}"-->
+                    <HyperlinkButton  Style="{StaticResource LabelButton}" x:Name="linkComment"  Visibility="{Binding Converter={StaticResource HideWhenIsNotEditingConverter}, RelativeSource={RelativeSource Mode=Self}, Mode=OneWay}"  Command="{StaticResource AddTextCommentCommand}" >
+                        <!--Visibility="{Binding Converter={StaticResource HideWhenIsNotEditingConverter}, RelativeSource={RelativeSource Mode=Self}, Mode=OneWay}"-->
                         <StackPanel  Orientation="Horizontal" Margin="0,0,12,0">
                             <FontIcon FontFamily="Segoe UI Symbol" Glyph="&#xE200;" HorizontalAlignment="Center" VerticalAlignment="Center" />
 
@@ -256,7 +256,7 @@ DragForeground="{ThemeResource ListViewItemDragForegroundThemeBrush}"
         				<Run Text="Html Content:"/>
                 </TextBlock>
                 <CheckBox IsChecked="{Binding IsSelected, Mode=TwoWay}" 
-                    Visibility="{Binding Converter={StaticResource HideWhenIsNotEditingConverter}, Mode=OneWay}" 
+                    Visibility="{Binding Converter={StaticResource HideWhenIsNotEditingConverter}, RelativeSource={RelativeSource Mode=Self}, Mode=OneWay}" 
                     RelativePanel.AlignLeftWithPanel="True"  RelativePanel.AlignTopWithPanel="True"/>
 
                 <StackPanel  x:Name="linkButtons"   Style="{StaticResource LabelButtons}"  Orientation="Horizontal" >
@@ -295,7 +295,7 @@ DragForeground="{ThemeResource ListViewItemDragForegroundThemeBrush}"
         				<Run Text="Text Content:"/>
                     </TextBlock>
                     <CheckBox IsChecked="{Binding IsSelected, Mode=TwoWay}" 
-                    Visibility="{Binding Converter={StaticResource HideWhenIsNotEditingConverter}, Mode=OneWay}" 
+                    Visibility="{Binding Converter={StaticResource HideWhenIsNotEditingConverter}, RelativeSource={RelativeSource Mode=Self}, Mode=OneWay}" 
                     RelativePanel.AlignLeftWithPanel="True"  RelativePanel.AlignTopWithPanel="True"/>
 
                     <StackPanel  x:Name="linkButtons"   Style="{StaticResource LabelButtons}"  Orientation="Horizontal" >
@@ -363,7 +363,7 @@ DragForeground="{ThemeResource ListViewItemDragForegroundThemeBrush}"
                             </StackPanel>
                         </HyperlinkButton>
                         <HyperlinkButton  
-                         Visibility="{Binding Converter={StaticResource HideWhenIsNotEditingConverter}, Mode=OneWay}"                                      
+                         Visibility="{Binding Converter={StaticResource HideWhenIsNotEditingConverter}, RelativeSource={RelativeSource Mode=Self}, Mode=OneWay}"                                      
                             IsEnabled="{Binding Text,Converter={StaticResource IsWellFormedUriStringConveter}}"  
                             Command="{Binding CommandConvertToWebUri}"
                              
@@ -397,7 +397,7 @@ DragForeground="{ThemeResource ListViewItemDragForegroundThemeBrush}"
         				<Run Text="WebLink:"/>
                     </TextBlock>
                     <CheckBox IsChecked="{Binding IsSelected, Mode=TwoWay}" 
-                    Visibility="{Binding Converter={StaticResource HideWhenIsNotEditingConverter}, Mode=OneWay}" 
+                    Visibility="{Binding Converter={StaticResource HideWhenIsNotEditingConverter}, RelativeSource={RelativeSource Mode=Self}, Mode=OneWay}" 
                     RelativePanel.AlignLeftWithPanel="True"  RelativePanel.AlignTopWithPanel="True"/>
                     <StackPanel  x:Name="linkButtons"   Style="{StaticResource LabelButtons}"  Orientation="Horizontal" >
 

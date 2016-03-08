@@ -656,6 +656,7 @@ namespace GreaterShare.ViewModels
 
 		private static void PushClipboardToCurrent(MainPage_Model vm)
 		{
+			vm.FocusingViewIndex = 0;
 			if (vm.ReceivedShareItem == null)
 			{
 				vm.ReceivedShareItem = vm.ClipboardImportingItem;
@@ -700,7 +701,7 @@ namespace GreaterShare.ViewModels
 
 			}
 
-			vm.FocusingViewIndex = 0;
+
 			vm.ClipboardImportingItem = null;
 		}
 
