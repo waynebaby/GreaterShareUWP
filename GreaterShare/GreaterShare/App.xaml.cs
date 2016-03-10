@@ -59,6 +59,8 @@ namespace GreaterShare
 			MVVMSidekick.Startups.StartupFunctions.RunAllConfig();
 			ServiceLocator.Instance.Register<IShareService, DefaultShareService>();
 			ServiceLocator.Instance.Register<ISubStorageService, DefaultSubStorageService>();
+			ServiceLocator.Instance.Register<IImageConvertService, ConvertImageToPNGService>();
+
 			RuntimeHelpers.RunClassConstructor(typeof (TextShareItem).TypeHandle);
 			RuntimeHelpers.RunClassConstructor(typeof(WebLinkShareItem).TypeHandle);
 

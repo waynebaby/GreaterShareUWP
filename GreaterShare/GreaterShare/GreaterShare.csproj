@@ -107,6 +107,9 @@
     <Compile Include="Background.xaml.cs">
       <DependentUpon>Background.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ImageEditor.xaml.cs">
+      <DependentUpon>ImageEditor.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Glue\AddTextCommentsCommand.cs" />
     <Compile Include="Glue\NotValueConverter.cs" />
     <Compile Include="Glue\CopyShareItemToClipboardCommand.cs" />
@@ -137,6 +140,8 @@
     <Compile Include="Models\Sharing\ShareItemBase.cs" />
     <Compile Include="Services\DefaultSubStorageService.cs" />
     <Compile Include="Services\DefaultShareService.cs" />
+    <Compile Include="Services\IImageConvertService.cs" />
+    <Compile Include="Services\ConvertImageToPNGService.cs" />
     <Compile Include="Services\ISubStorageService.cs" />
     <Compile Include="Services\IShareService.cs" />
     <Compile Include="Services\ShareItemTransformer\IShareItemTransformer.cs" />
@@ -222,6 +227,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\ImageEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -231,7 +240,9 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Themes\" />
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

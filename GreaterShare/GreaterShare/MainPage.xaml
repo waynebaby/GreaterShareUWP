@@ -465,6 +465,9 @@
             </PivotItem>
 
         </Pivot>
+        <ContentDialog HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Visibility="Visible" >
+            <local:Background/>
+        </ContentDialog>
         <local:Background Canvas.ZIndex="-2" Margin="0" RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignTopWithPanel="True"/>
         <AppBar x:Name="AppBar"  VerticalAlignment="Bottom" IsDoubleTapEnabled="False" IsTabStop="True" IsSticky="True" ClosedDisplayMode="Minimal" UseSystemFocusVisuals="True" IsOpen="True"  Margin="0" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignBottomWithPanel="True"  >
             <Interactivity:Interaction.Behaviors>

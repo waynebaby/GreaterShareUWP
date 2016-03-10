@@ -15,6 +15,7 @@ using Windows.Storage;
 using System.Collections.ObjectModel;
 using MVVMSidekick.Reactive;
 using MVVMSidekick.ViewModels;
+using MVVMSidekick.Services;
 
 namespace GreaterShare.Services
 {
@@ -76,7 +77,7 @@ namespace GreaterShare.Services
 					{
 						WebLink = await packageView.GetWebLinkAsync()
 					};
-				
+
 					rval.AvialableShareItems.Add(link);
 				}
 				catch (Exception ex)
@@ -214,9 +215,22 @@ namespace GreaterShare.Services
 					var fi = await packageView.GetBitmapAsync();
 					using (var imgFileStream = await fi.OpenReadAsync())
 					{
+						var saveTargetStream = new InMemoryRandomAccessStream();
+
+						var bitmapSourceStream = imgFileStream;
+
+						await ServiceLocator
+								 .Instance
+								 .Resolve<IImageConvertService>()
+								 .ConverterBitmapToTargetStreamAsync(bitmapSourceStream, saveTargetStream);
+
+						saveTargetStream.Seek(0);
+						var sr = saveTargetStream.GetInputStreamAt(0);
+						var source = sr.AsStreamForRead();
+
 						var ms = new MemoryStream();
-						await imgFileStream.AsStream().CopyToAsync(ms);
-						ms.Position = 0;
+						await source.CopyToAsync(ms);
+
 						var sharedBitmapStreamRef = new DelayRenderedImageShareItem
 						{
 							SelectedImage = new Models.MemoryStreamBase64Item(ms.ToArray())

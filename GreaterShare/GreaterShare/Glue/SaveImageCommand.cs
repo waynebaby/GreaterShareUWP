@@ -1,6 +1,7 @@
 ﻿using GreaterShare.Models;
-using Microsoft.Practices.ServiceLocation;
+using GreaterShare.Services;
 using MVVMSidekick.Reactive;
+using MVVMSidekick.Services;
 using MVVMSidekick.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -40,54 +41,15 @@ namespace GreaterShare.Glue
 						   var fpicked = await fp.PickSaveFileAsync();
 						   if (fpicked != null)
 						   {
-							   using (var starget = await fpicked.OpenAsync(FileAccessMode.ReadWrite))
+							   using (var saveTargetStream = await fpicked.OpenAsync(FileAccessMode.ReadWrite))
 							   {
-								   var ssouce = await e.GetRandowmAccessStreamAsync();
-								   //var bi = new BitmapImage();
-								   //bi.SetSource(ssouce);
+								   var bitmapSourceStream = await e.GetRandowmAccessStreamAsync();
 
-								   BitmapDecoder decoder = await BitmapDecoder.CreateAsync(ssouce);
+								   await ServiceLocator
+											.Instance
+											.Resolve<IImageConvertService>()
+											.ConverterBitmapToTargetStreamAsync(bitmapSourceStream, saveTargetStream);
 
-								   // Scale image to appropriate size
-								   BitmapTransform transform = new BitmapTransform()
-								   {
-									   //ScaledWidth = Convert.ToUInt32(bi.PixelWidth),
-									   //ScaledHeight = Convert.ToUInt32(bi.PixelHeight) 
-								   };
-											
-								   PixelDataProvider pixelData = await decoder.GetPixelDataAsync(
-									   BitmapPixelFormat.Bgra8,    // WriteableBitmap uses BGRA format
-									   BitmapAlphaMode.Straight,
-									   transform,
-									   ExifOrientationMode.RespectExifOrientation, // This sample ignores Exif orientation
-									   ColorManagementMode.DoNotColorManage);
-
-									
-								   //var image = new WriteableBitmap(pixelData., bi.PixelHeight);
-
-								   //image.SetSource(ssouce);
-
-								   var BitmapEncoderGuid = BitmapEncoder.PngEncoderId;
-								   BitmapEncoder encoder = await BitmapEncoder.CreateAsync(BitmapEncoderGuid, starget);
-								   //var buf = image.PixelBuffer;
-								   //Stream pixelStream = buf.AsStream();
-								   //pixelStream.Position = 0;
-								   //byte[] pixels = new byte[buf.Length];
-								   //buf.
-								   //var dr = DataReader.FromBuffer(buf);
-								  
-								   //dr.ReadBytes(pixels);
-								   //buf.CopyTo(0, pixels, 0, pixels.Length);
-								   encoder.SetPixelData(BitmapPixelFormat.Bgra8, BitmapAlphaMode.Ignore,
-											 (uint)decoder.PixelWidth,
-											 (uint)decoder.PixelHeight,
-											 96.0,
-											 96.0,
-											 pixelData.DetachPixelData ());
-								   await encoder.FlushAsync();
-
-
-								   //await ssouce.AsStreamForRead().CopyToAsync(starget.AsStreamForWrite());
 							   }
 							   var msb = new MessageDialog("What's next?", "File Saved.");
 							   var commandOpenFile = new UICommand(
