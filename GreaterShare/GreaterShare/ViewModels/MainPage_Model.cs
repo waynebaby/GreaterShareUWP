@@ -767,6 +767,47 @@ namespace GreaterShare.ViewModels
 
 
 
+
+		public CommandModel<ReactiveCommand, String> CommandShowImageEditor
+		{
+			get { return _CommandShowImageEditorLocator(this).Value; }
+			set { _CommandShowImageEditorLocator(this).SetValueAndTryNotify(value); }
+		}
+		#region Property CommandModel<ReactiveCommand, String> CommandShowImageEditor Setup        
+
+		protected Property<CommandModel<ReactiveCommand, String>> _CommandShowImageEditor = new Property<CommandModel<ReactiveCommand, String>> { LocatorFunc = _CommandShowImageEditorLocator };
+		static Func<BindableBase, ValueContainer<CommandModel<ReactiveCommand, String>>> _CommandShowImageEditorLocator = RegisterContainerLocator<CommandModel<ReactiveCommand, String>>(nameof(CommandShowImageEditor), model => model.Initialize(nameof(CommandShowImageEditor), ref model._CommandShowImageEditor, ref _CommandShowImageEditorLocator, _CommandShowImageEditorDefaultValueFactory));
+		static Func<BindableBase, CommandModel<ReactiveCommand, String>> _CommandShowImageEditorDefaultValueFactory =
+			model =>
+			{
+				var resource = nameof(CommandShowImageEditor);           // Command resource  
+				var commandId = nameof(CommandShowImageEditor);
+				var vm = CastToCurrentType(model);
+				var cmd = new ReactiveCommand(canExecute: true) { ViewModel = model }; //New Command Core
+
+				cmd.DoExecuteUIBusyTask(
+						vm,
+						async e =>
+						{
+							await vm.StageManager["ImageEditor"].Show<ImageEditor_Model>();
+							//Todo: Add ShowImageEditor logic here, or
+							await MVVMSidekick.Utilities.TaskExHelper.Yield();
+						})
+					.DoNotifyDefaultEventRouter(vm, commandId)
+					.Subscribe()
+					.DisposeWith(vm);
+
+				var cmdmdl = cmd.CreateCommandModel(resource);
+
+				cmdmdl.ListenToIsUIBusy(
+					model: vm,
+					canExecuteWhenBusy: false);
+				return cmdmdl;
+			};
+
+		#endregion
+
+
 	}
 
 }

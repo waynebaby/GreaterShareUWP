@@ -28,18 +28,6 @@ namespace GreaterShare.Services
 				ColorManagementMode.DoNotColorManage);
 
 			var BitmapEncoderGuid = BitmapEncoder.PngEncoderId;
-			//if (decoder.DecoderInformation.CodecId == BitmapDecoder.PngDecoderId)
-			//{
-			//	await bitmapSourceStream
-			//		.GetInputStreamAt(0)
-			//		.AsStreamForRead()
-			//		.CopyToAsync(
-			//			saveTargetStream.
-			//				GetOutputStreamAt(saveTargetStream.Position)
-			//				.AsStreamForWrite());
-
-			//	return;
-			//}
 
 			BitmapEncoder encoder = await BitmapEncoder.CreateAsync(BitmapEncoderGuid, saveTargetStream);
 

@@ -107,9 +107,6 @@
     <Compile Include="Background.xaml.cs">
       <DependentUpon>Background.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\ImageEditor.xaml.cs">
-      <DependentUpon>ImageEditor.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Glue\AddTextCommentsCommand.cs" />
     <Compile Include="Glue\NotValueConverter.cs" />
     <Compile Include="Glue\CopyShareItemToClipboardCommand.cs" />
@@ -128,6 +125,9 @@
     <Compile Include="Glue\StreamImageSourceConverter.cs" />
     <Compile Include="Glue\UriStringConverter.cs" />
     <Compile Include="Glue\StateTriggerActiveReadingBehavior.cs" />
+    <Compile Include="ImageEditor.xaml.cs">
+      <DependentUpon>ImageEditor.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Models\MemoryStreamBase64Item.cs" />
     <Compile Include="Models\Sharing\IShareItem.cs" />
     <Compile Include="Models\Sharing\ShareItems\HtmlShareItem.cs" />
@@ -148,8 +148,10 @@
     <Compile Include="SharePanelPage.xaml.cs">
       <DependentUpon>SharePanelPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Startups\ImageEditor.cs" />
     <Compile Include="Startups\SharePanelPage.cs" />
     <Compile Include="ViewModels\EventMessage.cs" />
+    <Compile Include="ViewModels\ImageEditor_Model.cs" />
     <Compile Include="ViewModels\MainPage_Model.cs" />
     <Compile Include="Startups\StartupFunctions.cs" />
     <Compile Include="App.xaml.cs">
@@ -227,7 +229,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\ImageEditor.xaml">
+    <Page Include="ImageEditor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -241,7 +243,14 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Controls\" />
     <Folder Include="Themes\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\MVVM-Sidekick\MVVMSidekick\MVVMSidekick_UAP10\MVVMSidekick_UAP10.csproj">
+      <Project>{e3f7bd12-e681-4552-8f3b-473f325b1a2b}</Project>
+      <Name>MVVMSidekick_UAP10</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
