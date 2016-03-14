@@ -198,6 +198,24 @@ namespace GreaterShare.ViewModels
 				}
 			).DisposeWhenUnload(this);
 
+
+			EventRouter.Instance.GetEventChannel<Tuple<EventMessage, Object>>()
+			.Where(x =>
+					x.EventData.Item1 == EventMessage.ImageInkComment && x.EventData.Item2 != null)
+			.Where(x =>
+				ReceivedShareItem != null)
+			.Where(x =>
+				ReceivedShareItem.AvialableShareItems != null)
+			.ObserveOnDispatcher()
+			.Subscribe(
+				async e =>
+				{
+					var vm = new ImageEditor_Model { CurrentImage = e.EventData.Item2 as Models.MemoryStreamBase64Item };
+					await StageManager.DefaultStage.Show(vm);	 
+				})
+			.DisposeWhenUnload(this);
+
+
 			return base.OnBindedViewLoad(view);
 		}
 
@@ -581,12 +599,12 @@ namespace GreaterShare.ViewModels
 							var item = await svc.GetFromClipboardAsync();
 							vm.ClipboardImportingItem = item;
 							item.Title = "Pasted to Greater Share at " + DateTime.Now.ToString();
-						
-								vm.FocusingViewIndex = 1;
+
+							vm.FocusingViewIndex = 1;
 
 							if (e.EventArgs?.Parameter?.ToString() == nameof(PushClipboardToCurrent))
 							{
-						   
+
 								await Task.Delay(800);
 								PushClipboardToCurrent(vm);
 							}

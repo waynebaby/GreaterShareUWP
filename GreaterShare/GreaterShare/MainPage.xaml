@@ -377,14 +377,12 @@
                         </ScrollViewer>
                         <Grid BorderBrush="{ThemeResource TextBoxBorderThemeBrush}"  BorderThickness="{StaticResource ThinBoderThickness}" x:Name="flipView" RelativePanel.RightOf="propertiesPanel"  RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignTopWithPanel="True" Height="{Binding Width, RelativeSource={RelativeSource Mode=Self}}"   Margin="8" Grid.RowSpan="2" Grid.Column="1"  >
 
-                            <FlipView   xmlns:glue="using:GreaterShare.Glue" x:Name="flipView1" 
+                            <FlipView xmlns:glue="using:GreaterShare.Glue" x:Name="flipView1" 
 								ItemsSource="{Binding ReceivedShareItem.AvialableShareItems}" 
 								SelectedItem="{Binding CurrentViewingItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  d:LayoutOverrides="LeftPosition, RightPosition, TopPosition, BottomPosition"   >
-
-
-                                <FlipView.ItemTemplateSelector>
+                                <ItemsControl.ItemTemplateSelector>
                                     <glue:ShareItemDataTemplateSelector  PrefixOfTemplateKey="DataTemplateOf"/>
-                                </FlipView.ItemTemplateSelector>
+                                </ItemsControl.ItemTemplateSelector>
                             </FlipView>
                             <ListView  Background="#20202020"
                          
@@ -461,11 +459,7 @@
             </PivotItem>
 
         </Pivot>
-        <ContentDialog 
-         IsPrimaryButtonEnabled="True" mvvm:StageManager.Beacon="ImageEditor" VerticalAlignment="Stretch" Visibility="Visible" >
-
-        </ContentDialog>
-        <Button Command="{Binding CommandShowImageEditor}">asdasdasd</Button>
+      
         <local:Background Canvas.ZIndex="-2" Margin="0" RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignTopWithPanel="True"/>
         <AppBar x:Name="AppBar"  VerticalAlignment="Bottom" IsDoubleTapEnabled="False" IsTabStop="True" IsSticky="True" ClosedDisplayMode="Minimal" UseSystemFocusVisuals="True" IsOpen="True"  Margin="0" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignBottomWithPanel="True"  >
             <Interactivity:Interaction.Behaviors>

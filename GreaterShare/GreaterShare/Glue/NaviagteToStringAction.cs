@@ -30,8 +30,7 @@ namespace GreaterShare.Glue
 		public object Execute(object sender, object parameter)
 		{
 			if (sender != null)
-			{
-
+			{	 
 				(sender as WebView)?.NavigateToString(NaviagteHtmlString ?? "<html/>");
 			}
 			return parameter;

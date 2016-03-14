@@ -1,5 +1,5 @@
 ﻿<mvvm:MVVMPage 
-    x:Name="pageRoot"
+    x:Name="pageRoot"     
     x:Class="GreaterShare.ImageEditor"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -8,6 +8,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="using:GreaterShare.ViewModels"
+       xmlns:Glue="using:GreaterShare.Glue"  xmlns:Interactivity="using:Microsoft.Xaml.Interactivity" xmlns:Core="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:Behaviors="using:MVVMSidekick.Behaviors"
     mc:Ignorable="d">
 
     <Page.Resources>
@@ -15,16 +17,98 @@
         <x:String x:Key="AppName">My Application</x:String>
         <vm:ImageEditor_Model x:Key="DesignVM"/>
     </Page.Resources>
-    
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"  DataContext="{StaticResource DesignVM}">
+
+    <Grid Background="#444444"  DataContext="{StaticResource DesignVM}">
         <Grid.ChildrenTransitions>
             <TransitionCollection>
                 <EntranceThemeTransition/>
             </TransitionCollection>
         </Grid.ChildrenTransitions>
-        <Button Command="{Binding CommandSomeCommand}"></Button>
-            <TextBlock x:Name="pageTitle" Text="{Binding Title}" Style="{StaticResource HeaderTextBlockStyle}" Grid.Column="1" 
-                        IsHitTestVisible="false" TextWrapping="NoWrap" VerticalAlignment="Bottom" Margin="0,0,30,40"/>
-  
+        <ScrollViewer ZoomMode="Enabled" Margin="0,0,0,50"
+        HorizontalScrollBarVisibility="Auto"
+        HorizontalScrollMode="Auto"          
+        VerticalScrollBarVisibility="Auto"
+        VerticalScrollMode="Auto">
+            <Grid>
+                <Image  HorizontalAlignment="Center" VerticalAlignment="Center"   Source="{Binding CurrentImage ,Converter={StaticResource StreamImageSourceConverter}}"/>
+                <InkCanvas>
+                    <Interactivity:Interaction.Behaviors>
+                        <Glue:InkCanvasControllerBehavior x:Name="InkCanvasController" 
+                        Color="{Binding ElementName=CurrentColor , Path=SelectedItem}"
+                        StrokeSize="{Binding Value, ElementName=CurrentSize}"
+                        >
+                        </Glue:InkCanvasControllerBehavior>
+                    </Interactivity:Interaction.Behaviors>
+                </InkCanvas>
+            </Grid>
+        </ScrollViewer>
+
+        <CommandBar BorderBrush="Black" IsOpen="False"  IsSticky="False" BorderThickness=".2" VerticalAlignment="Bottom" Background="#70ffffff" ClosedDisplayMode="Compact">
+            <AppBarButton>
+                <AppBarButton.Flyout>
+                    <Flyout>
+                        <StackPanel MinWidth="100">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock>Brush:</TextBlock>
+                                <Ellipse Width="{Binding  ElementName=CurrentSize ,Path=Value}" Height="{Binding  ElementName=CurrentSize ,Path=Value}">
+                                    <Ellipse.Fill>
+                                        <SolidColorBrush Color="{Binding ElementName=CurrentColor,Path=SelectedItem}"    />
+                                    </Ellipse.Fill>
+                                </Ellipse>
+                            </StackPanel>
+                            <ComboBox SelectedItem="Black" x:Name="CurrentColor"  MinWidth="100" SelectedIndex="0">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel  Orientation="Horizontal" >
+                                            <Border BorderThickness="1" BorderBrush="Black">
+                                                <Rectangle Width="80" Height="20" >
+                                                    <Rectangle.Fill>
+                                                        <SolidColorBrush Color="{Binding}" />
+                                                    </Rectangle.Fill>
+                                                </Rectangle>
+                                            </Border>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                                <Color>Yellow</Color>
+                                <Color>Red</Color>
+                                <Color>Green</Color>
+                                <Color>Blue</Color>
+                                <Color>Black</Color>
+                            </ComboBox>  
+                            <Slider x:Name="CurrentSize" Minimum="1" Maximum="50"  Value="20" />
+
+
+                        </StackPanel>
+
+                    </Flyout>
+                </AppBarButton.Flyout>
+                <StackPanel Orientation="Horizontal" >
+                    <Border Margin="0,0,8,0" BorderThickness="2" BorderBrush="White" >
+                        <FontIcon  FontFamily="Segoe MDL2 Assets" Glyph="&#xE002;" >
+                            <FontIcon.Foreground>
+                                <SolidColorBrush Color="{Binding ElementName=CurrentColor,Path=SelectedItem, Mode=TwoWay}"/>
+                            </FontIcon.Foreground>
+                        </FontIcon>
+                    </Border>
+                    <TextBlock><Run Text="{Binding CurrentBrushSize, TargetNullValue='0'}"/>px</TextBlock>
+                </StackPanel>
+
+            </AppBarButton>
+
+            <!--<StackPanel HorizontalAlignment="Left" Orientation="Horizontal">-->
+            <AppBarToggleButton  IsChecked="{Binding ElementName=InkCanvasController, Path=IsInputEnabled, Mode=TwoWay}">
+                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE70F;" />
+            </AppBarToggleButton>
+
+            <AppBarToggleButton  IsChecked="{Binding ElementName=InkCanvasController, Path=DrawAsHighlighter, Mode=TwoWay}">
+                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE7E6;" />
+            </AppBarToggleButton>
+
+
+
+            <!--<Slider></Slider>-->
+            <!--</StackPanel>-->
+        </CommandBar>
     </Grid>
 </mvvm:MVVMPage>

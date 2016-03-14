@@ -3,11 +3,11 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:GreaterShare"
     xmlns:sharemodel="using:GreaterShare.Models.Sharing.ShareItems"
-    xmlns:Glue="using:GreaterShare.Glue"
+
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"  
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:sharing="using:GreaterShare.Models.Sharing"
-    xmlns:Interactivity="using:Microsoft.Xaml.Interactivity" xmlns:Core="using:Microsoft.Xaml.Interactions.Core"
+      xmlns:Glue="using:GreaterShare.Glue"  xmlns:Interactivity="using:Microsoft.Xaml.Interactivity" xmlns:Core="using:Microsoft.Xaml.Interactions.Core"
     xmlns:Behaviors="using:MVVMSidekick.Behaviors"
     x:Class="GreaterShare.App"
     mc:Ignorable="d"
@@ -28,6 +28,7 @@
         <Glue:AddTextCommentsCommand x:Key="AddTextCommentCommand"/>
         <Glue:UriStringConverter x:Key="UriStringConverter"/>
         <Glue:HideWhenIsNotEditingConverter x:Key="HideWhenIsNotEditingConverter"/>
+
         <Style  TargetType="TextBlock" x:Key="ContentViewerLabel"  >
             <Setter Property="Margin" Value="32,4,0,0" />
             <Setter Property="FontSize"  Value="18" />
@@ -51,27 +52,29 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="ListViewItem">
                         <ListViewItemPresenter 
-CheckBrush="{ThemeResource SystemControlForegroundBaseMediumHighBrush}"
-ContentMargin="{TemplateBinding Padding}"
-CheckMode="Inline" 
-ContentTransitions="{TemplateBinding ContentTransitions}" 
-CheckBoxBrush="{ThemeResource SystemControlForegroundBaseMediumHighBrush}"
-DragForeground="{ThemeResource ListViewItemDragForegroundThemeBrush}"
- DragOpacity="{ThemeResource ListViewItemDragThemeOpacity}"
-  DragBackground="{ThemeResource ListViewItemDragBackgroundThemeBrush}"
-   DisabledOpacity="{ThemeResource ListViewItemDisabledThemeOpacity}"
-    FocusBorderBrush="{ThemeResource SystemControlForegroundAltHighBrush}"
-     FocusSecondaryBorderBrush="{ThemeResource SystemControlForegroundBaseHighBrush}"
-      HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" 
-      PointerOverForeground="{ThemeResource SystemControlHighlightAltBaseHighBrush}"
-       PressedBackground="{ThemeResource SystemControlHighlightListMediumBrush}"
-        PlaceholderBackground="{ThemeResource ListViewItemPlaceholderBackgroundThemeBrush}"
-         PointerOverBackground="{ThemeResource SystemControlHighlightListLowBrush}"
-          ReorderHintOffset="{ThemeResource ListViewItemReorderHintThemeOffset}" 
-          SelectedPressedBackground="{ThemeResource SystemControlHighlightListAccentHighBrush}"
-           SelectionCheckMarkVisualEnabled="True" 
-           SelectedForeground="{ThemeResource SystemControlHighlightAltBaseHighBrush}"
-            SelectedPointerOverBackground="{ThemeResource SystemControlHighlightListAccentMediumBrush}" SelectedBackground="{ThemeResource SystemControlHighlightListAccentLowBrush}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                            CheckBrush="{ThemeResource SystemControlForegroundBaseMediumHighBrush}"
+                            ContentMargin="{TemplateBinding Padding}"
+                            CheckMode="Inline" 
+                            ContentTransitions="{TemplateBinding ContentTransitions}" 
+                            CheckBoxBrush="{ThemeResource SystemControlForegroundBaseMediumHighBrush}"
+                            DragForeground="{ThemeResource ListViewItemDragForegroundThemeBrush}"
+                            DragOpacity="{ThemeResource ListViewItemDragThemeOpacity}"
+                            DragBackground="{ThemeResource ListViewItemDragBackgroundThemeBrush}"
+                            DisabledOpacity="{ThemeResource ListViewItemDisabledThemeOpacity}"
+                            FocusBorderBrush="{ThemeResource SystemControlForegroundAltHighBrush}"
+                            FocusSecondaryBorderBrush="{ThemeResource SystemControlForegroundBaseHighBrush}"
+                            HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                            PointerOverForeground="{ThemeResource SystemControlHighlightAltBaseHighBrush}"
+                            PressedBackground="{ThemeResource SystemControlHighlightListMediumBrush}"
+                            PlaceholderBackground="{ThemeResource ListViewItemPlaceholderBackgroundThemeBrush}"
+                            PointerOverBackground="{ThemeResource SystemControlHighlightListLowBrush}"
+                            ReorderHintOffset="{ThemeResource ListViewItemReorderHintThemeOffset}" 
+                            SelectedPressedBackground="{ThemeResource SystemControlHighlightListAccentHighBrush}"
+                            SelectionCheckMarkVisualEnabled="True" 
+                            SelectedForeground="{ThemeResource SystemControlHighlightAltBaseHighBrush}"
+                            SelectedPointerOverBackground="{ThemeResource SystemControlHighlightListAccentMediumBrush}" 
+                            SelectedBackground="{ThemeResource SystemControlHighlightListAccentLowBrush}" 
+                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
@@ -118,7 +121,6 @@ DragForeground="{ThemeResource ListViewItemDragForegroundThemeBrush}"
                             </StackPanel>
                         </HyperlinkButton>
                         <HyperlinkButton  ToolTipService.ToolTip="Visit" Style="{StaticResource LabelButton}" x:Name="linkVisit"  NavigateUri="{Binding ApplicationLink}"  >
-                            <!--Visibility="{Binding Converter={StaticResource HideWhenIsNotEditingConverter}, RelativeSource={RelativeSource Mode=Self}, Mode=OneWay}"-->
                             <StackPanel  Orientation="Horizontal" Margin="0,0,12,0">
                                 <FontIcon FontFamily="Segoe UI Symbol" Glyph="&#xE128;" HorizontalAlignment="Center" VerticalAlignment="Center" />
                             </StackPanel>
@@ -156,8 +158,8 @@ DragForeground="{ThemeResource ListViewItemDragForegroundThemeBrush}"
                     RelativePanel.AlignLeftWithPanel="True"  RelativePanel.AlignTopWithPanel="True"/>
 
                 <Image  
-                            
-                	     RelativePanel.Below="label"             
+                        x:Name="SharingImage"       
+                	    RelativePanel.Below="label"             
                         RelativePanel.Above="linkButtons"                            
                         RelativePanel.AlignRightWithPanel="True" 
                         RelativePanel.AlignLeftWithPanel="True"  
@@ -165,7 +167,27 @@ DragForeground="{ThemeResource ListViewItemDragForegroundThemeBrush}"
                         ScrollViewer.VerticalScrollMode="Auto"
                         ScrollViewer.HorizontalScrollBarVisibility="Auto"
                         ScrollViewer.VerticalScrollBarVisibility="Auto"                       
-                    Source="{Binding SelectedImage, Converter={StaticResource StreamImageSourceConverter}}"     />
+                        Source="{Binding SelectedImage, Converter={StaticResource StreamImageSourceConverter}}" >
+                    <!--<FlyoutBase.AttachedFlyout>
+                        <MenuFlyout>
+                            <MenuFlyoutItem CommandParameter="{Binding SelectedImage}" Text="Inking Comment">
+                                <MenuFlyoutItem.Command>
+                                    <Glue:RaiseEventMassageCommand EventMessage="ImageInkComment">
+                                    </Glue:RaiseEventMassageCommand>
+                                </MenuFlyoutItem.Command>
+                            </MenuFlyoutItem>
+                        </MenuFlyout>                    
+                    </FlyoutBase.AttachedFlyout>
+                    <Interactivity:Interaction.Behaviors>
+                        <Core:EventTriggerBehavior EventName="RightTapped">
+                            <Core:InvokeCommandAction  CommandParameter="{Binding ElementName=SharingImage}">
+                                <Core:InvokeCommandAction.Command>
+                                    <Glue:ShowFlyoutCommand></Glue:ShowFlyoutCommand>
+                                </Core:InvokeCommandAction.Command>
+                            </Core:InvokeCommandAction>
+                        </Core:EventTriggerBehavior>
+                    </Interactivity:Interaction.Behaviors>-->
+                </Image>
 
 
 
@@ -173,7 +195,7 @@ DragForeground="{ThemeResource ListViewItemDragForegroundThemeBrush}"
                     <HyperlinkButton ToolTipService.ToolTip="Add Comment"  Style="{StaticResource LabelButton}" x:Name="linkComment"  Visibility="{Binding Converter={StaticResource HideWhenIsNotEditingConverter}, RelativeSource={RelativeSource Mode=Self}, Mode=OneWay}"  Command="{StaticResource AddTextCommentCommand}"  >
                         <!--Visibility="{Binding Converter={StaticResource HideWhenIsNotEditingConverter}, RelativeSource={RelativeSource Mode=Self}, Mode=OneWay}"-->
                         <StackPanel  Orientation="Horizontal" Margin="0,0,12,0">
-                            <FontIcon FontFamily="Segoe UI Symbol" Glyph="&#xE200;" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            <FontIcon FontFamily="Segoe UI Symbol" Glyph="&#xE13E;" HorizontalAlignment="Center" VerticalAlignment="Center" />
 
                         </StackPanel>
                     </HyperlinkButton>
@@ -185,6 +207,12 @@ DragForeground="{ThemeResource ListViewItemDragForegroundThemeBrush}"
                             <FontIcon FontFamily="Segoe UI Symbol" Glyph="&#xE105;" HorizontalAlignment="Center" VerticalAlignment="Center" />
 
                         </StackPanel>
+                    </HyperlinkButton>
+                    <HyperlinkButton  CommandParameter="{Binding SelectedImage}">
+                        <HyperlinkButton.Command >
+                            <Glue:RaiseEventMassageCommand EventMessage="ImageInkComment" />
+                        </HyperlinkButton.Command>        
+                        Edit image
                     </HyperlinkButton>
                 </StackPanel>
             </RelativePanel>

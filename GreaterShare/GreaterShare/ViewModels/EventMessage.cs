@@ -10,6 +10,7 @@ namespace GreaterShare.ViewModels
 	{
 		AddTextComment,
 		ConvertToText,
-		ConvertToWebUri
+		ConvertToWebUri,
+		ImageInkComment
 	}
 }
