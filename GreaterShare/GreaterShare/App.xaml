@@ -11,9 +11,12 @@
     xmlns:Behaviors="using:MVVMSidekick.Behaviors"
     x:Class="GreaterShare.App"
     mc:Ignorable="d"
-
+          xmlns:vm="using:GreaterShare.ViewModels"
     RequestedTheme="Light">
     <Application.Resources>
+        <!--<vm:MainPage_Model x:Key="DesignVMMainPage_Model"/>-->
+
+        <!--<vm:MainPage_Model x:Key="DesignVM"/>-->
         <Glue:DebuggingEmptyConverter x:Key="DebuggingEmptyConverter"/>
         <Glue:IsNotNullConverter x:Key="IsNotNullConverter"/>
         <Glue:IsWellFormedUriStringConveter x:Key="IsWellFormedUriStringConveter"/>

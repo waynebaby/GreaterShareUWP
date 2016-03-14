@@ -27,10 +27,12 @@ namespace GreaterShare
 		public MainPage()
 		{
 			this.InitializeComponent();
+
+			this.ViewModel = ViewModelLocator<MainPage_Model>.Instance.Resolve();
 			this.RegisterPropertyChangedCallback(ViewModelProperty, (_, __) =>
 			{
 				StrongTypeViewModel = this.ViewModel as MainPage_Model;
-			});
+			});				  
 			StrongTypeViewModel = this.ViewModel as MainPage_Model;
 		}
 

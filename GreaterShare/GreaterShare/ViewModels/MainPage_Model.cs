@@ -49,27 +49,15 @@ namespace GreaterShare.ViewModels
 			}
 			else
 			{
-				ReceivedShareItem = new ReceivedShareItem();
-			}
-		}
-
-
-
-		protected override Task OnBindedViewLoad(IView view)
-		{
-			//New file activation;
-			App.CurrentFile
+				//ReceivedShareItem = new ReceivedShareItem();
+				App.CurrentFile
 				   .AsObservable()
 				   .ObserveOn(this.Dispatcher)
 				   .DoExecuteUIBusyTask(
 						this,
 					 async f =>
 					 {
-						 if (f == null)
-						 {
-							 ReceivedShareItem = null;
-						 }
-						 else
+						 if (f != null)
 						 {
 							 var loadService = ServiceLocator.Instance.Resolve<Services.ISubStorageService>();
 							 var file = f as StorageFile;
@@ -78,7 +66,16 @@ namespace GreaterShare.ViewModels
 						 }
 					 })
 				   .Subscribe()
-				   .DisposeWhenUnload(this);
+				   .DisposeWith(this);
+			}
+		}
+
+
+
+		protected override Task OnBindedViewLoad(IView view)
+		{
+			//New file activation;
+
 
 			//View switching:  suggests Different command
 			var obv = this.ListenChanged(
@@ -211,7 +208,8 @@ namespace GreaterShare.ViewModels
 				async e =>
 				{
 					var vm = new ImageEditor_Model { CurrentImage = e.EventData.Item2 as Models.MemoryStreamBase64Item };
-					await StageManager.DefaultStage.Show(vm);	 
+					await StageManager.DefaultStage.Show(vm);
+
 				})
 			.DisposeWhenUnload(this);
 
@@ -279,7 +277,7 @@ namespace GreaterShare.ViewModels
 		#region Property int FocusingViewIndex Setup        
 		protected Property<int> _FocusingViewIndex = new Property<int> { LocatorFunc = _FocusingViewIndexLocator };
 		static Func<BindableBase, ValueContainer<int>> _FocusingViewIndexLocator = RegisterContainerLocator<int>(nameof(FocusingViewIndex), model => model.Initialize(nameof(FocusingViewIndex), ref model._FocusingViewIndex, ref _FocusingViewIndexLocator, _FocusingViewIndexDefaultValueFactory));
-		static Func<int> _FocusingViewIndexDefaultValueFactory = () => default(int);
+		static Func<int> _FocusingViewIndexDefaultValueFactory = () => 1;
 		#endregion
 
 
@@ -786,44 +784,6 @@ namespace GreaterShare.ViewModels
 
 
 
-		public CommandModel<ReactiveCommand, String> CommandShowImageEditor
-		{
-			get { return _CommandShowImageEditorLocator(this).Value; }
-			set { _CommandShowImageEditorLocator(this).SetValueAndTryNotify(value); }
-		}
-		#region Property CommandModel<ReactiveCommand, String> CommandShowImageEditor Setup        
-
-		protected Property<CommandModel<ReactiveCommand, String>> _CommandShowImageEditor = new Property<CommandModel<ReactiveCommand, String>> { LocatorFunc = _CommandShowImageEditorLocator };
-		static Func<BindableBase, ValueContainer<CommandModel<ReactiveCommand, String>>> _CommandShowImageEditorLocator = RegisterContainerLocator<CommandModel<ReactiveCommand, String>>(nameof(CommandShowImageEditor), model => model.Initialize(nameof(CommandShowImageEditor), ref model._CommandShowImageEditor, ref _CommandShowImageEditorLocator, _CommandShowImageEditorDefaultValueFactory));
-		static Func<BindableBase, CommandModel<ReactiveCommand, String>> _CommandShowImageEditorDefaultValueFactory =
-			model =>
-			{
-				var resource = nameof(CommandShowImageEditor);           // Command resource  
-				var commandId = nameof(CommandShowImageEditor);
-				var vm = CastToCurrentType(model);
-				var cmd = new ReactiveCommand(canExecute: true) { ViewModel = model }; //New Command Core
-
-				cmd.DoExecuteUIBusyTask(
-						vm,
-						async e =>
-						{
-							await vm.StageManager["ImageEditor"].Show<ImageEditor_Model>();
-							//Todo: Add ShowImageEditor logic here, or
-							await MVVMSidekick.Utilities.TaskExHelper.Yield();
-						})
-					.DoNotifyDefaultEventRouter(vm, commandId)
-					.Subscribe()
-					.DisposeWith(vm);
-
-				var cmdmdl = cmd.CreateCommandModel(resource);
-
-				cmdmdl.ListenToIsUIBusy(
-					model: vm,
-					canExecuteWhenBusy: false);
-				return cmdmdl;
-			};
-
-		#endregion
 
 
 	}

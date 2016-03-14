@@ -1,14 +1,19 @@
-﻿using Microsoft.Xaml.Interactivity;
+﻿using Microsoft.Graphics.Canvas;
+using Microsoft.Xaml.Interactivity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.Graphics.Imaging;
+using Windows.Storage.Streams;
 using Windows.UI;
 using Windows.UI.Core;
 using Windows.UI.Input.Inking;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using System.IO;
+using System.Runtime.InteropServices.WindowsRuntime;
 
 namespace GreaterShare.Glue
 {
@@ -18,8 +23,10 @@ namespace GreaterShare.Glue
 		protected override void OnAttached()
 		{
 			base.OnAttached();
+
 			try
 			{
+
 
 				RegisterPropertyChangedAndSaveUnregToken(
 				   IsInputEnabledProperty,
@@ -38,6 +45,7 @@ namespace GreaterShare.Glue
 					 att.DrawAsHighlighter = DrawAsHighlighter;
 					 att.Size = new Windows.Foundation.Size(StrokeSize, StrokeSize);
 					 InkPresenter.UpdateDefaultDrawingAttributes(att);
+
 				 };
 
 				RegisterPropertyChangedAndSaveUnregToken(ColorProperty, detailChanged);
@@ -47,7 +55,7 @@ namespace GreaterShare.Glue
 				regs.ForEach(i => i.Item3(null, null));
 
 
-				
+
 			}
 			catch (Exception ex)
 			{
@@ -56,9 +64,6 @@ namespace GreaterShare.Glue
 			}
 
 
-			//RegisterPropertyChangedAndSaveUnregToken(
-			//	InputDeviceTypesProperty,
-			//	(o, a) => this.InkPresenter.InputDeviceTypes = InputDeviceTypes);
 		}
 
 		private InkPresenter InkPresenter
@@ -72,7 +77,7 @@ namespace GreaterShare.Glue
 			regs.Add(Tuple.Create(dp, regv, callback));
 		}
 
-		List<Tuple<DependencyProperty, long, DependencyPropertyChangedCallback>> regs = new List<Tuple<DependencyProperty, long,DependencyPropertyChangedCallback>>();
+		List<Tuple<DependencyProperty, long, DependencyPropertyChangedCallback>> regs = new List<Tuple<DependencyProperty, long, DependencyPropertyChangedCallback>>();
 
 
 
@@ -164,10 +169,68 @@ namespace GreaterShare.Glue
 
 		// Using a DependencyProperty as the backing store for OutputBase64String.  This enables animation, styling, binding, etc...
 		public static readonly DependencyProperty OutputBase64StringProperty =
-			DependencyProperty.Register(nameof(OutputBase64String), typeof(string), typeof(InkCanvasControllerBehavior), new PropertyMetadata(0));
+			DependencyProperty.Register(nameof(OutputBase64String), typeof(string), typeof(InkCanvasControllerBehavior), new PropertyMetadata(null));
 
 
-		
+
+
+		public string BackgroundImageBase64String
+		{
+			get { return (string)GetValue(BackgroundImageBase64StringProperty); }
+			set { SetValue(BackgroundImageBase64StringProperty, value); }
+		}
+
+		// Using a DependencyProperty as the backing store for BackgroundImageBase64String.  This enables animation, styling, binding, etc...
+		public static readonly DependencyProperty BackgroundImageBase64StringProperty =
+			DependencyProperty.Register(nameof(BackgroundImageBase64String), typeof(string), typeof(InkCanvasControllerBehavior), new PropertyMetadata(null));
+
+
+
+		public void RenderImageToOutput()
+		{
+
+			try
+			{
+				CanvasDevice device = CanvasDevice.GetSharedDevice();
+				CanvasRenderTarget renderTarget = new CanvasRenderTarget(device, (int)AssociatedObject.ActualWidth, (int)AssociatedObject.ActualHeight, 96);
+
+				using (var ds = renderTarget.CreateDrawingSession())
+				{
+					ds.Clear(Colors.White);
+					if (BackgroundImageBase64String != null)
+					{
+						var b = Convert.FromBase64String(BackgroundImageBase64String);
+						var stmbuffer = new InMemoryRandomAccessStream();
+						stmbuffer.AsStreamForWrite().AsOutputStream().WriteAsync(b.AsBuffer()).AsTask().Wait();
+						var canbit = CanvasBitmap.LoadAsync(ds, stmbuffer, 96).AsTask().Result;
+						//var sfbit = SoftwareBitmap.CreateCopyFromBuffer(b.AsBuffer(), BitmapPixelFormat.Bgra8, (int)AssociatedObject.ActualWidth, (int)AssociatedObject.ActualHeight);
+						//var canbit = CanvasBitmap.CreateFromSoftwareBitmap(device, sfbit);
+						ds.DrawImage(canbit);
+					}
+					ds.DrawInk(AssociatedObject.InkPresenter.StrokeContainer.GetStrokes());
+				}
+				var stm = new InMemoryRandomAccessStream();
+				renderTarget.SaveAsync(stm, CanvasBitmapFileFormat.Png).AsTask().Wait();
+				var readfrom = stm.GetInputStreamAt(0).AsStreamForRead();
+				var ms = new MemoryStream();
+				readfrom.CopyTo(ms);
+				OutputBase64String = Convert.ToBase64String(ms.ToArray());
+
+				//using (var fileStream = await file.OpenAsync(FileAccessMode.ReadWrite))
+				//	await renderTarget.SaveAsync(fileStream, CanvasBitmapFileFormat.Jpeg, 1f);
+				if (ImageRendered != null)
+				{
+					ImageRendered(this, EventArgs.Empty);
+				}
+
+			}
+			catch (Exception ex)
+			{							  
+				throw;
+			}
+		}
+
+		public event EventHandler<EventArgs> ImageRendered;
 
 	}
 }

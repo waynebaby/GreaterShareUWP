@@ -27,16 +27,23 @@ namespace GreaterShare.ViewModels
 
 
 
-		public ImageEditor_Model()
+		protected override async Task OnBindedViewLoad(IView view)
 		{
 
 
 
+			await base.OnBindedViewLoad(view);
 
-
+			this.ListenChanged(x => x.ImageResult)
+				.Where(x => this.ImageResult != null)
+				.Subscribe(x =>
+				{
+					CurrentImage.Base64String = ImageResult;
+					CloseViewAndDispose();
+				})
+				 .DisposeWith(this);
 
 		}
-
 
 		public Models.MemoryStreamBase64Item CurrentImage
 		{
@@ -147,7 +154,7 @@ namespace GreaterShare.ViewModels
 			Colors.LightGoldenrodYellow,
 			Colors.PaleVioletRed,
 			Colors.LawnGreen,
-			Colors.YellowGreen	   
+			Colors.YellowGreen
 		};
 		#endregion
 
@@ -163,6 +170,7 @@ namespace GreaterShare.ViewModels
 		static Func<BindableBase, ValueContainer<string>> _ImageResultLocator = RegisterContainerLocator<string>(nameof(ImageResult), model => model.Initialize(nameof(ImageResult), ref model._ImageResult, ref _ImageResultLocator, _ImageResultDefaultValueFactory));
 		static Func<string> _ImageResultDefaultValueFactory = () => default(string);
 		#endregion
+
 
 
 

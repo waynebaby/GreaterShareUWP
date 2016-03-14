@@ -3,7 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Reflection ;
+using System.Reflection;
+using MVVMSidekick.Views;
+using GreaterShare.ViewModels;
+using GreaterShare;
+
 namespace MVVMSidekick.Startups
 {
     internal static partial class StartupFunctions
@@ -29,6 +33,12 @@ namespace MVVMSidekick.Startups
 				item();
 			}
 
+			ViewModelLocator<MainPage_Model>
+				.Instance
+				.Register(
+					new MainPage_Model())
+				.GetViewMapper()
+				.MapToDefault<MainPage>();
 		}
 
 
