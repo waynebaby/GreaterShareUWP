@@ -108,6 +108,7 @@
       <DependentUpon>Background.xaml</DependentUpon>
     </Compile>
     <Compile Include="Glue\AddTextCommentsCommand.cs" />
+    <Compile Include="Glue\IsFileItemImageFileConverter.cs" />
     <Compile Include="Glue\InkCanvasControllerBehavior.cs" />
     <Compile Include="Glue\RaiseEventMassageCommand.cs" />
     <Compile Include="Glue\NavigateToUrlCommand.cs" />

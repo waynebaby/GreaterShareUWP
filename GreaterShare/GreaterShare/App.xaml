@@ -14,9 +14,7 @@
           xmlns:vm="using:GreaterShare.ViewModels"
     RequestedTheme="Light">
     <Application.Resources>
-        <!--<vm:MainPage_Model x:Key="DesignVMMainPage_Model"/>-->
-
-        <!--<vm:MainPage_Model x:Key="DesignVM"/>-->
+        <Glue:IsFileItemImageFileConverter x:Key="IsFileItemImageFileConverter"></Glue:IsFileItemImageFileConverter>
         <Glue:DebuggingEmptyConverter x:Key="DebuggingEmptyConverter"/>
         <Glue:IsNotNullConverter x:Key="IsNotNullConverter"/>
         <Glue:IsWellFormedUriStringConveter x:Key="IsWellFormedUriStringConveter"/>
@@ -198,7 +196,7 @@
                     <HyperlinkButton ToolTipService.ToolTip="Add Comment"  Style="{StaticResource LabelButton}" x:Name="linkComment"  Visibility="{Binding Converter={StaticResource HideWhenIsNotEditingConverter}, RelativeSource={RelativeSource Mode=Self}, Mode=OneWay}"  Command="{StaticResource AddTextCommentCommand}"  >
                         <!--Visibility="{Binding Converter={StaticResource HideWhenIsNotEditingConverter}, RelativeSource={RelativeSource Mode=Self}, Mode=OneWay}"-->
                         <StackPanel  Orientation="Horizontal" Margin="0,0,12,0">
-                            <FontIcon FontFamily="Segoe UI Symbol" Glyph="&#xE13E;" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE7E7;" />
 
                         </StackPanel>
                     </HyperlinkButton>
@@ -211,11 +209,11 @@
 
                         </StackPanel>
                     </HyperlinkButton>
-                    <HyperlinkButton  CommandParameter="{Binding SelectedImage}">
+                    <HyperlinkButton ToolTipService.ToolTip="Mark &amp; Highlight" Style="{StaticResource LabelButton}"  CommandParameter="{Binding SelectedImage}">
                         <HyperlinkButton.Command >
                             <Glue:RaiseEventMassageCommand EventMessage="ImageInkComment" />
-                        </HyperlinkButton.Command>        
-                        Edit image
+                        </HyperlinkButton.Command>
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE7E6;" />
                     </HyperlinkButton>
                 </StackPanel>
             </RelativePanel>
@@ -235,7 +233,7 @@
         			RelativePanel.AlignRightWithPanel="True"                     
                     />
 
-                <TextBlock TextWrapping="WrapWholeWords"   Name="fileName"
+                <TextBlock TextWrapping="WrapWholeWords"    Name="fileName"
         			Text="{Binding FileName}"              			
         			RelativePanel.AlignHorizontalCenterWithPanel="True"
                     RelativePanel.AlignBottomWithPanel="True"
@@ -251,7 +249,7 @@
                     Visibility="{Binding Converter={StaticResource HideWhenIsNotEditingConverter}, RelativeSource={RelativeSource Mode=Self}, Mode=OneWay}" 
                     RelativePanel.AlignLeftWithPanel="True"  RelativePanel.AlignTopWithPanel="True"/>
 
-                <GridView SelectionMode="None" Margin="8" ItemsSource="{Binding StorageFiles}" 
+                <GridView x:Name="StorageFiles" SelectionMode="Single"  Margin="8" ItemsSource="{Binding StorageFiles}" 
                         RelativePanel.Below="label"             
                         RelativePanel.Above="linkButtons"                            
                         RelativePanel.AlignRightWithPanel="True" 
@@ -260,7 +258,8 @@
                         ScrollViewer.VerticalScrollMode="Auto"
                         ScrollViewer.HorizontalScrollBarVisibility="Auto"
                         ScrollViewer.VerticalScrollBarVisibility="Auto"  
-                    
+                        SelectedItem="{Binding SelectedStorageFile, Mode=TwoWay}"
+                        
                     ItemTemplate="{StaticResource FileGridItem}" >
                     <GridView.ItemsPanel >
                         <ItemsPanelTemplate>
@@ -270,12 +269,17 @@
                         </ItemsPanelTemplate>
                     </GridView.ItemsPanel>
                 </GridView>
-                <StackPanel  x:Name="linkButtons"  ToolTipService.ToolTip="Add Comment" Style="{StaticResource LabelButtons}"  Orientation="Horizontal" >
-                    <HyperlinkButton  Style="{StaticResource LabelButton}" x:Name="linkComment"  Visibility="{Binding Converter={StaticResource HideWhenIsNotEditingConverter}, RelativeSource={RelativeSource Mode=Self}, Mode=OneWay}"  Command="{StaticResource AddTextCommentCommand}" >
+                <StackPanel  x:Name="linkButtons"  Style="{StaticResource LabelButtons}"  Orientation="Horizontal" >
+                        <HyperlinkButton ToolTipService.ToolTip="Add Comment"  Style="{StaticResource LabelButton}" x:Name="linkComment"  Visibility="{Binding Converter={StaticResource HideWhenIsNotEditingConverter}, RelativeSource={RelativeSource Mode=Self}, Mode=OneWay}"  Command="{StaticResource AddTextCommentCommand}" >
                         <!--Visibility="{Binding Converter={StaticResource HideWhenIsNotEditingConverter}, RelativeSource={RelativeSource Mode=Self}, Mode=OneWay}"-->
                         <StackPanel  Orientation="Horizontal" Margin="0,0,12,0">
-                            <FontIcon FontFamily="Segoe UI Symbol" Glyph="&#xE200;" HorizontalAlignment="Center" VerticalAlignment="Center" />
-
+                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE7E7;" />
+                        </StackPanel>
+                    </HyperlinkButton>
+                    <HyperlinkButton ToolTipService.ToolTip="Open as Image Share Item"  Style="{StaticResource LabelButton}" x:Name="linkToImage"  Visibility="{Binding Converter={StaticResource HideWhenIsNotEditingConverter}, RelativeSource={RelativeSource Mode=Self}, Mode=OneWay}"  Command="{Binding CommandRaiseOpenAsImageShare}" >
+                        <!--Visibility="{Binding Converter={StaticResource HideWhenIsNotEditingConverter}, RelativeSource={RelativeSource Mode=Self}, Mode=OneWay}"-->
+                        <StackPanel  Orientation="Horizontal" Margin="0,0,12,0">
+                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE187;" />
                         </StackPanel>
                     </HyperlinkButton>
                 </StackPanel>
@@ -403,7 +407,7 @@
                         </HyperlinkButton>
 
                         <HyperlinkButton  ToolTipService.ToolTip="Undo" Command="{Binding CommandBackHistory}" >
-                            <FontIcon FontFamily="Segoe UI Symbol" Glyph="&#xE26A;" />
+                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE7A7;" />
                         </HyperlinkButton>
 
                     </StackPanel>
@@ -455,7 +459,7 @@
                             </StackPanel>
                         </HyperlinkButton>
                         <HyperlinkButton  ToolTipService.ToolTip="Undo" Command="{Binding CommandBackHistory}" >
-                            <FontIcon FontFamily="Segoe UI Symbol" Glyph="&#xE26A;" />
+                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE7A7;" />
                         </HyperlinkButton>
                     </StackPanel>
 

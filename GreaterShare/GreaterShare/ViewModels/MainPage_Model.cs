@@ -17,6 +17,8 @@ using Windows.UI;
 using Windows.Storage;
 using GreaterShare.Services;
 using MVVMSidekick.EventRouting;
+using System.IO;
+using Windows.Storage.AccessCache;
 
 namespace GreaterShare.ViewModels
 {
@@ -135,83 +137,135 @@ namespace GreaterShare.ViewModels
 
 
 			EventRouter.Instance.GetEventChannel<Tuple<EventMessage, Object>>()
-			.Where(x =>
-					x.EventData.Item1 == EventMessage.ConvertToWebUri && x.EventData.Item2 != null)
-			.Where(x =>
-				ReceivedShareItem != null)
-			.Where(x =>
-				ReceivedShareItem.AvialableShareItems != null)
-			.ObserveOnDispatcher()
-			.Subscribe(
-				tp =>
-				{
-					if (!Uri.IsWellFormedUriString(tp.EventData.Item2 as string, UriKind.Absolute))
+				.Where(x =>
+						x.EventData.Item1 == EventMessage.ConvertToWebUri && x.EventData.Item2 != null)
+				.Where(x =>
+					ReceivedShareItem != null)
+				.Where(x =>
+					ReceivedShareItem.AvialableShareItems != null)
+				.ObserveOnDispatcher()
+				.Subscribe(
+					tp =>
 					{
-						return;
-					}
-					var uri = new Uri(tp.EventData.Item2.ToString());
-					var target = ReceivedShareItem.AvialableShareItems.OfType<WebLinkShareItem>().FirstOrDefault();
-					if (target == null)
-					{
-						target = new WebLinkShareItem() { WebLink = uri };
-						ReceivedShareItem.AvialableShareItems.Add(target);
-					}
-					else
-					{
-						target.WebLink = uri;
-						//ReceivedShareItem.MergeNewText(target, tp.EventData.Item2.ToString(), true, false);
-					}
-					CurrentViewingItem = target;
+						if (!Uri.IsWellFormedUriString(tp.EventData.Item2 as string, UriKind.Absolute))
+						{
+							return;
+						}
+						var uri = new Uri(tp.EventData.Item2.ToString());
+						var target = ReceivedShareItem.AvialableShareItems.OfType<WebLinkShareItem>().FirstOrDefault();
+						if (target == null)
+						{
+							target = new WebLinkShareItem() { WebLink = uri };
+							ReceivedShareItem.AvialableShareItems.Add(target);
+						}
+						else
+						{
+							target.WebLink = uri;
+							//ReceivedShareItem.MergeNewText(target, tp.EventData.Item2.ToString(), true, false);
+						}
+						CurrentViewingItem = target;
 
-				}
-			).DisposeWhenUnload(this);
+					}
+				)
+				.DisposeWhenUnload(this);
 
 			EventRouter.Instance.GetEventChannel<Tuple<EventMessage, Object>>()
-			.Where(x =>
-					x.EventData.Item1 == EventMessage.ConvertToText && x.EventData.Item2 != null)
-			.Where(x =>
-				ReceivedShareItem != null)
-			.Where(x =>
-				ReceivedShareItem.AvialableShareItems != null)
-			.ObserveOnDispatcher()
-			.Subscribe(
-				tp =>
-				{
+				.Where(x =>
+						x.EventData.Item1 == EventMessage.ConvertToText && x.EventData.Item2 != null)
+				.Where(x =>
+					ReceivedShareItem != null)
+				.Where(x =>
+					ReceivedShareItem.AvialableShareItems != null)
+				.ObserveOnDispatcher()
+				.DoExecuteUIBusyTask(
+					this,
+					async tp =>
+						{
 
-					var str = tp.EventData.Item2.ToString();
-					var target = ReceivedShareItem.AvialableShareItems.OfType<TextShareItem>().FirstOrDefault();
-					if (target == null)
-					{
-						target = new TextShareItem() { Text = str };
-						ReceivedShareItem.AvialableShareItems.Add(target);
-					}
-					else
-					{
-						target.Text = str;
-						//ReceivedShareItem.MergeNewText(target, tp.EventData.Item2.ToString(), true, false);
-					}
-					CurrentViewingItem = target;
-
-				}
-			).DisposeWhenUnload(this);
+							var str = tp.EventData.Item2.ToString();
+							var target = ReceivedShareItem.AvialableShareItems.OfType<TextShareItem>().FirstOrDefault();
+							if (target == null)
+							{
+								target = new TextShareItem() { Text = str };
+								ReceivedShareItem.AvialableShareItems.Add(target);
+							}
+							else
+							{
+								target.Text = str;
+								//ReceivedShareItem.MergeNewText(target, tp.EventData.Item2.ToString(), true, false);
+							}
+							CurrentViewingItem = target;
+							await Task.Yield();
+						}
+					)
+					.Subscribe()
+					.DisposeWhenUnload(this);
 
 
 			EventRouter.Instance.GetEventChannel<Tuple<EventMessage, Object>>()
-			.Where(x =>
-					x.EventData.Item1 == EventMessage.ImageInkComment && x.EventData.Item2 != null)
-			.Where(x =>
-				ReceivedShareItem != null)
-			.Where(x =>
-				ReceivedShareItem.AvialableShareItems != null)
-			.ObserveOnDispatcher()
-			.Subscribe(
-				async e =>
-				{
-					var vm = new ImageEditor_Model { CurrentImage = e.EventData.Item2 as Models.MemoryStreamBase64Item };
-					await StageManager.DefaultStage.Show(vm);
+				.Where(x =>
+						x.EventData.Item1 == EventMessage.ImageInkComment && x.EventData.Item2 != null)
+				.Where(x =>
+					ReceivedShareItem != null)
+				.Where(x =>
+					ReceivedShareItem.AvialableShareItems != null)
+				.ObserveOnDispatcher()
+				.DoExecuteUIBusyTask(
+					this,
+					async e =>
+					{
+						var vm = new ImageEditor_Model { CurrentImage = e.EventData.Item2 as Models.MemoryStreamBase64Item };
+						await StageManager.DefaultStage.Show(vm);
 
-				})
-			.DisposeWhenUnload(this);
+					})
+				.Subscribe()
+				.DisposeWhenUnload(this);
+
+			EventRouter.Instance.GetEventChannel<Tuple<EventMessage, Object>>()
+				.Where(x =>
+						x.EventData.Item1 == EventMessage.FileInkComment && x.EventData.Item2 != null)
+				.Where(x =>
+					ReceivedShareItem != null)
+				.Where(x =>
+					ReceivedShareItem.AvialableShareItems != null)
+				.ObserveOnDispatcher()
+				.DoExecuteUIBusyTask(
+					this,
+					async tp =>
+					{
+						var fileitem = tp.EventData.Item2 as FileItem;
+						var file = await StorageApplicationPermissions.FutureAccessList.GetFileAsync(fileitem.AccessToken);
+						if (file == null)
+						{
+							return;
+						}
+
+						var target = ReceivedShareItem.AvialableShareItems.OfType<DelayRenderedImageShareItem>().FirstOrDefault();
+						byte[] buf = null;
+						using (var stm = await file.OpenReadAsync())
+						{
+							var ms = new MemoryStream();
+							await stm.AsStreamForRead().CopyToAsync(ms);
+							buf = ms.ToArray();
+						}
+						if (target == null)
+						{
+
+							target = new DelayRenderedImageShareItem() { SelectedImage = new Models.MemoryStreamBase64Item(buf) };
+							ReceivedShareItem.AvialableShareItems.Add(target);
+						}
+						else
+						{
+							target.SelectedImage = new Models.MemoryStreamBase64Item(buf);
+							//ReceivedShareItem.MergeNewText(target, tp.EventData.Item2.ToString(), true, false);
+						}
+						CurrentViewingItem = target;
+						var vm = new ImageEditor_Model { CurrentImage = target.SelectedImage };
+						await StageManager.DefaultStage.Show(vm);
+
+					})
+					.Subscribe()
+					.DisposeWhenUnload(this);
 
 
 			return base.OnBindedViewLoad(view);

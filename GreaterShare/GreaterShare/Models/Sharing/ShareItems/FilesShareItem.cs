@@ -1,8 +1,12 @@
-﻿using MVVMSidekick.ViewModels;
+﻿using GreaterShare.ViewModels;
+using MVVMSidekick.EventRouting;
+using MVVMSidekick.Reactive;
+using MVVMSidekick.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Reactive.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
@@ -47,13 +51,26 @@ namespace GreaterShare.Models.Sharing.ShareItems
 		static Func<ObservableCollection<FileItem>> _StorageFilesDefaultValueFactory = () => default(ObservableCollection<FileItem>);
 		#endregion
 
+
+		public FileItem SelectedStorageFile
+		{
+			get { return _SelectedStorageFileLocator(this).Value; }
+			set { _SelectedStorageFileLocator(this).SetValueAndTryNotify(value); }
+		}
+		#region Property FileItem SelectedStorageFile Setup        
+		protected Property<FileItem> _SelectedStorageFile = new Property<FileItem> { LocatorFunc = _SelectedStorageFileLocator };
+		static Func<BindableBase, ValueContainer<FileItem>> _SelectedStorageFileLocator = RegisterContainerLocator<FileItem>(nameof(SelectedStorageFile), model => model.Initialize(nameof(SelectedStorageFile), ref model._SelectedStorageFile, ref _SelectedStorageFileLocator, _SelectedStorageFileDefaultValueFactory));
+		static Func<FileItem> _SelectedStorageFileDefaultValueFactory = () => default(FileItem);
+		#endregion
+
+
 		public bool IsSelected
 		{
 			get { return _IsSelectedLocator(this).Value; }
 			set { _IsSelectedLocator(this).SetValueAndTryNotify(value); }
 		}
 
-	
+
 		#region Property bool IsSelected Setup        
 		protected Property<bool> _IsSelected = new Property<bool> { LocatorFunc = _IsSelectedLocator };
 		static Func<BindableBase, ValueContainer<bool>> _IsSelectedLocator = RegisterContainerLocator<bool>(nameof(IsSelected), model => model.Initialize(nameof(IsSelected), ref model._IsSelected, ref _IsSelectedLocator, _IsSelectedDefaultValueFactory));
@@ -62,6 +79,48 @@ namespace GreaterShare.Models.Sharing.ShareItems
 
 		#endregion
 
+
+
+
+		public CommandModel<ReactiveCommand, String> CommandRaiseOpenAsImageShare
+		{
+			get { return _CommandRaiseOpenAsImageShareLocator(this).Value; }
+			set { _CommandRaiseOpenAsImageShareLocator(this).SetValueAndTryNotify(value); }
+		}
+		#region Property CommandModel<ReactiveCommand, String> CommandRaiseOpenAsImageShare Setup        
+
+		protected Property<CommandModel<ReactiveCommand, String>> _CommandRaiseOpenAsImageShare = new Property<CommandModel<ReactiveCommand, String>> { LocatorFunc = _CommandRaiseOpenAsImageShareLocator };
+		static Func<BindableBase, ValueContainer<CommandModel<ReactiveCommand, String>>> _CommandRaiseOpenAsImageShareLocator = RegisterContainerLocator<CommandModel<ReactiveCommand, String>>(nameof(CommandRaiseOpenAsImageShare), model => model.Initialize(nameof(CommandRaiseOpenAsImageShare), ref model._CommandRaiseOpenAsImageShare, ref _CommandRaiseOpenAsImageShareLocator, _CommandRaiseOpenAsImageShareDefaultValueFactory));
+		static Func<BindableBase, CommandModel<ReactiveCommand, String>> _CommandRaiseOpenAsImageShareDefaultValueFactory =
+			model =>
+			{
+				var resource = nameof(CommandRaiseOpenAsImageShare);           // Command resource  
+				var commandId = nameof(CommandRaiseOpenAsImageShare);
+				var vm = CastToCurrentType(model);
+				var cmd = new ReactiveCommand(canExecute: false) { ViewModel = model }; //New Command Core
+
+				cmd.Do(e =>
+				{
+					EventRouter.Instance.RaiseEvent<Tuple<EventMessage, Object>>(
+						vm,
+						new Tuple<EventMessage, Object>(EventMessage.FileInkComment, (object)vm.SelectedStorageFile));
+				})
+					.DoNotifyDefaultEventRouter(vm, commandId)
+					.Subscribe()
+					.DisposeWith(vm);
+
+				cmd.ListenCanExecuteObservable(vm.ListenChanged(x => x.SelectedStorageFile)
+					.Select(_ =>
+						vm.SelectedStorageFile?.ContentType?.StartsWith("image/") ?? false))
+					.DisposeWith(vm);
+				var cmdmdl = cmd.CreateCommandModel(resource);
+				return cmdmdl;
+			};
+
+		#endregion
+
+
+
 		public void WireEvent()
 		{
 			if (!IsEventWired)
@@ -69,6 +128,7 @@ namespace GreaterShare.Models.Sharing.ShareItems
 				IsEventWired = true;
 			}
 		}
+
 
 		public bool IsEventWired { get; set; } = false;
 
@@ -79,7 +139,7 @@ namespace GreaterShare.Models.Sharing.ShareItems
 	public class FileItem : BindableBase<FileItem>
 	{
 
-		[DataMember] 
+		[DataMember]
 		public string ContentType
 		{
 			get { return _ContentTypeLocator(this).Value; }
@@ -91,7 +151,7 @@ namespace GreaterShare.Models.Sharing.ShareItems
 		static Func<string> _ContentTypeDefaultValueFactory = () => default(string);
 		#endregion
 
-		[DataMember]	  
+		[DataMember]
 		public string FileName
 		{
 			get { return _FileNameLocator(this).Value; }
@@ -153,6 +213,8 @@ namespace GreaterShare.Models.Sharing.ShareItems
 		static Func<BindableBase, ValueContainer<bool>> _IsTokenAvaliableNowLocator = RegisterContainerLocator<bool>(nameof(IsTokenAvaliableNow), model => model.Initialize(nameof(IsTokenAvaliableNow), ref model._IsTokenAvaliableNow, ref _IsTokenAvaliableNowLocator, _IsTokenAvaliableNowDefaultValueFactory));
 		static Func<bool> _IsTokenAvaliableNowDefaultValueFactory = () => default(bool);
 		#endregion
+
+
 
 	}
 
