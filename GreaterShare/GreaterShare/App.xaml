@@ -209,7 +209,7 @@
 
                         </StackPanel>
                     </HyperlinkButton>
-                    <HyperlinkButton ToolTipService.ToolTip="Mark &amp; Highlight" Style="{StaticResource LabelButton}"  CommandParameter="{Binding SelectedImage}">
+                    <HyperlinkButton ToolTipService.ToolTip="Mark &amp; Highlight" Style="{StaticResource LabelButton}"   Visibility="{Binding Converter={StaticResource HideWhenIsNotEditingConverter}, RelativeSource={RelativeSource Mode=Self}, Mode=OneWay}"  CommandParameter="{Binding SelectedImage}">
                         <HyperlinkButton.Command >
                             <Glue:RaiseEventMassageCommand EventMessage="ImageInkComment" />
                         </HyperlinkButton.Command>
@@ -270,7 +270,7 @@
                     </GridView.ItemsPanel>
                 </GridView>
                 <StackPanel  x:Name="linkButtons"  Style="{StaticResource LabelButtons}"  Orientation="Horizontal" >
-                        <HyperlinkButton ToolTipService.ToolTip="Add Comment"  Style="{StaticResource LabelButton}" x:Name="linkComment"  Visibility="{Binding Converter={StaticResource HideWhenIsNotEditingConverter}, RelativeSource={RelativeSource Mode=Self}, Mode=OneWay}"  Command="{StaticResource AddTextCommentCommand}" >
+                    <HyperlinkButton ToolTipService.ToolTip="Add Comment"  Style="{StaticResource LabelButton}" x:Name="linkComment"  Visibility="{Binding Converter={StaticResource HideWhenIsNotEditingConverter}, RelativeSource={RelativeSource Mode=Self}, Mode=OneWay}"  Command="{StaticResource AddTextCommentCommand}" >
                         <!--Visibility="{Binding Converter={StaticResource HideWhenIsNotEditingConverter}, RelativeSource={RelativeSource Mode=Self}, Mode=OneWay}"-->
                         <StackPanel  Orientation="Horizontal" Margin="0,0,12,0">
                             <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE7E7;" />
@@ -403,11 +403,15 @@
                             Command="{Binding CommandConvertToWebUri}"
                              
                             ToolTipService.ToolTip="{StaticResource VisitUri}" >
-                            <FontIcon FontFamily="Segoe UI Symbol" Glyph="&#xE12B;" />
+                            <StackPanel  Orientation="Horizontal" Margin="0,0,12,0">
+                                <FontIcon FontFamily="Segoe UI Symbol" Glyph="&#xE12B;" />
+                            </StackPanel>
                         </HyperlinkButton>
 
                         <HyperlinkButton  ToolTipService.ToolTip="Undo" Command="{Binding CommandBackHistory}" >
-                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE7A7;" />
+                            <StackPanel  Orientation="Horizontal" Margin="0,0,12,0">
+                                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE7A7;" />
+                            </StackPanel>
                         </HyperlinkButton>
 
                     </StackPanel>
@@ -459,7 +463,10 @@
                             </StackPanel>
                         </HyperlinkButton>
                         <HyperlinkButton  ToolTipService.ToolTip="Undo" Command="{Binding CommandBackHistory}" >
-                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE7A7;" />
+                            <StackPanel  Orientation="Horizontal" Margin="0,0,12,0">
+                                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE7A7;" />
+                            </StackPanel>
+
                         </HyperlinkButton>
                     </StackPanel>
 

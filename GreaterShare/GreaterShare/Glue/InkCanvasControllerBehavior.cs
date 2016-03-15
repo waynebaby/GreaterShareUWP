@@ -129,7 +129,7 @@ namespace GreaterShare.Glue
 
 		// Using a DependencyProperty as the backing store for IsDrawingAsMarker.  This enables animation, styling, binding, etc...
 		public static readonly DependencyProperty DrawAsHighlighterProperty =
-			DependencyProperty.Register(nameof(DrawAsHighlighter), typeof(bool), typeof(InkCanvasControllerBehavior), new PropertyMetadata(false));
+			DependencyProperty.Register(nameof(DrawAsHighlighter), typeof(bool), typeof(InkCanvasControllerBehavior), new PropertyMetadata(true));
 
 
 

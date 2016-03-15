@@ -36,7 +36,7 @@ namespace MVVMSidekick.Startups
 			ViewModelLocator<MainPage_Model>
 				.Instance
 				.Register(
-					new MainPage_Model())
+					o=>new MainPage_Model(),false)
 				.GetViewMapper()
 				.MapToDefault<MainPage>();
 		}

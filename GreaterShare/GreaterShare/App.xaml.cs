@@ -53,17 +53,20 @@ namespace GreaterShare
 
 
 
-
+		static bool _inited = false;
 		public static void InitNavigationConfigurationInThisAssembly()
 		{
-			MVVMSidekick.Startups.StartupFunctions.RunAllConfig();
-			ServiceLocator.Instance.Register<IShareService, DefaultShareService>();
-			ServiceLocator.Instance.Register<ISubStorageService, DefaultSubStorageService>();
-			ServiceLocator.Instance.Register<IImageConvertService, ConvertImageToPNGService>();
-
-			RuntimeHelpers.RunClassConstructor(typeof (TextShareItem).TypeHandle);
-			RuntimeHelpers.RunClassConstructor(typeof(WebLinkShareItem).TypeHandle);
-
+			if (!_inited)
+			{  
+				MVVMSidekick.Startups.StartupFunctions.RunAllConfig();
+				ServiceLocator.Instance.Register<IShareService, DefaultShareService>();
+				ServiceLocator.Instance.Register<ISubStorageService, DefaultSubStorageService>();
+				ServiceLocator.Instance.Register<IImageConvertService, ConvertImageToPNGService>();
+				RuntimeHelpers.RunClassConstructor(typeof(TextShareItem).TypeHandle);
+				RuntimeHelpers.RunClassConstructor(typeof(WebLinkShareItem).TypeHandle);
+				_inited = true;
+			}
+		
 		}
 
 		public static BehaviorSubject<IStorageItem> CurrentFile
@@ -79,10 +82,9 @@ namespace GreaterShare
 
 		protected override void OnFileActivated(FileActivatedEventArgs args)
 		{
-
+			 
 			InitNavigationConfigurationInThisAssembly();
-			Frame rootFrame = CreateRootFrame();
-
+			Frame rootFrame = CreateRootFrame();	   
 			if (rootFrame.Content == null)
 			{
 				rootFrame.Navigate(typeof(MainPage), null);

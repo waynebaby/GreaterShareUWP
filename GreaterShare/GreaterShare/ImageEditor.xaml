@@ -26,7 +26,7 @@
                 <EntranceThemeTransition/>
             </TransitionCollection>
         </Grid.ChildrenTransitions>
-        <ScrollViewer ZoomMode="Enabled" Margin="0,0,0,50"
+        <ScrollViewer ZoomMode="Enabled" Margin="10,10,10,60"
         HorizontalScrollBarVisibility="Auto"
         HorizontalScrollMode="Auto"          
         VerticalScrollBarVisibility="Auto"
@@ -36,8 +36,11 @@
                 <InkCanvas>
                     <Interactivity:Interaction.Behaviors>
                         <Glue:InkCanvasControllerBehavior x:Name="InkCanvasController" 
+                        IsInputEnabled="False"
                         Color="{Binding ElementName=CurrentColor , Path=SelectedItem}"
-                        StrokeSize="{Binding Value, ElementName=CurrentSize}" BackgroundImageBase64String="{Binding CurrentImage.Base64String}" OutputBase64String="{Binding ImageResult, Mode=TwoWay}"
+                        StrokeSize="{Binding Value, ElementName=CurrentSize}" 
+                        BackgroundImageBase64String="{Binding CurrentImage.Base64String}" 
+                        OutputBase64String="{Binding ImageResult, Mode=TwoWay}"
                         >
                         </Glue:InkCanvasControllerBehavior>
                     </Interactivity:Interaction.Behaviors>
