@@ -14,6 +14,8 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using System.IO;
 using System.Runtime.InteropServices.WindowsRuntime;
+using MVVMSidekick.Services;
+using GreaterShare.Services;
 
 namespace GreaterShare.Glue
 {
@@ -188,47 +190,27 @@ namespace GreaterShare.Glue
 
 		public void RenderImageToOutput()
 		{
-
-			try
+			var strokes = AssociatedObject.InkPresenter.StrokeContainer.GetStrokes();
+			var width = (int)AssociatedObject.ActualWidth;
+			var height = (int)AssociatedObject.ActualHeight;
+			byte[] backgroundImageBuffer = null;
+			if (BackgroundImageBase64String != null)
 			{
-				CanvasDevice device = CanvasDevice.GetSharedDevice();
-				CanvasRenderTarget renderTarget = new CanvasRenderTarget(device, (int)AssociatedObject.ActualWidth, (int)AssociatedObject.ActualHeight, 96);
-
-				using (var ds = renderTarget.CreateDrawingSession())
-				{
-					ds.Clear(Colors.White);
-					if (BackgroundImageBase64String != null)
-					{
-						var b = Convert.FromBase64String(BackgroundImageBase64String);
-						var stmbuffer = new InMemoryRandomAccessStream();
-						stmbuffer.AsStreamForWrite().AsOutputStream().WriteAsync(b.AsBuffer()).AsTask().Wait();
-						var canbit = CanvasBitmap.LoadAsync(ds, stmbuffer, 96).AsTask().Result;
-						//var sfbit = SoftwareBitmap.CreateCopyFromBuffer(b.AsBuffer(), BitmapPixelFormat.Bgra8, (int)AssociatedObject.ActualWidth, (int)AssociatedObject.ActualHeight);
-						//var canbit = CanvasBitmap.CreateFromSoftwareBitmap(device, sfbit);
-						ds.DrawImage(canbit);
-					}
-					ds.DrawInk(AssociatedObject.InkPresenter.StrokeContainer.GetStrokes());
-				}
-				var stm = new InMemoryRandomAccessStream();
-				renderTarget.SaveAsync(stm, CanvasBitmapFileFormat.Png).AsTask().Wait();
-				var readfrom = stm.GetInputStreamAt(0).AsStreamForRead();
-				var ms = new MemoryStream();
-				readfrom.CopyTo(ms);
-				OutputBase64String = Convert.ToBase64String(ms.ToArray());
-
-				//using (var fileStream = await file.OpenAsync(FileAccessMode.ReadWrite))
-				//	await renderTarget.SaveAsync(fileStream, CanvasBitmapFileFormat.Jpeg, 1f);
-				if (ImageRendered != null)
-				{
-					ImageRendered(this, EventArgs.Empty);
-				}
-
+				backgroundImageBuffer = Convert.FromBase64String(BackgroundImageBase64String);
 			}
-			catch (Exception ex)
-			{							  
-				throw;
+
+			byte[] outputBuffer = ServiceLocator.Instance
+				.Resolve<IDrawingService>().DrawStrokeOnBackground(strokes, width, height, backgroundImageBuffer);
+
+			OutputBase64String = Convert.ToBase64String(outputBuffer);
+
+			if (ImageRendered != null)
+			{
+				ImageRendered(this, EventArgs.Empty);
 			}
+
 		}
+
 
 		public event EventHandler<EventArgs> ImageRendered;
 

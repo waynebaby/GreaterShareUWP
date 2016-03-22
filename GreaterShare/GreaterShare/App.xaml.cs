@@ -59,6 +59,7 @@ namespace GreaterShare
 			if (!_inited)
 			{  
 				MVVMSidekick.Startups.StartupFunctions.RunAllConfig();
+				ServiceLocator.Instance.Register<IDrawingService, DrawingService>();
 				ServiceLocator.Instance.Register<IShareService, DefaultShareService>();
 				ServiceLocator.Instance.Register<ISubStorageService, DefaultSubStorageService>();
 				ServiceLocator.Instance.Register<IImageConvertService, ConvertImageToPNGService>();

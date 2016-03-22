@@ -144,6 +144,8 @@
     <Compile Include="Models\Sharing\ShareItemBase.cs" />
     <Compile Include="Services\DefaultSubStorageService.cs" />
     <Compile Include="Services\DefaultShareService.cs" />
+    <Compile Include="Services\DrawingService.cs" />
+    <Compile Include="Services\IDrawingService.cs" />
     <Compile Include="Services\IImageConvertService.cs" />
     <Compile Include="Services\ConvertImageToPNGService.cs" />
     <Compile Include="Services\ISubStorageService.cs" />

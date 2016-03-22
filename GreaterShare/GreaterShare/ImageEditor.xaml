@@ -14,13 +14,12 @@
 
     <Page.Resources>
         <!-- TODO: Delete this line if the key AppName is declared in App.xaml -->
-        <x:String x:Key="AppName">My Application</x:String>
     </Page.Resources>
 
     <Grid Background="#444444">
-        <d:DataContext>          
-        <vm:ImageEditor_Model />
-        </d:DataContext>
+        <d:FrameworkElement.DataContext>
+            <vm:ImageEditor_Model />
+        </d:FrameworkElement.DataContext>
         <Grid.ChildrenTransitions>
             <TransitionCollection>
                 <EntranceThemeTransition/>
@@ -49,7 +48,7 @@
         </ScrollViewer>
 
         <CommandBar BorderBrush="Black" IsOpen="False"  IsSticky="False" BorderThickness=".2" VerticalAlignment="Bottom" Background="#70ffffff" ClosedDisplayMode="Compact">
-           
+
             <AppBarButton>
                 <AppBarButton.Flyout>
                     <Flyout>
@@ -81,7 +80,7 @@
                                 <Color>Green</Color>
                                 <Color>Blue</Color>
                                 <Color>Black</Color>
-                            </ComboBox>  
+                            </ComboBox>
                             <Slider x:Name="CurrentSize" Minimum="1" Maximum="50"  Value="20" />
 
 
@@ -89,12 +88,12 @@
 
                     </Flyout>
                 </AppBarButton.Flyout>
-                    <Border  BorderThickness="1.2" Width="50" BorderBrush="#bb000000" >
-                        <Border.Background>
-                            <SolidColorBrush Color="{Binding ElementName=CurrentColor,Path=SelectedItem, Mode=TwoWay}"/>
-                        </Border.Background>
+                <Border  BorderThickness="1.2" Width="50" BorderBrush="#bb000000" >
+                    <Border.Background>
+                        <SolidColorBrush Color="{Binding ElementName=CurrentColor,Path=SelectedItem, Mode=TwoWay}"/>
+                    </Border.Background>
                     <TextBlock HorizontalAlignment="Right"><Run Text="{Binding ElementName=CurrentSize ,Path=Value,TargetNullValue='0',FallbackValue='0'}"/>px</TextBlock>
-                    </Border>          
+                </Border>
             </AppBarButton>
 
             <!--<StackPanel HorizontalAlignment="Left" Orientation="Horizontal">-->
@@ -111,10 +110,9 @@
                 <Interactivity:Interaction.Behaviors>
                     <Core:EventTriggerBehavior EventName="Click"  >
                         <Core:CallMethodAction TargetObject="{Binding ElementName=InkCanvasController}" MethodName="RenderImageToOutput"/>
-
                     </Core:EventTriggerBehavior>
                 </Interactivity:Interaction.Behaviors>
-                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xEA35;" />   
+                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xEA35;" />
             </AppBarButton>
             <AppBarButton>
                 <Interactivity:Interaction.Behaviors>

@@ -15,9 +15,9 @@
         <Glue:NotValueConverter x:Key="NotValueConverter"/>
     </mvvm:MVVMPage.Resources>
     <RelativePanel  x:Name="grid" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"  >
-        <d:DataContext>
+        <d:FrameworkElement.DataContext>
             <vm:MainPage_Model></vm:MainPage_Model>
-        </d:DataContext>
+        </d:FrameworkElement.DataContext>
         <Interactivity:Interaction.Behaviors>
             <Core:DataTriggerBehavior  Binding="{Binding ReceivedShareItem}"  Value="{x:Null}">
                 <Core:GoToStateAction StateName="False" UseTransitions="True"/>
