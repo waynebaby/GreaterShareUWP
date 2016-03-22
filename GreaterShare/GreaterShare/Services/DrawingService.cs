@@ -14,10 +14,36 @@ namespace GreaterShare.Services
 {
 	public class DrawingService : IDrawingService
 	{
-		public byte[] DrawStrokeOnBackground(IReadOnlyList<InkStroke> strokes, int width, int height, byte[] backgroundImageBuffer)
-		{
+		public byte[] DrawStrokeOnSolidColorBackground(IReadOnlyList<InkStroke> strokes, int width, int height, Color color )
+		{														 
 			CanvasDevice device = CanvasDevice.GetSharedDevice();
 			CanvasRenderTarget renderTarget = new CanvasRenderTarget(device, width, height, 96);
+
+			using (var ds = renderTarget.CreateDrawingSession())
+			{
+				ds.Clear(color);
+				ds.DrawInk(strokes);
+			}
+			var stm = new InMemoryRandomAccessStream();
+			renderTarget.SaveAsync(stm, CanvasBitmapFileFormat.Png).AsTask().Wait();
+			var readfrom = stm.GetInputStreamAt(0).AsStreamForRead();
+			var ms = new MemoryStream();
+			readfrom.CopyTo(ms);
+			var outputBuffer = ms.ToArray();
+			return outputBuffer;
+		}
+
+		public byte[] DrawStrokeOnImageBackground(IReadOnlyList<InkStroke> strokes, byte[] backgroundImageBuffer)
+		{
+
+			var stmbuffer = new InMemoryRandomAccessStream();
+			stmbuffer.AsStreamForWrite().AsOutputStream().WriteAsync(backgroundImageBuffer.AsBuffer()).AsTask().Wait();
+
+			CanvasDevice device = CanvasDevice.GetSharedDevice();
+			var canbit = CanvasBitmap.LoadAsync(device, stmbuffer, 96).AsTask().Result;
+
+
+			CanvasRenderTarget renderTarget = new CanvasRenderTarget(device, canbit.SizeInPixels.Width, canbit.SizeInPixels.Height, 96);
 
 			using (var ds = renderTarget.CreateDrawingSession())
 			{
@@ -25,9 +51,7 @@ namespace GreaterShare.Services
 
 				if (backgroundImageBuffer != null)
 				{
-					var stmbuffer = new InMemoryRandomAccessStream();
-					stmbuffer.AsStreamForWrite().AsOutputStream().WriteAsync(backgroundImageBuffer.AsBuffer()).AsTask().Wait();
-					var canbit = CanvasBitmap.LoadAsync(ds, stmbuffer, 96).AsTask().Result;
+
 					ds.DrawImage(canbit);
 				}
 

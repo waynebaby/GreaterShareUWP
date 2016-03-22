@@ -200,7 +200,9 @@ namespace GreaterShare.Glue
 			}
 
 			byte[] outputBuffer = ServiceLocator.Instance
-				.Resolve<IDrawingService>().DrawStrokeOnBackground(strokes, width, height, backgroundImageBuffer);
+				.Resolve<IDrawingService>().DrawStrokeOnImageBackground(strokes, backgroundImageBuffer);
+			//byte[] outputBuffer = ServiceLocator.Instance
+			//	.Resolve<IDrawingService>().DrawStrokeOnSolidColorBackground(strokes,  width,height, Colors.Red);
 
 			OutputBase64String = Convert.ToBase64String(outputBuffer);
 
