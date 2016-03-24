@@ -2,12 +2,15 @@
 using GreaterShare.Services;
 using GreaterShare.ViewModels;
 using MVVMSidekick.EventRouting;
+using MVVMSidekick.Reactive;
 using MVVMSidekick.Services;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Reactive;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Runtime.CompilerServices;
@@ -46,19 +49,18 @@ namespace GreaterShare
 		{
 			this.InitializeComponent();
 			this.Suspending += OnSuspending;
-			MVVMSidekick.EventRouting.EventRouter.Instance.GetEventChannel<Exception>()
-				.Subscribe(
-				e => Debug.Write(e.EventData));
+
 		}
 
 
 
 		static bool _inited = false;
-		public static void InitNavigationConfigurationInThisAssembly()
+		public static void InitConfigurationInThisAssembly()
 		{
 			if (!_inited)
-			{  
+			{
 				MVVMSidekick.Startups.StartupFunctions.RunAllConfig();
+				ConfigureCommandAndCommandExceptionHandler();
 				ServiceLocator.Instance.Register<IDrawingService, DrawingService>();
 				ServiceLocator.Instance.Register<IShareService, DefaultShareService>();
 				ServiceLocator.Instance.Register<ISubStorageService, DefaultSubStorageService>();
@@ -67,38 +69,28 @@ namespace GreaterShare
 				RuntimeHelpers.RunClassConstructor(typeof(WebLinkShareItem).TypeHandle);
 				_inited = true;
 			}
-		
+
 		}
 
 		public static BehaviorSubject<IStorageItem> CurrentFile
 					= new BehaviorSubject<IStorageItem>(null);
 
-		public static string FileExtension { get; internal set; }
-		= ".gshare";
+		public static string FileExtension { get; internal set; } = ".gshare";
 
-		public static Task<Uri> CurrentAppUri = Task.Factory.StartNew(()=>
+		public static Task<Uri> CurrentAppUri = Task.Factory.StartNew(() =>
 		{
 			return new Uri("https://www.microsoft.com/store/apps/9nblggh5fmm2");
 		});
 
 		protected override void OnFileActivated(FileActivatedEventArgs args)
 		{
-			 
-			InitNavigationConfigurationInThisAssembly();
-			Frame rootFrame = CreateRootFrame();	   
+
+			InitConfigurationInThisAssembly();
+			Frame rootFrame = CreatOrSetupeRootFrame();
 			if (rootFrame.Content == null)
 			{
 				rootFrame.Navigate(typeof(MainPage), null);
 			}
-
-			//EventRouter.Instance.GetEventChannel<MainPage_Model>()
-			//	.Where(e => e.EventName == "Loaded")
-			//	.Subscribe(
-			//	e =>
-			//	 {
-			//		 CurrentFile.OnNext(args.Files.FirstOrDefault());
-			//	 }
-			//	);
 
 			ConfigTitlebar();
 
@@ -123,8 +115,8 @@ namespace GreaterShare
 			}
 #endif
 			//Init MVVM-Sidekick Navigations:
-			InitNavigationConfigurationInThisAssembly();
-			Frame rootFrame = CreateRootFrame();
+			InitConfigurationInThisAssembly();
+			Frame rootFrame = CreatOrSetupeRootFrame();
 
 			if (rootFrame.Content == null)
 			{
@@ -174,7 +166,7 @@ namespace GreaterShare
 			deferral.Complete();
 		}
 
-		private Frame CreateRootFrame()
+		private Frame CreatOrSetupeRootFrame()
 		{
 			Frame rootFrame = Window.Current.Content as Frame;
 
@@ -196,12 +188,12 @@ namespace GreaterShare
 			return rootFrame;
 		}
 
+
+
 		protected override void OnShareTargetActivated(ShareTargetActivatedEventArgs args)
 		{
-
-
-			InitNavigationConfigurationInThisAssembly();
-			var rootFrame = CreateRootFrame();
+			InitConfigurationInThisAssembly();
+			var rootFrame = CreatOrSetupeRootFrame();
 
 			// When the navigation stack isn't restored navigate to the first page,
 			// configuring the new page by passing required information as a navigation
@@ -211,12 +203,44 @@ namespace GreaterShare
 
 			Window.Current.Activate();
 			base.OnShareTargetActivated(args);
-			
 		}
 
 
+		/// <summary>
+		/// Configure event handler when command executed or exception happens
+		/// </summary>
+		private static void ConfigureCommandAndCommandExceptionHandler()
+		{
+			EventRouter.Instance.GetEventChannel<EventPattern<ReactiveCommandEventArgs>>()
+				.ObserveOnDispatcher()
+				.Subscribe(
+					e =>
+					{
+						//Command Fired Messages
+					}
+				);
+
+			EventRouter.Instance.GetEventChannel<Exception>()
+				.ObserveOnDispatcher()
+				.Subscribe(
+					e =>
+					{
+						//Exceptions Messages 
+						if (Exceptions.Count >= 20)
+						{
+							Exceptions.RemoveAt(0);
+						}
+						Exceptions.Add(Tuple.Create(DateTime.Now, e.EventData));
+						Debug.WriteLine(e.EventData);
+					}
+				);
+		}
+
+		/// <summary>
+		/// Exception lists
+		/// </summary>
+		public static ObservableCollection<Tuple<DateTime, Exception>> Exceptions { get; set; } = new ObservableCollection<Tuple<DateTime, Exception>>();
 
 	}
-
 
 }

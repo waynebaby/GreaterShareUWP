@@ -196,6 +196,8 @@ namespace GreaterShare.ViewModels
 							}
 							CurrentViewingItem = target;
 							await Task.Yield();
+							
+
 						}
 					)
 					.Subscribe()
@@ -503,8 +505,7 @@ namespace GreaterShare.ViewModels
 								var svc = ServiceLocator.Instance.Resolve<IShareService>();
 								await svc.ShareItemAsync(vm.ReceivedShareItem);
 								//Todo: Add Reshare logic here, or
-								await MVVMSidekick.Utilities.TaskExHelper.Yield();
-
+								await MVVMSidekick.Utilities.TaskExHelper.Yield();	  
 							}
 							catch (Exception ex)
 							{
@@ -660,7 +661,7 @@ namespace GreaterShare.ViewModels
 								await Task.Delay(800);
 								PushClipboardToCurrent(vm);
 							}
-
+									 
 							await MVVMSidekick.Utilities.TaskExHelper.Yield();
 						})
 					.DoNotifyDefaultEventRouter(vm, commandId)
@@ -704,6 +705,8 @@ namespace GreaterShare.ViewModels
 						{
 							PushClipboardToCurrent(vm);
 							//Todo: Add PushClipToCurrentItem logic here, or
+							
+
 							await MVVMSidekick.Utilities.TaskExHelper.Yield();
 						})
 					.DoNotifyDefaultEventRouter(vm, commandId)
