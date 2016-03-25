@@ -12,9 +12,11 @@
     xmlns:Behaviors="using:MVVMSidekick.Behaviors"
     mc:Ignorable="d">
 
-    <Page.Resources>
+    <mvvm:MVVMPage.Resources>
+
         <!-- TODO: Delete this line if the key AppName is declared in App.xaml -->
-    </Page.Resources>
+        <Glue:SizeDoubleConveter x:Key="SizeDoubleConveter"/>
+    </mvvm:MVVMPage.Resources>
 
     <Grid Background="#444444">
         <d:FrameworkElement.DataContext>
@@ -26,21 +28,23 @@
             </TransitionCollection>
         </Grid.ChildrenTransitions>
         <ScrollViewer ZoomMode="Enabled" Margin="10,10,10,60"
-        HorizontalScrollBarVisibility="Auto"
-        HorizontalScrollMode="Auto"          
-        VerticalScrollBarVisibility="Auto"
-        VerticalScrollMode="Auto">
+            HorizontalScrollBarVisibility="Auto"
+            HorizontalScrollMode="Auto"          
+            VerticalScrollBarVisibility="Auto"
+            VerticalScrollMode="Auto">
             <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
                 <Image  HorizontalAlignment="Center" VerticalAlignment="Center"   Source="{Binding CurrentImage ,Converter={StaticResource StreamImageSourceConverter}}"/>
                 <InkCanvas>
+                    <!--Color="{Binding ElementName=CurrentColor , Path=SelectedItem ,Mode=TwoWay}"-->
                     <Interactivity:Interaction.Behaviors>
                         <Glue:InkCanvasControllerBehavior x:Name="InkCanvasController" 
-                        IsInputEnabled="False"
-                        Color="{Binding ElementName=CurrentColor , Path=SelectedItem}"
-                        StrokeSize="{Binding Value, ElementName=CurrentSize}" 
-                        BackgroundImageBase64String="{Binding CurrentImage.Base64String}" 
-                        OutputBase64String="{Binding ImageResult, Mode=TwoWay}"
-                        >
+                            IsInputEnabled="False"
+                       
+                            StrokeSize="{Binding Value, Converter={StaticResource SizeDoubleConveter}, ElementName=CurrentSize, Mode=TwoWay}" 
+                            BackgroundImageBase64String="{Binding CurrentImage.Base64String}" 
+                            OutputBase64String="{Binding ImageResult, Mode=TwoWay}"
+                            CurrentProfile="{Binding SelectedItem.Type, ElementName=SelectedBrush ,Mode=TwoWay}"
+                            >
                         </Glue:InkCanvasControllerBehavior>
                     </Interactivity:Interaction.Behaviors>
                 </InkCanvas>
@@ -48,20 +52,12 @@
         </ScrollViewer>
 
         <CommandBar BorderBrush="Black" IsOpen="False"  IsSticky="False" BorderThickness=".2" VerticalAlignment="Bottom" Background="#70ffffff" ClosedDisplayMode="Compact">
-
             <AppBarButton>
                 <AppBarButton.Flyout>
                     <Flyout>
-                        <StackPanel MinWidth="100" MinHeight="120">
-                            <RelativePanel>
-                                <TextBlock x:Name="brush">Brush:</TextBlock>
-                                <Ellipse RelativePanel.Below="brush"  RelativePanel.AlignHorizontalCenterWithPanel="True" Width="{Binding  ElementName=CurrentSize ,Path=Value}" Height="{Binding  ElementName=CurrentSize ,Path=Value}">
-                                    <Ellipse.Fill>
-                                        <SolidColorBrush Color="{Binding ElementName=CurrentColor,Path=SelectedItem}"    />
-                                    </Ellipse.Fill>
-                                </Ellipse>
-                            </RelativePanel>
-                            <ComboBox SelectedItem="Black" x:Name="CurrentColor"  MinWidth="100" SelectedIndex="0">
+                        <StackPanel MinWidth="100" MinHeight="20">
+                            <Slider x:Name="CurrentSize" Minimum="1" Maximum="50"  Value="20" />
+                            <!--<ComboBox SelectedValue="{Binding  ElementName=InkCanvasController, Path=Color ,Mode=TwoWay}"  x:Name="CurrentColor"  MinWidth="100" >
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate>
                                         <StackPanel  Orientation="Horizontal" >
@@ -75,13 +71,14 @@
                                         </StackPanel>
                                     </DataTemplate>
                                 </ComboBox.ItemTemplate>
+                                <Color >White</Color>
                                 <Color>Yellow</Color>
                                 <Color>Red</Color>
                                 <Color>Green</Color>
                                 <Color>Blue</Color>
                                 <Color>Black</Color>
-                            </ComboBox>
-                            <Slider x:Name="CurrentSize" Minimum="1" Maximum="50"  Value="20" />
+                            </ComboBox>-->
+                           
 
 
                         </StackPanel>
@@ -89,21 +86,66 @@
                     </Flyout>
                 </AppBarButton.Flyout>
                 <Border  BorderThickness="1.2" Width="50" BorderBrush="#bb000000" >
-                    <Border.Background>
-                        <SolidColorBrush Color="{Binding ElementName=CurrentColor,Path=SelectedItem, Mode=TwoWay}"/>
-                    </Border.Background>
+                    
                     <TextBlock HorizontalAlignment="Right"><Run Text="{Binding ElementName=CurrentSize ,Path=Value,TargetNullValue='0',FallbackValue='0'}"/>px</TextBlock>
                 </Border>
             </AppBarButton>
 
+            <AppBarButton>
+                <!--SelectedItem="{Binding  ElementName=InkCanvasController, Path=Color ,Mode=TwoWay ,FallbackValue=Red}"-->
+                <ComboBox                                      
+                    SelectedItem="{Binding  ElementName=InkCanvasController, Path=Color }"
+                    x:Name="CurrentColor"  MinWidth="40" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel  Orientation="Horizontal" >
+                                <Border BorderThickness="1" BorderBrush="Black">
+                                    <Rectangle Width="80" Height="20" >
+                                        <Rectangle.Fill>
+                                            <SolidColorBrush Color="{Binding}" />
+                                        </Rectangle.Fill>
+                                    </Rectangle>
+                                </Border>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                    <Color>White</Color>
+                    <Color>Yellow</Color>
+                    <Color>Red</Color>
+                    <Color>Green</Color>
+                    <Color>Blue</Color>
+                    <Color>Black</Color>
+                </ComboBox>
+
+            </AppBarButton>
             <!--<StackPanel HorizontalAlignment="Left" Orientation="Horizontal">-->
             <AppBarToggleButton  IsChecked="{Binding ElementName=InkCanvasController, Path=IsInputEnabled, Mode=TwoWay}">
                 <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE932;" />
             </AppBarToggleButton>
 
-            <AppBarToggleButton  IsChecked="{Binding ElementName=InkCanvasController, Path=DrawAsHighlighter, Mode=TwoWay}">
-                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE7E6;" />
-            </AppBarToggleButton>
+            <AppBarButton  >
+                <AppBarButton.Flyout>
+                    <Flyout>
+                        <ListBox x:Name="SelectedBrush"  SelectedIndex="0" SelectionMode="Single" Width="50">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="{Binding Glyph}" ToolTipService.ToolTip="{Binding Type}" HorizontalAlignment="Center" />
+                                        <!--<TextBlock Text="{Binding Type}" />-->
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                            <Glue:InkCanvasProfileItem  Glyph="&#xE70F;" Type="Drawing"/>
+                            <Glue:InkCanvasProfileItem  Glyph="&#xE7E6;" Type="Highlighting"/>
+                            <Glue:InkCanvasProfileItem  Glyph="&#xE75C;" Type="Erasing"/>
+
+  
+                        </ListBox>
+                    </Flyout>
+                </AppBarButton.Flyout>
+                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="{Binding SelectedItem.Glyph, ElementName=SelectedBrush ,Mode=TwoWay}" />
+            </AppBarButton>
+
 
             <!--<AppBarSeparator/>-->
             <AppBarButton >

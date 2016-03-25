@@ -126,6 +126,7 @@
     <Compile Include="Glue\SaveImageCommand.cs" />
     <Compile Include="Glue\ShareItemDataTemplateSelector.cs" />
     <Compile Include="Glue\ShowFlyoutCommand.cs" />
+    <Compile Include="Glue\SizeDoubleConveter.cs" />
     <Compile Include="Glue\StreamImageSourceConverter.cs" />
     <Compile Include="Glue\UriStringConverter.cs" />
     <Compile Include="Glue\StateTriggerActiveReadingBehavior.cs" />

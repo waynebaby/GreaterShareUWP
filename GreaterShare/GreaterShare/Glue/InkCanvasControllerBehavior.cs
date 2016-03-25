@@ -16,6 +16,8 @@ using System.IO;
 using System.Runtime.InteropServices.WindowsRuntime;
 using MVVMSidekick.Services;
 using GreaterShare.Services;
+using Windows.Foundation;
+using MVVMSidekick.EventRouting;
 
 namespace GreaterShare.Glue
 {
@@ -29,7 +31,6 @@ namespace GreaterShare.Glue
 			try
 			{
 
-
 				RegisterPropertyChangedAndSaveUnregToken(
 				   IsInputEnabledProperty,
 				   (o, a) => this.InkPresenter.IsInputEnabled = IsInputEnabled);
@@ -40,29 +41,49 @@ namespace GreaterShare.Glue
 
 				DependencyPropertyChangedCallback detailChanged = (o, a) =>
 				 {
+					 InkPresenter.InputProcessingConfiguration.Mode = CurrentProfile == InkCanvasProfileType.Erasing ? InkInputProcessingMode.Erasing : InkInputProcessingMode.Inking;
 					 var att = InkPresenter.CopyDefaultDrawingAttributes();
 					 att.Color = Color;
-					 att.PenTip = PenTipShape.Circle;
+					 att.PenTip = PenShape;
 					 att.IgnorePressure = false;
-					 att.DrawAsHighlighter = DrawAsHighlighter;
-					 att.Size = new Windows.Foundation.Size(StrokeSize, StrokeSize);
+					 att.DrawAsHighlighter = CurrentProfile== InkCanvasProfileType.Highlighting;
+					 att.Size = StrokeSize;
 					 InkPresenter.UpdateDefaultDrawingAttributes(att);
-
+				
 				 };
 
 				RegisterPropertyChangedAndSaveUnregToken(ColorProperty, detailChanged);
 				RegisterPropertyChangedAndSaveUnregToken(StrokeSizeProperty, detailChanged);
-				RegisterPropertyChangedAndSaveUnregToken(DrawAsHighlighterProperty, detailChanged);
+				RegisterPropertyChangedAndSaveUnregToken(CurrentProfileProperty, (o, a) =>
+				{
+					switch (CurrentProfile)
+					{
+						case InkCanvasProfileType.Drawing:
+							ProfileOfDrawing?.ApplyToInkCanvasController(this);
+							break;
+						case InkCanvasProfileType.Highlighting:
+							ProfileOfHighlighting?.ApplyToInkCanvasController(this);		
+							break;
+						case InkCanvasProfileType.Erasing:
+							ProfileOfErasing?.ApplyToInkCanvasController(this);		
+							break;
+						default:
+							break;
+					}						   
+					detailChanged(o, a);				
+				});
+				RegisterPropertyChangedAndSaveUnregToken(PenShapeProperty, detailChanged);
+
 
 				regs.ForEach(i => i.Item3(null, null));
 
-
+			
 
 			}
 			catch (Exception ex)
 			{
 
-				throw;
+				EventRouter.Instance.RaiseEvent(this, ex);
 			}
 
 
@@ -98,15 +119,15 @@ namespace GreaterShare.Glue
 
 
 
-		public double StrokeSize
+		public Size StrokeSize
 		{
-			get { return (double)GetValue(StrokeSizeProperty); }
+			get { return (Size)GetValue(StrokeSizeProperty); }
 			set { SetValue(StrokeSizeProperty, value); }
 		}
 
 		// Using a DependencyProperty as the backing store for StrokeSize.  This enables animation, styling, binding, etc...
 		public static readonly DependencyProperty StrokeSizeProperty =
-			DependencyProperty.Register(nameof(StrokeSize), typeof(double), typeof(InkCanvasControllerBehavior), new PropertyMetadata(20d));
+			DependencyProperty.Register(nameof(StrokeSize), typeof(Size), typeof(InkCanvasControllerBehavior), new PropertyMetadata(new Size(2, 2)));
 
 
 
@@ -123,15 +144,17 @@ namespace GreaterShare.Glue
 
 
 
-		public bool DrawAsHighlighter
+
+		public InkCanvasProfileType CurrentProfile
 		{
-			get { return (bool)GetValue(DrawAsHighlighterProperty); }
-			set { SetValue(DrawAsHighlighterProperty, value); }
+			get { return (InkCanvasProfileType)GetValue(CurrentProfileProperty); }
+			set { SetValue(CurrentProfileProperty, value); }
 		}
 
-		// Using a DependencyProperty as the backing store for IsDrawingAsMarker.  This enables animation, styling, binding, etc...
-		public static readonly DependencyProperty DrawAsHighlighterProperty =
-			DependencyProperty.Register(nameof(DrawAsHighlighter), typeof(bool), typeof(InkCanvasControllerBehavior), new PropertyMetadata(true));
+		// Using a DependencyProperty as the backing store for CurrentProfile.  This enables animation, styling, binding, etc...
+		public static readonly DependencyProperty CurrentProfileProperty =
+			DependencyProperty.Register(nameof(CurrentProfile), typeof(InkCanvasProfileType), typeof(InkCanvasControllerBehavior), new PropertyMetadata(InkCanvasProfileType.Drawing));
+
 
 
 
@@ -162,7 +185,6 @@ namespace GreaterShare.Glue
 				));
 
 
-
 		public string OutputBase64String
 		{
 			get { return (string)GetValue(OutputBase64StringProperty); }
@@ -172,6 +194,16 @@ namespace GreaterShare.Glue
 		// Using a DependencyProperty as the backing store for OutputBase64String.  This enables animation, styling, binding, etc...
 		public static readonly DependencyProperty OutputBase64StringProperty =
 			DependencyProperty.Register(nameof(OutputBase64String), typeof(string), typeof(InkCanvasControllerBehavior), new PropertyMetadata(null));
+
+		public PenTipShape PenShape
+		{
+			get { return (PenTipShape)GetValue(PenShapeProperty); }
+			set { SetValue(PenShapeProperty, value); }
+		}
+
+		// Using a DependencyProperty as the backing store for PenShape.  This enables animation, styling, binding, etc...
+		public static readonly DependencyProperty PenShapeProperty =
+			DependencyProperty.Register(nameof(PenTipShape), typeof(PenTipShape), typeof(InkCanvasControllerBehavior), new PropertyMetadata(PenTipShape.Circle));
 
 
 
@@ -201,8 +233,6 @@ namespace GreaterShare.Glue
 
 			byte[] outputBuffer = ServiceLocator.Instance
 				.Resolve<IDrawingService>().DrawStrokeOnImageBackground(strokes, backgroundImageBuffer);
-			//byte[] outputBuffer = ServiceLocator.Instance
-			//	.Resolve<IDrawingService>().DrawStrokeOnSolidColorBackground(strokes,  width,height, Colors.Red);
 
 			OutputBase64String = Convert.ToBase64String(outputBuffer);
 
@@ -216,5 +246,144 @@ namespace GreaterShare.Glue
 
 		public event EventHandler<EventArgs> ImageRendered;
 
+
+
+
+		public InkCanvasControllerProfile ProfileOfDrawing
+		{
+			get { return (InkCanvasControllerProfile)GetValue(ProfileOfDrawingProperty); }
+			set { SetValue(ProfileOfDrawingProperty, value); }
+		}
+
+		// Using a DependencyProperty as the backing store for ProfileOfDrawing.  This enables animation, styling, binding, etc...
+		public static readonly DependencyProperty ProfileOfDrawingProperty =
+			DependencyProperty.Register(nameof(ProfileOfDrawing), typeof(InkCanvasControllerProfile), typeof(InkCanvasControllerBehavior), new PropertyMetadata(new InkCanvasControllerProfile
+			{
+				PreferedPenTipShape = PenTipShape.Circle,
+				PreferedStrokeColor = Colors.Red,
+				PreferedStrokeSize = new Size(2, 2)
+			}));
+
+
+
+		public InkCanvasControllerProfile ProfileOfHighlighting
+		{
+			get { return (InkCanvasControllerProfile)GetValue(ProfileOfHighlightingProperty); }
+			set { SetValue(ProfileOfHighlightingProperty, value); }
+		}
+
+		// Using a DependencyProperty as the backing store for ProfileOfHighlighting.  This enables animation, styling, binding, etc...
+		public static readonly DependencyProperty ProfileOfHighlightingProperty =
+			DependencyProperty.Register(nameof(ProfileOfHighlighting), typeof(InkCanvasControllerProfile), typeof(InkCanvasControllerBehavior), new PropertyMetadata(new InkCanvasControllerProfile
+			{
+				PreferedPenTipShape = PenTipShape.Rectangle,
+				PreferedStrokeColor = Colors.Yellow,
+				PreferedStrokeSize = new Size(16, 16)
+			}));
+
+
+		public InkCanvasControllerProfile ProfileOfErasing
+		{
+			get { return (InkCanvasControllerProfile)GetValue(ProfileOfErasingProperty); }
+			set { SetValue(ProfileOfErasingProperty, value); }
+		}
+
+		// Using a DependencyProperty as the backing store for ProfileOfErasing.  This enables animation, styling, binding, etc...
+		public static readonly DependencyProperty ProfileOfErasingProperty =
+			DependencyProperty.Register(nameof(ProfileOfErasing), typeof(InkCanvasControllerProfile), typeof(InkCanvasControllerBehavior), new PropertyMetadata(new InkCanvasControllerProfile
+			{
+				PreferedPenTipShape = PenTipShape.Rectangle,
+				PreferedStrokeColor = Colors.Yellow,
+				PreferedStrokeSize = new Size(4, 4)
+			}));				  
+
 	}
+
+	public enum InkCanvasProfileType
+	{
+		Drawing,
+		Highlighting,
+		Erasing
+	}
+
+
+	public class InkCanvasProfileItem : DependencyObject
+	{
+
+
+		public InkCanvasProfileType Type
+		{
+			get { return (InkCanvasProfileType)GetValue(TypeProperty); }
+			set { SetValue(TypeProperty, value); }
+		}
+
+		// Using a DependencyProperty as the backing store for Type.  This enables animation, styling, binding, etc...
+		public static readonly DependencyProperty TypeProperty =
+			DependencyProperty.Register(nameof(Type), typeof(InkCanvasProfileType), typeof(InkCanvasProfileItem), new PropertyMetadata(0));
+
+
+		public String Glyph
+		{
+			get { return (String)GetValue(GlyphProperty); }
+			set { SetValue(GlyphProperty, value); }
+		}
+
+		// Using a DependencyProperty as the backing store for Glyph.  This enables animation, styling, binding, etc...
+		public static readonly DependencyProperty GlyphProperty =
+			DependencyProperty.Register(nameof(Glyph), typeof(String), typeof(InkCanvasProfileItem), new PropertyMetadata(null));
+
+																				
+
+
+	}
+
+	public class InkCanvasControllerProfile : DependencyObject
+	{								 
+
+	
+		public Size PreferedStrokeSize
+		{
+			get { return (Size)GetValue(PreferedStrokeSizeProperty); }
+			set { SetValue(PreferedStrokeSizeProperty, value); }
+		}
+
+		// Using a DependencyProperty as the backing store for PreferedStrokeSize.  This enables animation, styling, binding, etc...
+		public static readonly DependencyProperty PreferedStrokeSizeProperty =
+			DependencyProperty.Register(nameof(PreferedStrokeSize), typeof(Size), typeof(InkCanvasControllerProfile), new PropertyMetadata(new Size(2, 2)));
+
+
+
+
+		public Color PreferedStrokeColor
+		{
+			get { return (Color)GetValue(PreferedStrokeColorProperty); }
+			set { SetValue(PreferedStrokeColorProperty, value); }
+		}
+
+		// Using a DependencyProperty as the backing store for PreferedStrokeColor.  This enables animation, styling, binding, etc...
+		public static readonly DependencyProperty PreferedStrokeColorProperty =
+			DependencyProperty.Register(nameof(PreferedStrokeColor), typeof(Color), typeof(InkCanvasControllerProfile), new PropertyMetadata(Colors.Red));
+
+
+
+		public PenTipShape PreferedPenTipShape
+		{
+			get { return (PenTipShape)GetValue(PreferedPenTipShapeProperty); }
+			set { SetValue(PreferedPenTipShapeProperty, value); }
+		}
+
+		// Using a DependencyProperty as the backing store for PreferedPenTipShape.  This enables animation, styling, binding, etc...
+		public static readonly DependencyProperty PreferedPenTipShapeProperty =
+			DependencyProperty.Register(nameof(PreferedPenTipShape), typeof(PenTipShape), typeof(InkCanvasControllerProfile), new PropertyMetadata(PenTipShape.Circle));
+
+
+		public void ApplyToInkCanvasController(InkCanvasControllerBehavior controller)
+		{
+			controller.Color = PreferedStrokeColor;
+			controller.StrokeSize = PreferedStrokeSize;
+			controller.PenShape = PreferedPenTipShape;
+		}
+
+	}
+
 }
