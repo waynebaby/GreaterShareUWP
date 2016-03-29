@@ -58,26 +58,7 @@ namespace GreaterShare.ViewModels
 
 		 
 
-
-		public ObservableCollection<Color> BrushColors
-		{
-			get { return _BrushColorsLocator(this).Value; }
-			set { _BrushColorsLocator(this).SetValueAndTryNotify(value); }
-		}
-		#region Property ObservableCollection<Color> BrushColors Setup        
-		protected Property<ObservableCollection<Color>> _BrushColors = new Property<ObservableCollection<Color>> { LocatorFunc = _BrushColorsLocator };
-		static Func<BindableBase, ValueContainer<ObservableCollection<Color>>> _BrushColorsLocator = RegisterContainerLocator<ObservableCollection<Color>>(nameof(BrushColors), model => model.Initialize(nameof(BrushColors), ref model._BrushColors, ref _BrushColorsLocator, _BrushColorsDefaultValueFactory));
-		static Func<ObservableCollection<Color>> _BrushColorsDefaultValueFactory = () => new ObservableCollection<Color> {
-			Colors.Black,
-			Colors.Yellow,
-			Colors.Green,
-			Colors.Red,
-			Colors.LightGoldenrodYellow,
-			Colors.PaleVioletRed,
-			Colors.LawnGreen,
-			Colors.YellowGreen
-		};
-		#endregion
+																		   
 
 
 
@@ -94,19 +75,16 @@ namespace GreaterShare.ViewModels
 
 
 
-
-
-		public Guid CurrentVersion
+		public Color CurrentPenColor
 		{
-			get { return _CurrentVersionLocator(this).Value; }
-			set { _CurrentVersionLocator(this).SetValueAndTryNotify(value); }
+			get { return _CurrentPenColorLocator(this).Value; }
+			set { _CurrentPenColorLocator(this).SetValueAndTryNotify(value); }
 		}
-		#region Property Guid CurrentVersion Setup        
-		protected Property<Guid> _CurrentVersion = new Property<Guid> { LocatorFunc = _CurrentVersionLocator };
-		static Func<BindableBase, ValueContainer<Guid>> _CurrentVersionLocator = RegisterContainerLocator<Guid>(nameof(CurrentVersion), model => model.Initialize(nameof(CurrentVersion), ref model._CurrentVersion, ref _CurrentVersionLocator, _CurrentVersionDefaultValueFactory));
-		static Func<Guid> _CurrentVersionDefaultValueFactory = () => default(Guid);
+		#region Property Color CurrentPenColor Setup        
+		protected Property<Color> _CurrentPenColor = new Property<Color> { LocatorFunc = _CurrentPenColorLocator };
+		static Func<BindableBase, ValueContainer<Color>> _CurrentPenColorLocator = RegisterContainerLocator<Color>(nameof(CurrentPenColor), model => model.Initialize(nameof(CurrentPenColor), ref model._CurrentPenColor, ref _CurrentPenColorLocator, _CurrentPenColorDefaultValueFactory));
+		static Func<Color> _CurrentPenColorDefaultValueFactory = () => default(Color);
 		#endregion
-
 
 
 

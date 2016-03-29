@@ -193,6 +193,13 @@
 
 
                 <StackPanel  x:Name="linkButtons"   Style="{StaticResource LabelButtons}"  Orientation="Horizontal" >
+
+                    <HyperlinkButton ToolTipService.ToolTip="Copy" Style="{StaticResource LabelButton}" x:Name="linkCopy"  Command="{StaticResource copyCommand}" CommandParameter="{Binding Mode=OneWay}" >
+                        <StackPanel  Orientation="Horizontal" Margin="0,0,12,0">
+                            <FontIcon FontFamily="Segoe UI Symbol" Glyph="&#xE16F;" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </HyperlinkButton>
+
                     <HyperlinkButton ToolTipService.ToolTip="Add Comment"  Style="{StaticResource LabelButton}" x:Name="linkComment"  Visibility="{Binding Converter={StaticResource HideWhenIsNotEditingConverter}, RelativeSource={RelativeSource Mode=Self}, Mode=OneWay}"  Command="{StaticResource AddTextCommentCommand}"  >
                         <!--Visibility="{Binding Converter={StaticResource HideWhenIsNotEditingConverter}, RelativeSource={RelativeSource Mode=Self}, Mode=OneWay}"-->
                         <StackPanel  Orientation="Horizontal" Margin="0,0,12,0">

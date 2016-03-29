@@ -196,7 +196,7 @@ namespace GreaterShare.ViewModels
 							}
 							CurrentViewingItem = target;
 							await Task.Yield();
-							
+
 
 						}
 					)
@@ -505,7 +505,7 @@ namespace GreaterShare.ViewModels
 								var svc = ServiceLocator.Instance.Resolve<IShareService>();
 								await svc.ShareItemAsync(vm.ReceivedShareItem);
 								//Todo: Add Reshare logic here, or
-								await MVVMSidekick.Utilities.TaskExHelper.Yield();	  
+								await MVVMSidekick.Utilities.TaskExHelper.Yield();
 							}
 							catch (Exception ex)
 							{
@@ -655,13 +655,15 @@ namespace GreaterShare.ViewModels
 
 							vm.FocusingViewIndex = 1;
 
-							if (e.EventArgs?.Parameter?.ToString() == nameof(PushClipboardToCurrent))
+							//if (e.EventArgs?.Parameter?.ToString() == nameof(PushClipboardToCurrent))
+							//{
+							if (vm.ReceivedShareItem == null)
 							{
-
-								await Task.Delay(800);
+								await Task.Delay(500);
 								PushClipboardToCurrent(vm);
 							}
-									 
+							//}
+
 							await MVVMSidekick.Utilities.TaskExHelper.Yield();
 						})
 					.DoNotifyDefaultEventRouter(vm, commandId)
@@ -705,7 +707,7 @@ namespace GreaterShare.ViewModels
 						{
 							PushClipboardToCurrent(vm);
 							//Todo: Add PushClipToCurrentItem logic here, or
-							
+
 
 							await MVVMSidekick.Utilities.TaskExHelper.Yield();
 						})
@@ -716,11 +718,11 @@ namespace GreaterShare.ViewModels
 				var cmdmdl = cmd.CreateCommandModel(resource);
 
 				cmdmdl.CommandCore.ListenCanExecuteObservable(
-					vm.ListenChanged(x => x.IsUIBusy, x => x.ClipboardImportingItem)
+					vm.ListenChanged(x => x.IsUIBusy, x => x.ClipboardImportingItem,x=>x.ReceivedShareItem)
 						.Select(v =>
 							   {
 								   var count = vm.ClipboardImportingItem?.AvialableShareItems?.Count ?? 0;
-								   return (!vm.IsUIBusy) && count > 0;
+								   return (!vm.IsUIBusy) && count > 0 && vm.ReceivedShareItem != null;
 							   }
 						)
 					);

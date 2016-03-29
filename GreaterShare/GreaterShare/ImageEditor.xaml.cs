@@ -70,7 +70,7 @@ namespace GreaterShare
 		protected override void OnNavigatedFrom(NavigationEventArgs e)
 		{
 			base.OnNavigatedFrom(e);
-		}
+		}																															 
 
 	}
 }
