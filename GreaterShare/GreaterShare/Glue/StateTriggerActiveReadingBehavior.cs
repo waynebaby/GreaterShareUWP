@@ -83,7 +83,7 @@ namespace GreaterShare.Glue
 
 		// Using a DependencyProperty as the backing store for NarrowTrigger.  This enables animation, styling, binding, etc...
 		public static readonly DependencyProperty NarrowTriggerProperty =
-			DependencyProperty.Register("NarrowTrigger", typeof(StateTrigger), typeof(StateTriggerActiveReadingBehavior), new PropertyMetadata(null));
+			DependencyProperty.Register(nameof(NarrowTrigger), typeof(StateTrigger), typeof(StateTriggerActiveReadingBehavior), new PropertyMetadata(null));
 
 
 
@@ -95,7 +95,7 @@ namespace GreaterShare.Glue
 
 		// Using a DependencyProperty as the backing store for WideTrigger.  This enables animation, styling, binding, etc...
 		public static readonly DependencyProperty WideTriggerProperty =
-			DependencyProperty.Register("WideTrigger", typeof(StateTrigger), typeof(StateTriggerActiveReadingBehavior), new PropertyMetadata(null));
+			DependencyProperty.Register(nameof(WideTrigger), typeof(StateTrigger), typeof(StateTriggerActiveReadingBehavior), new PropertyMetadata(null));
 
 
 
