@@ -14,12 +14,14 @@
     mc:Ignorable="d">
 
     <mvvm:MVVMPage.Resources>
-
         <!-- TODO: Delete this line if the key AppName is declared in App.xaml -->
         <Glue:SizeDoubleConveter x:Key="SizeDoubleConveter"/>
     </mvvm:MVVMPage.Resources>
+    <Interactivity:Interaction.Behaviors>
+        <Glue:RequestedThemeBehavior x:Name="RequestedThemeBehavior" IsValueGlobalEffective="true" />
+    </Interactivity:Interaction.Behaviors>
+    <Grid Background="{ThemeResource SystemControlBackgroundBaseMediumLowBrush}">
 
-    <Grid Background="#444444">
         <d:FrameworkElement.DataContext>
             <vm:ImageEditor_Model />
         </d:FrameworkElement.DataContext>
@@ -28,7 +30,7 @@
                 <EntranceThemeTransition/>
             </TransitionCollection>
         </Grid.ChildrenTransitions>
-        <ScrollViewer ZoomMode="Enabled" Margin="10,10,10,60"
+        <ScrollViewer ZoomMode="Enabled" Margin="10,10,10,60" BorderBrush="{ThemeResource SystemControlForegroundListLowBrush}" BorderThickness=".5"
             HorizontalScrollBarVisibility="Auto"
             HorizontalScrollMode="Auto"          
             VerticalScrollBarVisibility="Auto"
@@ -52,8 +54,8 @@
             </Grid>
         </ScrollViewer>
 
-        <CommandBar BorderBrush="Black" IsOpen="False"  IsSticky="False" BorderThickness=".2" VerticalAlignment="Bottom" Background="#70ffffff" ClosedDisplayMode="Compact">
-      
+        <CommandBar BorderBrush="Black" IsOpen="False"  IsSticky="False" BorderThickness=".2" VerticalAlignment="Bottom" ClosedDisplayMode="Compact">
+
             <!--<StackPanel HorizontalAlignment="Left" Orientation="Horizontal">-->
             <AppBarToggleButton Label="Is Drawing"  IsChecked="{Binding ElementName=InkCanvasController, Path=IsInputEnabled, Mode=TwoWay}">
                 <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE932;" />
@@ -93,10 +95,7 @@
 
                     </Flyout>
                 </AppBarButton.Flyout>
-                <Border  BorderThickness="1.2" Width="50" BorderBrush="#bb000000" Padding="2"  >
-                    <Border.Background>
-                        <SolidColorBrush  Color="{Binding CurrentPenColor ,Mode=TwoWay }"/>
-                    </Border.Background>
+                <Border  BorderThickness="1.2" Width="50" BorderBrush="{ThemeResource ButtonBorderThemeBrush}" Padding="2"   >
                     <TextBlock HorizontalAlignment="Right" FontSize="10"><Run Text="{Binding ElementName=CurrentSize ,Path=Value,TargetNullValue='0',FallbackValue='0'}"/>px</TextBlock>
                 </Border>
             </AppBarButton>
@@ -115,7 +114,7 @@
                             </ListBox.ItemTemplate>
                             <Glue:InkCanvasProfileItem  Glyph="&#xE70F;" Type="Drawing"/>
                             <Glue:InkCanvasProfileItem  Glyph="&#xE7E6;" Type="Highlighting"/>
-                            <Glue:InkCanvasProfileItem  Glyph="&#xE75C;" Type="Erasing"/>       
+                            <Glue:InkCanvasProfileItem  Glyph="&#xE75C;" Type="Erasing"/>
                         </ListBox>
                     </Flyout>
                 </AppBarButton.Flyout>
@@ -140,7 +139,11 @@
                 </Interactivity:Interaction.Behaviors>
                 <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xEA39;" />
             </AppBarButton>
-
+            <AppBarToggleButton Label="Theme" IsThreeState="false" IsChecked="{Binding ElementName=RequestedThemeBehavior,Path=IsInLightTheme , Mode=TwoWay}">
+                <AppBarToggleButton.Icon>
+                    <FontIcon Glyph="&#xE771;" />
+                </AppBarToggleButton.Icon>
+            </AppBarToggleButton>
             <!--<Slider></Slider>-->
             <!--</StackPanel>-->
         </CommandBar>

@@ -14,6 +14,10 @@
         <!--<vm:MainPage_Model x:Key="DesignVMMainPage_Model"/>-->       
         <Glue:NotValueConverter x:Key="NotValueConverter"/>
     </mvvm:MVVMPage.Resources>
+    <Interactivity:Interaction.Behaviors>
+        <Glue:RequestedThemeBehavior x:Name="RequestedThemeBehavior" IsValueGlobalEffective="True" />
+
+    </Interactivity:Interaction.Behaviors>
     <RelativePanel  x:Name="grid" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"  >
         <d:FrameworkElement.DataContext>
             <vm:MainPage_Model></vm:MainPage_Model>
@@ -469,6 +473,7 @@
         <local:Background Canvas.ZIndex="-2" Margin="0" RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignTopWithPanel="True"/>
         <AppBar x:Name="AppBar"  VerticalAlignment="Bottom" IsDoubleTapEnabled="False" IsTabStop="True" IsSticky="True" ClosedDisplayMode="Minimal" UseSystemFocusVisuals="True" IsOpen="True"  Margin="0" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignBottomWithPanel="True"  >
             <Interactivity:Interaction.Behaviors>
+             
                 <Core:DataTriggerBehavior Binding="{Binding SugguestingCommand}" ComparisonCondition="NotEqual" Value="{x:Null}">
                     <Core:GoToStateAction StateName="{Binding SugguestingCommand}"/>
                 </Core:DataTriggerBehavior>
@@ -481,7 +486,9 @@
             </Interactivity:Interaction.Behaviors>
 
             <Grid Margin="1">
-
+                <StackPanel Orientation="Horizontal"    >
+                   
+                    <!--<AppBarSeparator></AppBarSeparator>-->
                 <StackPanel Orientation="Horizontal"  Visibility="{Binding SelectedIndex, ConverterParameter=0, Converter={StaticResource HideWhenNotMatchConverter}, ElementName=pivot}">
                     <AppBarButton Command="{Binding StrongTypeViewModel.CommandLoadFromUserFile, ElementName=mVVMPage}" x:Name="appBarButton" HorizontalAlignment="Left" Icon="OpenLocal"  Label="Load" VerticalAlignment="Top">
                         <AppBarButton.Projection>
@@ -489,7 +496,11 @@
                         </AppBarButton.Projection>
                     </AppBarButton>
                     <AppBarButton Command="{Binding StrongTypeViewModel.CommandSaveToUserFile, ElementName=mVVMPage}" Icon="SaveLocal" Label="Save" />
+                    </StackPanel>
                 </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Right"   >
+                  
+             
                 <StackPanel x:Name="stackPanel1" Grid.Column="1"  Orientation="Horizontal" HorizontalAlignment="Right" Visibility="{Binding SelectedIndex, ConverterParameter=1, Converter={StaticResource HideWhenNotMatchConverter}, ElementName=pivot}">
 
                     <AppBarButton x:Name="appBarButton1"  Label="Paste"  Command="{Binding StrongTypeViewModel.CommandGetFromClipboard, ElementName=mVVMPage}" Icon="Paste" >
@@ -504,6 +515,7 @@
                     </AppBarButton>
 
                 </StackPanel>
+        
                 <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" x:Name="stackPanel2"  Visibility="{Binding SelectedIndex, ConverterParameter=0, Converter={StaticResource HideWhenNotMatchConverter}, ElementName=pivot}">
 
                     <!--<AppBarButton Command="{Binding StrongTypeViewModel.CommandReshareCurrent, ElementName=mVVMPage}" HorizontalAlignment="Left" Icon="Target"  Label="Reshare" VerticalAlignment="Top"/>
@@ -523,6 +535,12 @@
                             <PlaneProjection/>
                         </AppBarButton.Projection>
                     </AppBarButton>
+                    </StackPanel>
+                    <AppBarToggleButton Label="Theme" IsThreeState="false" IsChecked="{Binding ElementName=RequestedThemeBehavior,Path=IsInLightTheme , Mode=TwoWay}">
+                        <AppBarToggleButton.Icon>
+                            <FontIcon Glyph="&#xE771;" />
+                        </AppBarToggleButton.Icon>
+                    </AppBarToggleButton>
                 </StackPanel>
             </Grid>
 
