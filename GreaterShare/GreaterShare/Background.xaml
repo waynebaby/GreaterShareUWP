@@ -102,13 +102,13 @@
         <Viewbox Margin="96" MaxWidth="200" VerticalAlignment="Bottom" HorizontalAlignment="Right">
             <RelativePanel   >
       
-            <TextBlock x:Name="greater" FontWeight="ExtraBold"  FontSize="80" 
+            <TextBlock x:Name="greater" MinWidth="170" FontWeight="ExtraBold"  FontSize="80" 
 				Foreground="#FF3E729E"
             >
                 <TextBlock.Projection>
                     <PlaneProjection/>
                 </TextBlock.Projection>
-				<Run Text="Greater"/>
+				<Run x:Uid="BackgroundTitleGreater"/>
             </TextBlock>
 
             <TextBlock x:Name="share"  FontWeight="Bold" FontSize="55" 
@@ -121,7 +121,7 @@
                 <TextBlock.Projection>
                     <PlaneProjection/>
                 </TextBlock.Projection>
-				<Run Text="Share"/>
+				<Run x:Uid="BackgroundTitleShare"/>
             </TextBlock>
             </RelativePanel>
         </Viewbox>

@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 xliff-core-1.2-transitional.xsd">
+  <file datatype="xml" source-language="en" target-language="zh-Hans" original="GREATERSHARE/STRINGS/EN/RESOURCES.RESW" tool-id="MultilingualAppToolkit" product-name="n/a" product-version="n/a" build-num="n/a">
+    <header>
+      <tool tool-id="MultilingualAppToolkit" tool-name="Multilingual App Toolkit" tool-version="4.0.1605.0" tool-company="Microsoft" />
+    </header>
+    <body>
+      <group id="GREATERSHARE/STRINGS/EN/RESOURCES.RESW" datatype="resx">
+        <trans-unit id="BackgroundTitleGreater.Text" translate="yes" xml:space="preserve">
+          <source>Greater</source>
+          <target state="translated">最</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">The Title in background</note>
+        </trans-unit>
+        <trans-unit id="BackgroundTitleShare.Text" translate="yes" xml:space="preserve">
+          <source>Share</source>
+          <target state="translated">分享</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">The Title in background</note>
+        </trans-unit>
+        <trans-unit id="MainPage_MainPivot_CurrentSharePI.Header" translate="yes" xml:space="preserve">
+          <source>Current Share</source>
+          <target state="translated">当前分享</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">Current Share PI header</note>
+        </trans-unit>
+        <trans-unit id="MainPage_MainPivot_ClipboardPI.Header" translate="yes" xml:space="preserve">
+          <source>Clipboard</source>
+          <target state="translated">剪贴板</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">Clipboard PI header</note>
+        </trans-unit>
+        <trans-unit id="AppName" translate="yes" xml:space="preserve">
+          <source>Greater Share</source>
+          <target state="translated">最分享</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">Name of app</note>
+        </trans-unit>
+        <trans-unit id="ButtonPaste.Label" translate="yes" xml:space="preserve">
+          <source>Paste</source>
+          <target state="translated" state-qualifier="tm-suggestion">粘贴</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">UIButton</note>
+        </trans-unit>
+        <trans-unit id="ButtonShare.Label" translate="yes" xml:space="preserve">
+          <source>Share</source>
+          <target state="translated">分享</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">UIButton</note>
+        </trans-unit>
+        <trans-unit id="ButtonLoad.Label" translate="yes" xml:space="preserve">
+          <source>Load</source>
+          <target state="translated">读取</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">UIButton</note>
+        </trans-unit>
+        <trans-unit id="ButtonReshare.Label" translate="yes" xml:space="preserve">
+          <source>Reshare</source>
+          <target state="translated">再次分享</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">UIButton</note>
+        </trans-unit>
+        <trans-unit id="ButtonSave.Label" translate="yes" xml:space="preserve">
+          <source>Save</source>
+          <target state="translated" state-qualifier="tm-suggestion">保存</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">UIButton</note>
+        </trans-unit>
+        <trans-unit id="ButtonAppend.Label" translate="yes" xml:space="preserve">
+          <source>Append</source>
+          <target state="translated">追加</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">UIButton</note>
+        </trans-unit>
+        <trans-unit id="ButtonTheme.Label" translate="yes" xml:space="preserve">
+          <source>Theme</source>
+          <target state="translated">主题切换</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">UIButton</note>
+        </trans-unit>
+        <trans-unit id="LabelContentSourceApplicationLink.Text" translate="yes" xml:space="preserve">
+          <source>Content Source Application Link</source>
+          <target state="translated">内容来源的应用链接</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">UILabel</note>
+        </trans-unit>
+        <trans-unit id="LabelDescription.Text" translate="yes" xml:space="preserve">
+          <source>Description</source>
+          <target state="translated">描述</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">UILabel</note>
+        </trans-unit>
+        <trans-unit id="LabelLogo30x30.Text" translate="yes" xml:space="preserve">
+          <source>Logo 30x30</source>
+          <target state="translated">30像素见方的图标</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">UILabel</note>
+        </trans-unit>
+        <trans-unit id="LabelPackageFamilyName.Text" translate="yes" xml:space="preserve">
+          <source>Package Family Name</source>
+          <target state="translated">应用包家族名</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">UILabel</note>
+        </trans-unit>
+        <trans-unit id="LabelQuickLinkId.Text" translate="yes" xml:space="preserve">
+          <source>Quick Link Id</source>
+          <target state="translated">快速链接标识</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">UILabel</note>
+        </trans-unit>
+        <trans-unit id="LabelThumbnail.Text" translate="yes" xml:space="preserve">
+          <source>Thumbnail Image</source>
+          <target state="translated">缩略图</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">UILabel</note>
+        </trans-unit>
+        <trans-unit id="LabelTitle.Text" translate="yes" xml:space="preserve">
+          <source>Title</source>
+          <target state="translated">标题</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">UILabel</note>
+        </trans-unit>
+        <trans-unit id="SharePanelShareButton.Content" translate="yes" xml:space="preserve">
+          <source>Share!</source>
+          <target state="translated">准备共享！</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">SharePanelShareButton.Content</note>
+        </trans-unit>
+        <trans-unit id="LabelContentSourceWebLink.Text" translate="yes" xml:space="preserve">
+          <source>Content Source Web Link</source>
+          <target state="translated">内容来源的网站链接</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">UILabel</note>
+        </trans-unit>
+      </group>
+    </body>
+  </file>
+</xliff>

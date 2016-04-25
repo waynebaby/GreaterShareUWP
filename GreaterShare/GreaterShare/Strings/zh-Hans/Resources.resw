@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="BackgroundTitleGreater.Text" xml:space="preserve">
+    <value>最</value>
+    <comment>The Title in background</comment>
+  </data>
+  <data name="BackgroundTitleShare.Text" xml:space="preserve">
+    <value>分享</value>
+    <comment>The Title in background</comment>
+  </data>
+  <data name="MainPage_MainPivot_CurrentSharePI.Header" xml:space="preserve">
+    <value>当前分享</value>
+    <comment>Current Share PI header</comment>
+  </data>
+  <data name="MainPage_MainPivot_ClipboardPI.Header" xml:space="preserve">
+    <value>剪贴板</value>
+    <comment>Clipboard PI header</comment>
+  </data>
+  <data name="AppName" xml:space="preserve">
+    <value>最分享</value>
+    <comment>Name of app</comment>
+  </data>
+  <data name="ButtonPaste.Label" xml:space="preserve">
+    <value>粘贴</value>
+    <comment>UIButton</comment>
+  </data>
+  <data name="ButtonShare.Label" xml:space="preserve">
+    <value>分享</value>
+    <comment>UIButton</comment>
+  </data>
+  <data name="ButtonLoad.Label" xml:space="preserve">
+    <value>读取</value>
+    <comment>UIButton</comment>
+  </data>
+  <data name="ButtonReshare.Label" xml:space="preserve">
+    <value>再次分享</value>
+    <comment>UIButton</comment>
+  </data>
+  <data name="ButtonSave.Label" xml:space="preserve">
+    <value>保存</value>
+    <comment>UIButton</comment>
+  </data>
+  <data name="ButtonAppend.Label" xml:space="preserve">
+    <value>追加</value>
+    <comment>UIButton</comment>
+  </data>
+  <data name="ButtonTheme.Label" xml:space="preserve">
+    <value>主题切换</value>
+    <comment>UIButton</comment>
+  </data>
+  <data name="LabelContentSourceApplicationLink.Text" xml:space="preserve">
+    <value>内容来源的应用链接</value>
+    <comment>UILabel</comment>
+  </data>
+  <data name="LabelDescription.Text" xml:space="preserve">
+    <value>描述</value>
+    <comment>UILabel</comment>
+  </data>
+  <data name="LabelLogo30x30.Text" xml:space="preserve">
+    <value>30像素见方的图标</value>
+    <comment>UILabel</comment>
+  </data>
+  <data name="LabelPackageFamilyName.Text" xml:space="preserve">
+    <value>应用包家族名</value>
+    <comment>UILabel</comment>
+  </data>
+  <data name="LabelQuickLinkId.Text" xml:space="preserve">
+    <value>快速链接标识</value>
+    <comment>UILabel</comment>
+  </data>
+  <data name="LabelThumbnail.Text" xml:space="preserve">
+    <value>缩略图</value>
+    <comment>UILabel</comment>
+  </data>
+  <data name="LabelTitle.Text" xml:space="preserve">
+    <value>标题</value>
+    <comment>UILabel</comment>
+  </data>
+  <data name="SharePanelShareButton.Content" xml:space="preserve">
+    <value>准备共享！</value>
+    <comment>SharePanelShareButton.Content</comment>
+  </data>
+  <data name="LabelContentSourceWebLink.Text" xml:space="preserve">
+    <value>内容来源的网站链接</value>
+    <comment>UILabel</comment>
+  </data>
+</root>

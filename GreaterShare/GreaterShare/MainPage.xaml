@@ -199,7 +199,7 @@
           MaxWidth="200" MaxHeight="200"        
          IsActive="{Binding IsUIBusy}" Canvas.ZIndex="1000"   HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ></ProgressRing>
         <Pivot  IsEnabled="{Binding IsUIBusy, Converter={StaticResource NotValueConverter}}" x:Name="pivot" Margin="8,8,8,12"  SelectedIndex="{Binding FocusingViewIndex, Mode=TwoWay}"  Background="#33F0F8FF" RelativePanel.Above="AppBar" RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True">
-            <PivotItem Header="Current Share">
+            <PivotItem x:Uid="MainPage_MainPivot_CurrentSharePI" Header="Current Share" >
                 <Grid x:Name="grid1" >
 
     
@@ -230,7 +230,7 @@
                             <StackPanel x:Name="stackPanel"  Margin="16" >
                                 <StackPanel >
                                     <TextBlock>
-										<Run Text="Title:"/>
+										<Run Text="Title" x:Uid="LabelTitle" /><Run Text=":"/>
                                     </TextBlock>
                                     <TextBox  x:Name="pageTitle" Text="{Binding ReceivedShareItem.Title, Mode=TwoWay}"  
 										 TextWrapping="NoWrap"/>
@@ -245,7 +245,7 @@
                                 </StackPanel>
                                 <StackPanel >
                                     <TextBlock>
-										<Run Text="Logo 30x30:"/>
+										<Run Text="Logo 30x30" x:Uid="LabelLogo30x30"/><Run Text=":"/>
                                     </TextBlock>
                                     <Border HorizontalAlignment="Left" VerticalAlignment="Top" BorderThickness="1" BorderBrush="DarkRed">
                                         <Border.Background>
@@ -257,7 +257,7 @@
                                 </StackPanel>
                                 <StackPanel >
                                     <TextBlock>
-										<Run Text="Thumbnail:"/>
+										<Run Text="Thumbnail" x:Uid="LabelThumbnail"/><Run Text=":"/>
                                     </TextBlock>
                                     <Border HorizontalAlignment="Left" VerticalAlignment="Top" BorderThickness="1" BorderBrush="DarkRed">
                                         <Image MinHeight="50" MinWidth="50" Source="{Binding ReceivedShareItem.Thumbnail, Converter={StaticResource StreamImageSourceConverter}}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
@@ -266,7 +266,8 @@
 
                                 <StackPanel >
                                     <TextBlock>
-										<Run Text="Description:"/>
+                                        	<Run Text="Description" x:Uid="LabelDescription"/><Run Text=":"/>
+
                                     </TextBlock>
 
                                     <TextBox Height="100" ScrollViewer.VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" AcceptsReturn="True" Text="{Binding ReceivedShareItem.Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
@@ -281,7 +282,8 @@
                                 </StackPanel>
                                 <StackPanel >
                                     <TextBlock>
-										<Run Text="QuickLinkId:"/>
+                                        	<Run Text="QuickLinkId" x:Uid="LabelQuickLinkId"/><Run Text=":"/>
+
                                     </TextBlock>
                                     <TextBox Text="{Binding ReceivedShareItem.QuickLinkId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                                     <StackPanel HorizontalAlignment="Right" Margin="0">
@@ -296,7 +298,8 @@
                                 <StackPanel >
                                     <RelativePanel >
                                         <TextBlock x:Name="label">
-											<Run Text="Content Source ApplicationLink:"/>
+                                        	<Run Text="Content Source Application Link" x:Uid="LabelContentSourceApplicationLink"/><Run Text=":"/>
+                                            
                                         </TextBlock>
                                         <TextBox x:Name="textBox" Text="{Binding ReceivedShareItem.ContentSourceApplicationLink, Converter={StaticResource UriStringConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" RelativePanel.Below="label" RelativePanel.AlignRightWith="" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True"/>
 
@@ -318,7 +321,9 @@
                                 <StackPanel >
                                     <RelativePanel >
                                         <TextBlock x:Name="label2">
-											<Run Text="Content Source WebLink:"/>
+										
+                                        	<Run Text="Content Source WebLink" x:Uid="LabelContentSourceWebLink"/><Run Text=":"/>
+
                                         </TextBlock>
                                         <TextBox Text="{Binding ReceivedShareItem.ContentSourceWebLink, Converter={StaticResource UriStringConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  RelativePanel.Below="label2" RelativePanel.AlignRightWith="" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True"/>
 
@@ -340,7 +345,7 @@
 
                                 <StackPanel >
                                     <TextBlock>
-										<Run Text="PackageFamilyName:"/>
+										<Run x:Uid="LabelPackageFamilyName" Text="Package Family Name"/><Run Text=":"/>
                                     </TextBlock>
                                     <TextBox Text="{Binding ReceivedShareItem.PackageFamilyName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
@@ -391,7 +396,7 @@
                     </Grid>
                 </Grid>
             </PivotItem>
-            <PivotItem Header="Clipboard">
+            <PivotItem x:Uid="MainPage_MainPivot_ClipboardPI" Header="Clipboard">
                 <Grid >
                     <Grid.RowDefinitions>
                         <RowDefinition Height="5*"/>
@@ -489,13 +494,13 @@
                 <StackPanel Orientation="Horizontal"    >
                    
                     <!--<AppBarSeparator></AppBarSeparator>-->
-                <StackPanel Orientation="Horizontal"  Visibility="{Binding SelectedIndex, ConverterParameter=0, Converter={StaticResource HideWhenNotMatchConverter}, ElementName=pivot}">
-                    <AppBarButton Command="{Binding StrongTypeViewModel.CommandLoadFromUserFile, ElementName=mVVMPage}" x:Name="appBarButton" HorizontalAlignment="Left" Icon="OpenLocal"  Label="Load" VerticalAlignment="Top">
+                <StackPanel Orientation="Horizontal"   Visibility="{Binding SelectedIndex, ConverterParameter=0, Converter={StaticResource HideWhenNotMatchConverter}, ElementName=pivot}">
+                    <AppBarButton x:Uid="ButtonLoad" Command="{Binding StrongTypeViewModel.CommandLoadFromUserFile, ElementName=mVVMPage}" x:Name="appBarButton" HorizontalAlignment="Left" Icon="OpenLocal"  Label="Load" VerticalAlignment="Top">
                         <AppBarButton.Projection>
                             <PlaneProjection/>
                         </AppBarButton.Projection>
                     </AppBarButton>
-                    <AppBarButton Command="{Binding StrongTypeViewModel.CommandSaveToUserFile, ElementName=mVVMPage}" Icon="SaveLocal" Label="Save" />
+                    <AppBarButton x:Uid="ButtonSave" Command="{Binding StrongTypeViewModel.CommandSaveToUserFile, ElementName=mVVMPage}" Icon="SaveLocal" Label="Save" />
                     </StackPanel>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Right"   >
@@ -503,12 +508,12 @@
              
                 <StackPanel x:Name="stackPanel1" Grid.Column="1"  Orientation="Horizontal" HorizontalAlignment="Right" Visibility="{Binding SelectedIndex, ConverterParameter=1, Converter={StaticResource HideWhenNotMatchConverter}, ElementName=pivot}">
 
-                    <AppBarButton x:Name="appBarButton1"  Label="Paste"  Command="{Binding StrongTypeViewModel.CommandGetFromClipboard, ElementName=mVVMPage}" Icon="Paste" >
+                        <AppBarButton x:Name="appBarButton1"  Label="Paste" x:Uid="ButtonPaste" Command="{Binding StrongTypeViewModel.CommandGetFromClipboard, ElementName=mVVMPage}" Icon="Paste" >
                         <AppBarButton.Projection>
                             <PlaneProjection/>
                         </AppBarButton.Projection>
                     </AppBarButton>
-                    <AppBarButton x:Name="appBarButton2" Label="Append" Command="{Binding StrongTypeViewModel.CommandPushClipToCurrentItem, ElementName=mVVMPage}" Icon="Import">
+                        <AppBarButton x:Name="appBarButton2" x:Uid="ButtonAppend" Label="Append" Command="{Binding StrongTypeViewModel.CommandPushClipToCurrentItem, ElementName=mVVMPage}" Icon="Import">
                         <AppBarButton.Projection>
                             <PlaneProjection/>
                         </AppBarButton.Projection>
@@ -521,7 +526,7 @@
                     <!--<AppBarButton Command="{Binding StrongTypeViewModel.CommandReshareCurrent, ElementName=mVVMPage}" HorizontalAlignment="Left" Icon="Target"  Label="Reshare" VerticalAlignment="Top"/>
                     <AppBarButton Command="{Binding StrongTypeViewModel.CommandReshareSelected, ElementName=mVVMPage}" HorizontalAlignment="Left" Icon="Bullets"  Label="Reshare " VerticalAlignment="Top"/>-->
                     <AppBarButton x:Name="appBarButton3"
-                     HorizontalAlignment="Left" Icon="ReShare"  Label="Reshare"   Command="{Binding CommandReshare}" CommandParameter="NoExecute" VerticalAlignment="Top">
+                     HorizontalAlignment="Left" Icon="ReShare" x:Uid="ButtonReshare" Label="Reshare"   Command="{Binding CommandReshare}" CommandParameter="NoExecute" VerticalAlignment="Top">
                         <AppBarButton.Flyout>
                             <MenuFlyout >
                                 <MenuFlyoutItem  Command="{Binding CommandReshareCurrent}">This</MenuFlyoutItem>
@@ -536,7 +541,7 @@
                         </AppBarButton.Projection>
                     </AppBarButton>
                     </StackPanel>
-                    <AppBarToggleButton Label="Theme" IsThreeState="false" IsChecked="{Binding ElementName=RequestedThemeBehavior,Path=IsInLightTheme , Mode=TwoWay}">
+                    <AppBarToggleButton Label="Theme" IsThreeState="false" x:Uid="ButtonTheme" IsChecked="{Binding ElementName=RequestedThemeBehavior,Path=IsInLightTheme , Mode=TwoWay}">
                         <AppBarToggleButton.Icon>
                             <FontIcon Glyph="&#xE771;" />
                         </AppBarToggleButton.Icon>
