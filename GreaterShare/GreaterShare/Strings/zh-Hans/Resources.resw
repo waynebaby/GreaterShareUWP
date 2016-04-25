@@ -96,4 +96,16 @@
     <value>内容来源的网站链接</value>
     <comment>UILabel</comment>
   </data>
+  <data name="InkCanvasProfileType_Drawing" xml:space="preserve">
+    <value>作画</value>
+    <comment>InkCanvasProfileType enum trans</comment>
+  </data>
+  <data name="InkCanvasProfileType_Erasing" xml:space="preserve">
+    <value>擦除</value>
+    <comment>InkCanvasProfileType enum trans</comment>
+  </data>
+  <data name="InkCanvasProfileType_Highlighting" xml:space="preserve">
+    <value>高亮标记</value>
+    <comment>InkCanvasProfileType enum trans</comment>
+  </data>
 </root>

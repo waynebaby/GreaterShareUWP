@@ -111,24 +111,24 @@
           <target state="translated">内容来源的网站链接</target>
           <note from="MultilingualBuild" annotates="source" priority="2">UILabel</note>
         </trans-unit>
-        <trans-unit id=".[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" translate="yes" xml:space="preserve">
-          <source></source>
-          <target state="new"></target>
-        </trans-unit>
         <trans-unit id="InkCanvasProfileType_Drawing" translate="yes" xml:space="preserve">
           <source>Drawing</source>
-          <target state="new">Drawing</target>
+          <target state="translated">作画</target>
           <note from="MultilingualBuild" annotates="source" priority="2">InkCanvasProfileType enum trans</note>
         </trans-unit>
         <trans-unit id="InkCanvasProfileType_Erasing" translate="yes" xml:space="preserve">
           <source>Erasing</source>
-          <target state="new">Erasing</target>
+          <target state="translated">擦除</target>
           <note from="MultilingualBuild" annotates="source" priority="2">InkCanvasProfileType enum trans</note>
         </trans-unit>
         <trans-unit id="InkCanvasProfileType_Highlighting" translate="yes" xml:space="preserve">
           <source>Highlighting</source>
-          <target state="new">Highlighting</target>
+          <target state="translated">高亮标记</target>
           <note from="MultilingualBuild" annotates="source" priority="2">InkCanvasProfileType enum trans</note>
+        </trans-unit>
+        <trans-unit id="ResourceHost.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" translate="yes" xml:space="preserve">
+          <source></source>
+          <target state="new"></target>
         </trans-unit>
       </group>
     </body>

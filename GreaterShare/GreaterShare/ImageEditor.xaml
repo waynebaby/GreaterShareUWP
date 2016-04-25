@@ -14,6 +14,7 @@
     mc:Ignorable="d">
 
     <mvvm:MVVMPage.Resources>
+        <Glue:InkCanvasProfileTypeLocalizedStringConverter x:Key="InkCanvasProfileTypeLocalizedStringConverter"/>
         <!-- TODO: Delete this line if the key AppName is declared in App.xaml -->
         <Glue:SizeDoubleConveter x:Key="SizeDoubleConveter"/>
     </mvvm:MVVMPage.Resources>
@@ -107,7 +108,7 @@
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
-                                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="{Binding Glyph}" ToolTipService.ToolTip="{Binding Type}" HorizontalAlignment="Center" />
+                                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="{Binding Glyph}" ToolTipService.ToolTip="{Binding Type, Converter={StaticResource InkCanvasProfileTypeLocalizedStringConverter}}" HorizontalAlignment="Center" />
                                         <!--<TextBlock Text="{Binding Type}" />-->
                                     </StackPanel>
                                 </DataTemplate>
