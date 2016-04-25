@@ -198,6 +198,7 @@
         RelativePanel.AlignRightWithPanel="True"  
           MaxWidth="200" MaxHeight="200"        
          IsActive="{Binding IsUIBusy}" Canvas.ZIndex="1000"   HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ></ProgressRing>
+       
         <Pivot  IsEnabled="{Binding IsUIBusy, Converter={StaticResource NotValueConverter}}" x:Name="pivot" Margin="8,8,8,12"  SelectedIndex="{Binding FocusingViewIndex, Mode=TwoWay}"  Background="#33F0F8FF" RelativePanel.Above="AppBar" RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True">
             <PivotItem x:Uid="MainPage_MainPivot_CurrentSharePI" Header="Current Share" >
                 <Grid x:Name="grid1" >
@@ -240,6 +241,7 @@
                                         
 											Command="{Binding CommandSendParameterToText}" CommandParameter="{Binding ReceivedShareItem.Title}" ToolTipService.ToolTip="{StaticResource AppendToTextShare}">
                                             <FontIcon FontSize="14" FontFamily="Segoe UI Symbol" Glyph="&#xE17D;" />
+                                            
                                         </HyperlinkButton>
                                     </StackPanel>
                                 </StackPanel>

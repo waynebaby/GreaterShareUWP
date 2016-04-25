@@ -36,8 +36,9 @@ namespace GreaterShare
 
 		public ImageEditor()
 		{
+         
 
-			this.InitializeComponent();
+            this.InitializeComponent();
 			this.RegisterPropertyChangedCallback(ViewModelProperty, (_, __) =>
 			{
 				StrongTypeViewModel = this.ViewModel as ImageEditor_Model;

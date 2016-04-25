@@ -18,6 +18,7 @@ using MVVMSidekick.Services;
 using GreaterShare.Services;
 using Windows.Foundation;
 using MVVMSidekick.EventRouting;
+using Windows.UI.Xaml.Data;
 
 namespace GreaterShare.Glue
 {
@@ -306,12 +307,28 @@ namespace GreaterShare.Glue
 		Erasing
 	}
 
+    //public class InkCanvasProfileTypeLocalizedStringConverter : IValueConverter
+    //{
+    //    public object Convert(object value, Type targetType, object parameter, string language)
+    //    {
+    //        if (value is )
+    //        {
 
-	public class InkCanvasProfileItem : DependencyObject
+    //        }
+    //    }
+
+    //    public object ConvertBack(object value, Type targetType, object parameter, string language)
+    //    {
+    //        throw new NotImplementedException();
+    //    }
+    //}
+
+
+    public class InkCanvasProfileItem : DependencyObject
 	{
 
 
-		public InkCanvasProfileType Type
+        public InkCanvasProfileType Type
 		{
 			get { return (InkCanvasProfileType)GetValue(TypeProperty); }
 			set { SetValue(TypeProperty, value); }

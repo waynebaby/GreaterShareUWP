@@ -117,7 +117,8 @@
 
                 <RelativePanel>
                     <TextBlock  Style="{StaticResource Label}">
-						<Run Text="Logo 30x30:"/>
+													<Run Text="Logo 30x30" x:Uid="LabelLogo30x30"/><Run Text=":"/>
+
                     </TextBlock>
                     <Border  BorderThickness="1" BorderBrush="Wheat" VerticalAlignment="Top" d:LayoutOverrides="TopPosition, BottomPosition" Style="{StaticResource ContentOfList}" >
                         <Border.Background>
@@ -129,7 +130,8 @@
                 </RelativePanel>
                 <RelativePanel ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto">
                     <TextBlock  Style="{StaticResource Label}">
-						<Run Text="Thumbnail:"/>
+														<Run Text="Thumbnail" x:Uid="LabelThumbnail"/><Run Text=":"/>
+
                     </TextBlock>
                     <Border VerticalAlignment="Top" d:LayoutOverrides="TopPosition, BottomPosition" Style="{StaticResource ContentOfList}" >
                         <Image  Source="{Binding ReceivedShareItem.Thumbnail}"  HorizontalAlignment="Left" Height="0" Width="0"/>
@@ -137,7 +139,8 @@
                 </RelativePanel>
                 <RelativePanel>
                     <TextBlock  Style="{StaticResource Label}">
-						<Run Text="Description:"/>
+			                                        	<Run Text="Description" x:Uid="LabelDescription"/><Run Text=":"/>
+
                     </TextBlock>
                     <Border  Style="{StaticResource ContentOfList}"
                     
@@ -148,7 +151,7 @@
                 <RelativePanel>
                     <TextBlock
 						 Style="{StaticResource Label}">
-						<Run Text="QuickLinkId:"/>
+                                        	<Run Text="QuickLinkId" x:Uid="LabelQuickLinkId"/><Run Text=":"/>
                     </TextBlock>
                     <Border  d:LayoutOverrides="TopPosition, BottomPosition" Style="{StaticResource ContentOfList}" >
                         <TextBlock Text="{Binding ReceivedShareItem.QuickLinkId}" 
@@ -158,7 +161,8 @@
                 <RelativePanel>
                     <TextBlock Style="{StaticResource Label}"
         			>
-						<Run Text="ContentSourceApplicationLink:"/>
+			                                        	<Run Text="Content Source Application Link" x:Uid="LabelContentSourceApplicationLink"/><Run Text=":"/>
+
                     </TextBlock>
                     <Border Style="{StaticResource ContentOfList}">
                         <TextBlock Text="{Binding ReceivedShareItem.ContentSourceApplicationLink}"  Height="0" Width="0"/>
@@ -166,7 +170,8 @@
                 </RelativePanel>
                 <RelativePanel>
                     <TextBlock Style="{StaticResource Label}" >
-						<Run Text="ContentSourceWebLink:"/>
+					                                        	<Run Text="Content Source WebLink" x:Uid="LabelContentSourceWebLink"/><Run Text=":"/>
+
                     </TextBlock>
                     <Border Style="{StaticResource ContentOfList}">
                         <TextBlock Text="{Binding ReceivedShareItem.ContentSourceWebLink}"  Height="0" Width="0"/>
@@ -174,7 +179,8 @@
                 </RelativePanel>
                 <RelativePanel>
                     <TextBlock Style="{StaticResource Label}" >
-						<Run Text="PackageFamilyName:"/>
+													<Run x:Uid="LabelPackageFamilyName" Text="Package Family Name"/><Run Text=":"/>
+
                     </TextBlock>
                     <Border Style="{StaticResource ContentOfList}">
                         <TextBlock Text="{Binding ReceivedShareItem.PackageFamilyName}"  Height="0" Width="0"/>

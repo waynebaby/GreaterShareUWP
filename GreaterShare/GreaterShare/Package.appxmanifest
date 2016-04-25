@@ -15,7 +15,7 @@
   </Resources>
   <Applications>
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="GreaterShare.App">
-      <uap:VisualElements DisplayName="Greater Share" Square150x150Logo="Assets\Square150x150Logo.png" Square44x44Logo="Assets\Square44x44Logo.png" Description="Greater Share. Save your share and edit before share again." BackgroundColor="transparent">
+      <uap:VisualElements DisplayName="ms-resource:AppName" Square150x150Logo="Assets\Square150x150Logo.png" Square44x44Logo="Assets\Square44x44Logo.png" Description="Greater Share. Save your share and edit before share again." BackgroundColor="transparent">
         <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" ShortName="Greater Share" Square310x310Logo="Assets\Square310x310Logo.png" Square71x71Logo="Assets\Square71x71Logo.png">
           <uap:ShowNameOnTiles>
             <uap:ShowOn Tile="square150x150Logo" />
@@ -32,15 +32,6 @@
         </uap:InitialRotationPreference>
       </uap:VisualElements>
       <Extensions>
-        <uap:Extension Category="windows.fileTypeAssociation">
-          <uap:FileTypeAssociation Name=".gshare">
-            <uap:DisplayName>Greater Share File</uap:DisplayName>
-            <uap:InfoTip>Greater Share File</uap:InfoTip>
-            <uap:SupportedFileTypes>
-              <uap:FileType>.gshare</uap:FileType>
-            </uap:SupportedFileTypes>
-          </uap:FileTypeAssociation>
-        </uap:Extension>
         <uap:Extension Category="windows.shareTarget">
           <uap:ShareTarget Description="Share To Greater Share">
             <uap:SupportedFileTypes>
@@ -54,6 +45,15 @@
             <uap:DataFormat>WebLink</uap:DataFormat>
             <uap:DataFormat>ApplicationLink</uap:DataFormat>
           </uap:ShareTarget>
+        </uap:Extension>
+        <uap:Extension Category="windows.fileTypeAssociation">
+          <uap:FileTypeAssociation Name=".gshare">
+            <uap:DisplayName>Greater Share File</uap:DisplayName>
+            <uap:InfoTip>Greater Share File</uap:InfoTip>
+            <uap:SupportedFileTypes>
+              <uap:FileType>.gshare</uap:FileType>
+            </uap:SupportedFileTypes>
+          </uap:FileTypeAssociation>
         </uap:Extension>
       </Extensions>
     </Application>

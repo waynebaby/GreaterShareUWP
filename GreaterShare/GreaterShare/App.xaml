@@ -22,9 +22,8 @@
         <Glue:SaveImageCommand x:Key="SaveImageCommand" />
         <Glue:HideWhenNotMatchConverter x:Key="HideWhenNotMatchConverter"/>
         <!-- TODO: Delete this line if the key AppName is declared in App.xaml -->
-        <x:String x:Key="AppName">My Application</x:String>
-
-        <x:String x:Key="AppendToTextShare">Append To Text Share</x:String>
+        <x:String x:Key="AppName" x:Uid="AppName"></x:String>
+        <x:String x:Key="AppendToTextShare" >Append To Text Share</x:String>
         <x:String x:Key="VisitUri">Visit Uri</x:String>
         <Glue:AddTextCommentsCommand x:Key="AddTextCommentCommand"/>
         <Glue:UriStringConverter x:Key="UriStringConverter"/>
