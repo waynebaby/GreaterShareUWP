@@ -19,6 +19,7 @@ using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.Core;
+using Windows.ApplicationModel.Resources;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Storage;
@@ -149,7 +150,8 @@ namespace GreaterShare
 		/// <param name="e">Details about the navigation failure</param>
 		void OnNavigationFailed(object sender, NavigationFailedEventArgs e)
 		{
-			throw new Exception("Failed to load Page " + e.SourcePageType.FullName);
+            var template= ResourceLoader.GetForViewIndependentUse().GetString(nameof(OnNavigationFailed)+nameof(Exception));
+            throw new Exception(string.Format (template , e.SourcePageType.FullName));
 		}
 
 		/// <summary>

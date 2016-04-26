@@ -196,4 +196,52 @@
     <value>链接工具</value>
     <comment>Url Tools</comment>
   </data>
+  <data name="HyperLinkRemoveQuery.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
+    <value>移除查询</value>
+    <comment>Remove Query</comment>
+  </data>
+  <data name="HyperLinkToText.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
+    <value>转为文本</value>
+    <comment>To Text</comment>
+  </data>
+  <data name="WebLink.Text" xml:space="preserve">
+    <value>网页链接:</value>
+    <comment>WebLink:</comment>
+  </data>
+  <data name="CommandConvertToWebUriNextContent" xml:space="preserve">
+    <value>关于下一步</value>
+  </data>
+  <data name="CommandConvertToWebUriNextTitle" xml:space="preserve">
+    <value>该文本是合法URL.</value>
+  </data>
+  <data name="CommandConvertToWebUriNextUICommandConvert" xml:space="preserve">
+    <value>转为网站链接分享</value>
+  </data>
+  <data name="CommandConvertToWebUriNextUICommandLeave" xml:space="preserve">
+    <value>离开</value>
+  </data>
+  <data name="CommandConvertToWebUriNextUICommandOpenLink" xml:space="preserve">
+    <value>打开链接</value>
+  </data>
+  <data name="OnNavigationFailedException" xml:space="preserve">
+    <value>无法加载 {0} 页面.</value>
+  </data>
+  <data name="SaveImageCommandFileSavePickerPngFiles" xml:space="preserve">
+    <value>PNG图像文件</value>
+  </data>
+  <data name="SaveImageCommandMessageDialogFileSavedNextContent" xml:space="preserve">
+    <value>关于下一步</value>
+  </data>
+  <data name="SaveImageCommandMessageDialogMessageDialogFileSavedNextTitle" xml:space="preserve">
+    <value>文件已储存</value>
+  </data>
+  <data name="SaveImageCommandMessageDialogUICommandLeave" xml:space="preserve">
+    <value>离开</value>
+  </data>
+  <data name="SaveImageCommandMessageDialogUICommandOpenFile" xml:space="preserve">
+    <value>打开文件</value>
+  </data>
+  <data name="ShareItemsMergedAt" xml:space="preserve">
+    <value>合并于</value>
+  </data>
 </root>

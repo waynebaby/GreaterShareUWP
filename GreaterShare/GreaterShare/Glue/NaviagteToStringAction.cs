@@ -22,7 +22,7 @@ namespace GreaterShare.Glue
 
 		// Using a DependencyProperty as the backing store for NaviagteHtmlString.  This enables animation, styling, binding, etc...
 		public static readonly DependencyProperty NaviagteHtmlStringProperty =
-			DependencyProperty.Register("NaviagteHtmlString", typeof(string), typeof(NaviagteToStringAction), new PropertyMetadata(0));
+			DependencyProperty.Register(nameof(NaviagteHtmlString), typeof(string), typeof(NaviagteToStringAction), new PropertyMetadata(0));
 
 
 

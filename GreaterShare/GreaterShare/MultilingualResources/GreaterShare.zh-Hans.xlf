@@ -238,31 +238,74 @@
         </trans-unit>
         <trans-unit id="HyperLinkRemoveQuery.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" translate="yes" xml:space="preserve">
           <source>Remove Query</source>
-          <target state="new">Remove Query</target>
+          <target state="translated">移除查询</target>
           <note from="MultilingualBuild" annotates="source" priority="2">Remove Query</note>
         </trans-unit>
         <trans-unit id="HyperLinkToText.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" translate="yes" xml:space="preserve">
           <source>To Text</source>
-          <target state="new">To Text</target>
+          <target state="translated">转为文本</target>
           <note from="MultilingualBuild" annotates="source" priority="2">To Text</note>
         </trans-unit>
         <trans-unit id="WebLink.Text" translate="yes" xml:space="preserve">
           <source>WebLink:</source>
-          <target state="new">WebLink:</target>
+          <target state="translated">网页链接:</target>
           <note from="MultilingualBuild" annotates="source" priority="2">WebLink:</note>
         </trans-unit>
-      </group>
-    </body>
-  </file>
-  <file datatype="xml" source-language="en" target-language="zh-Hans" original="GREATERSHARE/STRINGS/EN/CODESTRINGS.RESW" tool-id="MultilingualAppToolkit" product-name="n/a" product-version="n/a" build-num="n/a">
-    <header>
-      <tool tool-id="MultilingualAppToolkit" tool-name="Multilingual App Toolkit" tool-version="4.0.1605.0" tool-company="Microsoft" />
-    </header>
-    <body>
-      <group id="GREATERSHARE/STRINGS/EN/CODESTRINGS.RESW" datatype="resx">
-        <trans-unit id="String1" translate="yes" xml:space="preserve">
-          <source>aaa</source>
-          <target state="new">aaa</target>
+        <trans-unit id="CommandConvertToWebUriNextContent" translate="yes" xml:space="preserve">
+          <source>What's next?</source>
+          <target state="translated">关于下一步</target>
+        </trans-unit>
+        <trans-unit id="CommandConvertToWebUriNextTitle" translate="yes" xml:space="preserve">
+          <source>The Text is a well formed uri.</source>
+          <target state="translated">该文本是合法URL.</target>
+        </trans-unit>
+        <trans-unit id="CommandConvertToWebUriNextUICommandConvert" translate="yes" xml:space="preserve">
+          <source>Covert To Weblink Share</source>
+          <target state="translated">转为网站链接分享</target>
+        </trans-unit>
+        <trans-unit id="CommandConvertToWebUriNextUICommandLeave" translate="yes" xml:space="preserve">
+          <source>Leave</source>
+          <target state="translated">离开</target>
+        </trans-unit>
+        <trans-unit id="CommandConvertToWebUriNextUICommandOpenLink" translate="yes" xml:space="preserve">
+          <source>Open Link</source>
+          <target state="translated">打开链接</target>
+        </trans-unit>
+        <trans-unit id="OnNavigationFailedException" translate="yes" xml:space="preserve">
+          <source>Failed to load Page {0}.</source>
+          <target state="translated">无法加载 {0} 页面.</target>
+        </trans-unit>
+        <trans-unit id="SaveImageCommandFileSavePickerPngFiles" translate="yes" xml:space="preserve">
+          <source>Png Image files</source>
+          <target state="translated">PNG图像文件</target>
+        </trans-unit>
+        <trans-unit id="SaveImageCommandMessageDialogFileSavedNextContent" translate="yes" xml:space="preserve">
+          <source>What's next?</source>
+          <target state="translated">关于下一步</target>
+        </trans-unit>
+        <trans-unit id="SaveImageCommandMessageDialogMessageDialogFileSavedNextTitle" translate="yes" xml:space="preserve">
+          <source>File Saved.</source>
+          <target state="translated">文件已储存</target>
+        </trans-unit>
+        <trans-unit id="SaveImageCommandMessageDialogUICommandLeave" translate="yes" xml:space="preserve">
+          <source>Leave</source>
+          <target state="translated">离开</target>
+        </trans-unit>
+        <trans-unit id="SaveImageCommandMessageDialogUICommandOpenFile" translate="yes" xml:space="preserve">
+          <source>Open File</source>
+          <target state="translated">打开文件</target>
+        </trans-unit>
+        <trans-unit id="ShareItemsMergedAt" translate="yes" xml:space="preserve">
+          <source>Merged at</source>
+          <target state="translated">合并于</target>
+        </trans-unit>
+        <trans-unit id="CommandGetFromClipboardAt" translate="yes" xml:space="preserve">
+          <source>Pasted to Greater Share at</source>
+          <target state="translated">已粘贴到最分享，发生在</target>
+        </trans-unit>
+        <trans-unit id="CommandSaveToUserFileFileType" translate="yes" xml:space="preserve">
+          <source>Greater Share Files</source>
+          <target state="translated">最分享存档文件</target>
         </trans-unit>
       </group>
     </body>

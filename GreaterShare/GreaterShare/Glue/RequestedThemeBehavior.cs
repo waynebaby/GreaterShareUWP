@@ -92,7 +92,7 @@ namespace GreaterShare.Glue
 
         // Using a DependencyProperty as the backing store for IsInLightTheme.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty IsInLightThemeProperty =
-            DependencyProperty.Register("IsInLightTheme", typeof(bool), typeof(RequestedThemeBehavior), new PropertyMetadata(false, OnNewValue));
+            DependencyProperty.Register(nameof (IsInLightTheme), typeof(bool), typeof(RequestedThemeBehavior), new PropertyMetadata(false, OnNewValue));
 
 
         public bool IsValueGlobalEffective
@@ -105,7 +105,7 @@ namespace GreaterShare.Glue
 
         // Using a DependencyProperty as the backing store for IsValueGlobalEffective.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty IsValueGlobalEffectiveProperty =
-            DependencyProperty.Register("IsValueGlobalEffective", typeof(bool), typeof(RequestedThemeBehavior), new PropertyMetadata(false));
+            DependencyProperty.Register(nameof(IsValueGlobalEffective), typeof(bool), typeof(RequestedThemeBehavior), new PropertyMetadata(false));
 
 
 

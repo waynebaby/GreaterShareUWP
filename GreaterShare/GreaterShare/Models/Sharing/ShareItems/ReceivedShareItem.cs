@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using Windows.UI;
 using System.Reactive;
 using System.Reactive.Linq;
+using Windows.ApplicationModel.Resources;
 
 namespace GreaterShare.Models.Sharing.ShareItems
 {
@@ -226,10 +227,10 @@ namespace GreaterShare.Models.Sharing.ShareItems
 			new[]{
 				new[] {
 					"{2}\r\n\r\n{1}",
-					"{2}\r\n\r\n/*Merged at {0:yy-MM-dd HH:mm:ss}*/\r\n{1}"},
+					"{2}\r\n\r\n/*{3} {0:yy-MM-dd HH:mm:ss}*/\r\n{1}"},
 				new [] {
 					"\r\n{1}\r\n\r\n{2}",
-					"/*Merged at {0:yy-MM-dd HH:mm:ss}*/\r\n{1}\r\n\r\n{2}"
+					"/*{3} {0:yy-MM-dd HH:mm:ss}*/\r\n{1}\r\n\r\n{2}"
 				},
 
 			};
@@ -237,19 +238,22 @@ namespace GreaterShare.Models.Sharing.ShareItems
 		{
 
 			var template = templates[headInsert ? 1 : 0][showTag ? 1 : 0];
+            var mg = ResourceLoader.GetForViewIndependentUse().GetString("ShareItemsMergedAt");
 			if (headInsert)
 			{
 				oldText.Text = string.Format(template,
 				  DateTime.Now,
 				  newTextString,
-				  oldText.Text);
+				  oldText.Text,
+                  mg);
 			}
 			else
 			{
 				oldText.Text = string.Format(template,
 				DateTime.Now,
 				newTextString,
-				oldText.Text);
+				oldText.Text,
+                mg);
 			}
 		}
 

@@ -12,6 +12,7 @@ using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.ApplicationModel.Resources;
 using Windows.System;
 using Windows.UI.Popups;
 
@@ -470,16 +471,17 @@ namespace GreaterShare.Models.Sharing.ShareItems
 
 				cmd.Do(async e =>
 				{
+                    var rl = ResourceLoader.GetForViewIndependentUse();
+					var msb = new MessageDialog(rl.GetString("CommandConvertToWebUriNextContent"),rl.GetString("CommandConvertToWebUriNextTitle"));
 
-					var msb = new MessageDialog("What's next?", "The Text is a well formed uri.");
-					var commandOpenLink = new UICommand(
-						"Open Link",
+                    var commandOpenLink = new UICommand(
+					rl.GetString("CommandConvertToWebUriNextUICommandOpenLink"),
 						async c =>
 						{
 							await Launcher.LaunchUriAsync(new Uri(vm.Text));
 						});
 
-					var commandCovertIt = new UICommand("Covert To Weblink",
+					var commandCovertIt = new UICommand(rl.GetString("CommandConvertToWebUriNextUICommandConvert"),
 						c =>
 						{
 							EventRouter.Instance.RaiseEvent<Tuple<EventMessage, Object>>(
@@ -488,7 +490,7 @@ namespace GreaterShare.Models.Sharing.ShareItems
 							);
 
 						});
-					var commandCancelIt = new UICommand("Leave");
+					var commandCancelIt = new UICommand(rl.GetString ("CommandConvertToWebUriNextUICommandLeave"));
 					msb.Commands.Add(commandOpenLink);
 					msb.Commands.Add(commandCovertIt);
 					msb.Commands.Add(commandCancelIt);

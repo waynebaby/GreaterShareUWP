@@ -265,6 +265,27 @@
     <value>Visit Uri</value>
     <comment>Visit Uri</comment>
   </data>
+  <data name="CommandConvertToWebUriNextContent" xml:space="preserve">
+    <value>What's next?</value>
+  </data>
+  <data name="CommandConvertToWebUriNextTitle" xml:space="preserve">
+    <value>The Text is a well formed uri.</value>
+  </data>
+  <data name="CommandConvertToWebUriNextUICommandConvert" xml:space="preserve">
+    <value>Covert To Weblink Share</value>
+  </data>
+  <data name="CommandConvertToWebUriNextUICommandLeave" xml:space="preserve">
+    <value>Leave</value>
+  </data>
+  <data name="CommandConvertToWebUriNextUICommandOpenLink" xml:space="preserve">
+    <value>Open Link</value>
+  </data>
+  <data name="CommandGetFromClipboardAt" xml:space="preserve">
+    <value>Pasted to Greater Share at</value>
+  </data>
+  <data name="CommandSaveToUserFileFileType" xml:space="preserve">
+    <value>Greater Share Files</value>
+  </data>
   <data name="HyperLinkAddComment.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
     <value>Add Comment</value>
     <comment>Add Comment</comment>
@@ -308,6 +329,27 @@
   <data name="HyperLinkVisit.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
     <value>Visit</value>
     <comment>Visit</comment>
+  </data>
+  <data name="OnNavigationFailedException" xml:space="preserve">
+    <value>Failed to load Page {0}.</value>
+  </data>
+  <data name="SaveImageCommandFileSavePickerPngFiles" xml:space="preserve">
+    <value>Png Image files</value>
+  </data>
+  <data name="SaveImageCommandMessageDialogFileSavedNextContent" xml:space="preserve">
+    <value>What's next?</value>
+  </data>
+  <data name="SaveImageCommandMessageDialogMessageDialogFileSavedNextTitle" xml:space="preserve">
+    <value>File Saved.</value>
+  </data>
+  <data name="SaveImageCommandMessageDialogUICommandLeave" xml:space="preserve">
+    <value>Leave</value>
+  </data>
+  <data name="SaveImageCommandMessageDialogUICommandOpenFile" xml:space="preserve">
+    <value>Open File</value>
+  </data>
+  <data name="ShareItemsMergedAt" xml:space="preserve">
+    <value>Merged at</value>
   </data>
   <data name="WebLink.Text" xml:space="preserve">
     <value>WebLink:</value>

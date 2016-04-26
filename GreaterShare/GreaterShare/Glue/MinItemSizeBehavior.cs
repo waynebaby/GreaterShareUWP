@@ -32,7 +32,7 @@ namespace GreaterShare.Glue
 
 		// Using a DependencyProperty as the backing store for AssociatedObject.  This enables animation, styling, binding, etc...
 		public static readonly DependencyProperty AssociatedObjectProperty =
-			DependencyProperty.Register("AssociatedObject", typeof(DependencyObject), typeof(MinItemSizeBehavior), new PropertyMetadata(null));
+			DependencyProperty.Register(nameof(AssociatedObject), typeof(DependencyObject), typeof(MinItemSizeBehavior), new PropertyMetadata(null));
 
 
 		public ItemsWrapGrid AssociatedItemsWrapGrid
@@ -107,7 +107,7 @@ namespace GreaterShare.Glue
 
 		// Using a DependencyProperty as the backing store for GridOrientation.  This enables animation, styling, binding, etc...
 		public static readonly DependencyProperty GridOrientationProperty =
-			DependencyProperty.Register("GridOrientation", typeof(Orientation), typeof(MinItemSizeBehavior), new PropertyMetadata(
+			DependencyProperty.Register(nameof(GridOrientation), typeof(Orientation), typeof(MinItemSizeBehavior), new PropertyMetadata(
 				 	 Orientation.Horizontal,
 					 (o, e) => (o as MinItemSizeBehavior)?.ResizeItem()
 				));
@@ -132,7 +132,7 @@ namespace GreaterShare.Glue
 
 		// Using a DependencyProperty as the backing store for ItemMinWidth.  This enables animation, styling, binding, etc...
 		public static readonly DependencyProperty ItemMinWidthProperty =
-			DependencyProperty.Register("ItemMinWidth", typeof(Double), typeof(MinItemSizeBehavior), new PropertyMetadata(50));
+			DependencyProperty.Register(nameof(ItemMinWidth), typeof(Double), typeof(MinItemSizeBehavior), new PropertyMetadata(50));
 
 
 
@@ -145,7 +145,7 @@ namespace GreaterShare.Glue
 
 		// Using a DependencyProperty as the backing store for ItemMinHeight.  This enables animation, styling, binding, etc...
 		public static readonly DependencyProperty ItemMinHeightProperty =
-			DependencyProperty.Register("ItemMinHeight", typeof(double), typeof(MinItemSizeBehavior), new PropertyMetadata(50));
+			DependencyProperty.Register(nameof(ItemMinHeight), typeof(double), typeof(MinItemSizeBehavior), new PropertyMetadata(50));
 
 
 
