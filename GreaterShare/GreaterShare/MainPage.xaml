@@ -239,7 +239,7 @@
                                         <HyperlinkButton
 											IsEnabled="{Binding ReceivedShareItem.Title, Converter={StaticResource FalseIfIsStringNullOrEmptyConverter}}"   
                                         
-											Command="{Binding CommandSendParameterToText}" CommandParameter="{Binding ReceivedShareItem.Title}" ToolTipService.ToolTip="{StaticResource AppendToTextShare}">
+											Command="{Binding CommandSendParameterToText}" CommandParameter="{Binding ReceivedShareItem.Title}" x:Uid="AppendToTextShare" >
                                             <FontIcon FontSize="14" FontFamily="Segoe UI Symbol" Glyph="&#xE17D;" />
                                             
                                         </HyperlinkButton>
@@ -277,7 +277,7 @@
                                         <HyperlinkButton 
 											IsEnabled="{Binding ReceivedShareItem.Description, Converter={StaticResource FalseIfIsStringNullOrEmptyConverter}}"   
                                         
-											Command="{Binding CommandSendParameterToText}" CommandParameter="{Binding ReceivedShareItem.Description}" ToolTipService.ToolTip="{StaticResource AppendToTextShare}">
+											Command="{Binding CommandSendParameterToText}" CommandParameter="{Binding ReceivedShareItem.Description}" x:Uid="AppendToTextShare" >
                                             <FontIcon FontSize="14" FontFamily="Segoe UI Symbol" Glyph="&#xE17D;" />
                                         </HyperlinkButton>
                                     </StackPanel>
@@ -292,7 +292,7 @@
                                         <HyperlinkButton
 											IsEnabled="{Binding ReceivedShareItem.QuickLinkId, Converter={StaticResource FalseIfIsStringNullOrEmptyConverter}}"   
                                        
-											Command="{Binding CommandSendParameterToText}" CommandParameter="{Binding ReceivedShareItem.QuickLinkId}" ToolTipService.ToolTip="{StaticResource AppendToTextShare}">
+											Command="{Binding CommandSendParameterToText}" CommandParameter="{Binding ReceivedShareItem.QuickLinkId}" x:Uid="AppendToTextShare" >
                                             <FontIcon FontSize="14" FontFamily="Segoe UI Symbol" Glyph="&#xE17D;" />
                                         </HyperlinkButton>
                                     </StackPanel>
@@ -310,12 +310,12 @@
                                         <HyperlinkButton
 											x:Name="hyperlinkButton1" 
 											IsEnabled="{Binding ReceivedShareItem.ContentSourceApplicationLink, Converter={StaticResource IsNotNullConverter}}"   
-											NavigateUri="{Binding ReceivedShareItem.ContentSourceApplicationLink}" ToolTipService.ToolTip="{StaticResource VisitUri}" >
+											NavigateUri="{Binding ReceivedShareItem.ContentSourceApplicationLink}" x:Uid="VisitUri"  >
                                             <FontIcon FontFamily="Segoe UI Symbol" Glyph="&#xE12B;" />
                                         </HyperlinkButton>
                                         <HyperlinkButton 
 											IsEnabled="{Binding ReceivedShareItem.ContentSourceApplicationLink, Converter={StaticResource IsNotNullConverter}}"   
-											Command="{Binding CommandSendParameterToText}" CommandParameter="{Binding ReceivedShareItem.ContentSourceApplicationLink}" ToolTipService.ToolTip="{StaticResource AppendToTextShare}">
+											Command="{Binding CommandSendParameterToText}" CommandParameter="{Binding ReceivedShareItem.ContentSourceApplicationLink}" x:Uid="AppendToTextShare" >
                                             <FontIcon FontSize="14" FontFamily="Segoe UI Symbol" Glyph="&#xE17D;" />
                                         </HyperlinkButton>
                                     </StackPanel>
@@ -333,12 +333,12 @@
                                     <StackPanel HorizontalAlignment="Right" Margin="0" Orientation="Horizontal">
                                         <HyperlinkButton 
 											IsEnabled="{Binding ReceivedShareItem.ContentSourceWebLink, Converter={StaticResource IsNotNullConverter}}"   
-											NavigateUri="{Binding ReceivedShareItem.ContentSourceWebLink}" ToolTipService.ToolTip="{StaticResource VisitUri}" >
+											NavigateUri="{Binding ReceivedShareItem.ContentSourceWebLink}" x:Uid="VisitUri">
                                             <FontIcon FontFamily="Segoe UI Symbol" Glyph="&#xE12B;" />
                                         </HyperlinkButton>
                                         <HyperlinkButton 
 											IsEnabled="{Binding ReceivedShareItem.ContentSourceWebLink, Converter={StaticResource IsNotNullConverter}}"   
-											Command="{Binding CommandSendParameterToText}" CommandParameter="{Binding ReceivedShareItem.ContentSourceWebLink}" ToolTipService.ToolTip="{StaticResource AppendToTextShare}">
+											Command="{Binding CommandSendParameterToText}" CommandParameter="{Binding ReceivedShareItem.ContentSourceWebLink}" x:Uid="AppendToTextShare" >
                                             <FontIcon FontSize="14" FontFamily="Segoe UI Symbol" Glyph="&#xE17D;" />
                                         </HyperlinkButton>
                                     </StackPanel>
@@ -355,7 +355,7 @@
                                         <HyperlinkButton 
 											IsEnabled="{Binding ReceivedShareItem.PackageFamilyName, Converter={StaticResource FalseIfIsStringNullOrEmptyConverter}}"   
                                         
-											Command="{Binding CommandSendParameterToText}" CommandParameter="{Binding ReceivedShareItem.PackageFamilyName}" ToolTipService.ToolTip="{StaticResource AppendToTextShare}">
+											Command="{Binding CommandSendParameterToText}" CommandParameter="{Binding ReceivedShareItem.PackageFamilyName}" x:Uid="AppendToTextShare" >
 
 
                                             <FontIcon FontSize="14" FontFamily="Segoe UI Symbol" Glyph="&#xE17D;" />
@@ -531,9 +531,9 @@
                      HorizontalAlignment="Left" Icon="ReShare" x:Uid="ButtonReshare" Label="Reshare"   Command="{Binding CommandReshare}" CommandParameter="NoExecute" VerticalAlignment="Top">
                         <AppBarButton.Flyout>
                             <MenuFlyout >
-                                <MenuFlyoutItem  Command="{Binding CommandReshareCurrent}">This</MenuFlyoutItem>
-                                <MenuFlyoutItem  Command="{Binding CommandReshareSelected}">Selected</MenuFlyoutItem>
-                                <MenuFlyoutItem Name="reshareAll"  Command="{Binding CommandReshare}">All</MenuFlyoutItem>
+                                <!--<MenuFlyoutItem  Command="{Binding CommandReshareCurrent}">This</MenuFlyoutItem>-->
+                                    <MenuFlyoutItem  x:Uid="ButtonReshareSelected" Command="{Binding CommandReshareSelected}" Text="Selected"></MenuFlyoutItem>
+                                    <MenuFlyoutItem  x:Uid="ButtonReshareAll" Name="reshareAll"  Command="{Binding CommandReshare}" Text="All"></MenuFlyoutItem>
 
                             </MenuFlyout>
                         </AppBarButton.Flyout>

@@ -15,7 +15,6 @@
 
     <mvvm:MVVMPage.Resources>
         <Glue:InkCanvasProfileTypeLocalizedStringConverter x:Key="InkCanvasProfileTypeLocalizedStringConverter"/>
-        <!-- TODO: Delete this line if the key AppName is declared in App.xaml -->
         <Glue:SizeDoubleConveter x:Key="SizeDoubleConveter"/>
     </mvvm:MVVMPage.Resources>
     <Interactivity:Interaction.Behaviors>

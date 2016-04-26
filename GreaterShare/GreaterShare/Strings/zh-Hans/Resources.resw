@@ -108,4 +108,92 @@
     <value>高亮标记</value>
     <comment>InkCanvasProfileType enum trans</comment>
   </data>
+  <data name="ApplicationLink.Text" xml:space="preserve">
+    <value>应用链接:</value>
+    <comment>ApplicationLink.Text</comment>
+  </data>
+  <data name="FilesToShare.Text" xml:space="preserve">
+    <value>分享文件:</value>
+    <comment>FilesToShare.Text</comment>
+  </data>
+  <data name="HtmlContent.Text" xml:space="preserve">
+    <value>超文本内容:</value>
+    <comment>HtmlContent.Text</comment>
+  </data>
+  <data name="ImageToShare.Text" xml:space="preserve">
+    <value>分享图片:</value>
+    <comment>ImageToShare.Text</comment>
+  </data>
+  <data name="MenuFlyoutSubItemConvertTo.Text" xml:space="preserve">
+    <value>转换为:</value>
+    <comment>MenuFlyoutSubItemConvertTo</comment>
+  </data>
+  <data name="TextContent.Text" xml:space="preserve">
+    <value>文本内容:</value>
+    <comment>TextContent.Text</comment>
+  </data>
+  <data name="ButtonReshareAll.Text" xml:space="preserve">
+    <value>全部</value>
+    <comment>ButtonReshareAll.Content</comment>
+  </data>
+  <data name="ButtonReshareSelected.Text" xml:space="preserve">
+    <value>已选</value>
+    <comment>ButtonReshareSelected.Content</comment>
+  </data>
+  <data name="MenuFlyoutSubItemConvertBackFrom.Text" xml:space="preserve">
+    <value>从下面格式转化回文本:</value>
+    <comment>MenuFlyoutSubItemConvertBackFrom.Text</comment>
+  </data>
+  <data name="AppendToTextShare.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
+    <value>将文本附加到当前共享</value>
+    <comment>Append To Text Share</comment>
+  </data>
+  <data name="MenuFlyoutItemCommandMagnetChop.Text" xml:space="preserve">
+    <value>将磁力链接切割为十六进制字串</value>
+    <comment>Chop a Magnet Link to Binary String.</comment>
+  </data>
+  <data name="MenuFlyoutItemCommandMagnetRecovery.Text" xml:space="preserve">
+    <value>从十六进制字串转化为磁力链接</value>
+    <comment>Recover a Magnet Link from Binary String.</comment>
+  </data>
+  <data name="VisitUri.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
+    <value>访问该链接</value>
+    <comment>Visit Uri</comment>
+  </data>
+  <data name="HyperLinkCopy.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
+    <value>复制</value>
+    <comment>Copy</comment>
+  </data>
+  <data name="HyperLinkVisit.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
+    <value>访问</value>
+    <comment>Visit</comment>
+  </data>
+  <data name="HyperLinkAddComment.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
+    <value>添加注释</value>
+    <comment>Add Comment</comment>
+  </data>
+  <data name="HyperLinkSaveToFile.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
+    <value>保存到文件</value>
+    <comment>Save to File</comment>
+  </data>
+  <data name="HyperLinkBinaryStringTools.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
+    <value>十六进制字符串工具</value>
+    <comment>Binary String Tools</comment>
+  </data>
+  <data name="HyperLinkMarkAndHighlight.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
+    <value>标记与高亮</value>
+    <comment>Mark &amp; Highlight</comment>
+  </data>
+  <data name="HyperLinkOpenAsImage.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
+    <value>当作图片分享打开</value>
+    <comment>Open as Image Share Item</comment>
+  </data>
+  <data name="HyperLinkUndo.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
+    <value>撤销</value>
+    <comment>Undo</comment>
+  </data>
+  <data name="HyperLinkUrlTools.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
+    <value>链接工具</value>
+    <comment>Url Tools</comment>
+  </data>
 </root>

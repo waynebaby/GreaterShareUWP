@@ -126,9 +126,130 @@
           <target state="translated">高亮标记</target>
           <note from="MultilingualBuild" annotates="source" priority="2">InkCanvasProfileType enum trans</note>
         </trans-unit>
-        <trans-unit id="ResourceHost.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" translate="yes" xml:space="preserve">
-          <source></source>
-          <target state="new"></target>
+        <trans-unit id="ApplicationLink.Text" translate="yes" xml:space="preserve">
+          <source>Application Link:</source>
+          <target state="translated">应用链接:</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">ApplicationLink.Text</note>
+        </trans-unit>
+        <trans-unit id="FilesToShare.Text" translate="yes" xml:space="preserve">
+          <source>Files to Share:</source>
+          <target state="translated">分享文件:</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">FilesToShare.Text</note>
+        </trans-unit>
+        <trans-unit id="HtmlContent.Text" translate="yes" xml:space="preserve">
+          <source>Html Content:</source>
+          <target state="translated">超文本内容:</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">HtmlContent.Text</note>
+        </trans-unit>
+        <trans-unit id="ImageToShare.Text" translate="yes" xml:space="preserve">
+          <source>Image to Share:</source>
+          <target state="translated">分享图片:</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">ImageToShare.Text</note>
+        </trans-unit>
+        <trans-unit id="MenuFlyoutSubItemConvertTo.Text" translate="yes" xml:space="preserve">
+          <source>Convert to:</source>
+          <target state="translated">转换为:</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">MenuFlyoutSubItemConvertTo</note>
+        </trans-unit>
+        <trans-unit id="TextContent.Text" translate="yes" xml:space="preserve">
+          <source>Text Content:</source>
+          <target state="translated">文本内容:</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">TextContent.Text</note>
+        </trans-unit>
+        <trans-unit id="ButtonReshareAll.Text" translate="yes" xml:space="preserve">
+          <source>All</source>
+          <target state="translated">全部</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">ButtonReshareAll.Content</note>
+        </trans-unit>
+        <trans-unit id="ButtonReshareSelected.Text" translate="yes" xml:space="preserve">
+          <source>Selected</source>
+          <target state="translated">已选</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">ButtonReshareSelected.Content</note>
+        </trans-unit>
+        <trans-unit id="MenuFlyoutSubItemConvertBackFrom.Text" translate="yes" xml:space="preserve">
+          <source>Convert back from:</source>
+          <target state="translated">从下面格式转化回文本:</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">MenuFlyoutSubItemConvertBackFrom.Text</note>
+        </trans-unit>
+        <trans-unit id="AppendToTextShare.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" translate="yes" xml:space="preserve">
+          <source>Append To Text Share</source>
+          <target state="translated">将文本附加到当前共享</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">Append To Text Share</note>
+        </trans-unit>
+        <trans-unit id="MenuFlyoutItemCommandMagnetChop.Text" translate="yes" xml:space="preserve">
+          <source>Chop a Magnet Link to Binary String.</source>
+          <target state="translated">将磁力链接切割为十六进制字串</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">Chop a Magnet Link to Binary String.</note>
+        </trans-unit>
+        <trans-unit id="MenuFlyoutItemCommandMagnetRecovery.Text" translate="yes" xml:space="preserve">
+          <source>Recover a Magnet Link from Binary String.</source>
+          <target state="translated">从十六进制字串转化为磁力链接</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">Recover a Magnet Link from Binary String.</note>
+        </trans-unit>
+        <trans-unit id="VisitUri.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" translate="yes" xml:space="preserve">
+          <source>Visit Uri</source>
+          <target state="translated">访问该链接</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">Visit Uri</note>
+        </trans-unit>
+        <trans-unit id="HyperLinkCopy.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" translate="yes" xml:space="preserve">
+          <source>Copy</source>
+          <target state="translated">复制</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">Copy</note>
+        </trans-unit>
+        <trans-unit id="HyperLinkVisit.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" translate="yes" xml:space="preserve">
+          <source>Visit</source>
+          <target state="translated">访问</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">Visit</note>
+        </trans-unit>
+        <trans-unit id="HyperLinkAddComment.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" translate="yes" xml:space="preserve">
+          <source>Add Comment</source>
+          <target state="translated">添加注释</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">Add Comment</note>
+        </trans-unit>
+        <trans-unit id="HyperLinkSaveToFile.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" translate="yes" xml:space="preserve">
+          <source>Save to File</source>
+          <target state="translated">保存到文件</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">Save to File</note>
+        </trans-unit>
+        <trans-unit id="HyperLinkBinaryStringTools.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" translate="yes" xml:space="preserve">
+          <source>Binary String Tools</source>
+          <target state="translated">十六进制字符串工具</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">Binary String Tools</note>
+        </trans-unit>
+        <trans-unit id="HyperLinkMarkAndHighlight.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" translate="yes" xml:space="preserve">
+          <source>Mark &amp; Highlight</source>
+          <target state="translated">标记与高亮</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">Mark &amp; Highlight</note>
+        </trans-unit>
+        <trans-unit id="HyperLinkOpenAsImage.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" translate="yes" xml:space="preserve">
+          <source>Open as Image Share Item</source>
+          <target state="translated">当作图片分享打开</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">Open as Image Share Item</note>
+        </trans-unit>
+        <trans-unit id="HyperLinkUndo.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" translate="yes" xml:space="preserve">
+          <source>Undo</source>
+          <target state="translated">撤销</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">Undo</note>
+        </trans-unit>
+        <trans-unit id="HyperLinkUrlTools.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" translate="yes" xml:space="preserve">
+          <source>Url Tools</source>
+          <target state="translated">链接工具</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">Url Tools</note>
+        </trans-unit>
+        <trans-unit id="HyperLinkRemoveQuery.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" translate="yes" xml:space="preserve">
+          <source>Remove Query</source>
+          <target state="new">Remove Query</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">Remove Query</note>
+        </trans-unit>
+        <trans-unit id="HyperLinkToText.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" translate="yes" xml:space="preserve">
+          <source>To Text</source>
+          <target state="new">To Text</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">To Text</note>
+        </trans-unit>
+        <trans-unit id="WebLink.Text" translate="yes" xml:space="preserve">
+          <source>WebLink:</source>
+          <target state="new">WebLink:</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">WebLink:</note>
         </trans-unit>
       </group>
     </body>

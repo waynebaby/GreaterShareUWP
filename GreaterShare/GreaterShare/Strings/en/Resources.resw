@@ -117,6 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AppendToTextShare.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
+    <value>Append To Text Share</value>
+    <comment>Append To Text Share</comment>
+  </data>
+  <data name="ApplicationLink.Text" xml:space="preserve">
+    <value>Application Link:</value>
+    <comment>ApplicationLink.Text</comment>
+  </data>
   <data name="AppName" xml:space="preserve">
     <value>Greater Share</value>
     <comment>Name of app</comment>
@@ -145,6 +153,14 @@
     <value>Reshare</value>
     <comment>UIButton</comment>
   </data>
+  <data name="ButtonReshareAll.Text" xml:space="preserve">
+    <value>All</value>
+    <comment>ButtonReshareAll.Content</comment>
+  </data>
+  <data name="ButtonReshareSelected.Text" xml:space="preserve">
+    <value>Selected</value>
+    <comment>ButtonReshareSelected.Content</comment>
+  </data>
   <data name="ButtonSave.Label" xml:space="preserve">
     <value>Save</value>
     <comment>UIButton</comment>
@@ -156,6 +172,18 @@
   <data name="ButtonTheme.Label" xml:space="preserve">
     <value>Theme</value>
     <comment>UIButton</comment>
+  </data>
+  <data name="FilesToShare.Text" xml:space="preserve">
+    <value>Files to Share:</value>
+    <comment>FilesToShare.Text</comment>
+  </data>
+  <data name="HtmlContent.Text" xml:space="preserve">
+    <value>Html Content:</value>
+    <comment>HtmlContent.Text</comment>
+  </data>
+  <data name="ImageToShare.Text" xml:space="preserve">
+    <value>Image to Share:</value>
+    <comment>ImageToShare.Text</comment>
   </data>
   <data name="InkCanvasProfileType_Drawing" xml:space="preserve">
     <value>Drawing</value>
@@ -209,11 +237,80 @@
     <value>Current Share</value>
     <comment>Current Share PI header</comment>
   </data>
-  <data name="ResourceHost.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
-    <value />
+  <data name="MenuFlyoutItemCommandMagnetChop.Text" xml:space="preserve">
+    <value>Chop a Magnet Link to Binary String.</value>
+    <comment>Chop a Magnet Link to Binary String.</comment>
+  </data>
+  <data name="MenuFlyoutItemCommandMagnetRecovery.Text" xml:space="preserve">
+    <value>Recover a Magnet Link from Binary String.</value>
+    <comment>Recover a Magnet Link from Binary String.</comment>
+  </data>
+  <data name="MenuFlyoutSubItemConvertBackFrom.Text" xml:space="preserve">
+    <value>Convert back from:</value>
+    <comment>MenuFlyoutSubItemConvertBackFrom.Text</comment>
+  </data>
+  <data name="MenuFlyoutSubItemConvertTo.Text" xml:space="preserve">
+    <value>Convert to:</value>
+    <comment>MenuFlyoutSubItemConvertTo</comment>
   </data>
   <data name="SharePanelShareButton.Content" xml:space="preserve">
     <value>Share!</value>
     <comment>SharePanelShareButton.Content</comment>
+  </data>
+  <data name="TextContent.Text" xml:space="preserve">
+    <value>Text Content:</value>
+    <comment>TextContent.Text</comment>
+  </data>
+  <data name="VisitUri.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
+    <value>Visit Uri</value>
+    <comment>Visit Uri</comment>
+  </data>
+  <data name="HyperLinkAddComment.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
+    <value>Add Comment</value>
+    <comment>Add Comment</comment>
+  </data>
+  <data name="HyperLinkBinaryStringTools.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
+    <value>Binary String Tools</value>
+    <comment>Binary String Tools</comment>
+  </data>
+  <data name="HyperLinkCopy.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
+    <value>Copy</value>
+    <comment>Copy</comment>
+  </data>
+  <data name="HyperLinkMarkAndHighlight.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
+    <value>Mark &amp; Highlight</value>
+    <comment>Mark &amp; Highlight</comment>
+  </data>
+  <data name="HyperLinkOpenAsImage.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
+    <value>Open as Image Share Item</value>
+    <comment>Open as Image Share Item</comment>
+  </data>
+  <data name="HyperLinkRemoveQuery.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
+    <value>Remove Query</value>
+    <comment>Remove Query</comment>
+  </data>
+  <data name="HyperLinkSaveToFile.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
+    <value>Save to File</value>
+    <comment>Save to File</comment>
+  </data>
+  <data name="HyperLinkToText.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
+    <value>To Text</value>
+    <comment>To Text</comment>
+  </data>
+  <data name="HyperLinkUndo.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
+    <value>Undo</value>
+    <comment>Undo</comment>
+  </data>
+  <data name="HyperLinkUrlTools.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
+    <value>Url Tools</value>
+    <comment>Url Tools</comment>
+  </data>
+  <data name="HyperLinkVisit.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
+    <value>Visit</value>
+    <comment>Visit</comment>
+  </data>
+  <data name="WebLink.Text" xml:space="preserve">
+    <value>WebLink:</value>
+    <comment>WebLink:</comment>
   </data>
 </root>
