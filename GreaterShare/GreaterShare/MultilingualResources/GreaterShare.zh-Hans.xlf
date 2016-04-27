@@ -307,6 +307,10 @@
           <source>Greater Share Files</source>
           <target state="translated">最分享存档文件</target>
         </trans-unit>
+        <trans-unit id="AddYourCommentsHere" translate="yes" xml:space="preserve">
+          <source>Add your comments here...</source>
+          <target state="translated">在这里添加您的注释...</target>
+        </trans-unit>
       </group>
     </body>
   </file>

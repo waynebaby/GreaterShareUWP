@@ -355,4 +355,7 @@
     <value>WebLink:</value>
     <comment>WebLink:</comment>
   </data>
+  <data name="AddYourCommentsHere" xml:space="preserve">
+    <value>Add your comments here...</value>
+  </data>
 </root>

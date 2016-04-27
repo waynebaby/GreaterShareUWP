@@ -121,15 +121,16 @@ namespace GreaterShare.ViewModels
                 .Subscribe(
                     tp =>
                     {
+                        var str = ResourceLoader.GetForViewIndependentUse().GetString("AddYourCommentsHere");
                         var target = ReceivedShareItem.AvialableShareItems.OfType<TextShareItem>().FirstOrDefault();
                         if (target == null)
                         {
-                            target = new TextShareItem() { Text = "Add you comments here..." };
+                            target = new TextShareItem() { Text = str };
                             ReceivedShareItem.AvialableShareItems.Add(target);
                         }
                         else
                         {
-                            ReceivedShareItem.MergeNewText(target, "Add you comments here...", true, false);
+                            ReceivedShareItem.MergeNewText(target, str, true, false);
                         }
                         CurrentViewingItem = target;
 

@@ -382,7 +382,7 @@
           "lib/windows8/System.Reactive.PlatformServices.dll": {}
         }
       },
-      "Rx-Xaml/2.2.5": {
+      "Rx-XAML/2.2.5": {
         "dependencies": {
           "Rx-Main": "2.2.5"
         },
@@ -393,7 +393,7 @@
           "lib/windows8/System.Reactive.Windows.Threading.dll": {}
         }
       },
-      "Rx-XAML/2.2.5": {
+      "Rx-Xaml/2.2.5": {
         "dependencies": {
           "Rx-Main": "2.2.5"
         },
@@ -13758,7 +13758,7 @@
         "lib/windowsphone8/System.Reactive.PlatformServices.dll"
       ]
     },
-    "Rx-Xaml/2.2.5": {
+    "Rx-XAML/2.2.5": {
       "sha512": "RzA/HcKP1U44i7ZchRdR3v3GdepNmr/93ydyixV+LwZs++Yxo13fsODRTqGIyz11ERSIKgnnSs6tbJUys4qRSw==",
       "type": "package",
       "files": [
@@ -13780,7 +13780,7 @@
         "lib/windowsphone8/System.Reactive.Windows.Threading.dll"
       ]
     },
-    "Rx-XAML/2.2.5": {
+    "Rx-Xaml/2.2.5": {
       "sha512": "RzA/HcKP1U44i7ZchRdR3v3GdepNmr/93ydyixV+LwZs++Yxo13fsODRTqGIyz11ERSIKgnnSs6tbJUys4qRSw==",
       "type": "package",
       "files": [

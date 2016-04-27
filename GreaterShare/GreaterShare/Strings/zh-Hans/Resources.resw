@@ -244,4 +244,13 @@
   <data name="ShareItemsMergedAt" xml:space="preserve">
     <value>合并于</value>
   </data>
+  <data name="CommandGetFromClipboardAt" xml:space="preserve">
+    <value>已粘贴到最分享，发生在</value>
+  </data>
+  <data name="CommandSaveToUserFileFileType" xml:space="preserve">
+    <value>最分享存档文件</value>
+  </data>
+  <data name="AddYourCommentsHere" xml:space="preserve">
+    <value>在这里添加您的注释...</value>
+  </data>
 </root>
