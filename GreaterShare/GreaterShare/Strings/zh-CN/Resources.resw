@@ -1,0 +1,256 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="BackgroundTitleGreater.Text" xml:space="preserve">
+    <value>最</value>
+    <comment>The Title in background</comment>
+  </data>
+  <data name="BackgroundTitleShare.Text" xml:space="preserve">
+    <value>分享</value>
+    <comment>The Title in background</comment>
+  </data>
+  <data name="MainPage_MainPivot_CurrentSharePI.Header" xml:space="preserve">
+    <value>当前分享</value>
+    <comment>Current Share PI header</comment>
+  </data>
+  <data name="MainPage_MainPivot_ClipboardPI.Header" xml:space="preserve">
+    <value>剪贴板</value>
+    <comment>Clipboard PI header</comment>
+  </data>
+  <data name="AppName" xml:space="preserve">
+    <value>最分享</value>
+    <comment>Name of app</comment>
+  </data>
+  <data name="ButtonPaste.Label" xml:space="preserve">
+    <value>粘贴</value>
+    <comment>UIButton</comment>
+  </data>
+  <data name="ButtonShare.Label" xml:space="preserve">
+    <value>分享</value>
+    <comment>UIButton</comment>
+  </data>
+  <data name="ButtonLoad.Label" xml:space="preserve">
+    <value>读取</value>
+    <comment>UIButton</comment>
+  </data>
+  <data name="ButtonReshare.Label" xml:space="preserve">
+    <value>再次分享</value>
+    <comment>UIButton</comment>
+  </data>
+  <data name="ButtonSave.Label" xml:space="preserve">
+    <value>保存</value>
+    <comment>UIButton</comment>
+  </data>
+  <data name="ButtonAppend.Label" xml:space="preserve">
+    <value>追加</value>
+    <comment>UIButton</comment>
+  </data>
+  <data name="ButtonTheme.Label" xml:space="preserve">
+    <value>主题切换</value>
+    <comment>UIButton</comment>
+  </data>
+  <data name="LabelContentSourceApplicationLink.Text" xml:space="preserve">
+    <value>内容来源的应用链接</value>
+    <comment>UILabel</comment>
+  </data>
+  <data name="LabelDescription.Text" xml:space="preserve">
+    <value>描述</value>
+    <comment>UILabel</comment>
+  </data>
+  <data name="LabelLogo30x30.Text" xml:space="preserve">
+    <value>30像素见方的图标</value>
+    <comment>UILabel</comment>
+  </data>
+  <data name="LabelPackageFamilyName.Text" xml:space="preserve">
+    <value>应用包家族名</value>
+    <comment>UILabel</comment>
+  </data>
+  <data name="LabelQuickLinkId.Text" xml:space="preserve">
+    <value>快速链接标识</value>
+    <comment>UILabel</comment>
+  </data>
+  <data name="LabelThumbnail.Text" xml:space="preserve">
+    <value>缩略图</value>
+    <comment>UILabel</comment>
+  </data>
+  <data name="LabelTitle.Text" xml:space="preserve">
+    <value>标题</value>
+    <comment>UILabel</comment>
+  </data>
+  <data name="SharePanelShareButton.Content" xml:space="preserve">
+    <value>准备共享！</value>
+    <comment>SharePanelShareButton.Content</comment>
+  </data>
+  <data name="LabelContentSourceWebLink.Text" xml:space="preserve">
+    <value>内容来源的网站链接</value>
+    <comment>UILabel</comment>
+  </data>
+  <data name="InkCanvasProfileType_Drawing" xml:space="preserve">
+    <value>作画</value>
+    <comment>InkCanvasProfileType enum trans</comment>
+  </data>
+  <data name="InkCanvasProfileType_Erasing" xml:space="preserve">
+    <value>擦除</value>
+    <comment>InkCanvasProfileType enum trans</comment>
+  </data>
+  <data name="InkCanvasProfileType_Highlighting" xml:space="preserve">
+    <value>高亮标记</value>
+    <comment>InkCanvasProfileType enum trans</comment>
+  </data>
+  <data name="ApplicationLink.Text" xml:space="preserve">
+    <value>应用链接:</value>
+    <comment>ApplicationLink.Text</comment>
+  </data>
+  <data name="FilesToShare.Text" xml:space="preserve">
+    <value>分享文件:</value>
+    <comment>FilesToShare.Text</comment>
+  </data>
+  <data name="HtmlContent.Text" xml:space="preserve">
+    <value>超文本内容:</value>
+    <comment>HtmlContent.Text</comment>
+  </data>
+  <data name="ImageToShare.Text" xml:space="preserve">
+    <value>分享图片:</value>
+    <comment>ImageToShare.Text</comment>
+  </data>
+  <data name="MenuFlyoutSubItemConvertTo.Text" xml:space="preserve">
+    <value>转换为:</value>
+    <comment>MenuFlyoutSubItemConvertTo</comment>
+  </data>
+  <data name="TextContent.Text" xml:space="preserve">
+    <value>文本内容:</value>
+    <comment>TextContent.Text</comment>
+  </data>
+  <data name="ButtonReshareAll.Text" xml:space="preserve">
+    <value>全部</value>
+    <comment>ButtonReshareAll.Content</comment>
+  </data>
+  <data name="ButtonReshareSelected.Text" xml:space="preserve">
+    <value>已选</value>
+    <comment>ButtonReshareSelected.Content</comment>
+  </data>
+  <data name="MenuFlyoutSubItemConvertBackFrom.Text" xml:space="preserve">
+    <value>从下面格式转化回文本:</value>
+    <comment>MenuFlyoutSubItemConvertBackFrom.Text</comment>
+  </data>
+  <data name="AppendToTextShare.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
+    <value>将文本附加到当前共享</value>
+    <comment>Append To Text Share</comment>
+  </data>
+  <data name="MenuFlyoutItemCommandMagnetChop.Text" xml:space="preserve">
+    <value>将磁力链接切割为十六进制字串</value>
+    <comment>Chop a Magnet Link to Binary String.</comment>
+  </data>
+  <data name="MenuFlyoutItemCommandMagnetRecovery.Text" xml:space="preserve">
+    <value>从十六进制字串转化为磁力链接</value>
+    <comment>Recover a Magnet Link from Binary String.</comment>
+  </data>
+  <data name="VisitUri.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
+    <value>访问该链接</value>
+    <comment>Visit Uri</comment>
+  </data>
+  <data name="HyperLinkCopy.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
+    <value>复制</value>
+    <comment>Copy</comment>
+  </data>
+  <data name="HyperLinkVisit.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
+    <value>访问</value>
+    <comment>Visit</comment>
+  </data>
+  <data name="HyperLinkAddComment.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
+    <value>添加注释</value>
+    <comment>Add Comment</comment>
+  </data>
+  <data name="HyperLinkSaveToFile.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
+    <value>保存到文件</value>
+    <comment>Save to File</comment>
+  </data>
+  <data name="HyperLinkBinaryStringTools.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
+    <value>十六进制字符串工具</value>
+    <comment>Binary String Tools</comment>
+  </data>
+  <data name="HyperLinkMarkAndHighlight.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
+    <value>标记与高亮</value>
+    <comment>Mark &amp; Highlight</comment>
+  </data>
+  <data name="HyperLinkOpenAsImage.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
+    <value>当作图片分享打开</value>
+    <comment>Open as Image Share Item</comment>
+  </data>
+  <data name="HyperLinkUndo.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
+    <value>撤销</value>
+    <comment>Undo</comment>
+  </data>
+  <data name="HyperLinkUrlTools.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
+    <value>链接工具</value>
+    <comment>Url Tools</comment>
+  </data>
+  <data name="HyperLinkRemoveQuery.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
+    <value>移除查询</value>
+    <comment>Remove Query</comment>
+  </data>
+  <data name="HyperLinkToText.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
+    <value>转为文本</value>
+    <comment>To Text</comment>
+  </data>
+  <data name="WebLink.Text" xml:space="preserve">
+    <value>网页链接:</value>
+    <comment>WebLink:</comment>
+  </data>
+  <data name="CommandConvertToWebUriNextContent" xml:space="preserve">
+    <value>关于下一步</value>
+  </data>
+  <data name="CommandConvertToWebUriNextTitle" xml:space="preserve">
+    <value>该文本是合法URL.</value>
+  </data>
+  <data name="CommandConvertToWebUriNextUICommandConvert" xml:space="preserve">
+    <value>转为网站链接分享</value>
+  </data>
+  <data name="CommandConvertToWebUriNextUICommandLeave" xml:space="preserve">
+    <value>离开</value>
+  </data>
+  <data name="CommandConvertToWebUriNextUICommandOpenLink" xml:space="preserve">
+    <value>打开链接</value>
+  </data>
+  <data name="OnNavigationFailedException" xml:space="preserve">
+    <value>无法加载 {0} 页面.</value>
+  </data>
+  <data name="SaveImageCommandFileSavePickerPngFiles" xml:space="preserve">
+    <value>PNG图像文件</value>
+  </data>
+  <data name="SaveImageCommandMessageDialogFileSavedNextContent" xml:space="preserve">
+    <value>关于下一步</value>
+  </data>
+  <data name="SaveImageCommandMessageDialogMessageDialogFileSavedNextTitle" xml:space="preserve">
+    <value>文件已储存</value>
+  </data>
+  <data name="SaveImageCommandMessageDialogUICommandLeave" xml:space="preserve">
+    <value>离开</value>
+  </data>
+  <data name="SaveImageCommandMessageDialogUICommandOpenFile" xml:space="preserve">
+    <value>打开文件</value>
+  </data>
+  <data name="ShareItemsMergedAt" xml:space="preserve">
+    <value>合并于</value>
+  </data>
+  <data name="CommandGetFromClipboardAt" xml:space="preserve">
+    <value>已粘贴到最分享，发生在</value>
+  </data>
+  <data name="CommandSaveToUserFileFileType" xml:space="preserve">
+    <value>最分享存档文件</value>
+  </data>
+  <data name="AddYourCommentsHere" xml:space="preserve">
+    <value>在这里添加您的注释...</value>
+  </data>
+</root>

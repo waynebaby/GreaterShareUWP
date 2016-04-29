@@ -106,8 +106,10 @@
     <None Include="Assets\GShare.metrop" />
     <None Include="GreaterShare_StoreKey.pfx" />
     <None Include="project.json" />
-    <PRIResource Include="Strings\zh-Hans\Resources.resw" />
+    <PRIResource Include="Strings\zh-SG\Resources.resw" />
+    <PRIResource Include="Strings\zh-CN\Resources.resw" />
     <PRIResource Include="Strings\en\Resources.resw" />
+    <PRIResource Include="Strings\zh-Hans\Resources.resw" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Background.xaml.cs">
@@ -261,9 +263,13 @@
     <Folder Include="Themes\" />
   </ItemGroup>
   <ItemGroup>
+    <XliffResource Include="MultilingualResources\GreaterShare.zh-CN.xlf">
+      <SubType>Designer</SubType>
+    </XliffResource>
     <XliffResource Include="MultilingualResources\GreaterShare.zh-Hans.xlf">
       <SubType>Designer</SubType>
     </XliffResource>
+    <XliffResource Include="MultilingualResources\GreaterShare.zh-SG.xlf" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

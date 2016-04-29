@@ -1,0 +1,317 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 xliff-core-1.2-transitional.xsd">
+  <file datatype="xml" source-language="en" target-language="zh-CN" original="GREATERSHARE/STRINGS/EN/RESOURCES.RESW" tool-id="MultilingualAppToolkit" product-name="n/a" product-version="n/a" build-num="n/a">
+    <header>
+      <tool tool-id="MultilingualAppToolkit" tool-name="Multilingual App Toolkit" tool-version="4.0.1605.0" tool-company="Microsoft" />
+    </header>
+    <body>
+      <group id="GREATERSHARE/STRINGS/EN/RESOURCES.RESW" datatype="resx">
+        <trans-unit id="BackgroundTitleGreater.Text" translate="yes" xml:space="preserve">
+          <source>Greater</source>
+          <target state="translated">最</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">The Title in background</note>
+        </trans-unit>
+        <trans-unit id="BackgroundTitleShare.Text" translate="yes" xml:space="preserve">
+          <source>Share</source>
+          <target state="translated">分享</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">The Title in background</note>
+        </trans-unit>
+        <trans-unit id="MainPage_MainPivot_CurrentSharePI.Header" translate="yes" xml:space="preserve">
+          <source>Current Share</source>
+          <target state="translated">当前分享</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">Current Share PI header</note>
+        </trans-unit>
+        <trans-unit id="MainPage_MainPivot_ClipboardPI.Header" translate="yes" xml:space="preserve">
+          <source>Clipboard</source>
+          <target state="translated">剪贴板</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">Clipboard PI header</note>
+        </trans-unit>
+        <trans-unit id="AppName" translate="yes" xml:space="preserve">
+          <source>Greater Share</source>
+          <target state="translated">最分享</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">Name of app</note>
+        </trans-unit>
+        <trans-unit id="ButtonPaste.Label" translate="yes" xml:space="preserve">
+          <source>Paste</source>
+          <target state="translated" state-qualifier="tm-suggestion">粘贴</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">UIButton</note>
+        </trans-unit>
+        <trans-unit id="ButtonShare.Label" translate="yes" xml:space="preserve">
+          <source>Share</source>
+          <target state="translated">分享</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">UIButton</note>
+        </trans-unit>
+        <trans-unit id="ButtonLoad.Label" translate="yes" xml:space="preserve">
+          <source>Load</source>
+          <target state="translated">读取</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">UIButton</note>
+        </trans-unit>
+        <trans-unit id="ButtonReshare.Label" translate="yes" xml:space="preserve">
+          <source>Reshare</source>
+          <target state="translated">再次分享</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">UIButton</note>
+        </trans-unit>
+        <trans-unit id="ButtonSave.Label" translate="yes" xml:space="preserve">
+          <source>Save</source>
+          <target state="translated" state-qualifier="tm-suggestion">保存</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">UIButton</note>
+        </trans-unit>
+        <trans-unit id="ButtonAppend.Label" translate="yes" xml:space="preserve">
+          <source>Append</source>
+          <target state="translated">追加</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">UIButton</note>
+        </trans-unit>
+        <trans-unit id="ButtonTheme.Label" translate="yes" xml:space="preserve">
+          <source>Theme</source>
+          <target state="translated">主题切换</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">UIButton</note>
+        </trans-unit>
+        <trans-unit id="LabelContentSourceApplicationLink.Text" translate="yes" xml:space="preserve">
+          <source>Content Source Application Link</source>
+          <target state="translated">内容来源的应用链接</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">UILabel</note>
+        </trans-unit>
+        <trans-unit id="LabelDescription.Text" translate="yes" xml:space="preserve">
+          <source>Description</source>
+          <target state="translated">描述</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">UILabel</note>
+        </trans-unit>
+        <trans-unit id="LabelLogo30x30.Text" translate="yes" xml:space="preserve">
+          <source>Logo 30x30</source>
+          <target state="translated">30像素见方的图标</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">UILabel</note>
+        </trans-unit>
+        <trans-unit id="LabelPackageFamilyName.Text" translate="yes" xml:space="preserve">
+          <source>Package Family Name</source>
+          <target state="translated">应用包家族名</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">UILabel</note>
+        </trans-unit>
+        <trans-unit id="LabelQuickLinkId.Text" translate="yes" xml:space="preserve">
+          <source>Quick Link Id</source>
+          <target state="translated">快速链接标识</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">UILabel</note>
+        </trans-unit>
+        <trans-unit id="LabelThumbnail.Text" translate="yes" xml:space="preserve">
+          <source>Thumbnail Image</source>
+          <target state="translated">缩略图</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">UILabel</note>
+        </trans-unit>
+        <trans-unit id="LabelTitle.Text" translate="yes" xml:space="preserve">
+          <source>Title</source>
+          <target state="translated">标题</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">UILabel</note>
+        </trans-unit>
+        <trans-unit id="SharePanelShareButton.Content" translate="yes" xml:space="preserve">
+          <source>Share!</source>
+          <target state="translated">准备共享！</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">SharePanelShareButton.Content</note>
+        </trans-unit>
+        <trans-unit id="LabelContentSourceWebLink.Text" translate="yes" xml:space="preserve">
+          <source>Content Source Web Link</source>
+          <target state="translated">内容来源的网站链接</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">UILabel</note>
+        </trans-unit>
+        <trans-unit id="InkCanvasProfileType_Drawing" translate="yes" xml:space="preserve">
+          <source>Drawing</source>
+          <target state="translated">作画</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">InkCanvasProfileType enum trans</note>
+        </trans-unit>
+        <trans-unit id="InkCanvasProfileType_Erasing" translate="yes" xml:space="preserve">
+          <source>Erasing</source>
+          <target state="translated">擦除</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">InkCanvasProfileType enum trans</note>
+        </trans-unit>
+        <trans-unit id="InkCanvasProfileType_Highlighting" translate="yes" xml:space="preserve">
+          <source>Highlighting</source>
+          <target state="translated">高亮标记</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">InkCanvasProfileType enum trans</note>
+        </trans-unit>
+        <trans-unit id="ApplicationLink.Text" translate="yes" xml:space="preserve">
+          <source>Application Link:</source>
+          <target state="translated">应用链接:</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">ApplicationLink.Text</note>
+        </trans-unit>
+        <trans-unit id="FilesToShare.Text" translate="yes" xml:space="preserve">
+          <source>Files to Share:</source>
+          <target state="translated">分享文件:</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">FilesToShare.Text</note>
+        </trans-unit>
+        <trans-unit id="HtmlContent.Text" translate="yes" xml:space="preserve">
+          <source>Html Content:</source>
+          <target state="translated">超文本内容:</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">HtmlContent.Text</note>
+        </trans-unit>
+        <trans-unit id="ImageToShare.Text" translate="yes" xml:space="preserve">
+          <source>Image to Share:</source>
+          <target state="translated">分享图片:</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">ImageToShare.Text</note>
+        </trans-unit>
+        <trans-unit id="MenuFlyoutSubItemConvertTo.Text" translate="yes" xml:space="preserve">
+          <source>Convert to:</source>
+          <target state="translated">转换为:</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">MenuFlyoutSubItemConvertTo</note>
+        </trans-unit>
+        <trans-unit id="TextContent.Text" translate="yes" xml:space="preserve">
+          <source>Text Content:</source>
+          <target state="translated">文本内容:</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">TextContent.Text</note>
+        </trans-unit>
+        <trans-unit id="ButtonReshareAll.Text" translate="yes" xml:space="preserve">
+          <source>All</source>
+          <target state="translated">全部</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">ButtonReshareAll.Content</note>
+        </trans-unit>
+        <trans-unit id="ButtonReshareSelected.Text" translate="yes" xml:space="preserve">
+          <source>Selected</source>
+          <target state="translated">已选</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">ButtonReshareSelected.Content</note>
+        </trans-unit>
+        <trans-unit id="MenuFlyoutSubItemConvertBackFrom.Text" translate="yes" xml:space="preserve">
+          <source>Convert back from:</source>
+          <target state="translated">从下面格式转化回文本:</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">MenuFlyoutSubItemConvertBackFrom.Text</note>
+        </trans-unit>
+        <trans-unit id="AppendToTextShare.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" translate="yes" xml:space="preserve">
+          <source>Append To Text Share</source>
+          <target state="translated">将文本附加到当前共享</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">Append To Text Share</note>
+        </trans-unit>
+        <trans-unit id="MenuFlyoutItemCommandMagnetChop.Text" translate="yes" xml:space="preserve">
+          <source>Chop a Magnet Link to Binary String.</source>
+          <target state="translated">将磁力链接切割为十六进制字串</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">Chop a Magnet Link to Binary String.</note>
+        </trans-unit>
+        <trans-unit id="MenuFlyoutItemCommandMagnetRecovery.Text" translate="yes" xml:space="preserve">
+          <source>Recover a Magnet Link from Binary String.</source>
+          <target state="translated">从十六进制字串转化为磁力链接</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">Recover a Magnet Link from Binary String.</note>
+        </trans-unit>
+        <trans-unit id="VisitUri.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" translate="yes" xml:space="preserve">
+          <source>Visit Uri</source>
+          <target state="translated">访问该链接</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">Visit Uri</note>
+        </trans-unit>
+        <trans-unit id="HyperLinkCopy.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" translate="yes" xml:space="preserve">
+          <source>Copy</source>
+          <target state="translated">复制</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">Copy</note>
+        </trans-unit>
+        <trans-unit id="HyperLinkVisit.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" translate="yes" xml:space="preserve">
+          <source>Visit</source>
+          <target state="translated">访问</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">Visit</note>
+        </trans-unit>
+        <trans-unit id="HyperLinkAddComment.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" translate="yes" xml:space="preserve">
+          <source>Add Comment</source>
+          <target state="translated">添加注释</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">Add Comment</note>
+        </trans-unit>
+        <trans-unit id="HyperLinkSaveToFile.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" translate="yes" xml:space="preserve">
+          <source>Save to File</source>
+          <target state="translated">保存到文件</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">Save to File</note>
+        </trans-unit>
+        <trans-unit id="HyperLinkBinaryStringTools.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" translate="yes" xml:space="preserve">
+          <source>Binary String Tools</source>
+          <target state="translated">十六进制字符串工具</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">Binary String Tools</note>
+        </trans-unit>
+        <trans-unit id="HyperLinkMarkAndHighlight.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" translate="yes" xml:space="preserve">
+          <source>Mark &amp; Highlight</source>
+          <target state="translated">标记与高亮</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">Mark &amp; Highlight</note>
+        </trans-unit>
+        <trans-unit id="HyperLinkOpenAsImage.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" translate="yes" xml:space="preserve">
+          <source>Open as Image Share Item</source>
+          <target state="translated">当作图片分享打开</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">Open as Image Share Item</note>
+        </trans-unit>
+        <trans-unit id="HyperLinkUndo.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" translate="yes" xml:space="preserve">
+          <source>Undo</source>
+          <target state="translated">撤销</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">Undo</note>
+        </trans-unit>
+        <trans-unit id="HyperLinkUrlTools.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" translate="yes" xml:space="preserve">
+          <source>Url Tools</source>
+          <target state="translated">链接工具</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">Url Tools</note>
+        </trans-unit>
+        <trans-unit id="HyperLinkRemoveQuery.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" translate="yes" xml:space="preserve">
+          <source>Remove Query</source>
+          <target state="translated">移除查询</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">Remove Query</note>
+        </trans-unit>
+        <trans-unit id="HyperLinkToText.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" translate="yes" xml:space="preserve">
+          <source>To Text</source>
+          <target state="translated">转为文本</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">To Text</note>
+        </trans-unit>
+        <trans-unit id="WebLink.Text" translate="yes" xml:space="preserve">
+          <source>WebLink:</source>
+          <target state="translated">网页链接:</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">WebLink:</note>
+        </trans-unit>
+        <trans-unit id="CommandConvertToWebUriNextContent" translate="yes" xml:space="preserve">
+          <source>What's next?</source>
+          <target state="translated">关于下一步</target>
+        </trans-unit>
+        <trans-unit id="CommandConvertToWebUriNextTitle" translate="yes" xml:space="preserve">
+          <source>The Text is a well formed uri.</source>
+          <target state="translated">该文本是合法URL.</target>
+        </trans-unit>
+        <trans-unit id="CommandConvertToWebUriNextUICommandConvert" translate="yes" xml:space="preserve">
+          <source>Covert To Weblink Share</source>
+          <target state="translated">转为网站链接分享</target>
+        </trans-unit>
+        <trans-unit id="CommandConvertToWebUriNextUICommandLeave" translate="yes" xml:space="preserve">
+          <source>Leave</source>
+          <target state="translated">离开</target>
+        </trans-unit>
+        <trans-unit id="CommandConvertToWebUriNextUICommandOpenLink" translate="yes" xml:space="preserve">
+          <source>Open Link</source>
+          <target state="translated">打开链接</target>
+        </trans-unit>
+        <trans-unit id="OnNavigationFailedException" translate="yes" xml:space="preserve">
+          <source>Failed to load Page {0}.</source>
+          <target state="translated">无法加载 {0} 页面.</target>
+        </trans-unit>
+        <trans-unit id="SaveImageCommandFileSavePickerPngFiles" translate="yes" xml:space="preserve">
+          <source>Png Image files</source>
+          <target state="translated">PNG图像文件</target>
+        </trans-unit>
+        <trans-unit id="SaveImageCommandMessageDialogFileSavedNextContent" translate="yes" xml:space="preserve">
+          <source>What's next?</source>
+          <target state="translated">关于下一步</target>
+        </trans-unit>
+        <trans-unit id="SaveImageCommandMessageDialogMessageDialogFileSavedNextTitle" translate="yes" xml:space="preserve">
+          <source>File Saved.</source>
+          <target state="translated">文件已储存</target>
+        </trans-unit>
+        <trans-unit id="SaveImageCommandMessageDialogUICommandLeave" translate="yes" xml:space="preserve">
+          <source>Leave</source>
+          <target state="translated">离开</target>
+        </trans-unit>
+        <trans-unit id="SaveImageCommandMessageDialogUICommandOpenFile" translate="yes" xml:space="preserve">
+          <source>Open File</source>
+          <target state="translated">打开文件</target>
+        </trans-unit>
+        <trans-unit id="ShareItemsMergedAt" translate="yes" xml:space="preserve">
+          <source>Merged at</source>
+          <target state="translated">合并于</target>
+        </trans-unit>
+        <trans-unit id="CommandGetFromClipboardAt" translate="yes" xml:space="preserve">
+          <source>Pasted to Greater Share at</source>
+          <target state="translated">已粘贴到最分享，发生在</target>
+        </trans-unit>
+        <trans-unit id="CommandSaveToUserFileFileType" translate="yes" xml:space="preserve">
+          <source>Greater Share Files</source>
+          <target state="translated">最分享存档文件</target>
+        </trans-unit>
+        <trans-unit id="AddYourCommentsHere" translate="yes" xml:space="preserve">
+          <source>Add your comments here...</source>
+          <target state="translated">在这里添加您的注释...</target>
+        </trans-unit>
+      </group>
+    </body>
+  </file>
+</xliff>
