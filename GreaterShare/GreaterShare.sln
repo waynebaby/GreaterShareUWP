@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GreaterShare", "GreaterShare\GreaterShare.csproj", "{122AE954-BED8-449A-9220-B916C150FBDE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GreaterShare.Test", "GreaterShare.Test\GreaterShare.Test.csproj", "{B6FFFBE6-7E1C-42B9-BB32-74110B125E9E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GreaterShare.BackgroundServices", "GreaterShare.BackgroundServices\GreaterShare.BackgroundServices.csproj", "{7837F975-D228-4656-ADB6-AB9383F90F30}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -59,6 +61,22 @@ Global
 		{B6FFFBE6-7E1C-42B9-BB32-74110B125E9E}.Release|x86.ActiveCfg = Release|x86
 		{B6FFFBE6-7E1C-42B9-BB32-74110B125E9E}.Release|x86.Build.0 = Release|x86
 		{B6FFFBE6-7E1C-42B9-BB32-74110B125E9E}.Release|x86.Deploy.0 = Release|x86
+		{7837F975-D228-4656-ADB6-AB9383F90F30}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7837F975-D228-4656-ADB6-AB9383F90F30}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7837F975-D228-4656-ADB6-AB9383F90F30}.Debug|ARM.ActiveCfg = Debug|ARM
+		{7837F975-D228-4656-ADB6-AB9383F90F30}.Debug|ARM.Build.0 = Debug|ARM
+		{7837F975-D228-4656-ADB6-AB9383F90F30}.Debug|x64.ActiveCfg = Debug|x64
+		{7837F975-D228-4656-ADB6-AB9383F90F30}.Debug|x64.Build.0 = Debug|x64
+		{7837F975-D228-4656-ADB6-AB9383F90F30}.Debug|x86.ActiveCfg = Debug|x86
+		{7837F975-D228-4656-ADB6-AB9383F90F30}.Debug|x86.Build.0 = Debug|x86
+		{7837F975-D228-4656-ADB6-AB9383F90F30}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7837F975-D228-4656-ADB6-AB9383F90F30}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7837F975-D228-4656-ADB6-AB9383F90F30}.Release|ARM.ActiveCfg = Release|ARM
+		{7837F975-D228-4656-ADB6-AB9383F90F30}.Release|ARM.Build.0 = Release|ARM
+		{7837F975-D228-4656-ADB6-AB9383F90F30}.Release|x64.ActiveCfg = Release|x64
+		{7837F975-D228-4656-ADB6-AB9383F90F30}.Release|x64.Build.0 = Release|x64
+		{7837F975-D228-4656-ADB6-AB9383F90F30}.Release|x86.ActiveCfg = Release|x86
+		{7837F975-D228-4656-ADB6-AB9383F90F30}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
