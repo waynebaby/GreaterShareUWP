@@ -7,11 +7,11 @@ using Windows.ApplicationModel.Background;
 
 namespace GreaterShare.BackgroundServices
 {
-	public class PictureLibMonitorTask : IBackgroundTask
-	{
-		public void Run(IBackgroundTaskInstance taskInstance)
-		{
-			throw new NotImplementedException();
-		}
-	}
+    public sealed class PictureLibMonitorTask : IBackgroundTask
+    {
+        public void Run(IBackgroundTaskInstance taskInstance)
+        {
+           
+        }
+    }
 }

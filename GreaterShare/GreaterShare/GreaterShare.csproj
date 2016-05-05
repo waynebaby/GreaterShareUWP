@@ -271,6 +271,12 @@
     </XliffResource>
     <XliffResource Include="MultilingualResources\GreaterShare.zh-SG.xlf" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GreaterShare.BackgroundServices\GreaterShare.BackgroundServices.csproj">
+      <Project>{7837f975-d228-4656-adb6-ab9383f90f30}</Project>
+      <Name>GreaterShare.BackgroundServices</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
