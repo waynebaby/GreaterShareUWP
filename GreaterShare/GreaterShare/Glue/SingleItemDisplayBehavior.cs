@@ -84,10 +84,13 @@ namespace GreaterShare.Glue
                         {
                             double actualItemHeight = AssociatedItemsWrapGrid.ActualHeight ;
                             AssociatedItemsWrapGrid.ItemHeight = actualItemHeight - 8;
-                            var h = AssociatedItemsWrapGrid.Parent;
                             var ip = VisualTreeHelper.GetParent(AssociatedItemsWrapGrid);
+							if (ip==null)
+							{
+								return;
+							}
                             var sv = VisualTreeHelper.GetParent(ip) as FrameworkElement;
-                            AssociatedItemsWrapGrid.ItemWidth = sv.ActualWidth;
+                            AssociatedItemsWrapGrid.ItemWidth = sv.ActualWidth-72;
                             break;
                         }
                     case Orientation.Horizontal:
@@ -95,8 +98,12 @@ namespace GreaterShare.Glue
                             double actualItemWidth = AssociatedItemsWrapGrid.ActualWidth ;
                             AssociatedItemsWrapGrid.ItemWidth = actualItemWidth - 8;
                             var ip = VisualTreeHelper.GetParent(AssociatedItemsWrapGrid);
-                            var sv = VisualTreeHelper.GetParent(ip) as FrameworkElement;
-                            AssociatedItemsWrapGrid.ItemHeight = sv.ActualHeight;
+							if (ip == null)
+							{
+								return;
+							}
+							var sv = VisualTreeHelper.GetParent(ip) as FrameworkElement;
+                            AssociatedItemsWrapGrid.ItemHeight = sv.ActualHeight-72;
 
                   
                             break;

@@ -519,7 +519,7 @@
             <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
         </DataTemplate>
         <ItemsPanelTemplate x:Key="GridViewSingleItemPanel">
-            <ItemsWrapGrid  Orientation="Horizontal"    >
+            <ItemsWrapGrid  Orientation="Vertical"    >
                 <!--<ItemsWrapGrid.Resources>
                     <Style TargetType="Grid">
                         <Setter  Property="HorizontalAlignment" Value="Stretch"/>
