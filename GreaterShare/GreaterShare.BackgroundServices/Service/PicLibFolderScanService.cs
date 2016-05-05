@@ -17,6 +17,8 @@ namespace GreaterShare.BackgroundServices.Service
         private IStorageFolder workingFolder = ApplicationData.Current.LocalCacheFolder;
         private IAsyncOperation<StorageFile> workingFile;
 
+
+
         public PicLibFolderScanService()
         {
             var option = CreationCollisionOption.OpenIfExists;
@@ -28,7 +30,7 @@ namespace GreaterShare.BackgroundServices.Service
             workingFile = workingFolder.CreateFileAsync(nameof(PicLibFolderScanService) + ".cache", option);
         }
 
-        public IAsyncOperation<IEnumerable > GetSnapshotAsync()
+        public IAsyncOperation<IEnumerable> GetSnapshotAsync()
         {
             return InternalGetSnapshotAsync().AsAsyncOperation();
         }
@@ -40,7 +42,7 @@ namespace GreaterShare.BackgroundServices.Service
 
         public IAsyncAction SaveSnapshotAsync(IEnumerable folder)
         {
-            return InternalSaveSnapshotAsync(folder.OfType <IPicLibFolder>().ToArray()).AsAsyncAction();
+            return InternalSaveSnapshotAsync(folder.OfType<IPicLibFolder>().ToArray()).AsAsyncAction();
         }
 
         internal async Task<IEnumerable> InternalGetSnapshotAsync()
@@ -55,8 +57,12 @@ namespace GreaterShare.BackgroundServices.Service
             var folders = await Task.WhenAll((await current.GetFoldersAsync()).Select(async x => await InternalGetSnapshotAsync(x)));
 
             var filesLast = (await Task.WhenAll(fs.Select(async x => await x.GetBasicPropertiesAsync())))
-                            .Max(p => p.DateModified);
-            var foldersLast = folders.Select(x => DateTimeOffset.Parse(x.LastFileEditTime)).Max();
+                          .Select(x => x.DateModified)
+                          .Aggregate(DateTimeOffset.MinValue, (x, y) => x > y ? x : y);
+
+            var foldersLast = folders.Select(x => DateTimeOffset.Parse(x.LastFileEditTime))
+                   .Aggregate(DateTimeOffset.MinValue, (x, y) => x > y ? x : y);
+            ;
 
             var picf = new PicLibFolder()
             {
@@ -108,12 +114,7 @@ namespace GreaterShare.BackgroundServices.Service
         }
 
 
-        Comparer<IPicLibFolder> compAllEqual = Comparer<IPicLibFolder>.Create((x, y) =>
-                x.UriString.CompareTo(y.UriString) << 3 +
-                x.FileCount.CompareTo(y.FileCount) << 2 +
-                x.LastFileEditTime.CompareTo(y.LastFileEditTime) << 1 +
-                x.Folders.Count.CompareTo(y.Folders.Count)
-        );
+
 
         Comparer<IPicLibFolder> compUrlEqual = Comparer<IPicLibFolder>.Create((x, y) =>
         x.UriString.CompareTo(y.UriString)
@@ -135,22 +136,36 @@ namespace GreaterShare.BackgroundServices.Service
             }
 
 
-            var setDiff = new SortedSet<IPicLibFolder>(newOnes, compAllEqual);
-            setDiff.ExceptWith(oldOnes);
+            var setDiff = newOnes.ToDictionary(x => x.UriString, x => x);
 
+            foreach (var item in oldOnes)
+            {
+                IPicLibFolder target = null;
+                if (setDiff.TryGetValue(item.UriString,out target))
+                {
+                    if (target.FileCount == item.FileCount&& 
+                        target.Folders.Count ==item.Folders.Count &&
+                        target.LastFileEditTime==item.LastFileEditTime                       
+                        )
+                    {
+                        setDiff.Remove(target.UriString);
+                    }
+                }
+
+            }
             //var setNameCommon = new SortedSet<IPicLibFolder>(newOnes, compUrlEqual);
             //setNameCommon.IntersectWith(oldOnes);
 
             var dictOldOnes = oldOnes.ToDictionary(x => x.UriString, x => x);
             foreach (var item in setDiff)
             {
-                yield return item;
+                yield return item.Value;
 
                 IPicLibFolder oldOne = null;
-                dictOldOnes.TryGetValue(item.UriString, out oldOne);
+                dictOldOnes.TryGetValue(item.Value.UriString, out oldOne);
 
                 var deeperOldOnes = oldOne?.Folders;
-                var depperNewOnes = item.Folders;
+                var depperNewOnes = item.Value.Folders;
 
 
                 var deeper = InternalCompareSnapshot(deeperOldOnes, depperNewOnes);

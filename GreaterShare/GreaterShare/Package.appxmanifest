@@ -32,20 +32,6 @@
         </uap:InitialRotationPreference>
       </uap:VisualElements>
       <Extensions>
-        <Extension Category="windows.backgroundTasks" EntryPoint="GreaterShare.BackgroundServices.PictureLibMonitorTask">
-          <BackgroundTasks>
-            <Task Type="timer" />
-          </BackgroundTasks>
-        </Extension>
-        <uap:Extension Category="windows.fileTypeAssociation">
-          <uap:FileTypeAssociation Name=".gshare">
-            <uap:DisplayName>Greater Share File</uap:DisplayName>
-            <uap:InfoTip>Greater Share File</uap:InfoTip>
-            <uap:SupportedFileTypes>
-              <uap:FileType>.gshare</uap:FileType>
-            </uap:SupportedFileTypes>
-          </uap:FileTypeAssociation>
-        </uap:Extension>
         <uap:Extension Category="windows.shareTarget">
           <uap:ShareTarget Description="Share To Greater Share">
             <uap:SupportedFileTypes>
@@ -60,6 +46,21 @@
             <uap:DataFormat>ApplicationLink</uap:DataFormat>
           </uap:ShareTarget>
         </uap:Extension>
+        <uap:Extension Category="windows.fileTypeAssociation">
+          <uap:FileTypeAssociation Name=".gshare">
+            <uap:DisplayName>Greater Share File</uap:DisplayName>
+            <uap:InfoTip>Greater Share File</uap:InfoTip>
+            <uap:SupportedFileTypes>
+              <uap:FileType>.gshare</uap:FileType>
+            </uap:SupportedFileTypes>
+          </uap:FileTypeAssociation>
+        </uap:Extension>
+        <Extension Category="windows.backgroundTasks" EntryPoint="GreaterShare.BackgroundServices.PictureLibMonitorTask">
+          <BackgroundTasks>
+            <Task Type="systemEvent" />
+            <Task Type="timer" />
+          </BackgroundTasks>
+        </Extension>
       </Extensions>
     </Application>
   </Applications>

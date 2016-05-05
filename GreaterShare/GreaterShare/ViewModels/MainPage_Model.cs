@@ -561,6 +561,7 @@ namespace GreaterShare.ViewModels
                             {
                                 var fservice = ServiceLocator.Instance.Resolve<Services.ISubStorageService>();
                                 vm.ReceivedShareItem = await fservice.LoadFromFileAsync<ReceivedShareItem>(fpicked);
+               
                             }
                         })
                     .DoNotifyDefaultEventRouter(vm, commandId)

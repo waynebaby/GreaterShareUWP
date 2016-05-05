@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GreaterShare", "GreaterShar
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GreaterShare.BackgroundServices", "GreaterShare.BackgroundServices\GreaterShare.BackgroundServices.csproj", "{7837F975-D228-4656-ADB6-AB9383F90F30}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GreaterShare.BackgroundServices.Test", "GreaterShare.BackgroundServices.Test\GreaterShare.BackgroundServices.Test.csproj", "{0CC256EA-E319-4285-9A5D-1D7AC1BF1760}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,6 +57,26 @@ Global
 		{7837F975-D228-4656-ADB6-AB9383F90F30}.Release|x64.Build.0 = Release|x64
 		{7837F975-D228-4656-ADB6-AB9383F90F30}.Release|x86.ActiveCfg = Release|x86
 		{7837F975-D228-4656-ADB6-AB9383F90F30}.Release|x86.Build.0 = Release|x86
+		{0CC256EA-E319-4285-9A5D-1D7AC1BF1760}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{0CC256EA-E319-4285-9A5D-1D7AC1BF1760}.Debug|ARM.ActiveCfg = Debug|ARM
+		{0CC256EA-E319-4285-9A5D-1D7AC1BF1760}.Debug|ARM.Build.0 = Debug|ARM
+		{0CC256EA-E319-4285-9A5D-1D7AC1BF1760}.Debug|ARM.Deploy.0 = Debug|ARM
+		{0CC256EA-E319-4285-9A5D-1D7AC1BF1760}.Debug|x64.ActiveCfg = Debug|x64
+		{0CC256EA-E319-4285-9A5D-1D7AC1BF1760}.Debug|x64.Build.0 = Debug|x64
+		{0CC256EA-E319-4285-9A5D-1D7AC1BF1760}.Debug|x64.Deploy.0 = Debug|x64
+		{0CC256EA-E319-4285-9A5D-1D7AC1BF1760}.Debug|x86.ActiveCfg = Debug|x86
+		{0CC256EA-E319-4285-9A5D-1D7AC1BF1760}.Debug|x86.Build.0 = Debug|x86
+		{0CC256EA-E319-4285-9A5D-1D7AC1BF1760}.Debug|x86.Deploy.0 = Debug|x86
+		{0CC256EA-E319-4285-9A5D-1D7AC1BF1760}.Release|Any CPU.ActiveCfg = Release|x86
+		{0CC256EA-E319-4285-9A5D-1D7AC1BF1760}.Release|ARM.ActiveCfg = Release|ARM
+		{0CC256EA-E319-4285-9A5D-1D7AC1BF1760}.Release|ARM.Build.0 = Release|ARM
+		{0CC256EA-E319-4285-9A5D-1D7AC1BF1760}.Release|ARM.Deploy.0 = Release|ARM
+		{0CC256EA-E319-4285-9A5D-1D7AC1BF1760}.Release|x64.ActiveCfg = Release|x64
+		{0CC256EA-E319-4285-9A5D-1D7AC1BF1760}.Release|x64.Build.0 = Release|x64
+		{0CC256EA-E319-4285-9A5D-1D7AC1BF1760}.Release|x64.Deploy.0 = Release|x64
+		{0CC256EA-E319-4285-9A5D-1D7AC1BF1760}.Release|x86.ActiveCfg = Release|x86
+		{0CC256EA-E319-4285-9A5D-1D7AC1BF1760}.Release|x86.Build.0 = Release|x86
+		{0CC256EA-E319-4285-9A5D-1D7AC1BF1760}.Release|x86.Deploy.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace GreaterShare.BackgroundServices.Models
 {
-    [DataContract(IsReference = true)] //if you want
+    [DataContract()] //if you want
     internal class PicLibFolder : BindableBase<PicLibFolder>, IPicLibFolder,IEquatable<IPicLibFolder>
     {
         public PicLibFolder()

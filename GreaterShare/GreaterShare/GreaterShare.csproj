@@ -118,6 +118,8 @@
     <Compile Include="Glue\AddTextCommentsCommand.cs" />
     <Compile Include="Glue\IsFileItemImageFileConverter.cs" />
     <Compile Include="Glue\InkCanvasControllerBehavior.cs" />
+    <Compile Include="Glue\PanelFitParentSizeBehavior.cs" />
+    <Compile Include="Glue\SingleItemDisplayBehavior.cs" />
     <Compile Include="Glue\RaiseEventMassageCommand.cs" />
     <Compile Include="Glue\NavigateToUrlCommand.cs" />
     <Compile Include="Glue\NotValueConverter.cs" />

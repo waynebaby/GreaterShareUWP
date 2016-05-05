@@ -101,13 +101,16 @@
         <sharemodel:HtmlShareItem                x:Key="shareItemDesignInstanceHtmlShareItem"/>
         <!--<sharemodel:ImagesShareItem              x:Key="shareItemDesignInstanceImagesShareItem"/>-->
         <sharemodel:ReceivedShareItem            x:Key="shareItemDesignInstanceReceivedShareItem"/>
-        <sharemodel:TextShareItem               x:Key="shareItemDesignInstanceTextShareItem"/>
+        <!--<sharemodel:TextShareItem               x:Key="shareItemDesignInstanceTextShareItem"/>-->
         <sharemodel:WebLinkShareItem             x:Key="shareItemDesignInstanceWebLinkShareItem"/>
 
 
         <DataTemplate x:Key="DataTemplateOfApplicationLinkShareItem">
-            <Grid  d:DataContext="{StaticResource shareItemDesignInstanceApplicationLinkShareItem}" >
+            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  d:DataContext="{StaticResource shareItemDesignInstanceApplicationLinkShareItem}" >
                 <RelativePanel Margin="16" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <Interactivity:Interaction.Behaviors>
+                        <Glue:PanelFitParentSizeBehavior/>
+                    </Interactivity:Interaction.Behaviors>
                     <TextBlock x:Name="label" Style="{StaticResource ContentViewerLabel}" >
                     	<Run x:Uid="ApplicationLink" Text="Application Link:"/>
                     </TextBlock>
@@ -149,7 +152,11 @@
             </StackPanel>
         </DataTemplate>-->
         <DataTemplate x:Key="DataTemplateOfDelayRenderedImageShareItem">
-            <RelativePanel d:DataContext="{StaticResource shareItemDesignInstanceDelayRenderedImageShareItem}" >
+
+            <RelativePanel  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" d:DataContext="{StaticResource shareItemDesignInstanceDelayRenderedImageShareItem}" >
+                <Interactivity:Interaction.Behaviors>
+                    <Glue:PanelFitParentSizeBehavior/>
+                </Interactivity:Interaction.Behaviors>
                 <TextBlock x:Name="label" Style="{StaticResource ContentViewerLabel}" >
         			<Run x:Uid="ImageToShare"  Text="Image to Share"/>
                 </TextBlock>
@@ -226,7 +233,7 @@
         </DataTemplate>
 
         <DataTemplate x:Key="FileGridItem">
-            <RelativePanel Height="135" Width="120" BorderThickness="{StaticResource ThinBoderThickness}" BorderBrush="Gray" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="#20202020" >
+            <RelativePanel  Height="135" Width="120" BorderThickness="{StaticResource ThinBoderThickness}" BorderBrush="Gray" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="#20202020" >
                 <Image x:Name="image"
                     Margin="10"
         			Source="{Binding Thumbnail, Converter={StaticResource StreamImageSourceConverter}}" Stretch="Uniform"
@@ -247,7 +254,10 @@
             </RelativePanel>
         </DataTemplate>
         <DataTemplate x:Key="DataTemplateOfFilesShareItem">
-            <RelativePanel Margin="8"  d:DataContext="{StaticResource shareItemDesignInstanceFilesShareItem}" >
+            <RelativePanel Margin="8" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  d:DataContext="{StaticResource shareItemDesignInstanceFilesShareItem}" >
+                <Interactivity:Interaction.Behaviors>
+                    <Glue:PanelFitParentSizeBehavior/>
+                </Interactivity:Interaction.Behaviors>
                 <TextBlock x:Name="label" Style="{StaticResource ContentViewerLabel}" >
         			<Run x:Uid="FilesToShare" Text="Files to Share"/>
                 </TextBlock>
@@ -292,7 +302,10 @@
             </RelativePanel>
         </DataTemplate>
         <DataTemplate x:Key="DataTemplateOfHtmlShareItem">
-            <RelativePanel  d:DataContext="{StaticResource shareItemDesignInstanceHtmlShareItem}" Margin="8" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <RelativePanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  d:DataContext="{StaticResource shareItemDesignInstanceHtmlShareItem}" Margin="8" >
+                <Interactivity:Interaction.Behaviors>
+                    <Glue:PanelFitParentSizeBehavior/>
+                </Interactivity:Interaction.Behaviors>
                 <TextBlock x:Name="label" Style="{StaticResource ContentViewerLabel}" >
         				<Run x:Uid="HtmlContent" Text="Html Content:"/>
                 </TextBlock>
@@ -330,7 +343,13 @@
 
         </DataTemplate>
         <DataTemplate x:Key="DataTemplateOfTextShareItem">
-            <Grid  d:DataContext="{StaticResource shareItemDesignInstanceTextShareItem}" >
+            <Grid   HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
+                <d:Grid.DataContext>
+                    <sharemodel:TextShareItem/>
+                </d:Grid.DataContext>
+                <Interactivity:Interaction.Behaviors>
+                    <Glue:PanelFitParentSizeBehavior/>
+                </Interactivity:Interaction.Behaviors>
                 <RelativePanel Margin="8" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                     <TextBlock x:Name="label" Style="{StaticResource ContentViewerLabel}" >
         				<Run x:Uid="TextContent"  Text="Text Content:"/>
@@ -437,7 +456,11 @@
             </Grid>
         </DataTemplate>
         <DataTemplate x:Key="DataTemplateOfWebLinkShareItem">
-            <Grid  d:DataContext="{StaticResource shareItemDesignInstanceWebLinkShareItem}" >
+
+            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" d:DataContext="{StaticResource shareItemDesignInstanceWebLinkShareItem}" >
+                <Interactivity:Interaction.Behaviors>
+                    <Glue:PanelFitParentSizeBehavior/>
+                </Interactivity:Interaction.Behaviors>
                 <RelativePanel Margin="8" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                     <TextBlock x:Name="label" Style="{StaticResource ContentViewerLabel}" >
         				<Run Text="WebLink:" x:Uid="WebLink" />
@@ -493,7 +516,21 @@
         </DataTemplate>
         <Thickness x:Key="ThinBoderThickness">.2</Thickness>
         <DataTemplate x:Key="IndicatorItemTemplate">
-            <Grid/>
+            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
         </DataTemplate>
+        <ItemsPanelTemplate x:Key="GridViewSingleItemPanel">
+            <ItemsWrapGrid  Orientation="Horizontal"    >
+                <!--<ItemsWrapGrid.Resources>
+                    <Style TargetType="Grid">
+                        <Setter  Property="HorizontalAlignment" Value="Stretch"/>
+                        <Setter  Property="VerticalAlignment" Value="Stretch"/>
+
+                    </Style>
+                </ItemsWrapGrid.Resources>-->
+                <Interactivity:Interaction.Behaviors>
+                    <Glue:SingleItemDisplayBehavior/>
+                </Interactivity:Interaction.Behaviors>
+            </ItemsWrapGrid>
+        </ItemsPanelTemplate>
     </Application.Resources>
 </Application>
