@@ -192,7 +192,7 @@
             </ListView>-->
 
             </GridView>
-            <Grid  MaxHeight="200" MinHeight="150"   Name="flipViewSet"
+            <Grid  MaxHeight="400" MinHeight="150"   Name="flipViewSet"
             		                   
             		RelativePanel.Above="openGreaterShare"
                     Margin="8"
