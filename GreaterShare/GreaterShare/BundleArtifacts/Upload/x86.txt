@@ -1,2 +1,0 @@
-MainPackage=C:\GitHub\GreaterShareUWP\GreaterShare\GreaterShare\bin\x86\Release\Upload\GreaterShare_1.1.10.0_x86.appx
-SymbolPackage=C:\GitHub\GreaterShareUWP\GreaterShare\GreaterShare\AppPackages\GreaterShare_1.1.10.0\GreaterShare_1.1.10.0_x86.appxsym
