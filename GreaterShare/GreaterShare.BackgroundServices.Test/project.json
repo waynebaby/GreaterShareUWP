@@ -5,8 +5,8 @@
     "Microsoft.Bcl": "1.1.10",
     "Microsoft.Bcl.Async": "1.0.168",
     "Microsoft.Bcl.Build": "1.0.21",
-    "Microsoft.NETCore.UniversalWindowsPlatform": "5.0.0",
-    "MVVM-Sidekick": "1.6.20",
+    "Microsoft.NETCore.UniversalWindowsPlatform": "5.1.0",
+    "MVVM-Sidekick": "1.6.22",
     "Rx-Core": "2.2.5",
     "Rx-Interfaces": "2.2.5",
     "Rx-Linq": "2.2.5",
@@ -14,7 +14,7 @@
     "Rx-PlatformServices": "2.2.5",
     "Rx-Xaml": "2.2.5",
     "Unity": "4.0.1",
-    "Win2D.uwp": "1.16.0"
+    "Win2D.uwp": "1.17.0"
   },
   "frameworks": {
     "uap10.0": {}

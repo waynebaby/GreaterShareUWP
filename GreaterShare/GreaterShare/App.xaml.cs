@@ -234,7 +234,7 @@ namespace GreaterShare
                     e =>
                     {
                         //Command Fired Messages
-                        HockeyClient.Current.TrackEvent($"{e.EventName ?? "none"} :{e.EventData?.ToString()} , {e.Sender?.ToString() } ");
+                        HockeyClient.Current.TrackEvent($"Command.{e.EventName ?? "none"})");
                     }
                 );
 
@@ -250,8 +250,8 @@ namespace GreaterShare
                         }
                         Exceptions.Add(Tuple.Create(DateTime.Now, e.EventData));
                         Debug.WriteLine(e.EventData);
-                        HockeyClient.Current.TrackEvent($"{e.EventName ?? "none"} :{e.EventData?.ToString()} , {e.Sender?.ToString() } ");
-
+                        HockeyClient.Current.TrackEvent($"CommandExp.{e.EventName ?? "none"}.{e.EventData.Message} ");
+                        
                     }
                 );
         }
