@@ -24,7 +24,7 @@
     <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
     <PackageCertificateThumbprint>1A69915044087E6DCAFB9928661D02118660E647</PackageCertificateThumbprint>
     <PackageCertificateKeyFile>GreaterShare_StoreKey.pfx</PackageCertificateKeyFile>
-    <HockeyAppResourceId>eaf1dbe0be3845f3b05e729b472ca870</HockeyAppResourceId>
+    <HockeyAppResourceId>e5bfbcda5d364b3382971fa8176f2d90</HockeyAppResourceId>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
     <DebugSymbols>true</DebugSymbols>

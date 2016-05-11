@@ -3,6 +3,7 @@ using GreaterShare.Services;
 using GreaterShare.ViewModels;
 
 using Microsoft.HockeyApp;
+using MVVMSidekick.Commands;
 using MVVMSidekick.EventRouting;
 using MVVMSidekick.Reactive;
 using MVVMSidekick.Services;
@@ -56,7 +57,7 @@ namespace GreaterShare
             this.Suspending += OnSuspending;
 
             HockeyClient.Current.Configure(
-                "eaf1dbe0be3845f3b05e729b472ca870",
+                "e5bfbcda5d364b3382971fa8176f2d90",
                 new TelemetryConfiguration
                 {
                     EnableDiagnostics = true,
@@ -129,7 +130,7 @@ namespace GreaterShare
                 this.DebugSettings.EnableFrameRateCounter = true;
             }
 #endif
-          
+
             //Init MVVM-Sidekick Navigations:
             InitConfigurationInThisAssembly();
             Frame rootFrame = CreatOrSetupeRootFrame();
@@ -228,7 +229,7 @@ namespace GreaterShare
         /// </summary>
         private static void ConfigureCommandAndCommandExceptionHandler()
         {
-            EventRouter.Instance.GetEventChannel<EventPattern<ReactiveCommandEventArgs>>()
+            EventRouter.Instance.GetEventChannel<EventPattern<EventCommandEventArgs>>()
                 .ObserveOnDispatcher()
                 .Subscribe(
                     e =>
@@ -251,7 +252,7 @@ namespace GreaterShare
                         Exceptions.Add(Tuple.Create(DateTime.Now, e.EventData));
                         Debug.WriteLine(e.EventData);
                         HockeyClient.Current.TrackEvent($"CommandExp.{e.EventName ?? "none"}.{e.EventData.Message} ");
-                        
+
                     }
                 );
         }
