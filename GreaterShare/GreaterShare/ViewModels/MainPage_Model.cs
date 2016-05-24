@@ -561,7 +561,7 @@ namespace GreaterShare.ViewModels
                             {
                                 var fservice = ServiceLocator.Instance.Resolve<Services.ISubStorageService>();
                                 vm.ReceivedShareItem = await fservice.LoadFromFileAsync<ReceivedShareItem>(fpicked);
-               
+
                             }
                         })
                     .DoNotifyDefaultEventRouter(vm, commandId)
@@ -663,7 +663,7 @@ namespace GreaterShare.ViewModels
                             //{
                             if (vm.ReceivedShareItem == null)
                             {
-                                await Task.Delay(500);
+                                await Task.Delay(200);
                                 PushClipboardToCurrent(vm);
                             }
                             //}
@@ -735,8 +735,13 @@ namespace GreaterShare.ViewModels
 
         private static void PushClipboardToCurrent(MainPage_Model vm)
         {
+      
+            if ((vm.ClipboardImportingItem?.AvialableShareItems?.Count <= 0))
+            {
+                return;
+            }
             vm.FocusingViewIndex = 0;
-            if (vm.ReceivedShareItem == null)
+            if (vm.ReceivedShareItem == null )
             {
                 vm.ReceivedShareItem = vm.ClipboardImportingItem;
             }
