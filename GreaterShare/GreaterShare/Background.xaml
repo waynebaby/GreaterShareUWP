@@ -63,6 +63,42 @@
                 <EasingDoubleKeyFrame KeyTime="0:2:42" Value="450"/>
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
+        <Storyboard x:Name="IconZoom">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleX)" Storyboard.TargetName="shareIcon">
+                <EasingDoubleKeyFrame KeyTime="0" Value="10">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <CubicEase EasingMode="EaseInOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="0:0:40" Value="30">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <CubicEase EasingMode="EaseInOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="0:1:23" Value="10">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <CubicEase EasingMode="EaseInOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleY)" Storyboard.TargetName="shareIcon">
+                <EasingDoubleKeyFrame KeyTime="0" Value="10">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <CubicEase EasingMode="EaseInOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="0:0:40" Value="30">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <CubicEase EasingMode="EaseInOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="0:1:23" Value="10">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <CubicEase EasingMode="EaseInOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
     </UserControl.Resources>
 
     <Interactivity:Interaction.Behaviors>
@@ -83,46 +119,50 @@
         <Core:EventTriggerBehavior EventName="Loaded">
             <Media:ControlStoryboardAction Storyboard="{StaticResource  IconZ}"/>
         </Core:EventTriggerBehavior>
+
+        <Core:EventTriggerBehavior EventName="Loaded">
+            <Media:ControlStoryboardAction Storyboard="{StaticResource  IconZoom}"/>
+        </Core:EventTriggerBehavior>
     </Interactivity:Interaction.Behaviors>
 
     <Grid >
         <!--<Viewbox>-->
-        <FontIcon x:Name="shareIcon"  FontWeight="ExtraBold" FontFamily="Segoe UI Symbol" Glyph="&#xE2FD;" VerticalAlignment="Center" Foreground="#FF9C9C9C" RenderTransformOrigin="0.5,0.5"  >
+        <FontIcon x:Name="shareIcon"  FontWeight="ExtraBold" FontFamily="Segoe UI Symbol" Glyph="&#xE2FD;" VerticalAlignment="Center" Foreground="#FF9C9C9C" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Center"  >
             <FontIcon.Projection>
                 <PlaneProjection/>
             </FontIcon.Projection>
             <FontIcon.RenderTransform>
                 <CompositeTransform ScaleX="10" ScaleY="10"/>
             </FontIcon.RenderTransform>
-            </FontIcon>
+        </FontIcon>
         <!--</Viewbox>-->
 
 
         <Border Background="#AAEAEAEA" Canvas.ZIndex="1"/>
         <Viewbox Margin="96" MaxWidth="200" VerticalAlignment="Bottom" HorizontalAlignment="Right">
             <RelativePanel   >
-      
-            <TextBlock x:Name="greater" MinWidth="170" FontWeight="ExtraBold"  FontSize="80" 
+
+                <TextBlock x:Name="greater" MinWidth="170" FontWeight="ExtraBold"  FontSize="80" 
 				Foreground="#FF3E729E"
             >
-                <TextBlock.Projection>
-                    <PlaneProjection/>
-                </TextBlock.Projection>
+                    <TextBlock.Projection>
+                        <PlaneProjection/>
+                    </TextBlock.Projection>
 				<Run x:Uid="BackgroundTitleGreater"/>
-            </TextBlock>
+                </TextBlock>
 
-            <TextBlock x:Name="share"  FontWeight="Bold" FontSize="55" 
+                <TextBlock x:Name="share"  FontWeight="Bold" FontSize="55" 
 				Margin="0,0,15,-15"      RelativePanel.AlignBottomWith="greater"
 				RelativePanel.AlignRightWith="greater" Foreground="#FFB2F500" RenderTransformOrigin="0.5,0.5"
             >
-                <TextBlock.RenderTransform>
-                    <CompositeTransform/>
-                </TextBlock.RenderTransform>
-                <TextBlock.Projection>
-                    <PlaneProjection/>
-                </TextBlock.Projection>
+                    <TextBlock.RenderTransform>
+                        <CompositeTransform/>
+                    </TextBlock.RenderTransform>
+                    <TextBlock.Projection>
+                        <PlaneProjection/>
+                    </TextBlock.Projection>
 				<Run x:Uid="BackgroundTitleShare"/>
-            </TextBlock>
+                </TextBlock>
             </RelativePanel>
         </Viewbox>
 
