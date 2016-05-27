@@ -16,7 +16,6 @@
     </mvvm:MVVMPage.Resources>
     <Interactivity:Interaction.Behaviors>
         <Glue:RequestedThemeBehavior x:Name="RequestedThemeBehavior" IsValueGlobalEffective="True" />
-
     </Interactivity:Interaction.Behaviors>
     <RelativePanel  x:Name="grid" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"  >
         <d:FrameworkElement.DataContext>
@@ -175,7 +174,7 @@
                     <VisualState.Setters>
                         <Setter Target="pivot.(FrameworkElement.Margin)">
                             <Setter.Value>
-                                <Thickness>8,8,8,12</Thickness>
+                                <Thickness>0,0,0,12</Thickness>
                             </Setter.Value>
                         </Setter>
                     </VisualState.Setters>
@@ -184,28 +183,46 @@
                     <VisualState.Setters>
                         <Setter Target="pivot.(FrameworkElement.Margin)">
                             <Setter.Value>
-                                <Thickness>8,8,8,72</Thickness>
+                                <Thickness>0,0,0,72</Thickness>
                             </Setter.Value>
                         </Setter>
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
-        <ProgressRing
-        RelativePanel.AlignBottomWithPanel="True" 
-        RelativePanel.AlignTopWithPanel="True"
-        RelativePanel.AlignLeftWithPanel="True"
-        RelativePanel.AlignRightWithPanel="True"  
-          MaxWidth="200" MaxHeight="200"        
-         IsActive="{Binding IsUIBusy}" Canvas.ZIndex="1000"   HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ></ProgressRing>
-       
-        <Pivot  IsEnabled="{Binding IsUIBusy, Converter={StaticResource NotValueConverter}}" x:Name="pivot" Margin="8,8,8,12"  SelectedIndex="{Binding FocusingViewIndex, Mode=TwoWay}"  Background="#33F0F8FF" RelativePanel.Above="AppBar" RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True">
-            <PivotItem x:Uid="MainPage_MainPivot_CurrentSharePI" Header="Current Share" >
-                <Grid x:Name="grid1" >
+        
+        <ProgressRing RelativePanel.AlignBottomWithPanel="True" 
+                      RelativePanel.AlignTopWithPanel="True"
+                      RelativePanel.AlignLeftWithPanel="True"
+                      RelativePanel.AlignRightWithPanel="True"  
+                      MaxWidth="200" 
+                      MaxHeight="200"
+                      IsActive="{Binding IsUIBusy}" 
+                      Canvas.ZIndex="1000"
+                      HorizontalAlignment="Stretch" 
+                      VerticalAlignment="Stretch" />
 
-    
+        <Pivot x:Name="pivot" 
+               Style="{StaticResource MsPhoneAppPivotStyle}"
+               IsEnabled="{Binding IsUIBusy, Converter={StaticResource NotValueConverter}}" 
+               Margin="0,0,0,12" 
+               SelectedIndex="{Binding FocusingViewIndex, Mode=TwoWay}" 
+               Background="#33F0F8FF" 
+               RelativePanel.Above="AppBar" 
+               RelativePanel.AlignTopWithPanel="True" 
+               RelativePanel.AlignBottomWithPanel="True" 
+               RelativePanel.AlignLeftWithPanel="True" 
+               RelativePanel.AlignRightWithPanel="True">
+            <PivotItem>
+                <PivotItem.Header>
+                    <StackPanel>
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xEC26;" Margin="0,0,0,5" FontSize="24" />
+                        <TextBlock x:Uid="MainPage_MainPivot_CurrentSharePI" Text="Current Share" TextAlignment="Center" />
+                    </StackPanel>
+                </PivotItem.Header>
 
-                    <Grid x:Name="relativePanel"  >
+                <Grid x:Name="gridCurrentShare" >
+                    <Grid x:Name="gridRelativePanelContainer">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="36*"/>
                             <ColumnDefinition Width="64*"/>
@@ -215,8 +232,7 @@
                             <RowDefinition Height="36*"/>
                         </Grid.RowDefinitions>
 
-
-                        <ScrollViewer BorderBrush="{ThemeResource TextBoxBorderThemeBrush}" Background="#19001010" Margin="8"  ScrollViewer.VerticalScrollBarVisibility="Visible"  RelativePanel.AlignLeftWithPanel="True" x:Name="propertiesPanel" Grid.RowSpan="2">
+                        <ScrollViewer BorderBrush="{ThemeResource TextBoxBorderThemeBrush}" Background="#19001010" ScrollViewer.VerticalScrollBarVisibility="Visible"  RelativePanel.AlignLeftWithPanel="True" x:Name="propertiesPanel" Margin="0,0,0,8" Grid.RowSpan="2">
                             <ScrollViewer.Resources>
                                 <Style  TargetType="StackPanel">
                                     <Setter Property="Margin" Value="8"/>
@@ -368,7 +384,7 @@
             </ListView>-->
                             </StackPanel>
                         </ScrollViewer>
-                        <Grid BorderBrush="{ThemeResource TextBoxBorderThemeBrush}"  BorderThickness="{StaticResource ThinBoderThickness}" x:Name="flipView" RelativePanel.RightOf="propertiesPanel"  RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignTopWithPanel="True" Height="{Binding Width, RelativeSource={RelativeSource Mode=Self}}"   Margin="8" Grid.RowSpan="2" Grid.Column="1"  >
+                        <Grid BorderBrush="{ThemeResource TextBoxBorderThemeBrush}"  BorderThickness="{StaticResource ThinBoderThickness}" x:Name="flipView" RelativePanel.RightOf="propertiesPanel"  RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignTopWithPanel="True" Height="{Binding Width, RelativeSource={RelativeSource Mode=Self}}" Margin="8,0,0,8" Grid.RowSpan="2" Grid.Column="1" >
 
                             <FlipView Background="#19001010" ScrollViewer.BringIntoViewOnFocusChange="True"  xmlns:glue="using:GreaterShare.Glue" x:Name="flipView1"   
                                      
@@ -407,8 +423,15 @@
                     </Grid>
                 </Grid>
             </PivotItem>
-            <PivotItem x:Uid="MainPage_MainPivot_ClipboardPI" Header="Clipboard">
-                <Grid >
+            <PivotItem>
+                <PivotItem.Header>
+                    <StackPanel>
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE77F;" Margin="0,0,0,5" FontSize="24" />
+                        <TextBlock x:Uid="MainPage_MainPivot_ClipboardPI" Text="Clipboard" TextAlignment="Center" />
+                    </StackPanel>
+                </PivotItem.Header>
+                
+                <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="5*"/>
                         <RowDefinition Height="85*"/>
@@ -483,11 +506,20 @@
                 </Grid>
 
             </PivotItem>
-
         </Pivot>
       
         <local:Background Canvas.ZIndex="-2" Margin="0" RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignTopWithPanel="True"/>
-        <AppBar x:Name="AppBar"  VerticalAlignment="Bottom" IsDoubleTapEnabled="False" IsTabStop="True" IsSticky="True" ClosedDisplayMode="Minimal" UseSystemFocusVisuals="True" IsOpen="True"  Margin="0" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignBottomWithPanel="True"  >
+        <AppBar x:Name="AppBar"
+                VerticalAlignment="Bottom" 
+                IsDoubleTapEnabled="False" 
+                IsTabStop="True" 
+                IsSticky="True" 
+                ClosedDisplayMode="Minimal" 
+                UseSystemFocusVisuals="True" 
+                IsOpen="True"
+                RelativePanel.AlignLeftWithPanel="True" 
+                RelativePanel.AlignRightWithPanel="True" 
+                RelativePanel.AlignBottomWithPanel="True">
             <Interactivity:Interaction.Behaviors>
              
                 <Core:DataTriggerBehavior Binding="{Binding SugguestingCommand}" ComparisonCondition="NotEqual" Value="{x:Null}">
@@ -514,11 +546,8 @@
                     <AppBarButton x:Uid="ButtonSave" Command="{Binding StrongTypeViewModel.CommandSaveToUserFile, ElementName=mVVMPage}" Icon="SaveLocal" Label="Save" />
                     </StackPanel>
                 </StackPanel>
-                <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Right"   >
-                  
-             
-                <StackPanel x:Name="stackPanel1" Grid.Column="1"  Orientation="Horizontal" HorizontalAlignment="Right" Visibility="{Binding SelectedIndex, ConverterParameter=1, Converter={StaticResource HideWhenNotMatchConverter}, ElementName=pivot}">
-
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right"   >
+                <StackPanel x:Name="stackPanel1"  Orientation="Horizontal" HorizontalAlignment="Right" Visibility="{Binding SelectedIndex, ConverterParameter=1, Converter={StaticResource HideWhenNotMatchConverter}, ElementName=pivot}">
                         <AppBarButton x:Name="appBarButton1"  Label="Paste" x:Uid="ButtonPaste" Command="{Binding StrongTypeViewModel.CommandGetFromClipboard, ElementName=mVVMPage}" Icon="Paste" >
                         <AppBarButton.Projection>
                             <PlaneProjection/>
@@ -532,7 +561,7 @@
 
                 </StackPanel>
         
-                <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" x:Name="stackPanel2"  Visibility="{Binding SelectedIndex, ConverterParameter=0, Converter={StaticResource HideWhenNotMatchConverter}, ElementName=pivot}">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" x:Name="stackPanel2"  Visibility="{Binding SelectedIndex, ConverterParameter=0, Converter={StaticResource HideWhenNotMatchConverter}, ElementName=pivot}">
 
                     <!--<AppBarButton Command="{Binding StrongTypeViewModel.CommandReshareCurrent, ElementName=mVVMPage}" HorizontalAlignment="Left" Icon="Target"  Label="Reshare" VerticalAlignment="Top"/>
                     <AppBarButton Command="{Binding StrongTypeViewModel.CommandReshareSelected, ElementName=mVVMPage}" HorizontalAlignment="Left" Icon="Bullets"  Label="Reshare " VerticalAlignment="Top"/>-->
@@ -552,16 +581,16 @@
                         </AppBarButton.Projection>
                     </AppBarButton>
                     </StackPanel>
-                    <AppBarToggleButton Label="Theme" IsThreeState="false" x:Uid="ButtonTheme" IsChecked="{Binding ElementName=RequestedThemeBehavior,Path=IsInLightTheme , Mode=TwoWay}">
+                    <AppBarToggleButton Label="Theme" 
+                                        IsThreeState="false" 
+                                        x:Uid="ButtonTheme" 
+                                        IsChecked="{Binding ElementName=RequestedThemeBehavior,Path=IsInLightTheme , Mode=TwoWay}">
                         <AppBarToggleButton.Icon>
-                            <FontIcon Glyph="&#xE771;" />
+                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE708;" />
                         </AppBarToggleButton.Icon>
                     </AppBarToggleButton>
                 </StackPanel>
             </Grid>
-
         </AppBar>
     </RelativePanel>
-
-
 </mvvm:MVVMPage>

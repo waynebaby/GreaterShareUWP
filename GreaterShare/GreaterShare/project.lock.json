@@ -21,6 +21,14 @@
           "lib/portable-net4+sl5+netcore45+wpa81+wp8/Microsoft.Practices.ServiceLocation.dll": {}
         }
       },
+      "Edi.UWP.Helpers/1.0.11": {
+        "compile": {
+          "lib/uap10.0/Edi.UWP.Helpers.dll": {}
+        },
+        "runtime": {
+          "lib/uap10.0/Edi.UWP.Helpers.dll": {}
+        }
+      },
       "HockeySDK.UWP/4.0.0": {
         "compile": {
           "lib/uap10.0/Microsoft.HockeyApp.Kit.dll": {}
@@ -1979,6 +1987,14 @@
           "lib/portable-net4+sl5+netcore45+wpa81+wp8/Microsoft.Practices.ServiceLocation.dll": {}
         }
       },
+      "Edi.UWP.Helpers/1.0.11": {
+        "compile": {
+          "lib/uap10.0/Edi.UWP.Helpers.dll": {}
+        },
+        "runtime": {
+          "lib/uap10.0/Edi.UWP.Helpers.dll": {}
+        }
+      },
       "HockeySDK.UWP/4.0.0": {
         "compile": {
           "lib/uap10.0/Microsoft.HockeyApp.Kit.dll": {}
@@ -3787,6 +3803,14 @@
           "lib/portable-net4+sl5+netcore45+wpa81+wp8/Microsoft.Practices.ServiceLocation.dll": {}
         }
       },
+      "Edi.UWP.Helpers/1.0.11": {
+        "compile": {
+          "lib/uap10.0/Edi.UWP.Helpers.dll": {}
+        },
+        "runtime": {
+          "lib/uap10.0/Edi.UWP.Helpers.dll": {}
+        }
+      },
       "HockeySDK.UWP/4.0.0": {
         "compile": {
           "lib/uap10.0/Microsoft.HockeyApp.Kit.dll": {}
@@ -5551,6 +5575,14 @@
         },
         "runtime": {
           "lib/portable-net4+sl5+netcore45+wpa81+wp8/Microsoft.Practices.ServiceLocation.dll": {}
+        }
+      },
+      "Edi.UWP.Helpers/1.0.11": {
+        "compile": {
+          "lib/uap10.0/Edi.UWP.Helpers.dll": {}
+        },
+        "runtime": {
+          "lib/uap10.0/Edi.UWP.Helpers.dll": {}
         }
       },
       "HockeySDK.UWP/4.0.0": {
@@ -7369,6 +7401,14 @@
           "lib/portable-net4+sl5+netcore45+wpa81+wp8/Microsoft.Practices.ServiceLocation.dll": {}
         }
       },
+      "Edi.UWP.Helpers/1.0.11": {
+        "compile": {
+          "lib/uap10.0/Edi.UWP.Helpers.dll": {}
+        },
+        "runtime": {
+          "lib/uap10.0/Edi.UWP.Helpers.dll": {}
+        }
+      },
       "HockeySDK.UWP/4.0.0": {
         "compile": {
           "lib/uap10.0/Microsoft.HockeyApp.Kit.dll": {}
@@ -9133,6 +9173,14 @@
         },
         "runtime": {
           "lib/portable-net4+sl5+netcore45+wpa81+wp8/Microsoft.Practices.ServiceLocation.dll": {}
+        }
+      },
+      "Edi.UWP.Helpers/1.0.11": {
+        "compile": {
+          "lib/uap10.0/Edi.UWP.Helpers.dll": {}
+        },
+        "runtime": {
+          "lib/uap10.0/Edi.UWP.Helpers.dll": {}
         }
       },
       "HockeySDK.UWP/4.0.0": {
@@ -10951,6 +10999,14 @@
           "lib/portable-net4+sl5+netcore45+wpa81+wp8/Microsoft.Practices.ServiceLocation.dll": {}
         }
       },
+      "Edi.UWP.Helpers/1.0.11": {
+        "compile": {
+          "lib/uap10.0/Edi.UWP.Helpers.dll": {}
+        },
+        "runtime": {
+          "lib/uap10.0/Edi.UWP.Helpers.dll": {}
+        }
+      },
       "HockeySDK.UWP/4.0.0": {
         "compile": {
           "lib/uap10.0/Microsoft.HockeyApp.Kit.dll": {}
@@ -12749,8 +12805,19 @@
         "lib/portable-net4+sl5+netcore45+wpa81+wp8/Microsoft.Practices.ServiceLocation.pdb"
       ]
     },
+    "Edi.UWP.Helpers/1.0.11": {
+      "sha512": "2LtrgHo6C7jVMoyWeB3gnQ6RdFOlRZHPUrfCxsCdU8p4LfHpRlMOUGdLYx4WdXXZDYEeHi1kr2wyeg2Yklx1iQ==",
+      "type": "package",
+      "files": [
+        "Edi.UWP.Helpers.1.0.11.nupkg.sha512",
+        "Edi.UWP.Helpers.nuspec",
+        "lib/uap10.0/Edi.UWP.Helpers.dll",
+        "lib/uap10.0/Edi.UWP.Helpers.pri",
+        "lib/uap10.0/Edi.UWP.Helpers/Properties/Edi.UWP.Helpers.rd.xml"
+      ]
+    },
     "HockeySDK.UWP/4.0.0": {
-      "sha512": "ByRaD8GrhJvkM+J5k8wvd8aAWoNxTU/eghaBxLbWw/F704X5w9dUKsVYC6CCWriYTAwxWdVQLerq2V6DQUfasw==",
+      "sha512": "8073pxsE36oroVBg8RAUyxd8RSngh3A5n/5Tux+9WPU6vnrQZcroM1rE/E9oa3FpMO0MdZpAqepcIy54fzkbjA==",
       "type": "package",
       "files": [
         "HockeySDK.UWP.4.0.0.nupkg.sha512",
@@ -16427,6 +16494,7 @@
     "": [
       "Coding4Fun.Toolkit.Controls >= 2.1.7",
       "CommonServiceLocator >= 1.3.0",
+      "Edi.UWP.Helpers >= 1.0.11",
       "HockeySDK.UWP >= 4.0.0",
       "MVVM-Sidekick >= 1.6.22",
       "Microsoft.Bcl >= 1.1.10",
