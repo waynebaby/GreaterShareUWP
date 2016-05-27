@@ -229,11 +229,11 @@
     <value>Title</value>
     <comment>UILabel</comment>
   </data>
-  <data name="MainPage_MainPivot_ClipboardPI.Header" xml:space="preserve">
+  <data name="MainPage_MainPivot_ClipboardPI.Text" xml:space="preserve">
     <value>Clipboard</value>
     <comment>Clipboard PI header</comment>
   </data>
-  <data name="MainPage_MainPivot_CurrentSharePI.Header" xml:space="preserve">
+  <data name="MainPage_MainPivot_CurrentSharePI.Text" xml:space="preserve">
     <value>Current Share</value>
     <comment>Current Share PI header</comment>
   </data>

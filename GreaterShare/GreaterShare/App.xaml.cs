@@ -1,42 +1,29 @@
 ﻿using GreaterShare.Models.Sharing.ShareItems;
 using GreaterShare.Services;
-using GreaterShare.ViewModels;
-
 using Microsoft.HockeyApp;
 using MVVMSidekick.Commands;
 using MVVMSidekick.EventRouting;
-using MVVMSidekick.Reactive;
 using MVVMSidekick.Services;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using System.Reactive;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.Core;
 using Windows.ApplicationModel.Resources;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.Storage;
 using Windows.UI;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-
-// The Blank Application template is documented at http://go.microsoft.com/fwlink/?LinkId=402347&clcid=0x409
+using Edi.UWP.Helpers;
 
 namespace GreaterShare
 {
@@ -45,8 +32,6 @@ namespace GreaterShare
     /// </summary>
     sealed partial class App : Application
     {
-
-
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
@@ -62,13 +47,9 @@ namespace GreaterShare
                 {
                     EnableDiagnostics = true,
                     Collectors = WindowsCollectors.Metadata | WindowsCollectors.PageView | WindowsCollectors.Session | WindowsCollectors.UnhandledException | WindowsCollectors.WatsonData,
-                    DescriptionLoader = (ex) => { return "HResult = " + ex.HResult.ToString(); }
+                    DescriptionLoader = (ex) => "HResult = " + ex.HResult.ToString()
                 });
-
-
         }
-
-
 
         static bool _inited = false;
         public static void InitConfigurationInThisAssembly()
@@ -93,14 +74,10 @@ namespace GreaterShare
 
         public static string FileExtension { get; internal set; } = ".gshare";
 
-        public static Task<Uri> CurrentAppUri = Task.Factory.StartNew(() =>
-        {
-            return new Uri("https://www.microsoft.com/store/apps/9nblggh5fmm2");
-        });
+        public static Task<Uri> CurrentAppUri = Task.Factory.StartNew(() => new Uri("https://www.microsoft.com/store/apps/9nblggh5fmm2"));
 
         protected override void OnFileActivated(FileActivatedEventArgs args)
         {
-
             InitConfigurationInThisAssembly();
             Frame rootFrame = CreatOrSetupeRootFrame();
             if (rootFrame.Content == null)
@@ -121,15 +98,15 @@ namespace GreaterShare
         /// will be used such as when the application is launched to open a specific file.
         /// </summary>
         /// <param name="e">Details about the launch request and process.</param>
-        protected async override void OnLaunched(LaunchActivatedEventArgs e)
+        protected override async void OnLaunched(LaunchActivatedEventArgs e)
         {
 
-#if DEBUG
-            if (System.Diagnostics.Debugger.IsAttached)
-            {
-                this.DebugSettings.EnableFrameRateCounter = true;
-            }
-#endif
+//#if DEBUG
+//            if (System.Diagnostics.Debugger.IsAttached)
+//            {
+//                this.DebugSettings.EnableFrameRateCounter = true;
+//            }
+//#endif
 
             //Init MVVM-Sidekick Navigations:
             InitConfigurationInThisAssembly();
@@ -145,7 +122,8 @@ namespace GreaterShare
             // Ensure the current window is active
 
             CurrentFile.OnNext(null);
-            ConfigTitlebar();
+            //ConfigTitlebar();
+            SetTitleBarColor();
             Window.Current.Activate();
         }
 
@@ -156,6 +134,31 @@ namespace GreaterShare
             coreTitleBar.ExtendViewIntoTitleBar = true;
             ApplicationViewTitleBar formatableTitlebar = ApplicationView.GetForCurrentView().TitleBar;
             formatableTitlebar.ButtonBackgroundColor = Color.FromArgb(64, 64, 64, 64);
+        }
+
+        public static void SetTitleBarColor()
+        {
+            var color = Edi.UWP.Helpers.UI.GetAccentColor();
+
+            //var colorStr = colorHex.Replace("#", string.Empty);
+            //var r = (byte)(Convert.ToUInt32(colorStr.Substring(0, 2), 16));
+            //var g = (byte)(Convert.ToUInt32(colorStr.Substring(2, 2), 16));
+            //var b = (byte)(Convert.ToUInt32(colorStr.Substring(4, 2), 16));
+            //var color = Color.FromArgb(255, r, g, b);
+
+            Mobile.SetWindowsMobileStatusBarColor(color, Colors.White);
+
+            UI.ApplyColorToTitleBar(
+                color,
+                Colors.White,
+                Colors.LightGray,
+                Colors.Gray);
+
+            UI.ApplyColorToTitleButton(
+                color, Colors.White,
+                color, Colors.White,
+                color, Colors.White,
+                Colors.LightGray, Colors.Gray);
         }
 
 
@@ -206,8 +209,6 @@ namespace GreaterShare
             return rootFrame;
         }
 
-
-
         protected override void OnShareTargetActivated(ShareTargetActivatedEventArgs args)
         {
             InitConfigurationInThisAssembly();
@@ -222,7 +223,6 @@ namespace GreaterShare
             Window.Current.Activate();
             base.OnShareTargetActivated(args);
         }
-
 
         /// <summary>
         /// Configure event handler when command executed or exception happens
@@ -261,7 +261,5 @@ namespace GreaterShare
         /// Exception lists
         /// </summary>
         public static ObservableCollection<Tuple<DateTime, Exception>> Exceptions { get; set; } = new ObservableCollection<Tuple<DateTime, Exception>>();
-
     }
-
 }
