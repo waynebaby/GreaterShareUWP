@@ -368,11 +368,18 @@
             </ListView>-->
                             </StackPanel>
                         </ScrollViewer>
-                        <Grid BorderBrush="{ThemeResource TextBoxBorderThemeBrush}"  BorderThickness="{StaticResource ThinBoderThickness}" x:Name="flipView" RelativePanel.RightOf="propertiesPanel"  RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignTopWithPanel="True" Height="{Binding Width, RelativeSource={RelativeSource Mode=Self}}"   Margin="8" Grid.RowSpan="2" Grid.Column="1"  >
-
+                        <Grid 
+                            BorderBrush="{ThemeResource TextBoxBorderThemeBrush}"  BorderThickness="{StaticResource ThinBoderThickness}"
+                            x:Name="flipView" 
+                            RelativePanel.RightOf="propertiesPanel"  
+                            RelativePanel.AlignRightWithPanel="True" 
+                            RelativePanel.AlignTopWithPanel="True" 
+                            Height="{Binding Width, RelativeSource={RelativeSource Mode=Self}}"  
+                            Margin="8" 
+                            Grid.RowSpan="2" 
+                            Grid.Column="1"  >
+                        
                             <FlipView Background="#19001010" ScrollViewer.BringIntoViewOnFocusChange="True"  xmlns:glue="using:GreaterShare.Glue" x:Name="flipView1"   
-                                     
-                                                       
 								ItemsSource="{Binding ReceivedShareItem.AvialableShareItems}" 
 								SelectedItem="{Binding CurrentViewingItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                                  d:LayoutOverrides="LeftPosition, RightPosition, TopPosition, BottomPosition"  >

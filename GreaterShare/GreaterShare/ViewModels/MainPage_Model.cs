@@ -52,6 +52,16 @@ namespace GreaterShare.ViewModels
             }
             else
             {
+
+                ReceivedShareItem = new ReceivedShareItem
+                {
+                    IsEmptyPlaceHoder = true,
+                    Title = "",
+                    AvialableShareItems = new ObservableCollection<object>
+                    {
+
+                    }
+                };
                 //ReceivedShareItem = new ReceivedShareItem();
                 App.CurrentFile
                    .AsObservable()
@@ -735,13 +745,13 @@ namespace GreaterShare.ViewModels
 
         private static void PushClipboardToCurrent(MainPage_Model vm)
         {
-      
+
             if ((vm.ClipboardImportingItem?.AvialableShareItems?.Count <= 0))
             {
                 return;
             }
             vm.FocusingViewIndex = 0;
-            if (vm.ReceivedShareItem == null )
+            if (vm.ReceivedShareItem == null)
             {
                 vm.ReceivedShareItem = vm.ClipboardImportingItem;
             }
