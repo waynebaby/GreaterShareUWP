@@ -16,16 +16,6 @@
           <target state="translated">分享</target>
           <note from="MultilingualBuild" annotates="source" priority="2">The Title in background</note>
         </trans-unit>
-        <trans-unit id="MainPage_MainPivot_CurrentSharePI.Header" translate="yes" xml:space="preserve">
-          <source>Current Share</source>
-          <target state="translated">当前分享</target>
-          <note from="MultilingualBuild" annotates="source" priority="2">Current Share PI header</note>
-        </trans-unit>
-        <trans-unit id="MainPage_MainPivot_ClipboardPI.Header" translate="yes" xml:space="preserve">
-          <source>Clipboard</source>
-          <target state="translated">剪贴板</target>
-          <note from="MultilingualBuild" annotates="source" priority="2">Clipboard PI header</note>
-        </trans-unit>
         <trans-unit id="AppName" translate="yes" xml:space="preserve">
           <source>Greater Share</source>
           <target state="translated">最分享</target>
@@ -310,6 +300,16 @@
         <trans-unit id="AddYourCommentsHere" translate="yes" xml:space="preserve">
           <source>Add your comments here...</source>
           <target state="translated">在这里添加您的注释...</target>
+        </trans-unit>
+        <trans-unit id="MainPage_MainPivot_ClipboardPI.Text" translate="yes" xml:space="preserve">
+          <source>Clipboard</source>
+          <target state="translated">剪贴板</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">Clipboard PI header</note>
+        </trans-unit>
+        <trans-unit id="MainPage_MainPivot_CurrentSharePI.Text" translate="yes" xml:space="preserve">
+          <source>Current Share</source>
+          <target state="translated">当前分享</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">Current Share PI header</note>
         </trans-unit>
       </group>
     </body>

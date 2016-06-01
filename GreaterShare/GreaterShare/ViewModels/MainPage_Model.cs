@@ -52,6 +52,16 @@ namespace GreaterShare.ViewModels
             }
             else
             {
+
+                ReceivedShareItem = new ReceivedShareItem
+                {
+                    IsEmptyPlaceHoder = true,
+                    Title = "",
+                    AvialableShareItems = new ObservableCollection<object>
+                    {
+
+                    }
+                };
                 //ReceivedShareItem = new ReceivedShareItem();
                 App.CurrentFile
                    .AsObservable()
@@ -182,25 +192,25 @@ namespace GreaterShare.ViewModels
                 .DoExecuteUIBusyTask(
                     this,
                     async tp =>
+                    {
+
+                        var str = tp.EventData.Item2.ToString();
+                        var target = ReceivedShareItem.AvialableShareItems.OfType<TextShareItem>().FirstOrDefault();
+                        if (target == null)
                         {
-
-                            var str = tp.EventData.Item2.ToString();
-                            var target = ReceivedShareItem.AvialableShareItems.OfType<TextShareItem>().FirstOrDefault();
-                            if (target == null)
-                            {
-                                target = new TextShareItem() { Text = str };
-                                ReceivedShareItem.AvialableShareItems.Add(target);
-                            }
-                            else
-                            {
-                                target.Text = str;
-                                //ReceivedShareItem.MergeNewText(target, tp.EventData.Item2.ToString(), true, false);
-                            }
-                            CurrentViewingItem = target;
-                            await Task.Yield();
-
-
+                            target = new TextShareItem() { Text = str };
+                            ReceivedShareItem.AvialableShareItems.Add(target);
                         }
+                        else
+                        {
+                            target.Text = str;
+                            //ReceivedShareItem.MergeNewText(target, tp.EventData.Item2.ToString(), true, false);
+                        }
+                        CurrentViewingItem = target;
+                        await Task.Yield();
+
+
+                    }
                     )
                     .Subscribe()
                     .DisposeWhenUnload(this);
@@ -724,10 +734,10 @@ namespace GreaterShare.ViewModels
                 cmdmdl.CommandCore.ListenCanExecuteObservable(
                     vm.ListenChanged(x => x.IsUIBusy, x => x.ClipboardImportingItem, x => x.ReceivedShareItem)
                         .Select(v =>
-                               {
-                                   var count = vm.ClipboardImportingItem?.AvialableShareItems?.Count ?? 0;
-                                   return (!vm.IsUIBusy) && count > 0 && vm.ReceivedShareItem != null;
-                               }
+                        {
+                            var count = vm.ClipboardImportingItem?.AvialableShareItems?.Count ?? 0;
+                            return (!vm.IsUIBusy) && count > 0 && vm.ReceivedShareItem != null;
+                        }
                         )
                     );
                 return cmdmdl;
@@ -735,13 +745,13 @@ namespace GreaterShare.ViewModels
 
         private static void PushClipboardToCurrent(MainPage_Model vm)
         {
-      
+
             if ((vm.ClipboardImportingItem?.AvialableShareItems?.Count <= 0))
             {
                 return;
             }
             vm.FocusingViewIndex = 0;
-            if (vm.ReceivedShareItem == null )
+            if (vm.ReceivedShareItem == null)
             {
                 vm.ReceivedShareItem = vm.ClipboardImportingItem;
             }
