@@ -746,7 +746,7 @@
             <Setter Property="CharacterSpacing" Value="{ThemeResource PivotHeaderItemCharacterSpacing}" />
             <Setter Property="Background" Value="Transparent" />
             <!-- Pivot Header Text Inactive Foreground -->
-            <Setter Property="Foreground" Value="#98D8FF" />
+            <Setter Property="Foreground" Value="#CCFFFFFF" />
             <Setter Property="Padding" Value="{ThemeResource PivotHeaderItemMargin}" />
             <Setter Property="Height" Value="70" />
             <Setter Property="VerticalContentAlignment" Value="Center" />
@@ -804,7 +804,7 @@
                                             </ObjectAnimationUsingKeyFrames>
 
                                             <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SelectedBorder" Storyboard.TargetProperty="Background">
-                                                <DiscreteObjectKeyFrame KeyTime="0" Value="#7DCDFF" />
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="#CCFFFFFF" />
                                             </ObjectAnimationUsingKeyFrames>
 
                                             <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Grid" Storyboard.TargetProperty="Background">
@@ -818,7 +818,7 @@
                                                 <DiscreteObjectKeyFrame KeyTime="0" Value="White" />
                                             </ObjectAnimationUsingKeyFrames>
                                             <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SelectedBorder" Storyboard.TargetProperty="Background">
-                                                <DiscreteObjectKeyFrame KeyTime="0" Value="#7DCDFF" />
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="#CCFFFFFF" />
                                             </ObjectAnimationUsingKeyFrames>
                                             <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Grid" Storyboard.TargetProperty="Background">
                                                 <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightTransparentBrush}" />
@@ -831,7 +831,7 @@
                                                 <DiscreteObjectKeyFrame KeyTime="0" Value="White" />
                                             </ObjectAnimationUsingKeyFrames>
                                             <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SelectedBorder" Storyboard.TargetProperty="Background">
-                                                <DiscreteObjectKeyFrame KeyTime="0" Value="#7DCDFF" />
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="#CCFFFFFF" />
                                             </ObjectAnimationUsingKeyFrames>
                                             <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Grid" Storyboard.TargetProperty="Background">
                                                 <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightTransparentBrush}" />
@@ -844,7 +844,7 @@
                                                 <DiscreteObjectKeyFrame KeyTime="0" Value="White" />
                                             </ObjectAnimationUsingKeyFrames>
                                             <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SelectedBorder" Storyboard.TargetProperty="Background">
-                                                <DiscreteObjectKeyFrame KeyTime="0" Value="#7DCDFF" />
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="#CCFFFFFF" />
                                             </ObjectAnimationUsingKeyFrames>
                                             <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Grid" Storyboard.TargetProperty="Background">
                                                 <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightTransparentBrush}" />
@@ -857,7 +857,7 @@
                                                 <DiscreteObjectKeyFrame KeyTime="0" Value="White" />
                                             </ObjectAnimationUsingKeyFrames>
                                             <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SelectedBorder" Storyboard.TargetProperty="Background">
-                                                <DiscreteObjectKeyFrame KeyTime="0" Value="#7DCDFF" />
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="#CCFFFFFF" />
                                             </ObjectAnimationUsingKeyFrames>
                                             <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Grid" Storyboard.TargetProperty="Background">
                                                 <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightTransparentBrush}" />
