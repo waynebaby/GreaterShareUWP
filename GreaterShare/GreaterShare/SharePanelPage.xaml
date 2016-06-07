@@ -227,11 +227,11 @@
 
             </Grid>
 
-            <Button x:Name="openGreaterShare" x:Uid="SharePanelShareButton" Height="80" 
+            <Button x:Name="openGreaterShare" Height="80"  
 				RelativePanel.AlignLeftWithPanel="True"
 				RelativePanel.AlignRightWithPanel="True"
 				RelativePanel.AlignBottomWithPanel="True"
-				FontSize="30" Margin="16" Grid.Row="3"  Command="{Binding CommandSaveAndLauchMainApp}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Content="Share!" />
+				FontSize="30" Margin="16" Grid.Row="3"  Command="{Binding CommandSaveAndLauchMainApp}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Content="{Binding Path=ShareItMessage }" />
         </RelativePanel>
     </Grid>
 </mvvm:MVVMPage>

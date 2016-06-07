@@ -3,7 +3,7 @@
   "version": 1,
   "targets": {
     "UAP,Version=v10.0": {
-      "Coding4Fun.Toolkit.Controls/2.1.7": {
+      "Coding4Fun.Toolkit.Controls/2.1.8": {
         "compile": {
           "lib/netcore451/Coding4Fun.Toolkit.Controls.dll": {},
           "lib/netcore451/Coding4Fun.Toolkit.dll": {}
@@ -323,7 +323,7 @@
           "lib/uap10.0/Microsoft.Xaml.Interactivity.dll": {}
         }
       },
-      "MVVM-Sidekick/1.6.22": {
+      "MVVM-Sidekick/1.6.23": {
         "dependencies": {
           "CommonServiceLocator": "[1.3.0, 100.0.0)",
           "Microsoft.Bcl": "[1.1.10, 100.0.0)",
@@ -1937,7 +1937,7 @@
           "lib/win8/Microsoft.Practices.Unity.dll": {}
         }
       },
-      "Win2D.uwp/1.17.0": {
+      "Win2D.uwp/1.18.0": {
         "compile": {
           "lib/uap10.0/Microsoft.Graphics.Canvas.winmd": {}
         },
@@ -1961,7 +1961,7 @@
       }
     },
     "UAP,Version=v10.0/win10-arm": {
-      "Coding4Fun.Toolkit.Controls/2.1.7": {
+      "Coding4Fun.Toolkit.Controls/2.1.8": {
         "compile": {
           "lib/netcore451/Coding4Fun.Toolkit.Controls.dll": {},
           "lib/netcore451/Coding4Fun.Toolkit.dll": {}
@@ -2231,7 +2231,7 @@
           "lib/uap10.0/Microsoft.Xaml.Interactivity.dll": {}
         }
       },
-      "MVVM-Sidekick/1.6.22": {
+      "MVVM-Sidekick/1.6.23": {
         "dependencies": {
           "CommonServiceLocator": "[1.3.0, 100.0.0)",
           "Microsoft.Bcl": "[1.1.10, 100.0.0)",
@@ -3756,7 +3756,7 @@
           "lib/win8/Microsoft.Practices.Unity.dll": {}
         }
       },
-      "Win2D.uwp/1.17.0": {
+      "Win2D.uwp/1.18.0": {
         "compile": {
           "lib/uap10.0/Microsoft.Graphics.Canvas.winmd": {}
         },
@@ -3769,7 +3769,7 @@
       }
     },
     "UAP,Version=v10.0/win10-arm-aot": {
-      "Coding4Fun.Toolkit.Controls/2.1.7": {
+      "Coding4Fun.Toolkit.Controls/2.1.8": {
         "compile": {
           "lib/netcore451/Coding4Fun.Toolkit.Controls.dll": {},
           "lib/netcore451/Coding4Fun.Toolkit.dll": {}
@@ -4036,7 +4036,7 @@
           "lib/uap10.0/Microsoft.Xaml.Interactivity.dll": {}
         }
       },
-      "MVVM-Sidekick/1.6.22": {
+      "MVVM-Sidekick/1.6.23": {
         "dependencies": {
           "CommonServiceLocator": "[1.3.0, 100.0.0)",
           "Microsoft.Bcl": "[1.1.10, 100.0.0)",
@@ -5522,7 +5522,7 @@
           "lib/win8/Microsoft.Practices.Unity.dll": {}
         }
       },
-      "Win2D.uwp/1.17.0": {
+      "Win2D.uwp/1.18.0": {
         "compile": {
           "lib/uap10.0/Microsoft.Graphics.Canvas.winmd": {}
         },
@@ -5535,7 +5535,7 @@
       }
     },
     "UAP,Version=v10.0/win10-x64": {
-      "Coding4Fun.Toolkit.Controls/2.1.7": {
+      "Coding4Fun.Toolkit.Controls/2.1.8": {
         "compile": {
           "lib/netcore451/Coding4Fun.Toolkit.Controls.dll": {},
           "lib/netcore451/Coding4Fun.Toolkit.dll": {}
@@ -5810,7 +5810,7 @@
           "lib/uap10.0/Microsoft.Xaml.Interactivity.dll": {}
         }
       },
-      "MVVM-Sidekick/1.6.22": {
+      "MVVM-Sidekick/1.6.23": {
         "dependencies": {
           "CommonServiceLocator": "[1.3.0, 100.0.0)",
           "Microsoft.Bcl": "[1.1.10, 100.0.0)",
@@ -7338,7 +7338,7 @@
           "lib/win8/Microsoft.Practices.Unity.dll": {}
         }
       },
-      "Win2D.uwp/1.17.0": {
+      "Win2D.uwp/1.18.0": {
         "compile": {
           "lib/uap10.0/Microsoft.Graphics.Canvas.winmd": {}
         },
@@ -7351,7 +7351,7 @@
       }
     },
     "UAP,Version=v10.0/win10-x64-aot": {
-      "Coding4Fun.Toolkit.Controls/2.1.7": {
+      "Coding4Fun.Toolkit.Controls/2.1.8": {
         "compile": {
           "lib/netcore451/Coding4Fun.Toolkit.Controls.dll": {},
           "lib/netcore451/Coding4Fun.Toolkit.dll": {}
@@ -7618,7 +7618,7 @@
           "lib/uap10.0/Microsoft.Xaml.Interactivity.dll": {}
         }
       },
-      "MVVM-Sidekick/1.6.22": {
+      "MVVM-Sidekick/1.6.23": {
         "dependencies": {
           "CommonServiceLocator": "[1.3.0, 100.0.0)",
           "Microsoft.Bcl": "[1.1.10, 100.0.0)",
@@ -9104,7 +9104,7 @@
           "lib/win8/Microsoft.Practices.Unity.dll": {}
         }
       },
-      "Win2D.uwp/1.17.0": {
+      "Win2D.uwp/1.18.0": {
         "compile": {
           "lib/uap10.0/Microsoft.Graphics.Canvas.winmd": {}
         },
@@ -9117,7 +9117,7 @@
       }
     },
     "UAP,Version=v10.0/win10-x86": {
-      "Coding4Fun.Toolkit.Controls/2.1.7": {
+      "Coding4Fun.Toolkit.Controls/2.1.8": {
         "compile": {
           "lib/netcore451/Coding4Fun.Toolkit.Controls.dll": {},
           "lib/netcore451/Coding4Fun.Toolkit.dll": {}
@@ -9392,7 +9392,7 @@
           "lib/uap10.0/Microsoft.Xaml.Interactivity.dll": {}
         }
       },
-      "MVVM-Sidekick/1.6.22": {
+      "MVVM-Sidekick/1.6.23": {
         "dependencies": {
           "CommonServiceLocator": "[1.3.0, 100.0.0)",
           "Microsoft.Bcl": "[1.1.10, 100.0.0)",
@@ -10920,7 +10920,7 @@
           "lib/win8/Microsoft.Practices.Unity.dll": {}
         }
       },
-      "Win2D.uwp/1.17.0": {
+      "Win2D.uwp/1.18.0": {
         "compile": {
           "lib/uap10.0/Microsoft.Graphics.Canvas.winmd": {}
         },
@@ -10933,7 +10933,7 @@
       }
     },
     "UAP,Version=v10.0/win10-x86-aot": {
-      "Coding4Fun.Toolkit.Controls/2.1.7": {
+      "Coding4Fun.Toolkit.Controls/2.1.8": {
         "compile": {
           "lib/netcore451/Coding4Fun.Toolkit.Controls.dll": {},
           "lib/netcore451/Coding4Fun.Toolkit.dll": {}
@@ -11200,7 +11200,7 @@
           "lib/uap10.0/Microsoft.Xaml.Interactivity.dll": {}
         }
       },
-      "MVVM-Sidekick/1.6.22": {
+      "MVVM-Sidekick/1.6.23": {
         "dependencies": {
           "CommonServiceLocator": "[1.3.0, 100.0.0)",
           "Microsoft.Bcl": "[1.1.10, 100.0.0)",
@@ -12686,7 +12686,7 @@
           "lib/win8/Microsoft.Practices.Unity.dll": {}
         }
       },
-      "Win2D.uwp/1.17.0": {
+      "Win2D.uwp/1.18.0": {
         "compile": {
           "lib/uap10.0/Microsoft.Graphics.Canvas.winmd": {}
         },
@@ -12700,11 +12700,11 @@
     }
   },
   "libraries": {
-    "Coding4Fun.Toolkit.Controls/2.1.7": {
-      "sha512": "mYkeplfEL/D2z+GHVkNRgk2y9wVxqYY3NdwyamExYv4Vuxn4GyyvvNbbHQSGV9vmdaojitEL1Vh2Y8e/F6/6+A==",
+    "Coding4Fun.Toolkit.Controls/2.1.8": {
+      "sha512": "PCRWgCiW9H8qzT8xYxNtpq4ZWpvh2gtrKAnWtEOXzapyXTEt8esCt0cqRwvosW+bytyfohonmB7UxB0EGXmdsQ==",
       "type": "package",
       "files": [
-        "Coding4Fun.Toolkit.Controls.2.1.7.nupkg.sha512",
+        "Coding4Fun.Toolkit.Controls.2.1.8.nupkg.sha512",
         "Coding4Fun.Toolkit.Controls.nuspec",
         "content/ReadMe.Coding4Fun.Toolkit.txt",
         "content/windowsphone8/Toolkit.Content/ApplicationBar.Cancel.png",
@@ -13517,12 +13517,13 @@
         "lib/uap10.0/Microsoft.Xaml.Interactivity/Properties/Microsoft.Xaml.Interactivity.rd.xml"
       ]
     },
-    "MVVM-Sidekick/1.6.22": {
-      "sha512": "14hHSYEjazuu7ep5fC+89SM2HcICY5WFKQ60n/WHhZZdGSkVc/iDCcQnuzpEafwRI5yfmZ+RQPxB6uNoKzpX+Q==",
+    "MVVM-Sidekick/1.6.23": {
+      "sha512": "TxLuASgGEqpO2WDnIxI7aE/XFfhMIQyL8gKJvXqYWtpf5/aHXoDLYZfnISyp6MOVB0PX+q5FRza6uXoxJzEiIg==",
       "type": "package",
       "files": [
-        "MVVM-Sidekick.1.6.22.nupkg.sha512",
+        "MVVM-Sidekick.1.6.23.nupkg.sha512",
         "MVVM-Sidekick.nuspec",
+        "content/_._",
         "lib/net45/MVVMSidekick.XML",
         "lib/net45/MVVMSidekick.dll",
         "lib/net45/MVVMSidekick.dll.CodeAnalysisLog.xml",
@@ -13533,6 +13534,7 @@
         "lib/sl50/MVVMSidekick_Sl.dll.config",
         "lib/sl50/MVVMSidekick_Sl.pdb",
         "lib/uap10.0/MVVMSidekick_UAP10.dll",
+        "lib/uap10.0/MVVMSidekick_UAP10.dll.config",
         "lib/uap10.0/MVVMSidekick_UAP10.pdb",
         "lib/uap10.0/MVVMSidekick_UAP10.pri",
         "lib/win81/MVVMSidekick_Metro.XML",
@@ -16405,11 +16407,11 @@
         "lib/wp80/Microsoft.Practices.Unity.xml"
       ]
     },
-    "Win2D.uwp/1.17.0": {
-      "sha512": "G5rG8c4dBX4Aq1RKzjvmtjM3Q/us7GdzllyqF1rsiy65eQg3UE5Kc8R09ROSnHeptqf5l6W6GDZ7uJMKdHKP0Q==",
+    "Win2D.uwp/1.18.0": {
+      "sha512": "qPRgHJF9l7vKLyM/adOjUHE9OE90nYFCpa3/IOaBu1lMyiMwcfXyV2JEri+beNir0eo7luzz8dRBpyBIkjK9qw==",
       "type": "package",
       "files": [
-        "Win2D.uwp.1.17.0.nupkg.sha512",
+        "Win2D.uwp.1.18.0.nupkg.sha512",
         "Win2D.uwp.nuspec",
         "Win2d.githash.txt",
         "build/native/Win2D.uwp.targets",
@@ -16425,10 +16427,10 @@
   },
   "projectFileDependencyGroups": {
     "": [
-      "Coding4Fun.Toolkit.Controls >= 2.1.7",
+      "Coding4Fun.Toolkit.Controls >= 2.1.8",
       "CommonServiceLocator >= 1.3.0",
       "HockeySDK.UWP >= 4.0.0",
-      "MVVM-Sidekick >= 1.6.22",
+      "MVVM-Sidekick >= 1.6.23",
       "Microsoft.Bcl >= 1.1.10",
       "Microsoft.Bcl.Async >= 1.0.168",
       "Microsoft.Bcl.Build >= 1.0.21",
@@ -16440,7 +16442,7 @@
       "Rx-PlatformServices >= 2.2.5",
       "Rx-Xaml >= 2.2.5",
       "Unity >= 4.0.1",
-      "Win2D.uwp >= 1.17.0"
+      "Win2D.uwp >= 1.18.0"
     ],
     "UAP,Version=v10.0": []
   }

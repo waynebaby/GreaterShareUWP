@@ -1,7 +1,7 @@
-MainPackage=C:\GitHub\GreaterShareUWP\GreaterShare\GreaterShare\bin\ARM\Release\GreaterShare_1.1.16.0_ARM.appx
-SymbolPackage=C:\GitHub\GreaterShareUWP\GreaterShare\GreaterShare\AppPackages\GreaterShare_1.1.16.0_Test\GreaterShare_1.1.16.0_ARM.appxsym
-ResourcePack=C:\GitHub\GreaterShareUWP\GreaterShare\GreaterShare\bin\ARM\Release\GreaterShare_1.1.16.0_language-zh-hans.appx
-ResourcePack=C:\GitHub\GreaterShareUWP\GreaterShare\GreaterShare\bin\ARM\Release\GreaterShare_1.1.16.0_scale-100.appx
-ResourcePack=C:\GitHub\GreaterShareUWP\GreaterShare\GreaterShare\bin\ARM\Release\GreaterShare_1.1.16.0_scale-125.appx
-ResourcePack=C:\GitHub\GreaterShareUWP\GreaterShare\GreaterShare\bin\ARM\Release\GreaterShare_1.1.16.0_scale-150.appx
-ResourcePack=C:\GitHub\GreaterShareUWP\GreaterShare\GreaterShare\bin\ARM\Release\GreaterShare_1.1.16.0_scale-400.appx
+MainPackage=C:\GitHub\GreaterShareUWP\GreaterShare\GreaterShare\bin\ARM\Release\GreaterShare_1.1.29.0_ARM.appx
+SymbolPackage=C:\GitHub\GreaterShareUWP\GreaterShare\GreaterShare\AppPackages\GreaterShare_1.1.29.0_Test\GreaterShare_1.1.29.0_ARM.appxsym
+ResourcePack=C:\GitHub\GreaterShareUWP\GreaterShare\GreaterShare\bin\ARM\Release\GreaterShare_1.1.29.0_language-zh-hans.appx
+ResourcePack=C:\GitHub\GreaterShareUWP\GreaterShare\GreaterShare\bin\ARM\Release\GreaterShare_1.1.29.0_scale-100.appx
+ResourcePack=C:\GitHub\GreaterShareUWP\GreaterShare\GreaterShare\bin\ARM\Release\GreaterShare_1.1.29.0_scale-125.appx
+ResourcePack=C:\GitHub\GreaterShareUWP\GreaterShare\GreaterShare\bin\ARM\Release\GreaterShare_1.1.29.0_scale-150.appx
+ResourcePack=C:\GitHub\GreaterShareUWP\GreaterShare\GreaterShare\bin\ARM\Release\GreaterShare_1.1.29.0_scale-400.appx

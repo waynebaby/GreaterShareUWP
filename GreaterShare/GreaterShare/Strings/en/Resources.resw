@@ -253,8 +253,8 @@
     <value>Convert to:</value>
     <comment>MenuFlyoutSubItemConvertTo</comment>
   </data>
-  <data name="SharePanelShareButton.Content" xml:space="preserve">
-    <value>Share!</value>
+  <data name="SharePanelShareButtonDefault" xml:space="preserve">
+    <value>Open Share!</value>
     <comment>SharePanelShareButton.Content</comment>
   </data>
   <data name="TextContent.Text" xml:space="preserve">
@@ -357,5 +357,8 @@
   </data>
   <data name="AddYourCommentsHere" xml:space="preserve">
     <value>Add your comments here...</value>
+  </data>
+  <data name="SharePanelShareButtonCountDown" xml:space="preserve">
+    <value>Open Share In {0} second(s).</value>
   </data>
 </root>

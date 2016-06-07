@@ -88,10 +88,6 @@
     <value>标题</value>
     <comment>UILabel</comment>
   </data>
-  <data name="SharePanelShareButton.Content" xml:space="preserve">
-    <value>准备共享！</value>
-    <comment>SharePanelShareButton.Content</comment>
-  </data>
   <data name="LabelContentSourceWebLink.Text" xml:space="preserve">
     <value>内容来源的网站链接</value>
     <comment>UILabel</comment>
@@ -252,5 +248,12 @@
   </data>
   <data name="AddYourCommentsHere" xml:space="preserve">
     <value>在这里添加您的注释...</value>
+  </data>
+  <data name="SharePanelShareButtonDefault" xml:space="preserve">
+    <value>开启最分享!</value>
+    <comment>SharePanelShareButton.Content</comment>
+  </data>
+  <data name="SharePanelShareButtonCountDown" xml:space="preserve">
+    <value>{0}秒后开启最分享</value>
   </data>
 </root>

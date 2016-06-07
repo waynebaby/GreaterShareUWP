@@ -101,11 +101,6 @@
           <target state="translated">标题</target>
           <note from="MultilingualBuild" annotates="source" priority="2">UILabel</note>
         </trans-unit>
-        <trans-unit id="SharePanelShareButton.Content" translate="yes" xml:space="preserve">
-          <source>Share!</source>
-          <target state="translated">准备共享！</target>
-          <note from="MultilingualBuild" annotates="source" priority="2">SharePanelShareButton.Content</note>
-        </trans-unit>
         <trans-unit id="LabelContentSourceWebLink.Text" translate="yes" xml:space="preserve">
           <source>Content Source Web Link</source>
           <target state="translated">内容来源的网站链接</target>
@@ -310,6 +305,16 @@
         <trans-unit id="AddYourCommentsHere" translate="yes" xml:space="preserve">
           <source>Add your comments here...</source>
           <target state="translated">在这里添加您的注释...</target>
+        </trans-unit>
+        <trans-unit id="SharePanelShareButtonDefault" translate="yes" xml:space="preserve">
+          <source>Open Share!</source>
+          <target state="needs-review-translation">开启最分享！</target>
+          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+          <note from="MultilingualBuild" annotates="source" priority="2">SharePanelShareButton.Content</note>
+        </trans-unit>
+        <trans-unit id="SharePanelShareButtonCountDown" translate="yes" xml:space="preserve">
+          <source>Open Share In {0} second(s).</source>
+          <target state="translated">{0}秒后开启最分享！</target>
         </trans-unit>
       </group>
     </body>

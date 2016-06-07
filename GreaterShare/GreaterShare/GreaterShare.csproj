@@ -22,9 +22,9 @@
     <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
     <AppxBundle>Always</AppxBundle>
     <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
-    <PackageCertificateThumbprint>1A69915044087E6DCAFB9928661D02118660E647</PackageCertificateThumbprint>
-    <PackageCertificateKeyFile>GreaterShare_StoreKey.pfx</PackageCertificateKeyFile>
     <HockeyAppResourceId>e5bfbcda5d364b3382971fa8176f2d90</HockeyAppResourceId>
+    <PackageCertificateThumbprint>363C1EA0BEB98C90B9EBC4C9CC465FD223913F43</PackageCertificateThumbprint>
+    <PackageCertificateKeyFile>GreaterShare_StoreKey.pfx</PackageCertificateKeyFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
     <DebugSymbols>true</DebugSymbols>
@@ -225,15 +225,13 @@
     <Content Include="Assets\Square71x71Logo.scale-150.png" />
     <Content Include="Assets\Square71x71Logo.scale-200.png" />
     <Content Include="Assets\Square71x71Logo.scale-400.png" />
-    <None Include="Package.StoreAssociation.xml">
-      <SubType>Designer</SubType>
-    </None>
     <Content Include="Assets\tile.png" />
     <Content Include="Assets\Wide310x150Logo.scale-100.png" />
     <Content Include="Assets\Wide310x150Logo.scale-125.png" />
     <Content Include="Assets\Wide310x150Logo.scale-150.png" />
     <Content Include="Assets\Wide310x150Logo.scale-400.png" />
     <Content Include="Default.rd.xml" />
+    <None Include="Package.StoreAssociation.xml" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
     <Content Include="Assets\Square150x150Logo.scale-200.png" />

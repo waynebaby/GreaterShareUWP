@@ -1,5 +1,5 @@
-MainPackage=C:\GitHub\GreaterShareUWP\GreaterShare\GreaterShare\bin\ARM\Release\Upload\GreaterShare_1.1.16.0_ARM.appx
-SymbolPackage=C:\GitHub\GreaterShareUWP\GreaterShare\GreaterShare\AppPackages\GreaterShare_1.1.16.0\GreaterShare_1.1.16.0_ARM.appxsym
+MainPackage=C:\GitHub\GreaterShareUWP\GreaterShare\GreaterShare\bin\ARM\Release\Upload\GreaterShare_1.1.29.0_ARM.appx
+SymbolPackage=C:\GitHub\GreaterShareUWP\GreaterShare\GreaterShare\AppPackages\GreaterShare_1.1.29.0\GreaterShare_1.1.29.0_ARM.appxsym
 ResourcePack=C:\GitHub\GreaterShareUWP\GreaterShare\GreaterShare\_language-zh-hans.appx
 ResourcePack=C:\GitHub\GreaterShareUWP\GreaterShare\GreaterShare\_scale-100.appx
 ResourcePack=C:\GitHub\GreaterShareUWP\GreaterShare\GreaterShare\_scale-125.appx

@@ -1,1 +1,1 @@
-C:\GitHub\GreaterShareUWP\GreaterShare\GreaterShare\AppPackages\GreaterShare_1.1.16.0\GreaterShare_1.1.16.0_x86_x64_arm.appxbundle
+C:\GitHub\GreaterShareUWP\GreaterShare\GreaterShare\AppPackages\GreaterShare_1.1.29.0\GreaterShare_1.1.29.0_x86_x64_arm.appxbundle
