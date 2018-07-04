@@ -122,7 +122,7 @@ namespace GreaterShare
             // Ensure the current window is active
 
             CurrentFile.OnNext(null);
-            //ConfigTitlebar();
+            ConfigTitlebar();
             SetTitleBarColor();
             Window.Current.Activate();
         }

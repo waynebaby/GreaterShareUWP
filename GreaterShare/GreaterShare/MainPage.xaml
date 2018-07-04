@@ -8,6 +8,7 @@
     xmlns:vm="using:GreaterShare.ViewModels"  
     xmlns:Interactivity="using:Microsoft.Xaml.Interactivity" xmlns:Core="using:Microsoft.Xaml.Interactions.Core" xmlns:Glue="using:GreaterShare.Glue" xmlns:Media="using:Microsoft.Xaml.Interactions.Media" x:Name="mVVMPage"
     x:Class="GreaterShare.MainPage"
+    Background="{ThemeResource SystemControlAcrylicWindowBrush}"
     mc:Ignorable="d" Width="{Binding ActualWidth, ElementName=mVVMPage, Mode=OneWay}" Height="{Binding ActualHeight, ElementName=mVVMPage, Mode=OneWay}">
     <mvvm:MVVMPage.Resources>
         <!--<Glue:EqualConverter x:Key="EqualConverter"/>-->
@@ -17,7 +18,7 @@
     <Interactivity:Interaction.Behaviors>
         <Glue:RequestedThemeBehavior x:Name="RequestedThemeBehavior" IsValueGlobalEffective="True" />
     </Interactivity:Interaction.Behaviors>
-    <RelativePanel  x:Name="grid" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"  >
+    <RelativePanel  x:Name="grid"  >
         <d:FrameworkElement.DataContext>
             <vm:MainPage_Model></vm:MainPage_Model>
         </d:FrameworkElement.DataContext>
@@ -207,7 +208,7 @@
                IsEnabled="{Binding IsUIBusy, Converter={StaticResource NotValueConverter}}" 
                Margin="0,0,0,12" 
                SelectedIndex="{Binding FocusingViewIndex, Mode=TwoWay}" 
-               Background="#33F0F8FF" 
+               Background="Transparent" 
                RelativePanel.Above="AppBar" 
                RelativePanel.AlignTopWithPanel="True" 
                RelativePanel.AlignBottomWithPanel="True" 
@@ -509,7 +510,7 @@
         </Pivot>
       
         <local:Background Canvas.ZIndex="-2" Margin="0" RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignTopWithPanel="True"/>
-        <AppBar x:Name="AppBar"
+        <AppBar  Background="{ThemeResource SystemControlAcrylicWindowMediumHighBrush}" x:Name="AppBar" 
                 VerticalAlignment="Bottom" 
                 IsDoubleTapEnabled="False" 
                 IsTabStop="True" 

@@ -535,7 +535,6 @@
         <Style x:Key="MsPhoneAppPivotStyle" TargetType="Pivot">
             <Setter Property="Margin" Value="0"/>
             <Setter Property="Padding" Value="0"/>
-            <Setter Property="Background" Value="Transparent"/>
             <Setter Property="IsTabStop" Value="False"/>
             <Setter Property="ItemsPanel">
                 <Setter.Value>
@@ -706,7 +705,7 @@
                                                     <RectangleGeometry x:Name="HeaderClipperGeometry"/>
                                                 </ContentControl.Clip>
                                                 <!-- Pivot Header Background -->
-                                                <Grid Background="{ThemeResource SystemControlBackgroundAccentBrush}" Padding="12,0,12,0">
+                                                <Grid Background="{ThemeResource SystemControlAccentAcrylicWindowAccentMediumHighBrush}" Padding="12,0,12,0">
                                                     <PivotHeaderPanel x:Name="StaticHeader" Visibility="Collapsed" Height="70" HorizontalAlignment="Left" />
                                                     <PivotHeaderPanel x:Name="Header">
                                                         <PivotHeaderPanel.RenderTransform>
