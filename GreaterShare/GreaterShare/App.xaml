@@ -14,6 +14,8 @@
           xmlns:vm="using:GreaterShare.ViewModels"
     RequestedTheme="Light">
     <Application.Resources>
+   
+
         <Glue:IsFileItemImageFileConverter x:Key="IsFileItemImageFileConverter"></Glue:IsFileItemImageFileConverter>
         <Glue:DebuggingEmptyConverter x:Key="DebuggingEmptyConverter"/>
         <Glue:IsNotNullConverter x:Key="IsNotNullConverter"/>

@@ -510,7 +510,7 @@
         </Pivot>
       
         <local:Background Canvas.ZIndex="-2" Margin="0" RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignTopWithPanel="True"/>
-        <AppBar  Background="{ThemeResource SystemControlAcrylicWindowMediumHighBrush}" x:Name="AppBar" 
+        <AppBar  Background="{ThemeResource SystemControlAltLowAcrylicWindowBrush}" x:Name="AppBar" 
                 VerticalAlignment="Bottom" 
                 IsDoubleTapEnabled="False" 
                 IsTabStop="True" 
@@ -539,22 +539,22 @@
                    
                     <!--<AppBarSeparator></AppBarSeparator>-->
                 <StackPanel Orientation="Horizontal"   Visibility="{Binding SelectedIndex, ConverterParameter=0, Converter={StaticResource HideWhenNotMatchConverter}, ElementName=pivot}">
-                    <AppBarButton x:Uid="ButtonLoad" Command="{Binding StrongTypeViewModel.CommandLoadFromUserFile, ElementName=mVVMPage}" x:Name="appBarButton" HorizontalAlignment="Left" Icon="OpenLocal"  Label="Load" VerticalAlignment="Top">
+                    <AppBarButton Style="{ThemeResource AppBarButtonRevealStyle}" x:Uid="ButtonLoad" Command="{Binding StrongTypeViewModel.CommandLoadFromUserFile, ElementName=mVVMPage}" x:Name="appBarButton" HorizontalAlignment="Left" Icon="OpenLocal"  Label="Load" VerticalAlignment="Top">
                         <AppBarButton.Projection>
                             <PlaneProjection/>
                         </AppBarButton.Projection>
                     </AppBarButton>
-                    <AppBarButton x:Uid="ButtonSave" Command="{Binding StrongTypeViewModel.CommandSaveToUserFile, ElementName=mVVMPage}" Icon="SaveLocal" Label="Save" />
+                        <AppBarButton  Style="{ThemeResource AppBarButtonRevealStyle}" x:Uid="ButtonSave" Command="{Binding StrongTypeViewModel.CommandSaveToUserFile, ElementName=mVVMPage}" Icon="SaveLocal" Label="Save" />
                     </StackPanel>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right"   >
                 <StackPanel x:Name="stackPanel1"  Orientation="Horizontal" HorizontalAlignment="Right" Visibility="{Binding SelectedIndex, ConverterParameter=1, Converter={StaticResource HideWhenNotMatchConverter}, ElementName=pivot}">
-                        <AppBarButton x:Name="appBarButton1"  Label="Paste" x:Uid="ButtonPaste" Command="{Binding StrongTypeViewModel.CommandGetFromClipboard, ElementName=mVVMPage}" Icon="Paste" >
+                        <AppBarButton Style="{ThemeResource AppBarButtonRevealStyle}"  x:Name="appBarButton1"  Label="Paste" x:Uid="ButtonPaste" Command="{Binding StrongTypeViewModel.CommandGetFromClipboard, ElementName=mVVMPage}" Icon="Paste" >
                         <AppBarButton.Projection>
                             <PlaneProjection/>
                         </AppBarButton.Projection>
                     </AppBarButton>
-                        <AppBarButton x:Name="appBarButton2" x:Uid="ButtonAppend" Label="Append" Command="{Binding StrongTypeViewModel.CommandPushClipToCurrentItem, ElementName=mVVMPage}" Icon="Import">
+                        <AppBarButton Style="{ThemeResource AppBarButtonRevealStyle}"  x:Name="appBarButton2" x:Uid="ButtonAppend" Label="Append" Command="{Binding StrongTypeViewModel.CommandPushClipToCurrentItem, ElementName=mVVMPage}" Icon="Import">
                         <AppBarButton.Projection>
                             <PlaneProjection/>
                         </AppBarButton.Projection>
@@ -566,7 +566,7 @@
 
                     <!--<AppBarButton Command="{Binding StrongTypeViewModel.CommandReshareCurrent, ElementName=mVVMPage}" HorizontalAlignment="Left" Icon="Target"  Label="Reshare" VerticalAlignment="Top"/>
                     <AppBarButton Command="{Binding StrongTypeViewModel.CommandReshareSelected, ElementName=mVVMPage}" HorizontalAlignment="Left" Icon="Bullets"  Label="Reshare " VerticalAlignment="Top"/>-->
-                    <AppBarButton x:Name="appBarButton3"
+                        <AppBarButton Style="{ThemeResource AppBarButtonRevealStyle}"  x:Name="appBarButton3"
                      HorizontalAlignment="Left" Icon="ReShare" x:Uid="ButtonReshare" Label="Reshare"   Command="{Binding CommandReshare}" CommandParameter="NoExecute" VerticalAlignment="Top">
                         <AppBarButton.Flyout>
                             <MenuFlyout >
@@ -582,7 +582,7 @@
                         </AppBarButton.Projection>
                     </AppBarButton>
                     </StackPanel>
-                    <AppBarToggleButton Label="Theme" 
+                    <AppBarToggleButton Style="{ThemeResource AppBarToggleButtonRevealStyle}"  Label="Theme" 
                                         IsThreeState="false" 
                                         x:Uid="ButtonTheme" 
                                         IsChecked="{Binding ElementName=RequestedThemeBehavior,Path=IsInLightTheme , Mode=TwoWay}">
